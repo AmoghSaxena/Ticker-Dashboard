@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h3 class="mt-4">Create Ticker</h3>
+
+            <div class="m-2">
+                <div class="border border-success rounded bg-light">
+
+                    <div class="btn-group m-2 btn-group-lg d-flex justify-content-center" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-success">Static Ticker</button>
+                        <button type="button" class="btn btn-secondary">Primary Ticker</button>
+                        <button type="button" class="btn btn-secondary">Secondary Ticker</button>
+                        <button type="button" class="btn btn-secondary">Animation Ticker</button>
+                        <button type="button" class="btn btn-danger">Emergency Ticker</button>
+                    </div>
+
+                    <form action="POST" class=" border rounded m-2">
+
+                        <div class="m-1">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Enable Static Ticker 
+                                </label>
+                            </div>
+
+                            <label>Enter Your Static Ticker Message</label>
+                            <div class="form-group form-floating mb-3">
+                                <textarea class="form-control" id="inputFirstName" rows="4" placeholder="Type Message for Static Ticker" /></textarea>
+                                <label for="inputFirstName">Type Message for Static Ticker</label>
+                            </div>
+
+
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label>Font Style</label>
+                                    <select class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Font Size</label>
+                                    <select class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Position BOX</label>
+                                    <select class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Apply logo on Static Ticker 
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">upload image logo</label>
+                                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                    </div>
+        
+                                </div>
+                            </div>
+                            
+                                <button type="Save" class="btn btn-success">Submit</button>
+                        </div>
+
+                        <div class="">
+
+                        </div>
+
+                        <div class="">
+
+                        </div>
+
+                        <div class="">
+
+                        </div>
+
+                        <div class="">
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+{% endblock %}
