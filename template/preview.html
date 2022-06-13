@@ -3,19 +3,36 @@
 
 <div id="layoutSidenav_content">
     <main>
-        <div class="container-fluid px-4">
+        <div class="container-fluid px-5">
             <h3 class="mt-4">Preview</h3>
-            <div class="m-2">
-                <div class="border border-dark border-5 rounded mask text-white overflow-hidden" style="height: 400px; background-color: rgba(0,0,0,255);">
-                    <div class="overflow-hidden" style="margin-top: 300px;">
-                    <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#FFFFFF" class="text-dark">
-                    IISc is top Indian university in global rankings, overtakes IITs: QS World University Rankings. The report shows that India's presence in the top 500 category is also IIT-driven. Apart from IISc, eight IITs (Delhi, Bombay, Madras, Kanpur, Kharagpur, Roorkee, Guwahati, Indore) are ranked among the top 500 globally.
-                    </marquee>
-                    <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#F15412" class="p-2 h2 " style="margin: -5px;">
-                    Rising 31 places in a year, Indian Institute of Science (IISc) in Bengaluru has emerged as the highest ranked Indian institute in the 2023 edition of the QS World University rankings, pushing IIT-Bombay to the second position, followed by IIT-Delhi.
-                    Apart from IISc at 155, IIT-Bombay (IIT-B) and IIT-Delhi (IIT-D), which have risen five and 11 places to rank 172 and 174 respectively, are the only other Indian institutes in the global league of top 200, in continuation of a trend since 2017. The total number of Indian institutes among the top 1,000 globally has risen to 27 from 22.
-                    Speaking to The Indian Express, QS spokesperson William Barbieri attributed the remarkable rise of IISc, which is one of the eight public Institutes of Eminence (IoE), to improvement across four out of six parameters based on which the rankings are prepared.
-                    </marquee>
+
+            <label class="m-3 col-md-4">Enter the Ticker ID</label>
+            <div class="form-group form-floating m-3  col-md-4">
+                <input type="number" class="form-control" id="number" placeholder="" />
+                <label for="number"></label>
+            </div>
+            <div class="m-5" style="width: 70%; height: 400px;">
+                <div class=""></div>
+                <div class="border border-dark border-5 rounded text-white overflow-hidden" style="height: 400px; background-color: rgba(0,0,0,255);">
+<!-- 
+                    <video width="400" controls style="width: 100%; height: 55vh;">
+                        <source src="/static/image/Welcome to India.mp4" type="video/mp4">
+                        <source src="/static/image/Welcome to India.mp4" type="video/ogg">
+                    </video> -->
+                    <div class="overflow-hidden" style="margin-top: 0px;">
+                        <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#FFFFFF" class="text-dark">
+                        IISc is top Indian university in global rankings, overtakes IITs: QS World University Rankings. The report shows that India's presence in the top 500 category is also IIT-driven. Apart from IISc, eight IITs (Delhi, Bombay, Madras, Kanpur, Kharagpur, Roorkee, Guwahati, Indore) are ranked among the top 500 globally.
+                        </marquee>
+                        <marquee behavior="scroll" direction="left" scrollamount="30" bgcolor="#F15412" class="p-2 h2 " style="margin: -5px;">
+                        Rising 31 places in a year, Indian Institute of Science (IISc) in Bengaluru has emerged as the highest ranked Indian institute in the 2023 edition of the QS World University rankings, pushing IIT-Bombay to the second position, followed by IIT-Delhi.
+                        Apart from IISc at 155, IIT-Bombay (IIT-B) and IIT-Delhi (IIT-D), which have risen five and 11 places to rank 172 and 174 respectively, are the only other Indian institutes in the global league of top 200, in continuation of a trend since 2017. The total number of Indian institutes among the top 1,000 globally has risen to 27 from 22.
+                        Speaking to The Indian Express, QS spokesperson William Barbieri attributed the remarkable rise of IISc, which is one of the eight public Institutes of Eminence (IoE), to improvement across four out of six parameters based on which the rankings are prepared.
+                        </marquee>
+
+                        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+                            <source src="/static/image/Welcome to India.mp4" type="video/mp4">
+                            <source src="/static/image/Welcome to India.mp4" type="video/ogg">
+                        </video>
                     </div>
                 </div>
                 <center>
@@ -23,6 +40,7 @@
                 <div class="border border-dark border-5 w-25"></div>
                 </center>
             </div>
+
         </div>
     </main>
 
