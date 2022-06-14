@@ -6,12 +6,22 @@
         <div class="container-fluid px-5">
             <h3 class="mt-4">Preview</h3>
 
-            <label class="m-3 col-md-4">Enter the Ticker ID</label>
-            <div class="form-group form-floating m-3  col-md-4">
-                <input type="number" class="form-control" id="number" placeholder="" />
-                <label for="number"></label>
-            </div>
-            <div class="m-5" style="width: 70%; height: 400px;">
+            <!-- <label class="m-1">Enter the Ticker ID</label>
+            <div class="col-md-4">
+                <div class="form-group form-floating">
+                    <input type="number" class="form-control" id="number" placeholder="Ticker ID" />
+                    <label for="number">Ticker ID</label>
+                </div>
+            </div> -->
+
+
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group m-3">
+                    <input class="form-control border border-success" type="number" placeholder="Search Ticker ID.." aria-label="Search Ticker ID..." aria-describedby="btnNavbarSearch" value="{{ticker_id}}"/>
+                    <button class="btn btn-success" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <div class="m-5" style="width: 70%;">
                 <div class=""></div>
                 <div class="border border-dark border-5 rounded text-white overflow-hidden" style="height: 400px; background-color: rgba(0,0,0,255);">
 <!-- 
@@ -23,7 +33,7 @@
                         <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#FFFFFF" class="text-dark">
                         IISc is top Indian university in global rankings, overtakes IITs: QS World University Rankings. The report shows that India's presence in the top 500 category is also IIT-driven. Apart from IISc, eight IITs (Delhi, Bombay, Madras, Kanpur, Kharagpur, Roorkee, Guwahati, Indore) are ranked among the top 500 globally.
                         </marquee>
-                        <marquee behavior="scroll" direction="left" scrollamount="30" bgcolor="#F15412" class="p-2 h2 " style="margin: -5px;">
+                        <marquee behavior="scroll" direction="left" scrollamount="15" bgcolor="#F15412" class="p-2 h2 " style="margin: -5px;">
                         Rising 31 places in a year, Indian Institute of Science (IISc) in Bengaluru has emerged as the highest ranked Indian institute in the 2023 edition of the QS World University rankings, pushing IIT-Bombay to the second position, followed by IIT-Delhi.
                         Apart from IISc at 155, IIT-Bombay (IIT-B) and IIT-Delhi (IIT-D), which have risen five and 11 places to rank 172 and 174 respectively, are the only other Indian institutes in the global league of top 200, in continuation of a trend since 2017. The total number of Indian institutes among the top 1,000 globally has risen to 27 from 22.
                         Speaking to The Indian Express, QS spokesperson William Barbieri attributed the remarkable rise of IISc, which is one of the eight public Institutes of Eminence (IoE), to improvement across four out of six parameters based on which the rankings are prepared.
@@ -39,6 +49,13 @@
                 <div class="border border-dark border-5" style="width: 80px;"></div>
                 <div class="border border-dark border-5 w-25"></div>
                 </center>
+
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a href="#" class="btn btn-info">Edit</a>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'schedule'%}" class="btn btn-success">Schedule</a>
+                </div>
+
             </div>
 
         </div>

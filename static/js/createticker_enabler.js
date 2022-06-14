@@ -13,11 +13,11 @@ function fostaticEnabler()
     document.getElementById('primary_file_obj').hidden=true
     document.getElementById('primary_logo_pos').hidden=true
     document.getElementById('static_logo').hidden=true
+    document.getElementById('emergency_text').hidden=true
     document.getElementById("staticticker").style.background='#007E33'
     document.getElementById("primaryticker").style.background='#292b2c'
     document.getElementById("secondaryticker").style.background='#292b2c'
     document.getElementById("animationticker").style.background='#292b2c'
-    document.getElementById("emergency_text").hidden=true
 }
 
 function fosubmit(id)
@@ -193,8 +193,7 @@ function foeventEnabler(id)
         {
             document.getElementById("checkbox_for_static_logo").checked = false;
             document.getElementById('static_logo').hidden=true
-        }
-                
+        }                
 	}
 
     if (id=='emergency_pos')
@@ -202,7 +201,7 @@ function foeventEnabler(id)
         var select = document.getElementById('emergency_pos');
 		var option = select.options[select.selectedIndex];
 
-		if(option.text=='custom')
+		if(option.text=='Custom')
         {
             document.getElementById('emergency_text').hidden=false
         }
@@ -211,5 +210,4 @@ function foeventEnabler(id)
             document.getElementById('emergency_text').hidden=true
         }
     }
-
 }

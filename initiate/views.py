@@ -85,9 +85,9 @@ def createticker(request):
                 'Custom'
             ]
         }
+    
     if request.method == 'POST':
-        datagetter(request)
-        return render(request, 'createticker.html',data)
+        return render(request, 'preview.html',datagetter(request))
     else:
         return render(request, 'createticker.html', data)
 

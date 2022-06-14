@@ -7,6 +7,7 @@ CONFIG_DATA={
     "main_ticker_condition":False,
     "moving_ticker_condition":False,
     "secondary_ticker_enabler":False,
+    'emergency_ticker_condition':False,
     "time_interval":0
     }
 
@@ -217,8 +218,9 @@ def datagetter(request):
 
         data_saver(tickertype,xyz)
 
-        return CONFIG_DATA  
-            
+        t=TickerDetails.objects.filter(ticker_type=tickertype).filter(ticker_json=xyz).values()
+        print(t.get())
+        return t.get()
     except Exception as e:
         print(e)
 
