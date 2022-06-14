@@ -65,7 +65,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>Position BOX</label>
-                                            <select name="static_position_box" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                            <select name="static_position_box" id="static_pos_box" onchange=foeventEnabler(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                 {% for items in pos_box %}
                                                 <option>{{items}}</option>
                                                 {% endfor %}
@@ -321,54 +321,27 @@
                                 <div id='hello5'>
                                     <div class="row mb-3">
                                         <div class="col-md-4">
+                                            <label>Emergency Ticker List</label>
+                                            <select name="emrgency_position" class="form-select mb-3 mb-md-0 p-3" id="emergency_pos" onchange=foeventEnabler(this.id) aria-label="Default select example">
+                                                {% for items in emergency_ticker_list %}
+                                                <option>{{items}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-6 mt-3 d-flex justify-content-center" id="emergency_text">
                                             <div class="form-group">
-                                                <label for="exampleFormControlFile1">upload image logo</label>
-                                                <input name="animation_video" type="file" class="form-control-file" id="exampleFormControlFile4">
+                                                <label for="exampleFormControlFile1">Upload</label>
+                                                <input name="emergency_media" type="file" class="form-control-file" id="exampleFormControlFile5">    
+                                                <label>upload jpeg/png for Static Ticker / upload mp4 file for Dynamic Ticker</label>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Position BOX</label>
-                                            <select name="animation_position" class="form-select mb-3 mb-md-0 p-3" id="animation_pos" onchange=foeventEnabler(this.id) aria-label="Default select example">
-                                                {% for items in pos_box %}
-                                                <option>{{items}}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4" id="animation_text">
-                                            <label>Location</label>
-                                            <select name="animation_ticker_motion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                {% for items in location %}
-                                                <option>{{items}}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id='hello'>
-                                    <div class="col-md-4 mb-3">
-                                        <label>Emergency Ticker List</label>
-                                        <select name="animation_position" class="form-select mb-3 mb-md-0 p-3" id="animation_pos" onchange=foeventEnabler(this.id) aria-label="Default select example">
-                                            {% for items in emergency_ticker_list %}
-                                            <option>{{items}}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-
-                                        <label>upload mp4 file for Dynamic Ticker</label>
-                                        <label>upload jpeg/png for Static Ticker</label>
-                                    </div>
-                                    <div class="d-flex justify-content-center">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlFile1">Upload Video</label>
-                                            <input name="emergency_media" type="file" class="form-control-file" id="exampleFormControlFile5">
                                         </div>
                                     </div>
                                         <button class="btn btn-danger">Clear</button>
                                 </div>
                             </div>
                         
-                            <label class="m-3">Ticker Display Time in seconds</label>
+                            <label class="m-3">Ticker Durations in minutes</label>
                             <div class="form-group form-floating m-3">
                                 <input type="number" name='time_interval' required class="form-control" id="number" rows="4" placeholder="Enter Time" />
                                 <label for="number">Enter Time</label>

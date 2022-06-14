@@ -17,6 +17,7 @@ function fostaticEnabler()
     document.getElementById("primaryticker").style.background='#292b2c'
     document.getElementById("secondaryticker").style.background='#292b2c'
     document.getElementById("animationticker").style.background='#292b2c'
+    document.getElementById("emergency_text").hidden=true
 }
 
 function fosubmit(id)
@@ -177,4 +178,38 @@ function foeventEnabler(id)
             document.getElementById('static_logo').hidden=true
         }
     }
+
+    if (id=='static_pos_box')
+    {
+        var select = document.getElementById('static_pos_box');
+		var option = select.options[select.selectedIndex];
+
+		if(option.text=='center')
+        {
+            document.getElementById("checkbox_for_static_logo").checked = true;
+            document.getElementById('static_logo').hidden=false
+        }
+        else
+        {
+            document.getElementById("checkbox_for_static_logo").checked = false;
+            document.getElementById('static_logo').hidden=true
+        }
+                
+	}
+
+    if (id=='emergency_pos')
+    {
+        var select = document.getElementById('emergency_pos');
+		var option = select.options[select.selectedIndex];
+
+		if(option.text=='custom')
+        {
+            document.getElementById('emergency_text').hidden=false
+        }
+        else
+        {
+            document.getElementById('emergency_text').hidden=true
+        }
+    }
+
 }
