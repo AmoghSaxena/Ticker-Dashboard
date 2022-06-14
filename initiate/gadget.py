@@ -1,11 +1,14 @@
+import json
+import datetime
+from .models import TickerDetails
+
 CONFIG_DATA={
     "static_ticker_condition":False,
     "main_ticker_condition":False,
     "moving_ticker_condition":False,
+    "secondary_ticker_enabler":False,
     "time_interval":0
     }
-
-
 
 def ImageUploader(filename):
     #This function is used to save image from server to our project's readable location#
@@ -22,6 +25,7 @@ def hex_to_rgb(value):
 def datagetter(request):
 
     try:
+        tickertype=str()
         '''Static Ticker'''
         static_ticker_condition = request.POST.get('static_ticker_enabler')
         position_static_ticker = request.POST.get('static_position_box')
@@ -72,6 +76,11 @@ def datagetter(request):
 
             
         if  static_ticker_condition=='':
+                if len(tickertype)==0:
+                    tickertype='Static'
+                else:
+                    tickertype+=', Static'
+
                 CONFIG_DATA['static_ticker_condition']=True
                 CONFIG_DATA['position_static_ticker']=position_static_ticker
                 CONFIG_DATA['static_ticker_bgcolor']=hex_to_rgb(static_ticker_bgcolor)
@@ -111,8 +120,12 @@ def datagetter(request):
                 CONFIG_DATA['static_ticker_condition']=False
                 print('Static condition false')
 
-        '''Primary Ticker Conditions'''
-        if optional_ticker_condition == 'on':
+        '''Secondary Ticker Conditions'''
+        if optional_ticker_condition == '':
+                if len(tickertype)==0:
+                    tickertype='Secondary'
+                else:
+                    tickertype+=', Secondary'
                 CONFIG_DATA['optional_ticker_condition']=True
                 CONFIG_DATA['optional_ticker_position'] =optional_ticker_position
                 CONFIG_DATA['optional_ticker_message'] = optional_ticker_message
@@ -137,9 +150,13 @@ def datagetter(request):
                 CONFIG_DATA['optional_ticker_condition']=False
             
 
-            '''Secondary Ticker'''
+        '''Primary Ticker'''
 
-        if main_ticker_condition == 'on':
+        if main_ticker_condition == '':
+                if len(tickertype)==0:
+                    tickertype='Primary'
+                else:
+                    tickertype+=', Primary'
                 CONFIG_DATA['main_ticker_condition']=True
                 CONFIG_DATA['main_ticker_position'] =main_ticker_position
                 CONFIG_DATA['main_ticker_message'] = main_ticker_message
@@ -170,7 +187,11 @@ def datagetter(request):
             
 
         '''Animation Ticker'''
-        if moving_ticker_condition == 'on':
+        if moving_ticker_condition == '':
+                if len(tickertype)==0:
+                    tickertype='Animation '
+                else:
+                    tickertype+=', Animation'
                 CONFIG_DATA['moving_ticker_condition']= True
                 
                 CONFIG_DATA['moving_ticker_localtion'] = moving_ticker_localtion
@@ -181,18 +202,35 @@ def datagetter(request):
 
         '''Emergency Ticker'''
 
-        if emergency_ticker_condition == 'on':
+        if emergency_ticker_condition == '':
+                if len(tickertype)==0:
+                    tickertype='Emergency '
+                else:
+                    tickertype+=', Emergency'
                 CONFIG_DATA['emergency_ticker_condition']=True
         else:
                 CONFIG_DATA['emergency_ticker_condition']=False
 
-        CONFIG_DATA['time_interval'] = 0
-        xyz=json.dumps(CONFIG_DATA,indent=3)
-        config_file.json_data = xyz
+        CONFIG_DATA['time_interval'] = request.POST.get('time_interval')
+        xyz=json.dumps(CONFIG_DATA)
         print(xyz)
- 
+
+        data_saver(tickertype,xyz)
 
         return CONFIG_DATA  
             
     except Exception as e:
         print(e)
+
+
+def data_saver(tickertype,jsondata):
+    tickerobj=TickerDetails()
+    tickerobj.ticker_type=tickertype
+    tickerobj.ticker_json=jsondata
+    # tickerobj.dated_on=datetime.datetime.now()
+    tickerobj.is_active=1
+    tickerobj.is_deleted=0
+    tickerobj.created_on=datetime.datetime.now()
+    tickerobj.modified_on=datetime.datetime.now()
+    tickerobj.save()
+

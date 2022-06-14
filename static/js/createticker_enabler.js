@@ -13,6 +13,10 @@ function fostaticEnabler()
     document.getElementById('primary_file_obj').hidden=true
     document.getElementById('primary_logo_pos').hidden=true
     document.getElementById('static_logo').hidden=true
+    document.getElementById("staticticker").style.background='#007E33'
+    document.getElementById("primaryticker").style.background='#292b2c'
+    document.getElementById("secondaryticker").style.background='#292b2c'
+    document.getElementById("animationticker").style.background='#292b2c'
 }
 
 function fosubmit(id)
@@ -20,6 +24,10 @@ function fosubmit(id)
 	if (id=='staticticker')
     { 	
     	document.getElementById('static_form').hidden=false
+        document.getElementById("staticticker").style.background='#007E33'
+        document.getElementById("primaryticker").style.background='#292b2c'
+        document.getElementById("secondaryticker").style.background='#292b2c'
+        document.getElementById("animationticker").style.background='#292b2c'
     	document.getElementById('primary_form').hidden=true
     	document.getElementById('secondary_form').hidden=true
     	document.getElementById('animation_form').hidden=true
@@ -29,6 +37,10 @@ function fosubmit(id)
     {
     	document.getElementById('static_form').hidden=true
     	document.getElementById('primary_form').hidden=false
+        document.getElementById("staticticker").style.background='#292b2c'
+        document.getElementById("primaryticker").style.background='#007E33'
+        document.getElementById("secondaryticker").style.background='#292b2c'
+        document.getElementById("animationticker").style.background='#292b2c'
     	document.getElementById('secondary_form').hidden=true
     	document.getElementById('animation_form').hidden=true
     	document.getElementById('emergency_form').hidden=true
@@ -38,6 +50,10 @@ function fosubmit(id)
     	document.getElementById('static_form').hidden=true
     	document.getElementById('primary_form').hidden=true
     	document.getElementById('secondary_form').hidden=false
+        document.getElementById("staticticker").style.background='#292b2c'
+        document.getElementById("primaryticker").style.background='#292b2c'
+        document.getElementById("secondaryticker").style.background='#007E33'
+        document.getElementById("animationticker").style.background='#292b2c'
     	document.getElementById('animation_form').hidden=true
     	document.getElementById('emergency_form').hidden=true
     }
@@ -47,6 +63,10 @@ function fosubmit(id)
     	document.getElementById('primary_form').hidden=true
     	document.getElementById('secondary_form').hidden=true
     	document.getElementById('animation_form').hidden=false
+        document.getElementById("staticticker").style.background='#292b2c'
+        document.getElementById("primaryticker").style.background='#292b2c'
+        document.getElementById("secondaryticker").style.background='#292b2c'
+        document.getElementById("animationticker").style.background='#007E33'
     	document.getElementById('emergency_form').hidden=true
     }
     if (id=='emergencyticker')
@@ -56,6 +76,10 @@ function fosubmit(id)
     	document.getElementById('secondary_form').hidden=true
     	document.getElementById('animation_form').hidden=true
     	document.getElementById('emergency_form').hidden=false
+        document.getElementById("staticticker").style.background='#292b2c'
+        document.getElementById("primaryticker").style.background='#292b2c'
+        document.getElementById("secondaryticker").style.background='#292b2c'
+        document.getElementById("animationticker").style.background='#292b2c'
     }
 }
 

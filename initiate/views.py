@@ -7,7 +7,10 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib.auth.hashers import make_password
 # -----------------------new added----------------------
-@login_required
+
+from initiate.gadget import datagetter
+
+#@login_required
 def index(request):
     return render(request, 'index.html')
 
@@ -83,28 +86,28 @@ def createticker(request):
             ]
         }
     if request.method == 'POST':
-        return render(request, 'createticker.html',data) #gadget(request)) 
+        datagetter(request)
+        return render(request, 'createticker.html',data)
     else:
         return render(request, 'createticker.html', data)
 
-
-@login_required
+#@login_required
 def active(request):
     return render(request, 'active.html') 
 
-@login_required
+#@login_required
 def pending(request):
     return render(request, 'pending.html')   
 
-@login_required
+#@login_required
 def history(request):
     return render(request, 'history.html') 
 
-@login_required
+#@login_required
 def preview(request):
     return render(request, 'preview.html') 
 
-@login_required
+#@login_required
 def schedule(request):
     return render(request, 'schedule.html')  
 

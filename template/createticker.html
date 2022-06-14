@@ -27,7 +27,7 @@
                                 <div id="hello1">
                                     <label>Enter Your Static Ticker Message</label>
                                     <div class="form-group form-floating mb-3">
-                                        <textarea name="static_ticker_msg" class="form-control" id="inputFirstName1" placeholder="Type Message for Static Ticker" /></textarea>
+                                        <textarea name="static_ticker_msg" class="form-control" id="inputFirstName1" rows="4" placeholder="Type Message for Static Ticker" /></textarea>
                                         <label for="inputFirstName">Type Message for Static Ticker</label>
                                     </div>
                                     <div class="row mb-3">
@@ -75,7 +75,7 @@
                                     <div class="row mb-3">
                                         <div class="col-md-4">
                                             <div class="form-check mb-3">
-                                                <input name="static_ticker_msg" class="form-check-input" type="checkbox" value="" id="checkbox_for_static_logo" onclick=foeventEnabler(this.id)>
+                                                <input name="static_ticker_logo" class="form-check-input" type="checkbox" value="" id="checkbox_for_static_logo" onclick=foeventEnabler(this.id)>
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     Apply logo on Static Ticker 
                                                 </label>
@@ -84,11 +84,10 @@
                                         <div class="col-md-8" id='static_logo'>
                                             <div class="form-group">
                                                 <label for="exampleFormControlFile1">upload image logo</label>
-                                                <input name="static_ticker_msg" type="file" class="form-control-file" id="exampleFormControlFile1">
+                                                <input name="" type="file" class="form-control-file" id="exampleFormControlFile1">
                                             </div>
                                         </div>
                                     </div>
-                                        <button class="btn btn-success">Save</button>
                                         <button class="btn btn-danger">Clear</button>
                                 </div>
                             </div>
@@ -179,7 +178,7 @@
                                         <div class="col-md-3" id="primary_file_obj">
                                             <div class="form-group">
                                                 <label for="exampleFormControlFile1">upload image logo</label>
-                                                <input name="static_ticker_msg" type="file" class="form-control-file" id="exampleFormControlFile2">
+                                                <input name="primary_ticker_file" type="file" class="form-control-file" id="exampleFormControlFile2">
                                             </div>
                                         </div>
                                         <div class="col-md-6" id="primary_logo_pos">
@@ -191,7 +190,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                        <button class="btn btn-success">Save</button>
                                         <button class="btn btn-danger">Clear</button>
                                 </div>
                             </div>
@@ -270,7 +268,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                        <button class="btn btn-success">Save</button>
                                         <button class="btn btn-danger">Clear</button>
                                 </div>
                             </div>
@@ -308,7 +305,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                        <button class="btn btn-success">Save</button>
                                         <button class="btn btn-danger">Clear</button>
                                 </div>
                             </div>
@@ -321,34 +317,62 @@
                                     Enable Emergency Ticker 
                                     </label>
                                 </div>
-                                <div id='hello5'>
 
-                                    <div class="col-md-4">
+                                <div id='hello5'>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlFile1">upload image logo</label>
+                                                <input name="animation_video" type="file" class="form-control-file" id="exampleFormControlFile4">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Position BOX</label>
+                                            <select name="animation_position" class="form-select mb-3 mb-md-0 p-3" id="animation_pos" onchange=foeventEnabler(this.id) aria-label="Default select example">
+                                                {% for items in pos_box %}
+                                                <option>{{items}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4" id="animation_text">
+                                            <label>Location</label>
+                                            <select name="animation_ticker_motion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                {% for items in location %}
+                                                <option>{{items}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id='hello'>
+                                    <div class="col-md-4 mb-3">
                                         <label>Emergency Ticker List</label>
                                         <select name="animation_position" class="form-select mb-3 mb-md-0 p-3" id="animation_pos" onchange=foeventEnabler(this.id) aria-label="Default select example">
                                             {% for items in emergency_ticker_list %}
                                             <option>{{items}}</option>
                                             {% endfor %}
                                         </select>
-                                    </div><br>
-                                    <label>upload mp4 file for Dynamic Ticker</label><br>
-                                    <label>upload jpeg/png for Static Ticker</label>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+
+                                        <label>upload mp4 file for Dynamic Ticker</label>
+                                        <label>upload jpeg/png for Static Ticker</label>
+                                    </div>
                                     <div class="d-flex justify-content-center">
                                         <div class="form-group">
                                             <label for="exampleFormControlFile1">Upload Video</label>
                                             <input name="emergency_media" type="file" class="form-control-file" id="exampleFormControlFile5">
                                         </div>
                                     </div>
-                                        <button class="btn btn-success">Save</button>
                                         <button class="btn btn-danger">Clear</button>
                                 </div>
                             </div>
                         
-                            <!-- <label class="m-3">Ticker Display Time in seconds</label>
+                            <label class="m-3">Ticker Display Time in seconds</label>
                             <div class="form-group form-floating m-3">
-                                <input type="number" class="form-control" id="number" rows="4" placeholder="Enter Time" />
+                                <input type="number" name='time_interval' required class="form-control" id="number" rows="4" placeholder="Enter Time" />
                                 <label for="number">Enter Time</label>
-                            </div> -->
+                            </div>
 
                             <div class="form-group m-3">
                                 <input type="submit" class="form-control btn-success p-3" id="submit" value="Create Ticker" />
