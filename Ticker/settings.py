@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import os
 import pymysql
 from pathlib import Path
 
@@ -78,6 +79,17 @@ WSGI_APPLICATION = 'Ticker.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    'dvs': {
+        'NAME': 'dvs',
+        'USER': 'admin',
+        'PASSWORD': 'admin_digi',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
+    },
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Ticker',
@@ -88,7 +100,7 @@ DATABASES = {
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         }
-    }
+    },
 }
 
 
@@ -140,5 +152,5 @@ STATICFILES_DIRS = [
     BASE_DIR,"static"
 ]
 
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'

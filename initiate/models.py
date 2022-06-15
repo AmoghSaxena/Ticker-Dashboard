@@ -16,8 +16,8 @@ from django.urls import reverse
 
 
 # Create your models here.
-class Image(models.Model):
- photo = models.ImageField(upload_to="myimage")
+# class Image(models.Model):
+#     photo = models.ImageField(upload_to="myimage")
 #  date = models.DateTimeField(auto_now_add=True) 
 
 # -------------------------new added----------------------------
@@ -176,6 +176,7 @@ class TickerDetails(models.Model):
     is_deleted = models.PositiveIntegerField()
     deleted_on = models.DateTimeField(blank=True, null=True)
     reason_for_delete = models.CharField(max_length=300, blank=True, null=True)
+    # photo = models.ImageField(upload_to="myimage")
 
     class Meta:
         managed = False
@@ -263,4 +264,95 @@ class Post(models.Model):
             self.publish.strftime('%m'),
             self.publish.strftime('%d'),
             self.slug])
+
+class Floors(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    wing = models.ForeignKey('Wings', models.DO_NOTHING)
+    is_active = models.PositiveIntegerField()
+    is_deleted = models.PositiveIntegerField()
+    created_by = models.ForeignKey('Users', models.DO_NOTHING, db_column='created_by',related_name='floor_created_by')
+    created_on = models.DateTimeField()
+    modified_by = models.ForeignKey('Users', models.DO_NOTHING, db_column='modified_by',related_name='floor_modified_by', blank=True, null=True)
+    modified_on = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'floors'
+
+class KeyCategories(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    is_active = models.PositiveIntegerField()
+    is_deleted = models.PositiveIntegerField()
+    created_by = models.ForeignKey('Users', models.DO_NOTHING, db_column='created_by',related_name='keycat_created_by')
+    created_on = models.DateTimeField()
+    modified_by = models.ForeignKey('Users', models.DO_NOTHING, db_column='modified_by', blank=True, null=True,related_name='keycat_modified_by')
+    modified_on = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'key_categories'
+
+class Keys(models.Model):
+    number = models.CharField(max_length=10)
+    number_of_dvc = models.PositiveIntegerField()
+    number_of_ipad = models.PositiveIntegerField()
+    number_of_tv = models.PositiveIntegerField()
+    with_dvc = models.IntegerField()
+    is_handed_over = models.IntegerField()
+    wing = models.ForeignKey('Wings', models.DO_NOTHING)
+    floor = models.ForeignKey(Floors, models.DO_NOTHING)
+    key_category = models.ForeignKey(KeyCategories, models.DO_NOTHING)
+    communication_token = models.CharField(max_length=150)
+    wifi_token = models.CharField(max_length=100, blank=True, null=True)
+    is_active = models.PositiveIntegerField()
+    is_deleted = models.PositiveIntegerField()
+    created_by = models.ForeignKey('Users', models.DO_NOTHING, db_column='created_by',related_name='keys_created_by')
+    created_on = models.DateTimeField()
+    modified_by = models.ForeignKey('Users', models.DO_NOTHING, db_column='modified_by', blank=True, null=True,related_name='keys_modified_by')
+    modified_on = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'keys'
+
+class Users(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.CharField(max_length=150)
+    username = models.CharField(max_length=50)
+    contact_no = models.CharField(max_length=15)
+    ext_no = models.CharField(max_length=5)
+    role_id = models.CharField(max_length=11)
+    password = models.CharField(max_length=128)
+    is_external = models.IntegerField()
+    is_active = models.PositiveIntegerField()
+    is_deleted = models.PositiveIntegerField()
+    created_by = models.PositiveIntegerField()
+    created_on = models.DateTimeField()
+    modified_by = models.PositiveIntegerField(blank=True, null=True)
+    modified_on = models.DateTimeField(blank=True, null=True)
+    last_login = models.DateTimeField(blank=True, null=True)
+
+
+class Wings(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    is_active = models.PositiveIntegerField()
+    is_deleted = models.PositiveIntegerField()
+    created_by = models.ForeignKey(Users, models.DO_NOTHING, db_column='created_by',related_name='wings_created_by')
+    created_on = models.DateTimeField()
+    modified_by = models.ForeignKey(Users, models.DO_NOTHING, db_column='modified_by', blank=True, null=True,related_name='wings_modified_by')
+    modified_on = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'wings'
+
+Wings.objects=Wings.objects.using('dvs')
+Users.objects=Users.objects.using('dvs')
+Keys.objects=Keys.objects.using('dvs')
+Floors.objects=Floors.objects.using('dvs')
+KeyCategories.objects=KeyCategories.objects.using('dvs')
 

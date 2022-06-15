@@ -4,8 +4,13 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h3 class="mt-4">Schedule Ticker</h3>
+            <h3 class="mt-4">Schedule</h3>
         </div>
+        <select class="all_module_list" name="all_module_list" multiple data-live-search="true" data-maximum-selection-length="10">
+                                        {% for i in floor %}
+                                                <option value={{key}}>{{i}}</option>
+                                        {% endfor %}
+        </select>
     </main>
 
 {% endblock %}

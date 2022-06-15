@@ -1,7 +1,10 @@
 import json
 import datetime
-from .models import TickerDetails
-from .form import ImageForm
+from .models import TickerDetails,Wings,Floors,Keys
+from django.core.files.storage import FileSystemStorage
+
+# from .form import logo
+# from .form import ImageForm
 
 CONFIG_DATA={
     "static_ticker_condition":False,
@@ -12,15 +15,7 @@ CONFIG_DATA={
     "time_interval":0
     }
 
-def home(request):
- if request.method == "POST":
-  form = ImageForm(request.POST.get('static_upload'), request.FILES)
-#   print("static_upload",request.POST.get('static_upload'))
-  if form.is_valid():
-   form.save()
-#  form = ImageForm()
- # img = Image.objects.all()
-#  return render(request, 'myapp/home.html', {'form':form})
+    
 
 def ImageUploader(filename):
     #This function is used to save image from server to our project's readable location#
@@ -47,9 +42,13 @@ def datagetter(request):
         static_ticker_font_color = request.POST.get('static_font_color')
         static_ticker_font_size = request.POST.get('static_font_size')
         static_ticker_font_type = request.POST.get('static_font_type')
-        # print("static_upload",request.POST.get('static_upload'))
-        home(request)
 
+
+        if request.FILES['static_logo']:
+            a=request.FILES['static_logo']
+            fss=FileSystemStorage()
+            fss.save(a.name,a)
+                
         '''Primary Ticker'''
         main_ticker_condition = request.POST.get('primary_ticker_enabler')
         main_ticker_position    = request.POST.get('primary_position_box')
@@ -236,12 +235,11 @@ def datagetter(request):
     
         CONFIG_DATA['time_interval'] = request.POST.get('time_interval')
         xyz=json.dumps(CONFIG_DATA)
-        print(xyz)
-
+ 
         data_saver(tickertype,xyz)
 
         t=TickerDetails.objects.filter(ticker_type=tickertype).filter(ticker_json=xyz).values()
-        print(t.get())
+        # print(t.get())
         return t.get()
     except Exception as e:
         print(e)
@@ -256,5 +254,33 @@ def data_saver(tickertype,jsondata):
     tickerobj.is_deleted=0
     tickerobj.created_on=datetime.datetime.now()
     tickerobj.modified_on=datetime.datetime.now()
+    # tickerobj.photo=form
     tickerobj.save()
+
+def schedulingdata():
+    fd=Floors.objects.values_list('name')
+    wd=Wings.objects.values_list('name')
+    kd=Keys.objects.values_list('number')
+
+    f=list()
+    w=list()
+    k=list()
+
+    for i in fd:
+        f.append(i[0])
+
+    for i in wd:
+        w.append(i[0])
+
+    for i in kd:
+        k.append(i[0])
+
+    scheduledata={
+        "floor":f,
+        "wings":w,
+        "keys":k
+    }
+
+    # print(scheduledata)
+    return scheduledata
 

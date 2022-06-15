@@ -7,14 +7,20 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
-from initiate.gadget import datagetter
+from initiate.gadget import datagetter,schedulingdata
 
+
+# def home(request):
+#     if request.method == "POST":
+#         form = ImageForm(request.POST.get('static_upload'), request.FILES)
+#         print("static_upload",request.POST.get('static_ticker_logo'))
+#         if form.is_valid():
+#             form.save()
 
 #  ---------------------------------------------------------------------------
 # @login_required
 def index(request):
     return render(request, 'index.html')
-
 
 # @login_required
 def createticker(request):
@@ -88,7 +94,6 @@ def createticker(request):
         }
     
     if request.method == 'POST':
-        print("static_upload",request.POST.get('static_upload'))
         if (request.POST.get('static_ticker_enabler')=='' or request.POST.get('primary_ticker_enabler')=='' or 
            request.POST.get('secondary_ticker_enabler')=='' or request.POST.get('animation_ticker_enabler')=='' or 
            request.POST.get('emergency_ticker_enabler')==''):
@@ -97,6 +102,10 @@ def createticker(request):
             return render(request, 'createticker.html', data)
     else:
         return render(request, 'createticker.html', data)
+
+
+
+
 
 #@login_required
 def active(request):
@@ -112,11 +121,11 @@ def history(request):
 
 #@login_required
 def preview(request):
-    return render(request, 'preview.html') 
-
+    return render(request, 'preview.html')
+        
 #@login_required
 def schedule(request):
-    return render(request, 'schedule.html')  
+    return render(request, 'schedule.html',schedulingdata()) 
 
 def login(request):
     return render(request, 'login.html')
