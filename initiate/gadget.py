@@ -1,6 +1,7 @@
 import json
 import datetime
 from .models import TickerDetails
+from .form import ImageForm
 
 CONFIG_DATA={
     "static_ticker_condition":False,
@@ -10,6 +11,16 @@ CONFIG_DATA={
     'emergency_ticker_condition':False,
     "time_interval":0
     }
+
+def home(request):
+ if request.method == "POST":
+  form = ImageForm(request.POST.get('static_upload'), request.FILES)
+#   print("static_upload",request.POST.get('static_upload'))
+  if form.is_valid():
+   form.save()
+#  form = ImageForm()
+ # img = Image.objects.all()
+#  return render(request, 'myapp/home.html', {'form':form})
 
 def ImageUploader(filename):
     #This function is used to save image from server to our project's readable location#
@@ -36,6 +47,8 @@ def datagetter(request):
         static_ticker_font_color = request.POST.get('static_font_color')
         static_ticker_font_size = request.POST.get('static_font_size')
         static_ticker_font_type = request.POST.get('static_font_type')
+        # print("static_upload",request.POST.get('static_upload'))
+        home(request)
 
         '''Primary Ticker'''
         main_ticker_condition = request.POST.get('primary_ticker_enabler')
@@ -211,7 +224,16 @@ def datagetter(request):
                 CONFIG_DATA['emergency_ticker_condition']=True
         else:
                 CONFIG_DATA['emergency_ticker_condition']=False
-
+        
+    #     "static_ticker_condition":False,
+    # "main_ticker_condition":False,
+    # "moving_ticker_condition":False,
+    # "secondary_ticker_enabler":False,
+    # 'emergency_ticker_condition':False,
+    #     if (CONFIG_DATA['static_ticker_condition'] or CONFIG_DATA['main_ticker_condition'] or 
+    #        CONFIG_DATA['moving_ticker_condition'] or CONFIG_DATA['secondary_ticker_enabler'] or 
+    #        CONFIG_DATA['emergency_ticker_condition'])
+    
         CONFIG_DATA['time_interval'] = request.POST.get('time_interval')
         xyz=json.dumps(CONFIG_DATA)
         print(xyz)

@@ -14,12 +14,12 @@
                         <button type="button" class="btn btn-dark" id='animationticker' onclick=fosubmit(this.id)>Animation Ticker</button>
                         <button type="button" class="btn btn-danger" id='emergencyticker' onclick=fosubmit(this.id)>Emergency Ticker</button>
                     </div>
-                    <form method="POST" class=" border rounded m-2" id="mainform">
+                    <form method="POST" class=" border rounded m-2" id="mainform" enctype="multipart/form-data">
                         {% csrf_token %}
                             <!-- Static ticker form-->
                             <div class="m-1" id="static_form">
                                 <div class="form-check mb-3">
-                                    <input class="form-check-input" name="static_ticker_enabler" form="mainform" type="checkbox" value="" id="static_form_data" onclick=foeventEnabler(this.id)>
+                                    <input class="form-check-input" name="static_ticker_enabler" form="mainform" type="checkbox" value="" id="static_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
                                     <label class="form-check-label" for="flexCheckDefault">
                                     Enable Static Ticker 
                                     </label>
@@ -84,7 +84,7 @@
                                         <div class="col-md-8" id='static_logo'>
                                             <div class="form-group">
                                                 <label for="exampleFormControlFile1">upload image logo</label>
-                                                <input name="" type="file" class="form-control-file" id="exampleFormControlFile1">
+                                                <input name="static_upload" type="file" class="form-control-file" id="exampleFormControlFile1">
                                             </div>
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@
                             <!-- Primary ticker form -->
                             <div class="m-1" id="primary_form">
                                 <div class="form-check mb-3">
-                                    <input name="primary_ticker_enabler" class="form-check-input" type="checkbox" value="" id="primary_form_data" onclick=foeventEnabler(this.id)>
+                                    <input name="primary_ticker_enabler" class="form-check-input" type="checkbox" value="" id="primary_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
                                     <label class="form-check-label" for="flexCheckDefault">
                                     Enable Primary Ticker 
                                     </label>
@@ -197,7 +197,7 @@
                             <!-- Secondray ticker form -->
                             <div class="m-1" id="secondary_form">
                                 <div class="form-check mb-3">
-                                    <input name="secondary_ticker_enabler" class="form-check-input" type="checkbox" value="" id="secondary_form_data" onclick=foeventEnabler(this.id)>
+                                    <input name="secondary_ticker_enabler" class="form-check-input" type="checkbox" value="" id="secondary_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
                                     <label class="form-check-label" for="flexCheckDefault">
                                     Enable Secondary Ticker 
                                     </label>
@@ -275,7 +275,7 @@
                             <!-- Animation ticker  form-->
                             <div class="m-1" id="animation_form">
                                 <div class="form-check mb-3">
-                                    <input name="animation_ticker_enabler" class="form-check-input" type="checkbox" value="" id="animation_form_data" onclick=foeventEnabler(this.id)>
+                                    <input name="animation_ticker_enabler" class="form-check-input" type="checkbox" value="" id="animation_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
                                     <label class="form-check-label" for="flexCheckDefault">
                                     Enable Animation Ticker 
                                     </label>
@@ -312,7 +312,7 @@
                             <!-- Emergency ticker  form-->
                             <div class="m-1" id="emergency_form">
                                 <div class="form-check mb-3">
-                                    <input name="emergency_ticker_enabler" class="form-check-input" type="checkbox" value="" id="emergency_form_data" onclick=foeventEnabler(this.id)>
+                                    <input name="emergency_ticker_enabler" class="form-check-input" type="checkbox" value="" id="emergency_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
                                     <label class="form-check-label" for="flexCheckDefault">
                                     Enable Emergency Ticker 
                                     </label>

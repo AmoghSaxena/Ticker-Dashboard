@@ -6,11 +6,12 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib.auth.hashers import make_password
-# -----------------------new added----------------------
-
+from django.contrib import messages
 from initiate.gadget import datagetter
 
-#@login_required
+
+#  ---------------------------------------------------------------------------
+# @login_required
 def index(request):
     return render(request, 'index.html')
 
@@ -87,7 +88,13 @@ def createticker(request):
         }
     
     if request.method == 'POST':
-        return render(request, 'preview.html',datagetter(request))
+        print("static_upload",request.POST.get('static_upload'))
+        if (request.POST.get('static_ticker_enabler')=='' or request.POST.get('primary_ticker_enabler')=='' or 
+           request.POST.get('secondary_ticker_enabler')=='' or request.POST.get('animation_ticker_enabler')=='' or 
+           request.POST.get('emergency_ticker_enabler')==''):
+            return render(request, 'preview.html',datagetter(request))
+        else:
+            return render(request, 'createticker.html', data)
     else:
         return render(request, 'createticker.html', data)
 

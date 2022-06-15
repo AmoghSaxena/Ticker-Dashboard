@@ -13,6 +13,13 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+
+
+# Create your models here.
+class Image(models.Model):
+ photo = models.ImageField(upload_to="myimage")
+#  date = models.DateTimeField(auto_now_add=True) 
+
 # -------------------------new added----------------------------
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
