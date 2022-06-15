@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import render,redirect
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as user_login
+from django.contrib.auth.models import User
 # -----------------------new added-----------------------
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
@@ -18,11 +22,11 @@ from initiate.gadget import datagetter,schedulingdata
 #             form.save()
 
 #  ---------------------------------------------------------------------------
-# @login_required
+@login_required
 def index(request):
     return render(request, 'index.html')
 
-# @login_required
+@login_required
 def createticker(request):
 
     data = {
@@ -107,27 +111,37 @@ def createticker(request):
 
 
 
-#@login_required
+@login_required
 def active(request):
     return render(request, 'active.html') 
 
-#@login_required
+@login_required
 def pending(request):
     return render(request, 'pending.html')   
 
-#@login_required
+@login_required
 def history(request):
     return render(request, 'history.html') 
 
-#@login_required
+@login_required
 def preview(request):
     return render(request, 'preview.html')
         
-#@login_required
+@login_required
 def schedule(request):
     return render(request, 'schedule.html',schedulingdata()) 
 
 def login(request):
+    if request.method == "POST":
+        uname = request.POST['uname']
+        passwd = request.POST['passwd']
+        user = authenticate(request,username=uname,password=passwd)
+        if user is not None:
+            user_login(request,user)
+            return redirect(request.GET['next'])
+        else:
+            error = "User Not Found!!!"
+            return render(request,'login.html',{'comment':error})
     return render(request, 'login.html')
 
 def registerfor(request):
