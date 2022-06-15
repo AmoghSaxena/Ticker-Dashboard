@@ -43,12 +43,7 @@ def datagetter(request):
         static_ticker_font_size = request.POST.get('static_font_size')
         static_ticker_font_type = request.POST.get('static_font_type')
 
-
-        if request.FILES['static_logo']:
-            a=request.FILES['static_logo']
-            fss=FileSystemStorage()
-            fss.save(a.name,a)
-                
+                       
         '''Primary Ticker'''
         main_ticker_condition = request.POST.get('primary_ticker_enabler')
         main_ticker_position    = request.POST.get('primary_position_box')
@@ -93,6 +88,11 @@ def datagetter(request):
                     tickertype='Static'
                 else:
                     tickertype+=', Static'
+                
+                if request.FILES['static_logo']:
+                    a=request.FILES['static_logo']
+                    fss=FileSystemStorage()
+                    fss.save(a.name,a)
 
                 CONFIG_DATA['static_ticker_condition']=True
                 CONFIG_DATA['position_static_ticker']=position_static_ticker
@@ -154,7 +154,7 @@ def datagetter(request):
                 elif optional_ticker_font == 'Russian' or optional_ticker_font == 'Turkish' or optional_ticker_font == 'Spanish' or optional_ticker_font == 'Hindi' or optional_ticker_font == 'French' or optional_ticker_font == 'Italian':
                     CONFIG_DATA['optional_ticker_font'] = 'FreeSans'
                 CONFIG_DATA['optional_ticker_font_size'] = optional_ticker_font_size
-                CONFIG_DATA['optional_ticker_bgcolor'] = optional_ticker_bgcolor
+                CONFIG_DATA['optional_ticker_bgcolor'] = hex_to_rgb(optional_ticker_bgcolor)
                 CONFIG_DATA['optional_ticker_font_color'] = hex_to_rgb(optional_ticker_font_color)
                 CONFIG_DATA['optional_ticker_speed'] = optional_ticker_speed
                 CONFIG_DATA['optional_ticker_motion'] = optional_ticker_motion
@@ -190,7 +190,7 @@ def datagetter(request):
                 elif main_ticker_font == 'Russian' or main_ticker_font == 'Turkish' or main_ticker_font == 'Spanish' or main_ticker_font == 'Hindi' or main_ticker_font == 'French' or main_ticker_font == 'Italian':
                     CONFIG_DATA['main_ticker_font'] = 'FreeSans'
                 CONFIG_DATA['main_ticker_font_size'] = main_ticker_font_size
-                CONFIG_DATA['main_ticker_bgcolor'] = main_ticker_bgcolor
+                CONFIG_DATA['main_ticker_bgcolor'] = hex_to_rgb(main_ticker_bgcolor)
                 CONFIG_DATA['main_ticker_font_color'] = hex_to_rgb(main_ticker_font_color)
                 CONFIG_DATA['main_ticker_speed'] = main_ticker_speed
                 CONFIG_DATA['main_ticker_motion'] = main_ticker_motion
@@ -233,8 +233,8 @@ def datagetter(request):
     #        CONFIG_DATA['moving_ticker_condition'] or CONFIG_DATA['secondary_ticker_enabler'] or 
     #        CONFIG_DATA['emergency_ticker_condition'])
     
-        CONFIG_DATA['time_interval'] = request.POST.get('time_interval')
-        xyz=json.dumps(CONFIG_DATA)
+        CONFIG_DATA['time_interval']= int(request.POST.get('time_interval')) 
+        xyz=json.dumps(CONFIG_DATA, indent=3)
  
         data_saver(tickertype,xyz)
 

@@ -6,22 +6,11 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as user_login
 from django.contrib.auth.models import User
-# -----------------------new added-----------------------
-from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from initiate.gadget import datagetter,schedulingdata
 
-
-# def home(request):
-#     if request.method == "POST":
-#         form = ImageForm(request.POST.get('static_upload'), request.FILES)
-#         print("static_upload",request.POST.get('static_ticker_logo'))
-#         if form.is_valid():
-#             form.save()
-
-#  ---------------------------------------------------------------------------
 @login_required
 def index(request):
     return render(request, 'index.html')
@@ -54,10 +43,10 @@ def createticker(request):
                 ],
 
             'font_size':[
-                'X-Large',
-                'Large',
-                'Normal',
-                'Small'
+                'x-large',
+                'large',
+                'normal',
+                'small'
                 ],
 
             'position':[
@@ -107,10 +96,6 @@ def createticker(request):
     else:
         return render(request, 'createticker.html', data)
 
-
-
-
-
 @login_required
 def active(request):
     return render(request, 'active.html') 
@@ -146,7 +131,6 @@ def login(request):
 
 def registerfor(request):
 	return render(request, 'register.html')
-
 
 class RegisterView(SuccessMessageMixin, CreateView):
 	model = User

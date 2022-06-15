@@ -164,7 +164,7 @@ class StatictickerStaticticker(models.Model):
 
 class TickerDetails(models.Model):
     ticker_id = models.AutoField(primary_key=True)
-    ticker_type = models.CharField(max_length=40)
+    ticker_type = models.CharField(max_length=60)
     # dated_on = models.DateTimeField()
     ticker_json = models.TextField(blank=True)
     created_for = models.CharField(max_length=300, null=True)
