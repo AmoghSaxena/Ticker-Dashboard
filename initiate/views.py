@@ -83,13 +83,17 @@ def createticker(request):
                 'Active Shooting',
                 'General Evacuation',
                 'Custom'
-            ]
+                ]
         }
     
     if request.method == 'POST':
-        if (request.POST.get('static_ticker_enabler')=='' or request.POST.get('primary_ticker_enabler')=='' or 
-           request.POST.get('secondary_ticker_enabler')=='' or request.POST.get('animation_ticker_enabler')=='' or 
-           request.POST.get('emergency_ticker_enabler')==''):
+        if (
+            request.POST.get('static_ticker_enabler')=='' or 
+            request.POST.get('primary_ticker_enabler')=='' or 
+            request.POST.get('secondary_ticker_enabler')=='' or 
+            request.POST.get('animation_ticker_enabler')=='' or 
+            request.POST.get('emergency_ticker_enabler')==''
+           ):
             return render(request, 'preview.html',datagetter(request))
         else:
             return render(request, 'createticker.html', data)
@@ -125,47 +129,9 @@ def login(request):
             user_login(request,user)
             return redirect(request.GET['next'])
         else:
-            error = "User Not Found!!!"
+            error = "Incorrect username or password...!"
             return render(request,'login.html',{'comment':error})
     return render(request, 'login.html')
-
-def registerfor(request):
-	return render(request, 'register.html')
-
-class RegisterView(SuccessMessageMixin, CreateView):
-	model = User
-	fields = ['username', 'password', 'email']
-	template_name = 'register.html'
-	success_url = reverse_lazy('registerform')
-	success_message = "Account was created successfull"
-
-	def form_valid(self, form):
-		form.instance.password = make_password(form.instance.password)
-		return super().form_valid(form)
-
-
-from django.utils.deprecation import MiddlewareMixin
-from django.urls import resolve, reverse
-from django.http import HttpResponseRedirect
-from Ticker import settings
-
-class LoginRequiredMiddleware(MiddlewareMixin):
-    """
-    Middleware that requires a user to be authenticated to view any page other
-    than LOGIN_URL. Exemptions to this requirement can optionally be specified
-    in settings by setting a tuple of routes to ignore
-    """
-    def process_request(self, request):
-        assert hasattr(request, 'user'), """
-        The Login Required middleware needs to be after AuthenticationMiddleware.
-        Also make sure to include the template context_processor:
-        'django.contrib.auth.context_processors.auth'."""
-
-        if not request.user.is_authenticated:
-            current_route_name = resolve(request.path_info).url_name
-
-            if not current_route_name in settings.AUTH_EXEMPT_ROUTES:
-                return HttpResponseRedirect(reverse(settings.AUTH_LOGIN_ROUTE))
 
 
 

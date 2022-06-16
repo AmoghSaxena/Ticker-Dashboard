@@ -21,14 +21,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('initiate.urls')),
-    # path('', views.index, name = 'index'),
-    # path('createticker', views.createticker, name = 'createticker'),
-    # path('active', views.active, name = 'active'),
-    # path('pending', views.pending, name = 'pending'),
-    # path('history', views.history, name = 'history'),
-    # path('preview', views.preview, name = 'preview'),
-    # path('schedule', views.schedule, name = 'schedule'),
-    # path('', views.login, name = 'login')
     path('accounts/', include('django.contrib.auth.urls'))
 ]
 if settings.DEBUG:

@@ -15,7 +15,7 @@ function fostaticEnabler()
     document.getElementById('static_logo').hidden=true
     document.getElementById('emergency_text').hidden=true
     document.getElementById("submit").disabled=true
-    document.getElementById("staticticker").style.background='#007E33'
+    document.getElementById("staticticker").style.background='#4c8754'
     document.getElementById("primaryticker").style.background='#292b2c'
     document.getElementById("secondaryticker").style.background='#292b2c'
     document.getElementById("animationticker").style.background='#292b2c'
@@ -26,7 +26,7 @@ function fosubmit(id)
 	if (id=='staticticker')
     { 	
     	document.getElementById('static_form').hidden=false
-        document.getElementById("staticticker").style.background='#007E33'
+        document.getElementById("staticticker").style.background='#4c8754'
         document.getElementById("primaryticker").style.background='#292b2c'
         document.getElementById("secondaryticker").style.background='#292b2c'
         document.getElementById("animationticker").style.background='#292b2c'
@@ -40,7 +40,7 @@ function fosubmit(id)
     	document.getElementById('static_form').hidden=true
     	document.getElementById('primary_form').hidden=false
         document.getElementById("staticticker").style.background='#292b2c'
-        document.getElementById("primaryticker").style.background='#007E33'
+        document.getElementById("primaryticker").style.background='#4c8754'
         document.getElementById("secondaryticker").style.background='#292b2c'
         document.getElementById("animationticker").style.background='#292b2c'
     	document.getElementById('secondary_form').hidden=true
@@ -54,7 +54,7 @@ function fosubmit(id)
     	document.getElementById('secondary_form').hidden=false
         document.getElementById("staticticker").style.background='#292b2c'
         document.getElementById("primaryticker").style.background='#292b2c'
-        document.getElementById("secondaryticker").style.background='#007E33'
+        document.getElementById("secondaryticker").style.background='#4c8754'
         document.getElementById("animationticker").style.background='#292b2c'
     	document.getElementById('animation_form').hidden=true
     	document.getElementById('emergency_form').hidden=true
@@ -68,7 +68,7 @@ function fosubmit(id)
         document.getElementById("staticticker").style.background='#292b2c'
         document.getElementById("primaryticker").style.background='#292b2c'
         document.getElementById("secondaryticker").style.background='#292b2c'
-        document.getElementById("animationticker").style.background='#007E33'
+        document.getElementById("animationticker").style.background='#4c8754'
     	document.getElementById('emergency_form').hidden=true
     }
     if (id=='emergencyticker')
@@ -91,50 +91,74 @@ function foeventEnabler(id)
     {
         var b=document.getElementById('static_form_data')
     	if (b.checked)
-        {document.getElementById('hello1').hidden=false}
+        {
+            document.getElementById('hello1').hidden=false
+        }
         else
-        {document.getElementById('hello1').hidden=true}
+        {
+            document.getElementById('hello1').hidden=true
+        }
     }
     if (id=='primary_form_data')
     {
         var b=document.getElementById('primary_form_data')
     	if (b.checked)
-        {document.getElementById('hello2').hidden=false}
+        {
+            document.getElementById('hello2').hidden=false
+        }
         else
-        {document.getElementById('hello2').hidden=true}
+        {
+            document.getElementById('hello2').hidden=true
+        }
     }
     if (id=='secondary_form_data')
     {
         var b=document.getElementById('secondary_form_data')
     	if (b.checked)
-        {document.getElementById('hello3').hidden=false}
+        {
+            document.getElementById('hello3').hidden=false
+        }
         else
-        {document.getElementById('hello3').hidden=true}
+        {
+            document.getElementById('hello3').hidden=true
+        }
     }
     if (id=='animation_form_data')
     {
         var b=document.getElementById('animation_form_data')
     	if (b.checked)
-        {document.getElementById('hello4').hidden=false}
+        {
+            document.getElementById('hello4').hidden=false
+        }
         else
-        {document.getElementById('hello4').hidden=true}
+        {
+            document.getElementById('hello4').hidden=true
+        }
     }
     if (id=='emergency_form_data')
     {
         var b=document.getElementById('emergency_form_data')
     	if (b.checked)
-        {document.getElementById('hello5').hidden=false}
+        {
+            document.getElementById('hello5').hidden=false
+        }
         else
-        {document.getElementById('hello5').hidden=true}
+        {
+            document.getElementById('hello5').hidden=true
+        }
     }
 
     if (id=='checkbox_for_static_logo')
     {
         var b=document.getElementById('checkbox_for_static_logo')
     	if (b.checked)
-        {document.getElementById('static_logo').hidden=false}
+        {
+            document.getElementById('static_logo').hidden=false
+        }
         else
-        {document.getElementById('static_logo').hidden=true}
+        {
+            document.getElementById('static_logo').hidden=false
+        }
     }
 
     if(id=='animation_pos')

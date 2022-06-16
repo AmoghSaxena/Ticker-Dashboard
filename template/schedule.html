@@ -5,6 +5,86 @@
     <main>
         <div class="container-fluid px-4">
             <h3 class="mt-4">Schedule</h3>
+            <div class="m-2">
+                <div class="border border-success rounded bg-light">
+                    <form method="POST" class=" border rounded m-2" id="mainform" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                            <div class="m-1" id="static_form">
+                                <div id="hello1">
+                                    <label>Enter Your Static Ticker Message</label>
+                                    <div class="form-group form-floating mb-3">
+                                        <textarea name="static_ticker_msg" class="form-control" id="inputFirstName1" rows="4" placeholder="Type Message for Static Ticker" /></textarea>
+                                        <label for="inputFirstName">Type Message for Static Ticker</label>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <div class="form-check mb-3">
+                                                <label for="favcolor">Choose Font Color</label><br>
+                                                <label for="favcolor" class="text-muted">Pick Font Color</label>
+                                                <input name="static_font_color" type="color" name="favcolor" value="#000000">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-check mb-3">
+                                                <label for="favcolor">Choose Background Color</label><br>
+                                                <label for="favcolor" class="text-muted">Pick Background Color</label>
+                                                <input name="static_background_color" type="color"  name="favcolor" value="#F15412">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label>Font Style</label>
+                                            <select name="static_font_type" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                {% for items in font_style %}
+                                                <option>{{items}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Font Size</label>
+                                            <select name="static_font_size" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                {% for items in font_size %}
+                                                <option>{{items}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Position BOX</label>
+                                            <select name="static_position_box" id="static_pos_box" onchange=foeventEnabler(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                {% for items in pos_box %}
+                                                <option>{{items}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <div class="form-check mb-3">
+                                                <input name="static_ticker_logo" class="form-check-input" type="checkbox" value="" id="checkbox_for_static_logo" onclick=foeventEnabler(this.id)>
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Apply logo on Static Ticker 
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8" id='static_logo'>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlFile1">upload image logo</label>
+                                                <input name="static_logo" type="file" accept=".png" id="static_image_cond" class="form-control-file" id="exampleFormControlFile1" onchange=Filevalidation()>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <button class="btn btn-danger">Clear</button>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+
         </div>
         <select class="all_module_list" name="all_module_list" multiple data-live-search="true" data-maximum-selection-length="10">
                                         {% for i in floor %}

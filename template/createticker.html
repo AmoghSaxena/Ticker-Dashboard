@@ -4,7 +4,7 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h3 class="mt-4">Create Ticker [Ticker ID: 506]</h3>
+            <h3 class="mt-4">Create Ticker</h3>
              <div class="m-2">
                 <div class="border border-success rounded bg-light">
                     <div class="btn-group m-2 btn-group-lg d-flex justify-content-center" role="group" aria-label="Basic example">
@@ -19,7 +19,7 @@
                             <!-- Static ticker form-->
                             <div class="m-1" id="static_form">
                                 <div class="form-check mb-3">
-                                    <input class="form-check-input" name="static_ticker_enabler" form="mainform" type="checkbox" value="" id="static_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
+                                    <input class="form-check-input" name="static_ticker_enabler" type="checkbox" value="" id="static_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
                                     <label class="form-check-label" for="flexCheckDefault">
                                     Enable Static Ticker 
                                     </label>
@@ -84,7 +84,7 @@
                                         <div class="col-md-8" id='static_logo'>
                                             <div class="form-group">
                                                 <label for="exampleFormControlFile1">upload image logo</label>
-                                                <input name="static_logo" type="file" accept=".png,.jpg" id="static_image_cond" class="form-control-file" id="exampleFormControlFile1" onchange=Filevalidation()>
+                                                <input name="static_logo" type="file" accept=".png" id="static_image_cond" class="form-control-file" id="static_logo" onchange=Filevalidation(this.id)>
                                             </div>
                                         </div>
                                     </div>
@@ -178,7 +178,7 @@
                                         <div class="col-md-3" id="primary_file_obj">
                                             <div class="form-group">
                                                 <label for="exampleFormControlFile1">upload image logo</label>
-                                                <input name="primary_ticker_file" accept=".png" type="file" class="form-control-file" id="exampleFormControlFile2">
+                                                <input name="primary_ticker_file" accept=".png" type="file" class="form-control-file" id="primary_logo_cond" onchange=Filevalidation(this.id)>
                                             </div>
                                         </div>
                                         <div class="col-md-6" id="primary_logo_pos">
@@ -225,7 +225,7 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <label>Font Style</label>
                                             <select name="secondary_font_type" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                 {% for items in font_style %}
@@ -233,14 +233,14 @@
                                                 {% endfor %}
                                             </select>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <label>Font Size</label>
                                             <select name="secondary_font_size" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                 {% for items in font_size %}
                                                 <option>{{items}}</option>
                                                 {% endfor %}
                                             </select>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-3">
                                             <label>Position BOX</label>
                                             <select name="secondary_position_box" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
@@ -249,8 +249,24 @@
                                                 {% endfor %}
                                             </select>
                                         </div>
+                                        <div class="col-md-3">
+                                            <label>Speed</label>
+                                            <select name="secondary_ticker_speed" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                {% for items in speed %}
+                                                <option>{{items}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Ticker Motion</label>
+                                            <select name="secondary_ticker_motion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                {% for items in motion %}
+                                                <option>{{items}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="row mb-3">
+                                    <!-- <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label>Speed</label>
                                             <select name="secondary_ticker_speed" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
@@ -267,7 +283,7 @@
                                                 {% endfor %}
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                         <button class="btn btn-danger">Clear</button>
                                 </div>
                             </div>
@@ -285,7 +301,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleFormControlFile1">upload image logo</label>
-                                                <input name="animation_video" type="file" class="form-control-file" id="exampleFormControlFile4">
+                                                <input name="animation_video" type="file" class="form-control-file" id="animation_video_cond" accept=".mp4" onchange=Filevalidation(this.id)>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
