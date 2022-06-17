@@ -1,5 +1,6 @@
 import json
 import datetime
+import time
 import os
 from .models import TickerDetails,Wings,Floors,Keys
 from django.core.files.storage import FileSystemStorage
@@ -37,11 +38,9 @@ def FileUploader(request,ticker_db_data):
         old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
         new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
 
-        print("ID")
-
         os.rename(old_name,new_name)
+
         ticker_json['static_ticker_logo_name']=filename
-        print("ID")
     
     if request.POST.get('primary_ticker_logo')!=None:
 
@@ -58,7 +57,6 @@ def FileUploader(request,ticker_db_data):
 
         os.rename(old_name,new_name)
 
-        os.remove(old_name)
         ticker_json['main_ticker_logo_name']=filename
     
     if request.POST.get('animation_ticker_enabler')!=None:
@@ -69,25 +67,36 @@ def FileUploader(request,ticker_db_data):
         fss.save(a.name,a)
 
         ext=a.name.split('.')[-1]
-        filename="%s_%s_%s.%s"%('image',ticker_id,4,ext)
+        filename="%s_%s_%s.%s"%('video',ticker_id,4,ext)
 
         old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
         new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
 
         os.rename(old_name,new_name)
 
-        os.remove(old_name)
         ticker_json['moving_ticker_logo_name']=filename
     
     xyz=json.dumps(ticker_json, indent=3)
     print(CONFIG_DATA,xyz)
-    print(ticker_id)
+    print(ticker_id,xyz)
 
-    t=TickerDetails.objects.filter(ticker_id=ticker_id).filter(ticker_json=CONFIG_DATA)
+    return xyz
 
-    print(t)
+
+    # t=TickerDetails.objects.filter(ticker_id=int(ticker_id))
+
+    # print(t)
+
+    # t.update(ticker_json=xyz)
+
+    # t.ticker_json=xyz
+
+    # print(type(t))
+
+    # t.save()
+
     
-    t.update(ticker_json=xyz)
+    # t.update(ticker_json=xyz)
 
 def hex_to_rgb(value):
     value = value.lstrip('#')
@@ -283,9 +292,13 @@ def datagetter(request):
 
         print("ID")
 
-        t=TickerDetails.objects.filter(ticker_type=tickertype).filter(ticker_json=xyz).values()
+        t=TickerDetails.objects.filter(ticker_type=tickertype,ticker_json=xyz).values()
 
-        FileUploader(request,t)
+        print(t,type(t))
+
+        ticker_json=FileUploader(request,t)
+
+        t.update(ticker_json=ticker_json)
 
         print("ID")
 
@@ -305,6 +318,7 @@ def data_saver(tickertype,jsondata):
         tickerobj.modified_on=datetime.datetime.now()
         # tickerobj.photo=form
         tickerobj.save()
+        time.sleep(4)
 
 def schedulingdata():
     fd=Floors.objects.values_list('name')
