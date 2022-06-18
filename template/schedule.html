@@ -3,94 +3,137 @@
 
 <div id="layoutSidenav_content">
     <main>
+        <div class="">
+            <script type="text/javascript">
+    $('#example-multiple-selected').multiselect();
+</script>
+<!-- Note the missing multiple attribute! -->
+<select id="example-multiple-selected" multiple="multiple">
+    <option value="1">Option 1</option>
+    <option value="2" selected="selected">Option 2</option>
+    <!-- Option 3 will be selected in advance ... -->
+    <option value="3" selected="selected">Option 3</option>
+    <option value="4">Option 4</option>
+    <option value="5">Option 5</option>
+    <option value="6">Option 6</option>
+</select>
+          </div>
         <div class="container-fluid px-4">
             <h3 class="mt-4">Schedule</h3>
             <div class="m-2">
-                <div class="border border-success rounded bg-light">
+                <div class="border border-primary rounded bg-light">
                     <form method="POST" class=" border rounded m-2" id="mainform" enctype="multipart/form-data">
                         {% csrf_token %}
                         
-                            <div class="m-1" id="static_form">
-                                <div id="hello1">
-                                    <label>Enter Your Static Ticker Message</label>
-                                    <div class="form-group form-floating mb-3">
-                                        <textarea name="static_ticker_msg" class="form-control" id="inputFirstName1" rows="4" placeholder="Type Message for Static Ticker" /></textarea>
-                                        <label for="inputFirstName">Type Message for Static Ticker</label>
-                                    </div>
-                                    <div class="row mb-3">
+                            <div class="m-1" id="">
+                                <div id="">
+                                    <div class="m-3 h2">Schedule Ticker: <span class="text-danger">235</span></div>
+                                    <div class="row m-3">
+                                        
                                         <div class="col-md-4">
-                                            <div class="form-check mb-3">
-                                                <label for="favcolor">Choose Font Color</label><br>
-                                                <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                <input name="static_font_color" type="color" name="favcolor" value="#000000">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-check mb-3">
-                                                <label for="favcolor">Choose Background Color</label><br>
-                                                <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                <input name="static_background_color" type="color"  name="favcolor" value="#F15412">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label>Font Style</label>
-                                            <select name="static_font_type" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                {% for items in font_style %}
-                                                <option>{{items}}</option>
+                                            <label>Wings</label>
+                                            <select name="wingselection" multiple id="wingselection" class="form-select mb-3 mb-md-0 p-3 selectpicker" aria-label="Default select example">
+                                                {% for items in wings %}
+                                                <option value="{{items}}">{{items}}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
-                                        <div class="col-md-3">
-                                            <label>Font Size</label>
-                                            <select name="static_font_size" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                {% for items in font_size %}
-                                                <option>{{items}}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Position BOX</label>
-                                            <select name="static_position_box" id="static_pos_box" onchange=foeventEnabler(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                {% for items in pos_box %}
-                                                <option>{{items}}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
                                         <div class="col-md-4">
-                                            <div class="form-check mb-3">
-                                                <input name="static_ticker_logo" class="form-check-input" type="checkbox" value="" id="checkbox_for_static_logo" onclick=foeventEnabler(this.id)>
+                                            <label>Floor</label>
+                                            <select name="floorselection" multiple id="floorselection" class="form-select mb-3 mb-md-0 p-3 selectpicker" aria-label="Default select example">
+                                                {% for items in floor %}
+                                                <option value="{{items}}">{{items}}</option>
+                                                {% endfor %}
+                                            </select>
+
+
+                                            <select name="travel" id="travel12" class="selectpicker" multiple>
+                                                {% for values in floor %}
+                                                    <option value="{{values}}">{{values}}</option>
+                                                {% endfor %}
+                                            </select>
+
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Rooms</label>
+                                            <select name="roomselection" multiple id="roomselection" class="form-select mb-3 mb-md-0 p-3 selectpicker" aria-label="Default select example">
+                                                {% for items in rooms %}
+                                                <option value="{{items}}">{{items}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row m-3">
+                                        <div class="col-md-4">
+                                            <div class="form-check form-switch mb-3">
+                                                <input name="" class="form-check-input" type="checkbox" value="" id="schedulenow" onclick=buttonenabler(this.id)>
                                                 <label class="form-check-label" for="flexCheckDefault">
-                                                    Apply logo on Static Ticker 
+                                                    Schedule now 
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-md-8" id='static_logo'>
-                                            <div class="form-group">
-                                                <label for="exampleFormControlFile1">upload image logo</label>
-                                                <input name="static_logo" type="file" accept=".png" id="static_image_cond" class="form-control-file" id="exampleFormControlFile1" onchange=Filevalidation()>
+                                    </div>
+                                    <div class="row m-3" id="occurancysection">
+                                        <div class="col-md-2"> 
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    One-Time
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    Recurring
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
-                                        <button class="btn btn-danger">Clear</button>
+                                    <div class="row m-3" id="datatimesection">
+                                        <div class="col-md-4">
+                                            <label>Start Date | Time</label>
+                                            <div class="form-group form-floating">
+                                                <input type="datetime-local" class="form-control" id="startDate" name="" placeholder="Enter Date">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>End Date | Time</label>
+                                            <div class="form-group form-floating">
+                                                <input type="datetime-local" class="form-control" id="endDate" name="" placeholder="Enter Date">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Display Frequency | Display in Every</label>
+                                            <select name="" id="" onchange=foeventEnabler(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                {% for items in frequency %}
+                                                <option>{{items}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        {% comment %} <div>
+                                            {% for items in days %}
+                                                <input name="" class="form-check-input" type="checkbox">
+                                                <div>{{items}}</div>
+                                            {% endfor %}
+                                        </div> {% endcomment %}
+
+                                        <div class="form-group mt-4" id="">
+                                            <div class="form-group">
+                                                <input type="submit" class="form-control btn-primary p-3 " id="" value="Schedule" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                     </form>
                 </div>
             </div>
 
-
-
-
         </div>
-        <select class="all_module_list" name="all_module_list" multiple data-live-search="true" data-maximum-selection-length="10">
-                                        {% for i in floor %}
-                                                <option value={{key}}>{{i}}</option>
-                                        {% endfor %}
-        </select>
     </main>
 
 {% endblock %}

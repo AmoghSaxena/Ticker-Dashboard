@@ -14,16 +14,19 @@ function fostaticEnabler() {
 	document.getElementById("static_logo").hidden = true;
 	document.getElementById("emergency_text").hidden = true;
 	document.getElementById("submit").disabled = true;
-	document.getElementById("staticticker").style.background = "#4c8754";
+	document.getElementById("staticticker").style.background = "#00ab66";
 	document.getElementById("primaryticker").style.background = "#292b2c";
 	document.getElementById("secondaryticker").style.background = "#292b2c";
 	document.getElementById("animationticker").style.background = "#292b2c";
+	document.getElementById("occurancysection").hidden = true;
+	alert("Hello")
+	document.getElementById("datatimesection").hidden = true;
 }
 
 function fosubmit(id) {
 	if (id == "staticticker") {
 		document.getElementById("static_form").hidden = false;
-		document.getElementById("staticticker").style.background = "#4c8754";
+		document.getElementById("staticticker").style.background = "#00ab66";
 		document.getElementById("primaryticker").style.background = "#292b2c";
 		document.getElementById("secondaryticker").style.background = "#292b2c";
 		document.getElementById("animationticker").style.background = "#292b2c";
@@ -36,7 +39,7 @@ function fosubmit(id) {
 		document.getElementById("static_form").hidden = true;
 		document.getElementById("primary_form").hidden = false;
 		document.getElementById("staticticker").style.background = "#292b2c";
-		document.getElementById("primaryticker").style.background = "#4c8754";
+		document.getElementById("primaryticker").style.background = "#00ab66";
 		document.getElementById("secondaryticker").style.background = "#292b2c";
 		document.getElementById("animationticker").style.background = "#292b2c";
 		document.getElementById("secondary_form").hidden = true;
@@ -49,7 +52,7 @@ function fosubmit(id) {
 		document.getElementById("secondary_form").hidden = false;
 		document.getElementById("staticticker").style.background = "#292b2c";
 		document.getElementById("primaryticker").style.background = "#292b2c";
-		document.getElementById("secondaryticker").style.background = "#4c8754";
+		document.getElementById("secondaryticker").style.background = "#00ab66";
 		document.getElementById("animationticker").style.background = "#292b2c";
 		document.getElementById("animation_form").hidden = true;
 		document.getElementById("emergency_form").hidden = true;
@@ -62,7 +65,7 @@ function fosubmit(id) {
 		document.getElementById("staticticker").style.background = "#292b2c";
 		document.getElementById("primaryticker").style.background = "#292b2c";
 		document.getElementById("secondaryticker").style.background = "#292b2c";
-		document.getElementById("animationticker").style.background = "#4c8754";
+		document.getElementById("animationticker").style.background = "#00ab66";
 		document.getElementById("emergency_form").hidden = true;
 	}
 	if (id == "emergencyticker") {

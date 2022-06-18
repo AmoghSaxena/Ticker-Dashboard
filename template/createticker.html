@@ -6,7 +6,7 @@
         <div class="container-fluid px-4">
             <h3 class="mt-4">Create Ticker</h3>
              <div class="m-2">
-                <div class="border border-success rounded bg-light">
+                <div class="border border-primary rounded bg-light">
                     <div class="btn-group m-2 btn-group-lg d-flex justify-content-center" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-dark" id='staticticker' onclick=fosubmit(this.id)>Static Ticker</button>
                         <button type="button" class="btn btn-dark" id='primaryticker' onclick=fosubmit(this.id)>Primary Ticker</button>
@@ -17,8 +17,8 @@
                     <form method="POST" class=" border rounded m-2" id="mainform" enctype="multipart/form-data">
                         {% csrf_token %}
                             <!-- Static ticker form-->
-                            <div class="m-1" id="static_form">
-                                <div class="form-check mb-3">
+                            <div class="m-1 " id="static_form">
+                                <div class="form-check form-switch mb-3">
                                     <input class="form-check-input" name="static_ticker_enabler" type="checkbox" value="" id="static_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
                                     <label class="form-check-label" for="flexCheckDefault">
                                     Enable Static Ticker 
@@ -31,7 +31,7 @@
                                         <label for="inputFirstName">Type Message for Static Ticker</label>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-md-4">
+                                    <div class="col-md-4">
                                             <div class="form-check mb-3">
                                                 <label for="favcolor">Choose Font Color</label><br>
                                                 <label for="favcolor" class="text-muted">Pick Font Color</label>
@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-md-4">
-                                            <div class="form-check mb-3">
+                                            <div class="form-check form-switch mb-3">
                                                 <input name="static_ticker_logo" class="form-check-input" type="checkbox" value="" id="checkbox_for_static_logo" onclick=foeventEnabler(this.id)>
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     Apply logo on Static Ticker 
@@ -88,13 +88,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                        <button class="btn btn-danger">Clear</button>
                                 </div>
                             </div>
 
                             <!-- Primary ticker form -->
                             <div class="m-1" id="primary_form">
-                                <div class="form-check mb-3">
+                                <div class="form-check form-switch mb-3">
                                     <input name="primary_ticker_enabler" class="form-check-input" type="checkbox" value="" id="primary_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
                                     <label class="form-check-label" for="flexCheckDefault">
                                     Enable Primary Ticker 
@@ -168,7 +167,7 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-md-3">
-                                            <div class="form-check mb-3">
+                                            <div class="form-check form-switch mb-3">
                                                 <input name="primary_ticker_logo" class="form-check-input" type="checkbox" value="" id="primary_logo_enabler" onclick=foeventEnabler(this.id)>
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     Apply logo on Primary Ticker 
@@ -190,13 +189,12 @@
                                             </select>
                                         </div>
                                     </div>
-                                        <button class="btn btn-danger">Clear</button>
                                 </div>
                             </div>
 
                             <!-- Secondray ticker form -->
                             <div class="m-1" id="secondary_form">
-                                <div class="form-check mb-3">
+                                <div class="form-check  form-switch mb-3">
                                     <input name="secondary_ticker_enabler" class="form-check-input" type="checkbox" value="" id="secondary_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
                                     <label class="form-check-label" for="flexCheckDefault">
                                     Enable Secondary Ticker 
@@ -217,7 +215,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-8">
-                                            <div class="form-check mb-3">
+                                            <div class="form-check form-switch mb-3">
                                                 <label for="favcolor">Choose Background Color</label><br>
                                                 <label for="favcolor" class="text-muted">Pick Background Color</label>
                                                 <input name="secondary_background_color" type="color" id="bg_color3" name="favcolor" value="#F15412">
@@ -284,13 +282,12 @@
                                             </select>
                                         </div>
                                     </div> -->
-                                        <button class="btn btn-danger">Clear</button>
                                 </div>
                             </div>
 
                             <!-- Animation ticker  form-->
                             <div class="m-1" id="animation_form">
-                                <div class="form-check mb-3">
+                                <div class="form-check form-switch mb-3">
                                     <input name="animation_ticker_enabler" class="form-check-input" type="checkbox" value="" id="animation_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
                                     <label class="form-check-label" for="flexCheckDefault">
                                     Enable Animation Ticker 
@@ -321,13 +318,12 @@
                                             </select>
                                         </div>
                                     </div>
-                                        <button class="btn btn-danger">Clear</button>
                                 </div>
                             </div>
 
                             <!-- Emergency ticker  form-->
                             <div class="m-1" id="emergency_form">
-                                <div class="form-check mb-3">
+                                <div class="form-check form-switch mb-3">
                                     <input name="emergency_ticker_enabler" class="form-check-input" type="checkbox" value="" id="emergency_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();foemergencytickerenabler();">
                                     <label class="form-check-label" for="flexCheckDefault">
                                     Enable Emergency Ticker 
@@ -353,11 +349,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                        <button class="btn btn-danger">Clear</button>
+                                        {% comment %} <button class="btn btn-danger">Clear</button> {% endcomment %}
                                 </div>
                             </div>
                         
-
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label class="m-1">Ticker Duration</label>
@@ -369,7 +364,7 @@
                                 <div class="col-md-8" >
                                     <div class="form-group mt-5" id="">
                                         <div class="form-group m-3">
-                                            <input type="submit" class="form-control btn-success p-3 " id="submit" value="Create Ticker" />
+                                            <input type="submit" class="form-control btn-primary p-3 " id="submit" value="Create Ticker" />
                                         </div>
                                     </div>
                                 </div>

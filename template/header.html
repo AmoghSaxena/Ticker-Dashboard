@@ -18,7 +18,7 @@
             <!-- Navbar Brand-->
             <a class="bg-dark navbar-brand ps-3 fs-2 fw-bold text-success" style="background-image: url('/static/image/header.jpg');" href="{% url 'index'%}"><i class="fas fa-dice-d20"></i> ticker</a>
             <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 fs-4 text-success" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 fs-4 text-primary" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <!-- <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
@@ -46,27 +46,27 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading text-white"></div>
-                            <a class="nav-link m-2 {% if request.path == '/index' or request.path == '/'%} active border border-success rounded border-2 {% endif %}" href="{% url 'index'%}">
+                            <a class="nav-link m-2 {% if request.path == '/index' or request.path == '/'%} active border border-primary rounded border-2 {% endif %}" href="{% url 'index'%}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <a class="nav-link m-2 {% if request.path == '/createticker'%} active border border-success rounded border-2 {% endif %}" href="{% url 'createticker'%}">
+                            <a class="nav-link m-2 {% if request.path == '/createticker'%} active border border-primary rounded border-2 {% endif %}" href="{% url 'createticker'%}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-square-plus"></i></div>
                                 Create Ticker
                             </a>
-                            <a class="nav-link m-2 {% if request.path == '/preview'%} active border border-success rounded border-2 {% endif %}" href="{% url 'preview'%}">
+                            <a class="nav-link m-2 {% if request.path == '/preview'%} active border border-primary rounded border-2 {% endif %}" href="{% url 'preview'%}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-tv"></i></div>
                                 Preview
                             </a>
-                            <a class="nav-link m-2 {% if request.path == '/active'%} active border border-success rounded border-2 {% endif %}" href="{% url 'active'%}">
+                            <a class="nav-link m-2 {% if request.path == '/active'%} active border border-primary rounded border-2 {% endif %}" href="{% url 'active'%}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-monitor-waveform"></i></div>
                                 Active
                             </a>
-                            <a class="nav-link m-2 {% if request.path == '/pending'%} active border border-success rounded border-2 {% endif %}" href="{% url 'pending'%}">
+                            <a class="nav-link m-2 {% if request.path == '/pending'%} active border border-primary rounded border-2 {% endif %}" href="{% url 'pending'%}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-spinner"></i></div>
                                 Pending
                             </a>
-                            <a class="nav-link m-2 {% if request.path == '/history'%} active border border-success rounded border-2 {% endif %}" href="{% url 'history'%}">
+                            <a class="nav-link m-2 {% if request.path == '/history'%} active border border-primary rounded border-2 {% endif %}" href="{% url 'history'%}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
                                 History
                             </a>

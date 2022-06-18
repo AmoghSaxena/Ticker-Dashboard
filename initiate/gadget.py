@@ -17,12 +17,14 @@ CONFIG_DATA={
 def FileUploader(request,ticker_db_data):
     
     print("ID")
-    ticker_id=ticker_db_data.get()['ticker_id']
-    ticker_json=ticker_db_data.get()['ticker_json']
+    ticker_id=ticker_db_data.get('ticker_id',-1)
+    print("1")
+    temp=ticker_db_data.get('ticker_json',None)
+    print("2")
 
-    CONFIG_DATA=ticker_json
+    ak=temp
 
-    ticker_json=json.loads(ticker_json)
+    ticker_json=json.loads(temp)
 
 
     if request.POST.get('static_ticker_logo')!=None:
@@ -77,7 +79,7 @@ def FileUploader(request,ticker_db_data):
         ticker_json['moving_ticker_logo_name']=filename
     
     xyz=json.dumps(ticker_json, indent=3)
-    print(CONFIG_DATA,xyz)
+    print("Old:{0}\nNew:{1}".format(ak,xyz))
     print(ticker_id,xyz)
 
     return xyz
@@ -294,13 +296,21 @@ def datagetter(request):
 
         t=TickerDetails.objects.filter(ticker_type=tickertype,ticker_json=xyz).values()
 
-        print(t,type(t))
+        print(t.get(),type(t))
 
-        ticker_json=FileUploader(request,t)
+        ticker_json=FileUploader(request,t.get())
 
-        t.update(ticker_json=ticker_json)
+        print("Exce[ptioc oic")
+
+        try:
+            t.update(ticker_json=ticker_json)
+        except TickerDetails.DoesNotExist:
+            print('Unable to update')
 
         print("ID")
+
+
+        t=TickerDetails.objects.filter(ticker_type=tickertype,ticker_json=ticker_json).values()
 
         return t.get()
     except Exception as e:
@@ -308,40 +318,63 @@ def datagetter(request):
 
 
 def data_saver(tickertype,jsondata):
-        tickerobj=TickerDetails()
-        tickerobj.ticker_type=tickertype
-        tickerobj.ticker_json=jsondata
-        # tickerobj.dated_on=datetime.datetime.now()
-        tickerobj.is_active=1
-        tickerobj.is_deleted=0
-        tickerobj.created_on=datetime.datetime.now()
-        tickerobj.modified_on=datetime.datetime.now()
-        # tickerobj.photo=form
-        tickerobj.save()
-        time.sleep(4)
+    
+    tickerobj=TickerDetails()
+    tickerobj.ticker_type=tickertype
+    tickerobj.ticker_json=jsondata
+    # tickerobj.dated_on=datetime.datetime.now()
+    tickerobj.is_active=1
+    tickerobj.is_deleted=0
+    tickerobj.created_on=datetime.datetime.now()
+    tickerobj.modified_on=datetime.datetime.now()
+    # tickerobj.photo=form
+    tickerobj.save()
 
 def schedulingdata():
-    fd=Floors.objects.values_list('name')
-    wd=Wings.objects.values_list('name')
-    kd=Keys.objects.values_list('number')
 
-    f=list()
-    w=list()
-    k=list()
+    floordict=Floors.objects.values_list('name')
+    wingdict=Wings.objects.values_list('name')
+    roomdict=Keys.objects.values_list('number')
 
-    for i in fd:
-        f.append(i[0])
+    floor=list()
+    wings=list()
+    rooms=list()
+    frequency = [
+       '15 minutes', 
+       '30 minutes', 
+       '45 minutes', 
+       '1 hour', 
+       '75 minutes', 
+       '90 minutes', 
+       '105 minutes', 
+       '2 hour', 
+       '3 hour',
+       '4 hour',  
+       '5 hour',  
+       '6 hour',  
+       '7 hour',  
+       '8 hour',
+       '12 hour',
+       '24 hour'  
+    ]
 
-    for i in wd:
-        w.append(i[0])
+    days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 
-    for i in kd:
-        k.append(i[0])
+    for i in floordict:
+        floor.append(i[0])  
+
+    for i in wingdict:
+        wings.append(i[0])
+
+    for i in roomdict:
+        rooms.append(i[0])
 
     scheduledata={
-        "floor":f,
-        "wings":w,
-        "keys":k
+        "floor":floor,
+        "wings":wings,
+        "rooms":rooms,
+        "frequency":frequency,
+        "days":days
     }
 
     # print(scheduledata)
