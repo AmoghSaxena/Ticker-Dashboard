@@ -1,8 +1,8 @@
-function buttonenabler(id)
+function schedulebuttonenabler(id)
 {
-    if (id=="schedulenow")
+    if(id=="scheduleenabler")
     {
-        document.getElementById("occurancysection").disable=false;
-        document.getElementById("datatimesection").disable=false;
-    }   
+        document.getElemenetById("occurancysection").hidden=true;
+        document.getElemenetById("datatimesection").hidden=true;
+    }
 }

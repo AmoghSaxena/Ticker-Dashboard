@@ -19,7 +19,6 @@ function fostaticEnabler() {
 	document.getElementById("secondaryticker").style.background = "#292b2c";
 	document.getElementById("animationticker").style.background = "#292b2c";
 	document.getElementById("occurancysection").hidden = true;
-	alert("Hello")
 	document.getElementById("datatimesection").hidden = true;
 }
 
@@ -210,14 +209,29 @@ function foemergencytickerenabler(){
 	var b = document.getElementById("primary_form_data");
 	var c = document.getElementById("secondary_form_data");
 	var d = document.getElementById("animation_form_data");
-	if (a.checked || b.checked || c.checked || d.checked) {
-		if (confirm("Do you want to clear tickers other than emergency ticker")) {
-            document.getElementById("static_form_data").checked = false;
-            document.getElementById("primary_form_data").checked = false;
-            document.getElementById("secondary_form_data").checked = false;
-            document.getElementById("animation_form_data").checked = false;
-          } else {
-            document.getElementById("emergency_form_data").checked = false;
-          }
+	var e= document.getElementById("emergency_form_data");
+
+	if(e.checked)
+	{
+		// document.getElementById("primary_form").hidden = false;
+		// document.getElementById("secondary_form").hidden = false;
+		// document.getElementById("animation_form").hidden = false;
+		// document.getElementById("static_form").hidden = false;
+	}
+	else{
+		if (a.checked || b.checked || c.checked || d.checked) {
+			if (confirm("Do you want to clear tickers other than emergency ticker")) {
+				document.getElementById("static_form_data").checked = false;
+				document.getElementById("primary_form_data").checked = false;
+				document.getElementById("secondary_form_data").checked = false;
+				document.getElementById("animation_form_data").checked = false;
+				document.getElementById("primary_form").hidden = true;
+				document.getElementById("secondary_form").hidden = true;
+				document.getElementById("animation_form").hidden = true;
+				document.getElementById("static_form").hidden = true;
+			} else {
+				document.getElementById("emergency_form_data").checked = false;
+			}
+		}
 	}
 }

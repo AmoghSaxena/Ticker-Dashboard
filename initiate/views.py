@@ -118,6 +118,7 @@ def preview(request):
         
 @login_required
 def schedule(request):
+    print(request.POST.get('delay'))
     return render(request, 'schedule.html',schedulingdata()) 
 
 def login(request):
