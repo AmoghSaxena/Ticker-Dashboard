@@ -4,7 +4,7 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-5">
-            <h3 class="mt-4">Preview</h3>
+            <h3 class="mt-4">Create Ticker <i class="fas fa-long-arrow-alt-right"></i> <strong><b>Preview</b></strong> <i class="fas fa-long-arrow-alt-right"></i> Schedule</h3>
 
 
 
@@ -27,7 +27,9 @@
             <section>
                 <div class="rt-container">
                       <div class="col-rt-12">
-                        <div class="m-3 h2">Ticker ID : <span class="text-danger">{{ticker_id}}</span></div> 
+                        <div class="m-3 h2">Ticker ID :
+                            <input type="text" value="{{ticker_id}}" />
+                        </div>
                         <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
                             <video autoplay loop muted>
                                 <source src="/static/RCB.mp4" type="video/mp4">
@@ -64,16 +66,22 @@
                         </center>
             
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a href="#" class="btn btn-info">Edit</a>
+                            {% comment %} <a href="#" class="btn btn-info">Edit</a>
                             <a href="#" class="btn btn-danger">Delete</a>
-                            <a href="{% url 'schedule'%}" class="btn btn-success" name="id" value="{{ticker_id}}">Schedule</a>
+                            <a href="{% url 'schedule'%}" class="btn btn-success" name="id" value="{{ticker_id}}">Schedule</a> {% endcomment %}
+                            <form method="POST">
+                                {%csrf_token%}
+                                <input type="text" class="d-none" name="ticker_id_field" value="{{ticker_id}}" />
+                                <input type="submit" class="border rounded btn-primary p-3 btn-lg btn-block"/>
+                                <input type="submit" class="border rounded btn-primary p-3 btn-lg btn-block"/>
+                                <input type="submit" class="border rounded btn-primary p-3 btn-lg btn-block" id="submit" value="submit"/>
+                            </form>
                         </div>
-                          
-                    </div>
+                    </div>  
                 </div>
             </section>
 
-            <!-- <div class="m-5" style="">
+            {% comment %} <!-- <div class="m-5" style="">
                 <div class=""></div>
                 <center>
                 <div class="border border-dark border-5 rounded text-white overflow-hidden" style="height: 600px; width: 1000px;; background-color: rgba(0,0,0,255);">
@@ -113,7 +121,7 @@
 
             </div>
 
-        </div> -->
+        </div> --> {% endcomment %}
     </main>
 
 {% endblock %}

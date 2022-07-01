@@ -1,0 +1,182 @@
+{% extends "pages/theme/details.html" %}
+{% load crispy_forms_tags %}
+{% load my_tags %}
+
+{% block hotel_menu_content %}
+
+  <h3>Assets</h3>
+
+  <div class="col-md-10" style="display: flex; justify-content: space-between">
+    <form method="GET" action="{% url 'setting_assets_list' theme.id %}" style="display: inline">
+      <div class="row form-inline">
+        <input type="text" class="form-control" autofocus id="search_text" name="search_text">
+        <button type="submit" class="btn btn-primary form-control"><i class="fas fa-search"></i> Search</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin: 10px">
+          <i class="fas fa-file-import"></i> Import
+        </button>
+        <a type="button" class="btn btn-primary" href="{% url 'export_asset_zip' theme.id %}">
+          <i class="fas fa-file-export"></i> Export
+        </a>
+      </div>
+    </form>
+    <form method="POST" id="myform" action="{% url 'setting_asset_bulkdelete' theme.id %}"
+          style="display: inline">
+      {% csrf_token %}
+      <div class="row form-inline">
+        {% if perms.ipad_config.bulk_delete_settingassets %}
+          <button type="button" class="btn btn-primary float-right" id="selectAll" style="display: inline-block">Select
+            All
+          </button>
+          <button type="submit" class="confirm-delete  btn btn-primary float-right"
+                  style="display: inline-block; margin-right: 10px">Delete
+          </button>
+        {% endif %}
+        <a class="btn btn-primary" data-toggle="modal" data-target="#add" href="#add" style="display: inline-block"><i
+                class="fas fa-plus"></i> Add</a>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-10">
+      <table class="table table-sm table-striped">
+        <thead class="thead-dark">
+        <th>Asset Type</th>
+        <th>Asset Name</th>
+        <th>File Name</th>
+        <th>Action</th>
+        </thead>
+        <tbody>
+        {% for assets in setting_assets %}
+          <tr onclick="selectRow(this)">
+            <td>
+              {% if perms.ipad_config.delete_settingsimages %}
+                <label>
+                  <input onClick="this.checked=!this.checked;" type="checkbox" name="asset_id" value="{{ assets.id }}" form="myform">
+                </label>
+              {% endif %}
+              {{ assets.assetType }}
+            </td>
+            <td>
+              <img height="42" width="42" src="{{assets.assetName.url}}" alt="{{assets.assetName}}" />
+            </td>
+            <td>{{ assets.filename }}</td>
+            <td><a class="btn btn-primary" href="{% url 'setting_assets_edit' theme.id assets.id %}">Edit</a>
+              {% if perms.ipad_config.delete_settingsimages %}
+                <a class="confirm-delete btn btn-primary" href="{% url 'setting_asset_delete' theme.id assets.id %}">Delete</a>
+              {% endif %}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block modal %}
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <form method="POST" action="{% url 'import_asset_zip' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Import Assets zip : setting_images > images > {image.png}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="file-loading">
+              <input type="hidden" value="{{ theme.id }}" name="theme_id"/>
+              <input id="input-b9" type="file" name="setting_asset_zip" accept=".zip">
+            </div>
+            <div id="kartik-file-errors"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" title="Your custom upload logic">Import</button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="addSettingImageLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'setting_assets_add' theme.id %}">
+          {% csrf_token %}
+
+          <div class="modal-header">
+            <h5 class="modal-title" id="addSettingImage">
+              Add Setting Image
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{ form |crispy }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" title="Your custom upload logic">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    $(document).ready(function () {
+      $("#exampleModal").fileinput({
+        showPreview: false,
+        showUpload: false,
+        elErrorContainer: '#kartik-file-errors',
+        allowedFileExtensions: ["json"]
+        //uploadUrl: '/site/file-upload-single'
+      });
+    });
+
+    let num = 0;
+    $('#selectAll').click(function () {
+
+
+      if (num % 2 === 0) {
+        $(':checkbox').each(function () {
+          this.checked = true;
+        });
+        num += 1;
+      } else {
+        $(':checkbox').each(function () {
+          this.checked = false;
+        });
+        num += 1;
+      }
+    });
+
+    {% if  is_form_failed %}
+      $(window).on('load', function () {
+        $('#add').modal('show');
+      });
+
+    {% endif %}
+
+    function selectRow(row) {
+      let firstInput = row.getElementsByTagName('input')[0];
+      firstInput.checked = !firstInput.checked;
+    }
+
+  </script>
+
+{% endblock modal %}

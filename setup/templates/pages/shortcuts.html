@@ -1,0 +1,41 @@
+{% extends "pages/index.html" %}
+
+
+{% block menu %}
+    {% include 'pages/header2.html' %}
+{% endblock menu %}
+
+{% block app_content %}
+
+        <h2>Shortcuts</h2>
+        <div class="row">
+        <div class="col-md-8">        
+
+            <table class="table table-sm table-striped">
+                <thead class="thead-dark">
+                    <th>Settings Type</th>
+                    <th>Link</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Common Settings</td>
+                        <td><a href="{% url 'admin:ipad_config_commonsettings_changelist' %}">Open</a></td>
+                    </tr>            
+                    <tr>
+                        <td>Service Directory</td>
+                        <td><a href="{% url 'admin:ipad_config_hotelservices_changelist' %}">Open</a></td>
+                    </tr>
+                    <tr>
+                        <td>Feature Settings</td>
+                        <td><a href="{% url 'admin:ipad_config_featuressetting_changelist' %}">Open</a></td>                    
+                    </tr>
+                    <tr>
+                        <td>Search Locations</td>
+                        <td><a href="{% url 'admin:ipad_config_locationsearch_changelist' %}">Open</a></td>                    
+                    </tr>
+                    
+                </tbody>
+            </table>
+            </div>
+        </div>
+{% endblock app_content %}    

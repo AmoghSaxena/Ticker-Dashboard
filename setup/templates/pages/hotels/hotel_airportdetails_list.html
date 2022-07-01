@@ -1,0 +1,163 @@
+{% extends "pages/hotels/details.html" %}
+
+{% block hotel_menu_content %}
+<h2>
+    Hotel Airports
+</h2>
+
+<form method="GET" action="{% url 'hotel_airportdetail_list' hotel.id %}" >
+    <div class="row form-inline">
+        <div class="col-md-10">
+            <hr>  
+            <input type="text" class="form-control" autofocus id="search_text" name="search_text" >
+            <button type="submit" class="btn btn-primary form-control"><i class="fas fa-search"></i> Search</button>
+            {% comment %} <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                <i class="fas fa-file-import"></i> Import
+            </button>  {% endcomment %}
+
+            <a class="btn btn-primary float-right" data-toggle="modal" data-target="#add" href="#add"><i class="fas fa-plus"></i> Add</a>
+            <hr>
+        </div>
+    </div>
+</form>
+<script>
+var urlParams = new URLSearchParams(window.location.search);
+document.getElementById('search_text').value = urlParams.get('search_text');
+</script>
+
+<div class="row">
+    <div class="col-md-10">
+        <table class="table table-sm table-striped">
+            <thead class="thead-dark">
+                <th>Name</th>
+                <th>Code</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Status</th>
+                <th>Position</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                {% for item in airportdetails %}
+                <tr>
+                    <td>{{item.airport.airport_name}}</td>
+                    <td>{{item.airport.airport_code}}</td>
+                    <td>{{item.airport.city}}</td>
+                    <td>{{item.airport.country}}</td>
+                    <td>{{item.status}}</td>
+                    <td>{{item.position}}</td>
+                    <td><a href="{% url 'hotel_airportdetail_edit' hotel.id item.id %}"> Edit</a></td>
+                   <td><a class="confirm-delete" href="{% url 'hotel_airportdetail_delete' hotel.id item.id %}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if airportdetails.has_other_pages %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                {% if airportdetails.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ airportdetails.previous_page_number }}">Previous</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="#">
+                    Page {{ airportdetails.number }} of {{ airportdetails.paginator.num_pages }}.
+                </a></li>
+                {% if airportdetails.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ airportdetails.next_page_number }}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ airportdetails.paginator.num_pages }}">Last</a></li>
+                {% endif %}
+            
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock hotel_menu_content %}
+
+
+
+
+
+{% block modal %}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    <form method="POST" action="{% url 'import_language_seed' %}" enctype="multipart/form-data">
+        {% csrf_token %} 
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+            Import Language Entries
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="file-loading">
+          <input id="input-b9" name="seed_file" type="file">
+        </div>
+        <div id="kartik-file-errors"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" title="Your custom upload logic">Import</button>
+      </div>
+    
+    </form>
+
+    </div>
+
+  </div>
+</div>
+ 
+ 
+ <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="addHotelAirportDetailsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'hotel_airportdetail_add' hotel.id %}" >
+        {% csrf_token %} 
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="addHotelAirportDetails">
+            Add Hotel Airport Detail 
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{form.as_p}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" title="Your custom upload logic">Submit</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $("#exampleModal").fileinput({
+        showPreview: false,
+        showUpload: false,
+        elErrorContainer: '#kartik-file-errors',
+        allowedFileExtensions: ["json"]
+        //uploadUrl: '/site/file-upload-single'
+    });
+});
+{% if  is_form_failed %}
+        $(window).on('load',function(){
+        $('#add').modal('show');
+    });
+
+{% endif %}
+
+</script>
+
+{% endblock modal %}

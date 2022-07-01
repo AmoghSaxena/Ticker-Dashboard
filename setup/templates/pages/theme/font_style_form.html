@@ -1,0 +1,23 @@
+{% extends "pages/theme/details.html" %}
+{% load my_tags %}
+
+{% block app_content %}
+{{title }}
+
+{% if  title != "Edit Font Style" %}
+    <form action="{% url 'font_style_add' theme.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <input type="submit" value="Submit">
+    </form>
+{% else %}
+
+<form action="{% url 'font_style_edit' theme.id font_style.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Submit">
+</form>
+
+{% endif %}
+
+{% endblock %}

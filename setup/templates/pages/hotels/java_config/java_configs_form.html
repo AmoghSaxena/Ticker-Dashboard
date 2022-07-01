@@ -1,0 +1,28 @@
+{% extends "pages/hotels/details.html" %}
+{% load crispy_forms_tags %}
+
+{% block app_content %}
+<h2>{{title }}</h2>
+
+
+<div class="row">
+    <div class="col-md-4">
+    <h2>{{config.module}}</h2>
+    {% if  title != "Edit Java Configuration" %}
+        <form action="{% url 'java_config_add' hotel.id %}" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Save" class="btn btn-primary">
+        </form>
+    {% else %}
+
+    <form action="{% url 'java_config_edit' hotel.id form.initial.id %}" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Save" class="btn btn-primary">
+    </form>
+    {% endif %}
+    </div>
+</div>
+
+{% endblock %}

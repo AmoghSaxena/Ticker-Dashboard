@@ -1,0 +1,67 @@
+{% extends "pages/theme/details.html" %}
+{% load my_tags %}
+
+
+{% block hotel_menu_content %}
+
+<div class="row">
+    <div class="col-md-8">
+        <h3>Color Styles </h3>
+    </div>
+</div>
+<form method="GET" action="{% url 'color_styles' theme.id %}" >
+    <div class="row form-inline">
+        <div class="col-md-10">
+            <hr>
+            <input type="text" class="form-control" autofocus id="search_text" name="search_text" >
+            <button type="submit" class="btn btn-primary form-control"><i class="fas fa-search"></i> Search</button>
+            <a class="btn btn-primary float-right" href="{% url 'color_style_add' theme.id  %}"><i class="fas fa-plus"></i> Add</a>
+            <hr>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-8">
+        <table class="table table-sm table-striped">
+            <thead class="thead-dark">
+                <th>Name </th>
+                <th>Language Code</th>
+                <th>Attributes</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                {% for color_style in color_styles %}
+                    <tr>
+                        <td>{{color_style.color_style_name}}</td>
+                        <td>{{color_style.lang_code}}</td>
+                        <td><pre>{{ color_style.attributes }}</pre></td>
+                        <td><a href="{% url 'color_style_edit' theme.id color_style.id %}">Edit</a></td>
+                        {% comment %} <!-- <td><a href="{% url 'java_env_varialble' obj.id %}">Edit</a></td> --> {% endcomment %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if color_styles.has_other_pages %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                {% if color_styles.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?{% param_replace page=1 %}">First</a></li>
+                    <li class="page-item"><a class="page-link" href="?{% param_replace page=color_styles.previous_page_number %}">Previous</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="#">
+                    Page {{ color_styles.number }} of {{ color_styles.paginator.num_pages }}.
+                </a></li>
+                {% if color_styles.has_next %}
+                    <li class="page-item"><a class="page-link" href="?{% param_replace page=color_styles.next_page_number %}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="?{% param_replace page=color_styles.paginator.num_pages %}">Last</a></li>
+                {% endif %}
+
+                </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock hotel_menu_content %}

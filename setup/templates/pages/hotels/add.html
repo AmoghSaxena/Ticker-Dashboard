@@ -1,0 +1,28 @@
+{% extends "pages/index.html" %}
+
+
+{% block menu %}
+    {% include 'pages/header2.html' %}
+{% endblock menu %}
+
+{% block app_content %}
+
+<h2>Add Hotel</h2>
+
+ <form action="{% url 'add_hotel' %}" method="POST">
+    {% csrf_token %}
+        <p>Enter the given key to sync hotel information.</p>
+        <p>All required hotel information will be synced from DVP.</p>
+    <div class="row form-inline">
+        <div class="col-md-8">
+            <input type="text" required name="key" placeholder="Key" class="form-control" style="width:100%;" />
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-retweet"></i> Sync from DVP
+            </button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

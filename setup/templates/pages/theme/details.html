@@ -1,0 +1,28 @@
+{% extends "pages/index.html" %}
+
+
+{% block menu %}
+    {% include 'pages/theme/theme_menu.html' with theme=theme %}
+{% endblock menu %}
+
+{% block app_content %}
+<div class="row">
+    <div class="col-md-6">
+        <h1>{{theme.name}}</h1>
+    </div>
+    <div class="col-md-6">
+        <form method="POST" action="{% url 'import_seed' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h5>Import Theme from Sqlite</h5>
+            <input type="file" name="theme_file" required/>
+            <input type="hidden" name="theme" value={{theme.id}} />
+            <button type="submit" class="btn btn-primary">Import</button>
+        </form>
+    </div>
+</div>
+
+
+<hr>
+{% block hotel_menu_content%}
+{% endblock %}
+{% endblock app_content %}

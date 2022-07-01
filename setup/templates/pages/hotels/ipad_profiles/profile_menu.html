@@ -1,0 +1,15 @@
+{% load static i18n %}
+<!-- The sidebar -->
+<div class="sidebar nav navbar-nav">
+  {% comment %} <a href="{% url 'fqdns' hotel.id %}"><i class="fa fa-fw fa-wrench"></i> Profile Theme</a>
+  <a href="{% url 'java_configs_list' hotel.id %}"><i class="fa fa-fw fa-wrench"></i> Main Features</a> {% endcomment %}
+  <a class="" href="{% url 'ipad_profiles_list' hotel.id %}"><i class="fas fa-arrow-left"></i> Profiles</a>
+  <a class="{% if request.resolver_match.url_name == "main_feature_settings_list" %}active{% endif %}" href="{% url 'main_feature_settings_list' hotel.id profile.id%}"><i class="fas fa-magic"></i></i> Main Features</a>
+  <a class="{% if request.resolver_match.url_name == "feature_settings_list" %}active{% endif %}" href="{% url 'feature_settings_list' hotel.id profile.id%}"><i class="fas fa-magic"></i></i> Feature Settings</a>
+  <!-- <a class="{% if request.resolver_match.url_name == "feature_settings_list" %}active{% endif %}" href="{% url 'feature_settings_list' hotel.id profile.id %}"><i class="fas fa-sliders-h"></i> Feature Settings</a> -->
+  <a class="{% if request.resolver_match.url_name == "common_settings_list" %}active{% endif %}" href="{% url 'common_settings_list' hotel.id profile.id %}"><i class="fas fa-tools"></i> Common Settings</a>
+  <a class="{% if request.resolver_match.url_name == "home_feature_settings_list" %}active{% endif %}" href="{% url 'home_feature_settings_list' hotel.id profile.id%}"><i class="fas fa-tablet-alt"></i> Home Features</a>
+  <a class="{% if request.resolver_match.url_name == "hotel_services_list" %}active{% endif %}" href="{% url 'hotel_services_list' profile.id%}"><i class="fas fa-tablet-alt"></i> Hotel Services</a>
+  <a class="{% if request.resolver_match.url_name == "profile_queue" %}active{% endif %}" href="{% url 'profile_queue' hotel.id profile.id%}"><i class="fas fa-tablet-alt"></i> Upload Queue</a>
+</div>
+

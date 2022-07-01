@@ -1,0 +1,78 @@
+{% load my_tags %}
+
+<table class="table table-sm table-striped">
+    <thead class="thead-dark">
+        <th>ID</th>
+        <th>Code</th>
+        <th>Display Name</th>
+        <th>Position</th>
+        <th>Active</th>
+        <th>Image</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+        {% for item in code_items %}
+        <tr>
+            <td>{{item.lang_id}}</td>
+            <td>{{item.lang_code}}</td>
+            <td>{{item.display_name}}</td>
+            <td>{{item.position}}</td>
+            <td>{{item.is_active}}</td>
+            <td>{{item.image}}</td>
+            <td><a href="{% url 'dv_language_code_edit' item.lang_id %}"> Edit</a></td>
+            <td><a class="confirm-delete" href="{% url 'dv_language_code_delete' item.lang_id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<tr>
+<div class="row form-inline">
+        <div class="col-md-12">
+            <hr>
+              <a class="btn btn-primary float-right" data-toggle="modal" data-target="#addLanguage" href="#addLanguage"><i class="fas fa-plus"></i> Add Language</a>
+                </hr>
+        </div>
+    </div>
+
+
+
+<table class="table table-sm table-striped">
+    <thead class="thead-dark">
+        <th>Tag</th>
+        <th>Field</th>
+        <th>Code</th>
+        <th>Module</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{item.tag}}</td>
+            <td>{{item.field}}</td>
+            <td>{{item.lang_code}}</td>
+            <td>{{item.module_name}}</td>
+            <td><a href="{% url 'dv_language_edit' item.id %}"> Edit</a></td>
+            <td><a class="confirm-delete" href="{% url 'dv_language_delete' item.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if items.has_other_pages %}
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+        {% if items.has_previous %}
+            <li class="page-item"><a class="page-link" href="?{% param_replace page=1 %}">First</a></li>
+            <li class="page-item"><a class="page-link" href="?{% param_replace page=items.previous_page_number %}">Previous</a></li>
+        {% endif %}
+        <li class="page-item"><a class="page-link" href="#">
+            Page {{ items.number }} of {{ items.paginator.num_pages }}.
+        </a></li>
+        {% if items.has_next %}
+            <li class="page-item"><a class="page-link" href="?{% param_replace page=items.next_page_number %}">Next</a></li>
+            <li class="page-item"><a class="page-link" href="?{% param_replace page=items.paginator.num_pages %}">Last</a></li>
+        {% endif %}
+    
+        </ul>
+    </nav>
+{% endif %}

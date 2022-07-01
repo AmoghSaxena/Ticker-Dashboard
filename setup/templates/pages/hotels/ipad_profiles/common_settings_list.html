@@ -1,0 +1,143 @@
+{% extends "pages/hotels/ipad_profiles/profile_details.html" %}
+{% load my_tags %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+
+{% block hotel_menu_content %}
+<div class="row">
+    <div class="col-md-10">
+    {% include 'pages/hotels/ipad_profiles/searchbar.html' with search_view='common_settings_list' hotel_id=hotel.id profile_id=profile.id %}
+    </div>
+</div>
+
+<h3>Common Settings:</h3>
+<div class="row">
+    <div class="col-md-10">
+        <table class="table table-sm table-striped">
+            <thead class="thead-dark">
+                <th>Key</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                {% for setting in common_settings %}
+
+                    <tr>
+                        <td>{{setting.key}}</td>
+                        <td><a href="{{setting.pk}}/edit">Edit</a></td>
+                    </tr>
+                    </tr>
+                        <td colspan="2">
+                            <pre>{{setting.value |  pprint }}</pre>
+                        </td>
+                        {% comment %} <!-- <td><a href="{% url 'java_env_varialble' obj.id %}">Edit</a></td> --> {% endcomment %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% comment %} {% if common_settings.has_other_pages %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                {% if common_settings.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ common_settings.previous_page_number }}">Previous</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="#">
+                    Page {{ common_settings.number }} of {{ common_settings.paginator.num_pages }}.
+                </a></li>
+                {% if common_settings.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ common_settings.next_page_number }}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ common_settings.paginator.num_pages }}">Last</a></li>
+                {% endif %}
+
+                </ul>
+        </nav>
+        {% endif %} {% endcomment %}
+    </div>
+</div>
+
+{% endblock hotel_menu_content %}
+
+
+
+
+{% block modal %}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    <form method="POST" action="{% url 'import_common_settings' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+            Import Common Settings
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="file-loading">
+            <input type="hidden" value="{{profile.id}}" name="profile_type" />
+          <input id="input-b9" name="common_settings_json" type="file">
+        </div>
+        <div id="kartik-file-errors"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" title="Your custom upload logic">Import</button>
+      </div>
+
+    </form>
+
+    </div>
+
+  </div>
+</div>
+
+ <!-- Modal -->
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="addCommonSettingLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    <form method="POST" action="{% url 'common_settings_add' hotel.id profile.id %}" >
+        {% csrf_token %}
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCommonSettingLabel">
+            Add Common Setting
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{form | crispy}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" title="Your custom upload logic">Submit</button>
+      </div>
+
+    </form>
+
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+$(document).ready(function() {
+    $("#input-b9").fileinput({
+        showPreview: false,
+        showUpload: false,
+        elErrorContainer: '#kartik-file-errors',
+        allowedFileExtensions: ["jpg", "png", "gif"]
+        //uploadUrl: '/site/file-upload-single'
+    });
+});
+</script>
+
+{% endblock modal %}
+

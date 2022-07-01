@@ -9,24 +9,390 @@
         <title>ticker</title>
         
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"> -->
         <link href="/static/css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="/static/css/preview.css" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <style>
+
+        .nav a:hover{
+          background-color: rgb(206, 206, 206);
+          border-radius: 12px;
+        }
+        .container-fluid .path {
+          border-radius: 20px;
+        }
+        </style>
+
+<script>
+
+  function foselector()
+  {
+    select = document.getElementById("tickerSelecter");
+    option = select.options[select.selectedIndex];
+  
+    if (option.text == "Scrolling Ticker")
+    {
+  
+      document.getElementById("scrolling").hidden = false;
+      document.getElementById("media").hidden = true;
+      document.getElementById("emergency").hidden = true;
+    }
+    else if (option.text == "Media Ticker")
+    {
+  
+      document.getElementById("scrolling").hidden = true;
+      document.getElementById("media").hidden = false;
+      document.getElementById("emergency").hidden = true;
+    }
+  
+    else if (option.text == "Emergency Ticker")
+    {
+  
+      document.getElementById("scrolling").hidden = true;
+      document.getElementById("media").hidden = true;
+      document.getElementById("emergency").hidden = false;
+    }
+    else
+    {
+      document.getElementById("scrolling").hidden = true;
+      document.getElementById("media").hidden = true;
+      document.getElementById("emergency").hidden = true;
+    }
+  }
+  
+  function foenabler(id)
+  {
+    var b;
+    if (id == "primaryEnable")
+    {
+      b= document.getElementById("primaryEnable");
+      if (b.checked)
+      {
+        document.getElementById("primary").hidden = false;
+      }
+      else
+      {
+        document.getElementById("primary").hidden = true;
+      }
+    }
+  
+    if (id == "secondaryEnable")
+    {
+      b= document.getElementById("secondaryEnable");
+      if (b.checked)
+      {
+        document.getElementById("secondary").hidden = false;
+      }
+      else
+      {
+        document.getElementById("secondary").hidden = true;
+      }
+    }
+  
+    if (id == "staticEnable")
+    {
+      b= document.getElementById("staticEnable");
+      if (b.checked)
+      {
+        document.getElementById("dynamicEnable").checked = false;
+        document.getElementById("dynamic").hidden = true;
+        document.getElementById("static").hidden = false;
+      }
+      else
+      {
+        document.getElementById("static").hidden = true;
+      }
+    }
+  
+    if (id == "dynamicEnable")
+    {
+      b= document.getElementById("dynamicEnable");
+      if (b.checked)
+      {
+        document.getElementById("staticEnable").checked = false;
+        document.getElementById("static").hidden = true;
+        document.getElementById("dynamic").hidden = false;
+      }
+      else
+      {
+        document.getElementById("dynamic").hidden = true;
+      }
+    }
+  
+    if (id == "emergencySelecter") {
+          select = document.getElementById("emergencySelecter");
+          option = select.options[select.selectedIndex];
+  
+          if (option.text == "Custom") {
+              document.getElementById("custom").hidden = false;
+          } else {
+              document.getElementById("custom").hidden = true;
+          }
+    }
+  
+    if (id == "scheduleenabler")
+    {
+      b=document.getElementById("scheduleenabler");
+      if (b.checked)
+      {
+        document.getElementById("occurancysection").hidden = true;
+        document.getElementById("datatimesection").hidden = true;
+      }
+      else
+      {
+        document.getElementById("occurancysection").hidden = false;
+        document.getElementById("datatimesection").hidden = false;
+      }
+    }
+  
+    if (id == "onetime")
+    {
+      b=document.getElementById("onetime");
+      if (b.checked)
+      {
+        document.getElementById("endDate").hidden = true;
+        document.getElementById("frequency").hidden = true;
+      }
+      else
+      {
+        document.getElementById("endDate").hidden = false;
+        document.getElementById("frequency").hidden = false;
+      }
+    }
+  
+    if (id == "recurring")
+    {
+      b=document.getElementById("recurring");
+      if (b.checked)
+      {
+        document.getElementById("endDate").hidden = false;
+        document.getElementById("frequency").hidden = false;
+      }
+      else
+      {
+        document.getElementById("endDate").hidden = true;
+        document.getElementById("frequency").hidden = true;
+      }
+    }
+    
+  }
+  
+  function foloader()
+  {
+    document.getElementById("scrolling").hidden = true;
+    document.getElementById("media").hidden = true;
+    document.getElementById("emergency").hidden = true;
+    document.getElementById("primary").hidden = true;
+    document.getElementById("secondary").hidden = true;
+    document.getElementById("static").hidden = true;
+    document.getElementById("dynamic").hidden = true;
+    document.getElementById("emergency").hidden = true;
+    document.getElementById("custom").hidden = true;
+    document.getElementById("endDate").hidden = true;
+    document.getElementById("frequency").hidden = true;
+    document.getElementById("primary_file_obj").hidden = true;
+    document.getElementById("primary_logo_pos").hidden = true;
+    document.getElementById("static_logo").hidden = true;
+    document.getElementById("dynamicTickerMotion").hidden = true;
+    document.getElementById("arrowDown").hidden = true;
+  }
+
+  function fologoenabler(id)
+  {
+    var b;
+    if (id== "primaryLogoEnabler")
+    {
+      b=document.getElementById("primaryLogoEnabler");
+      if(b.checked)
+      {
+        document.getElementById("primary_file_obj").hidden = false;
+        document.getElementById("primary_logo_pos").hidden = false;
+      }
+      else
+      {
+        document.getElementById("primary_file_obj").hidden = true;
+        document.getElementById("primary_logo_pos").hidden = true;
+      }
+    }
+    if (id=="staticTickerLogoEnabler")
+    {
+      b=document.getElementById("staticTickerLogoEnabler")
+      if(b.checked)
+      {
+        document.getElementById("static_logo").hidden = false;
+      }
+      else
+      {
+        document.getElementById("static_logo").hidden = true;
+      }
+    }
+  }
+  
+  function profile() {
+    var x = document.getElementById("profileContent");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+      document.getElementById("arrowLeft").hidden = false;
+      document.getElementById("arrowDown").hidden = true;
+    } else {
+      x.style.display = "none";
+      document.getElementById("arrowLeft").hidden = true;
+      document.getElementById("arrowDown").hidden = false;
+    }
+  }
+  
+function Filevalidation(id)
+{
+    FileTypeChecker(id);
+    var fi;
+    if (id=="staticTickerLogo")
+    {fi = document.getElementById("staticTickerLogo");}
+
+    if (id=="primaryLogo")
+    {fi = document.getElementById("primaryLogo");}
+    
+    if (id=="dynamicTickerVideo")
+    {fi = document.getElementById("dynamicTickerVideo");}
+    
+    if (fi.files.length > 0)
+    {
+        for (const i = 0; i <= fi.files.length - 1; i++)
+        { 
+            const fsize = fi.files.item(i).size;
+            const file = Math.round((fsize / 1024));
+            // The size of the file.
+            if (file >= 5120)
+            {
+                alert("File too Big, please select a file less than 5MB");
+                if (id=="staticTickerLogo")
+                {
+                    document.getElementById("staticTickerLogo").value='';
+                }
+                if (id=="primaryLogo")
+                {
+                    document.getElementById("primaryLogo").value='';
+                }
+                if (id=="dynamicTickerVideo")
+                {
+                    document.getElementById("dynamicTickerVideo").value='';
+                }
+            }
+        }
+    }
+}
+
+function FileTypeChecker(id)
+{
+    if (id=="staticTickerLogo" || id=="primaryLogo")
+    {
+        var fileInput;
+
+        if (id=="staticTickerLogo")
+        {fileInput = document.getElementById("staticTickerLogo").files[0];}
+
+        if(id=="primaryLogo")
+        {fileInput = document.getElementById("primaryLogo").files[0];}
+
+        var allowed = ["png"];
+        var found = false;
+
+        allowed.forEach(function(extension) {
+        if (fileInput.type.match('.'+extension)) {
+            found = true;
+        }
+        })
+
+        if(found) {
+        }
+        else{
+        alert("Allowed file type is PNG");
+
+        if (id=="staticTickerLogo")
+        {document.getElementById("staticTickerLogo").value='';}
+
+        if(id=="primaryLogo")
+        {document.getElementById("primaryLogo").value='';}        
+        }
+    }
+
+    if (id=="dynamicTickerVideo")
+    {
+        var fileInput = document.getElementById("dynamicTickerVideo").files[0];
+        var allowed = ["mp4"];
+        var found = false;
+
+        allowed.forEach(function(extension) {
+        if (fileInput.type.match('.'+extension)) {
+            found = true;
+        }
+        })
+
+        if(found){
+        }
+        else{
+        alert("Allowed file type is MP4");
+        document.getElementById("dynamicTickerVideo").value='';
+        }
+    }
+
+}
+
+function fopositionbox(id)
+{
+  var select;
+  if (id=="staticPositionBox")
+  {
+    select = document.getElementById("staticPositionBox");
+    option = select.options[select.selectedIndex];
+
+    if(option.text == "center")
+    {
+      document.getElementById("staticTickerLogoEnabler").checked = true;
+      fologoenabler("staticTickerLogoEnabler");
+      document.getElementById("staticTickerLogoEnabler").disabled = true;
+    }
+    else
+    {
+      document.getElementById("staticTickerLogoEnabler").checked = false;
+      fologoenabler("staticTickerLogoEnabler");
+      document.getElementById("staticTickerLogoEnabler").disabled = false;
+    }
+
+  }
+
+  if (id=="dynamicTickerPosition")
+  {
+    select = document.getElementById("dynamicTickerPosition");
+    option = select.options[select.selectedIndex];
+
+    if(option.text == "center")
+    {
+      document.getElementById("dynamicTickerMotion").hidden = false;
+    }
+    else
+    {
+      document.getElementById("dynamicTickerMotion").hidden = true;
+    }
+
+  }
+}
+
+</script>
+
     </head>
-    <body class="sb-nav-fixed" onload=fostaticEnabler()>
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark overflow-hidden" style="background-image: url('/static/image/header.jpg');">
+    <body class="sb-nav-fixed" style="background-color: #F4ECF7;" onload="foloader();">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-white overflow-hidden rounded-border m-3" style="background-image: url('/static/image/headers.jpg');">
             <!-- Navbar Brand-->
-            <a class="bg-dark navbar-brand ps-3 fs-2 fw-bold text-primary ml-2" style="background-image: url('/static/image/header.jpg');" href="{% url 'index'%}"><i class="fas fa-cogs text-warning"></i> ticker</a>
+            <!-- <a class="bg-dark navbar-brand ps-3 fs-2 fw-bold text-primary ml-2" style="background-image: url('/static/image/header.jpg');" href="{% url 'index'%}"><i class="fas fa-cogs text-warning"></i> ticker</a> -->
+
             <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 fs-4 text-primary" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+
+            <button class="btn btn-link btn-sm m-2 me-lg-0 fs-5 text-dark" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-            <!-- <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control border border-success" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-outline-success" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form> -->
+            <div class="form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+              <a class="m-3" href="{% url 'index'%}"><img src="/static/image/Ticker-logos_transparent.png" style="width: 150px;"></a>
+            </div>
             <!-- Navbar-->
             <!-- <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4 bg-dark">
                 <li class="nav-item dropdown">
@@ -40,90 +406,53 @@
                 </li>
             </ul> -->
         </nav>
+        
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
-                <nav class="mask bg-dark sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" style="background-image: url('/static/image/header.jpg'); height: 100vh;">
+                <nav class="sb-sidenav accordion" id="sidenavAccordion">
 
-                    <div class="sb-sidenav-menu">
+                    <div class="sb-sidenav-menu bg-white m-3 mt-4 rounded-border ">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading text-white"></div>
-                            <a class="nav-link m-2 {% if request.path == '/index' or request.path == '/'%} active border border-primary rounded border-2 {% endif %}" href="{% url 'index'%}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-sidenav-menu-heading"></div>
+                            <a class="nav-link mx-2 my-1 border-bottom {% if request.path == '/index/' or request.path == '/'%} active text-white rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'index'%}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt fs-5"></i></div>
                                 Dashboard
                             </a>
-                            <a class="nav-link m-2 {% if request.path == '/createticker'%} active border border-primary rounded border-2 {% endif %}" href="{% url 'createticker'%}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-square-plus"></i></div>
+                            <a class="nav-link mx-2 my-1 border-bottom {% if request.path == '/createticker/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'createticker'%}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-square-plus fs-5"></i></div>
                                 Create Ticker
                             </a>
-                            <a class="nav-link m-2 {% if request.path == '/preview'%} active border border-primary rounded border-2 {% endif %}" href="{% url 'preview'%}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-tv"></i></div>
+                            {% comment %} <a class="nav-link mx-2 my-1 border-bottom {% if request.path == '/preview/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'preview'%}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-tv fs-5"></i></div>
                                 Preview
-                            </a>
-                            <a class="nav-link m-2 {% if request.path == '/active'%} active border border-primary rounded border-2 {% endif %}" href="{% url 'active'%}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-monitor-waveform"></i></div>
+                            </a> {% endcomment %}
+                            <a class="nav-link mx-2 my-1 border-bottom {% if request.path == '/active/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'active'%}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-bolt fs-5"></i></div>
                                 Active
                             </a>
-                            <a class="nav-link m-2 {% if request.path == '/pending'%} active border border-primary rounded border-2 {% endif %}" href="{% url 'pending'%}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-spinner"></i></div>
+                            <!-- <a class="nav-link mx-2 my-1 border-bottom {% if request.path == '/pending/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'pending'%}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-spinner fs-5"></i></div>
                                 Pending
-                            </a>
-                            <a class="nav-link m-2 {% if request.path == '/history'%} active border border-primary rounded border-2 {% endif %}" href="{% url 'history'%}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                            </a> -->
+                            <a class="nav-link mx-2 my-1 border-bottom {% if request.path == '/history/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'history'%}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-clock-rotate-left fs-5"></i></div>
                                 History
                             </a>
 
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user fa-fw"></i></div>
+                            <a class="nav-link collapsed mx-2 my-1 text-dark" onclick="profile()">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user fa-fw fs-5"></i></div>
                                 Profile
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                <div  id="arrowLeft" class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-left"></i></div>
+                                <div  id="arrowDown" class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <div class="collapse" id="profileContent">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/admin">Settings</a>
-                                    <a class="nav-link" href="#">Activity Log</a>
-                                    <a class="nav-link" href="/accounts/logout/">Logout</a>
+                                    <a class="nav-link text-dark" href="#"><i class="fa fa-user-circle fa-fw fs-6"></i> User</a> 
+                                    <a class="nav-link text-dark" href="/admin"><i class="fa fa-cog fa-fw fs-6"></i> Settings</a>
+                                    <a class="nav-link text-dark" href="/accounts/logout/"><i class="fa fa-sign-out fa-fw fs-6"></i> Logout</a>
                                 </nav>
                             </div>
-                            <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Pages
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
-                                            <a class="nav-link" href="register.html">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">401 Page</a>
-                                            <a class="nav-link" href="404.html">404 Page</a>
-                                            <a class="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
-                                </nav>
-                            </div> -->
-                            <!-- <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a> -->
+                            
                         </div>
                     </div>
                 </nav>

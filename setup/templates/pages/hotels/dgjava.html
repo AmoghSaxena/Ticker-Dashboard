@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-4">
+        <h3>DGJAVA Config</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+                <th>Key </th>
+                <th>Value</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                {% for obj in variables %}
+                    <tr>
+                        <td>{{obj.key}}</td>
+                        <td>{{obj.value}}</td>
+                        <td><a href="{% url 'java_env_varialble' obj.id %}">Edit</a></td>
+                    </tr>
+                {% endfor %} 
+            </tbody>
+        </table>
+        
+        <div class="modal hide" id="editTag">
+            <form class="well" method="post" action="/">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3>Editing Contact</h3>
+                </div>
+                <div class="modal-body">
+                    {% csrf_token %}
+                    
+                </div>
+                <div class="modal-footer">
+                    <input class="btn btn-primary" type="submit" value="Save" />
+                    <input name="cancel" class="btn" type="submit" value="Cancel"/>
+                </div>
+            </form>
+        </div> 
+
+    </div>
+        
+</div>
+
+{% endblock content %}

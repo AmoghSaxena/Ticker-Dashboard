@@ -1,0 +1,13 @@
+celery==5.2.7
+Django==4.0.4
+django-admin-volt==0.0.5
+django-celery-beat==2.3.0
+django-celery-results==2.3.1
+mysql-connector==2.2.9
+packaging==21.3
+Pillow==9.1.1
+PyMySQL==1.0.2
+python-crontab==2.6.0
+python-dateutil==2.8.2
+pytz==2022.1
+redis==4.3.3

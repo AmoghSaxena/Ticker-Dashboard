@@ -1,0 +1,98 @@
+{% extends "pages/hotels/details.html" %}
+
+
+{% block hotel_menu_content %}
+
+  <h2>Publish Changes</h2>
+
+  <div class="row">
+
+    <div class="col-md-12">
+      <h4><b><u>Settings</u></b></h4>
+      <div class="row">
+        <div class="col-md-12">
+          <h5>Tables Changed</h5>
+          {% for list in queue.settings_table_added %}
+            <p style="color: green">{{ list.name }}</p>
+          {% endfor %}
+          {% for list in queue.settings_table_deleted %}
+            <p style="color: red">{{ list.name }}</p>
+          {% endfor %}
+          <h5>Data Changed</h5>
+          {% for name, list in queue.settings_table_altered.items %}
+            <p>{{ name }}</p>
+            <div style="margin-left: 10%">
+              {% for d in list %}
+                <p style="color:
+                        {% if d.action == "added" %}
+                          green
+                        {% elif d.action == "deleted" %}
+                          red
+                        {% endif %}">
+                  {{ d.name }}</p>
+              {% endfor %}
+            </div>
+
+          {% endfor %}
+
+        </div>
+      </div>
+      <hr style="height:2px;border-width:0;color:gray;background-color:black">
+
+      <h4><b><u>Language</u></b></h4>
+      <div class="row">
+        <div class="col-md-12">
+          <h5>Tables Changed</h5>
+          {% for list in queue.language_table_added %}
+            <p style="color: green">{{ list.name }}</p>
+          {% endfor %}
+          {% for list in queue.language_table_deleted %}
+            <p style="color: red">{{ list.name }}</p>
+          {% endfor %}
+          <h5>Data Changed</h5>
+          {% for name, list in queue.language_table_altered.items %}
+            <p>{{ name }}</p>
+            <div style="margin-left: 10%">
+              {% for d in list %}
+                <p style="color:
+                        {% if d.action == "added" %}
+                          green
+                        {% elif d.action == "deleted" %}
+                          red
+                        {% endif %}">
+                  {{ d.name }}</p>
+              {% endfor %}
+            </div>
+
+          {% endfor %}
+        </div>
+      </div>
+      <hr style="height:2px;border-width:0;color:gray;background-color:black">
+
+      <h4><b><u>Assets</u></b></h4>
+      <table class="table table-sm table-striped">
+            <thead class="thead-dark">
+                <th>Asset Name</th>
+                <th>image</th>
+            </thead>
+            <tbody>
+                {% for assets in queue.image %}
+                    <tr>
+                        <th style="color:
+                        {% if assets.action == "added" %}
+                          green
+                        {% elif assets.action == "deleted" %}
+                          red
+                        {% endif %}">
+                  {{ assets.name }}</th>
+                        <td>
+                            <img height="42" width="42" src="{{assets.table}}" alt="{{assets.assetName}}" />
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+  </div>
+
+{% endblock %}

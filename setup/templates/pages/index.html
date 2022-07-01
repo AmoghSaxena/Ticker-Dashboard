@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% block hotel_bar %}
+{% if hotel %}
+<div class="row hotel-bar" style="z-index:-1;">
+    <div class="col-md-12">
+            <div class="btn btn-primary" style="float:left;position:fixed;">
+                <a style="color:#FFF;" href="{% url 'index' %}"><i class="fas fa-bars"></i> DigiValet Hotels</a>
+            </div>
+            <div class="hotel-name">
+                {{hotel.name}} ({{hotel.hotel_code}})
+                <BR><span class="hotel-key">{{hotel.hotel_key}}</span>
+            </div>
+    </div>
+</div>
+{% endif %}
+{% endblock hotel_bar %}
+
+<div class="row">
+
+    <div class="col-md-2">
+        {% block menu %}
+        {% endblock %}
+    </div>
+
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="height:20px;">
+                </div>
+                {% block app_content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).on('click', '.confirm-delete', function(){
+    return confirm('Are you sure you want to delete this?');
+})
+</script>
+
+
+{% endblock content %}

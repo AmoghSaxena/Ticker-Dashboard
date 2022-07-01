@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <form method="POST" action="{% url 'add_profile' %}">
+        {% csrf_token %}
+        <input type="text" placeholder="Enter Profile Name (Without spaces)" name="name">
+        <button type="submit" >Save</button>
+    </form>
+
+
+    {% include 'pages/profiles/profiles.html' with profiles=profiles %}
+
+{% endblock %}

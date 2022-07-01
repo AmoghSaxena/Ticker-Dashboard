@@ -1,8 +1,17 @@
 function schedulebuttonenabler(id)
 {
-    if(id=="scheduleenabler")
+    if(id == "scheduleenabler")
     {
-        document.getElemenetById("occurancysection").hidden=true;
-        document.getElemenetById("datatimesection").hidden=true;
+        var b = document.getElementById("scheduleenabler");
+        if (b.checked)
+        {
+            document.getElementById("occurancysection").hidden = true;
+            document.getElementById("datatimesection").hidden = true;
+        }
+        else
+        {
+            document.getElementById("occurancysection").hidden = false;
+            document.getElementById("datatimesection").hidden = false;
+        }
     }
 }

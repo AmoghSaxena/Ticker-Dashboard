@@ -1,0 +1,27 @@
+{% extends "pages/index.html" %}
+
+
+{% block menu %}
+    {% include 'pages/header2.html' %}
+{% endblock menu %}
+
+{% block app_content %}
+{{title }}
+
+{% if  title != "Edit Color Style" %}
+    <form action="{% url 'color_style_add' theme.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <input type="submit" value="Submit">
+    </form>
+{% else %}
+
+<form action="{% url 'color_style_edit' theme.id form.initial.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Submit">
+</form>
+
+{% endif %}
+
+{% endblock %}

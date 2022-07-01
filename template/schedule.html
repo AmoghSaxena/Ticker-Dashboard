@@ -4,15 +4,14 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h3 class="mt-4">Schedule</h3>
+            <h3 class="mt-4">Create Ticker <i class="fas fa-long-arrow-alt-right"></i> Preview <i class="fas fa-long-arrow-alt-right"></i> <strong><b>Schedule</b></strong></h3>
             <div class="m-2">
                 <div class="border border-primary rounded bg-light">
                     <form method="POST" class=" border rounded m-2" id="mainform" enctype="multipart/form-data">
                         {% csrf_token %}
-                        
                             <div class="m-1" id="">
                                 <div id="">
-                                    <div class="m-3 h2">Schedule Ticker: <span class="text-danger">235</span></div>
+                                    <div class="m-3 h2">Ticker ID : <span class="text-danger" name="ticker_id_field">{{ticker_id}}</span></div>
                                     <div class="row m-3">
                                         
                                         <div class="col-md-4">
@@ -34,7 +33,7 @@
                                         <div class="col-md-4">
                                             <label>Rooms</label>
                                             <select name="roomselection" multiple id="roomselection" class="form-select mb-3 mb-md-0 p-3 selectpicker" aria-label="Default select example">
-                                                {% for items in rooms %}
+                                                {% for items in keys %}
                                                 <option value="{{items}}">{{items}}</option>
                                                 {% endfor %}
                                             </select>
@@ -43,7 +42,7 @@
                                     <div class="row m-3">
                                         <div class="col-md-4">
                                             <div class="form-check form-switch mb-3">
-                                                <input name="scheduleenabler" class="form-check-input" type="checkbox" value="" id="scheduleenabler" onclick=schedulebuttonenabler(this.id)>
+                                                <input name="scheduleenabler" class="form-check-input" type="checkbox" value="" id="scheduleenabler" onclick="schedulebuttonenabler(this.id);">
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     Schedule now 
                                                 </label>
@@ -72,19 +71,19 @@
                                         <div class="col-md-4">
                                             <label>Start Date | Time</label>
                                             <div class="form-group form-floating">
-                                                <input type="datetime-local" class="form-control" id="startDate" name="startDate" placeholder="Enter Date">
+                                                <input type="datetime-local" class="form-control" id="startDate" name="start_date" placeholder="Enter Date">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <label>End Date | Time</label>
                                             <div class="form-group form-floating">
-                                                <input type="datetime-local" class="form-control" id="endDate" name="endDate" placeholder="Enter Date">
+                                                <input type="datetime-local" class="form-control" id="endDate" name="end_date" placeholder="Enter Date">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Display Frequency | Display in Every</label>
                                             <select name="delay" id="" onchange=foeventEnabler(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                {% for items in frequency %}
+                                                {% for items in routine %}
                                                 <option>{{items}}</option>
                                                 {% endfor %}
                                             </select>

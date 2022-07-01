@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% csrf_token %}
+
+<div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+        <h3>Features: {{profile.name}} </h3>
+        
+        <div id="tree1">
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script type="text/javascript">
+    
+    data = [];
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+    function update_feature(id, put_data){
+                fetch('/api/main_features/'+id+"/", {
+                method: 'patch',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "X-CSRFToken": csrftoken,
+                    "Accept": "application/json"           
+                },
+                body: JSON.stringify(put_data)
+        })
+        .then(response => response.json())
+        .then(jsonData => {
+            console.log(jsonData);
+        })
+        .catch(err => {
+            alert(err);
+        });
+    }
+
+    function selected(node, id, index) {
+        console.log(index);
+        put_data =  {'id':id}
+        if(node.checked) {
+            console.log("Checked ");
+            put_data =  {'id':id, "enabled": '1'};
+        } else {
+            console.log("UnChecked ");
+            put_data =  {'id':id, "enabled": '0'};
+        }
+        update_feature(id, put_data);
+    }
+        
+
+    fetch('/api/main_features/profile/'+{{profile.id}}+"/", {
+            method: 'get'
+    })
+    .then(response => response.json())
+    .then(jsonData => {
+        data = jsonData;
+        $('#tree1').tree({
+            data: data,
+            autoOpen: true,
+            dragAndDrop: true,
+            onCreateLi: function(node, $li) {
+                if(node.enabled){
+                    $li.find('.jqtree-element').append(
+                        '<input type="checkbox" style="margin-left:10px;" onclick="selected(this, '+node.id+')" checked >'
+                    );
+                } else{
+                    $li.find('.jqtree-element').append(
+                        '<input type="checkbox" style="margin-left:10px;" onclick="selected(this, '+node.id+')" >'
+                    );    
+                }
+            }
+        });
+
+        $('#tree1').on(
+            'tree.move',
+            function(event) {
+                moved_node = event.move_info.moved_node;
+                target_node = event.move_info.target_node;
+                position_name = event.move_info.position;
+                $(target_node.element).parent().children().each(function( index ) {
+                    console.log( index + ": " + $( this ).text() );
+                });                
+                console.log('moved_node', moved_node);
+                index1 = $(moved_node.element).index();
+                console.log(index1 + " - ");
+                //console.log('target_node', target_node);
+                index2 = $(target_node.element).index();
+                console.log(event.move_info.position + " " + index2 + " - ");
+                console.log('position', event.move_info.position);
+                //console.log('previous_parent', event.move_info.previous_parent);
+
+                put_data =  {'id':moved_node.id, "position": target_node.position};
+                if(position_name=='inside'){
+                    parent_id = target_node.id;
+                    put_data['parent'] = parent_id;
+                }
+                update_feature(moved_node.id, put_data);
+
+                put_data =  {'id':target_node.id, "position": moved_node.position};
+                update_feature(target_node.id, put_data);
+                
+                if (index1<index2){
+                    console.log("Moved Downwards");
+                    console.log(moved_node.name);
+                    console.log(moved_node.id);
+                } else {
+                    console.log("Moved Upwards");
+                    console.log(moved_node.name);
+                    console.log(moved_node.id);
+                }
+            }
+        );
+        
+
+    })
+    .catch(err => {
+        alert(err);
+    });
+
+
+
+
+
+    </script>
+
+{% endblock content %}

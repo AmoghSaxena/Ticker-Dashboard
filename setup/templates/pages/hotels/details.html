@@ -1,0 +1,14 @@
+{% extends "pages/index.html" %}
+
+{% block navbar_header %}
+{% endblock navbar_header %}
+
+{% block menu %}
+    {% include 'pages/hotels/hotel_menu.html' with hotel=hotel %}
+{% endblock menu %}
+
+{% block app_content %}
+    {% block hotel_menu_content%}
+    {% endblock %}
+
+{% endblock app_content %}

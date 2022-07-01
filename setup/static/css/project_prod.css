@@ -1,0 +1,119 @@
+/* These styles are generated from project.scss. */
+a {
+  color: #8d2e2e;
+}
+
+body {
+  color: #343A40;
+  font-family: Lato, Helvetica, sans-serif;
+}
+
+.alert-debug {
+  color: black;
+  background-color: white;
+  border-color: #d6e9c6;
+}
+
+.alert-error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+
+/* Style the sidebar - fixed full height */
+.sidebar {
+  height: 600px;
+  width: 100%;
+  background-color: #3E454D;
+  float:left;
+  z-index: 1;
+  overflow-x: hidden;
+}
+
+/* Style sidebar links */
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  color: #ffffff;
+  display: block;
+}
+
+/* Style links on mouse-over */
+.sidebar a:hover {
+  color: #f1f1f1;
+  background-color: #ff0000;
+}
+
+.sidebar .active {
+  background-color: #8d2e2e;
+}
+/* Style the main content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  padding: 0px 10px;
+}
+
+/* Add media queries for small screens (when the height of the screen is less than 450px, add a smaller padding and font-size) */
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
+  }
+}
+
+
+
+body .btn-primary {
+  color: #fff;
+  background-color: #8d2e2e;
+  border-color: #43425D;
+  transition: background 1s;
+}
+
+.table .thead-dark th{
+  background-color: #8d2e2e;
+  border: None;
+  font-weight: normal;
+}
+.table-striped > tbody > tr:nth-child(2n) > td, .table-striped > tbody > tr:nth-child(2n) > th {
+   background-color: #d2d2cc;
+}
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+   background-color: #dee2e6;
+}
+h2 {
+  color: #3E454D;
+  padding-bottom: 10px;
+}
+
+.breadcrumb {
+  padding: 0px;
+  background-color: #FFF;
+}
+
+.row {
+  margin-bottom: 10px;
+}
+
+
+.hotel-bar {
+  font-size: 24px;
+  color: #fff;
+  padding:10px;
+  height: 60px;
+  width: 100%;
+  background-color: #ff0000;
+  margin-bottom: 0px;
+}
+
+
+.hotel-name {
+  padding-left: 0px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.hotel-key {
+  padding-left: 0px;
+  font-size: 12px;
+  text-align: center;
+}

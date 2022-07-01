@@ -19,24 +19,31 @@
                             <div class="col-lg-5 m-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header">
-                                        <h3 class="text-center font-weight-light my-4 fs-2 fw-bold text-success"><i class="fas fa-dice-d20"></i> ticker</h3>
+                                        <div class="text-center p-3">
+                                            <a href="{% url 'index'%}"><img src="/static/image/Ticker-logos_transparent.png" style="width: 200px;"></a>
+                                        </div>
                                     </div>
-                                    <div class="text-center fw-bold text-white bg-danger m-3">
-                                        {{comment}}
+                                    <div class="text-success m-3">
+                                        {% if msg %}
+                                            <div class="text-danger">
+                                                {{ msg | safe }}
+                                            </div>
+                                        {% else %}
+                                            Add your credentials
+                                        {% endif %}   
                                     </div>
-
                                     <div class="card-body">
                                         <form method="post">
                                             {% csrf_token %}
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="uname" id="username" type="text" placeholder="username" />
-                                                <label for="inputEmail">Username</label>
+                                                {{ form.username }}
+                                                <label for="inputUsername">Username</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" name="passwd" type="password" placeholder="Password" />
+                                                {{ form.password }}
                                                 <label for="inputPassword">Password</label>
                                             </div>
-                                            <center><input type="submit" class="btn btn-success btn-lg btn-block" value="login"></center>
+                                            <input type="submit" class="border-0 rounded text-white p-3 bg-gradient-info" value="login" style="width: 100%;">
                                         </form>
                                     </div>
                                 </div>

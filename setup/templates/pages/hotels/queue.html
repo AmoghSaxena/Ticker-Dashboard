@@ -1,0 +1,31 @@
+<h4>Activity</h4>
+<table class="table table-sm table-striped">
+    <thead class="thead thead-dark">
+        <th>State</th>
+        <th>Room Type</th>
+        <th>Update Type</th>
+        <th>Theme</th>
+        <th>Error</th>
+        <th>Started On</th>
+    </thead>
+    <tbody>
+    {% for item in items %}
+    <tr>
+        <td>{{item.state}}</td>
+        <td>{{item.room_type}}</td>
+        <td>{{item.upload_type}}</td>
+        <td>
+        {% if item.theme_id %}
+            <a href={% url 'theme_details' item.theme_id %}>View Theme</a>
+        {% endif %}
+        </td>
+        <td>{{item.error}}</td>
+        <td>{{item.created_on}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    AutoRefresh(10000);
+</script>

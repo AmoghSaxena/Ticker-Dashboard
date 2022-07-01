@@ -1,0 +1,27 @@
+{% extends "pages/index.html" %}
+
+
+{% block menu %}
+    {% include 'pages/header2.html' %}
+{% endblock menu %}
+
+{% block app_content %}
+<h2>{{title }}</h2>
+
+{% if  title != "Edit Theme" %}
+    <form action="{% url 'add_theme'  %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+{% else %}
+
+<form action="{% url 'edit_theme' form.initial.id %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" class="btn btn-primary" value="Save">
+</form>
+
+{% endif %}
+
+{% endblock %}

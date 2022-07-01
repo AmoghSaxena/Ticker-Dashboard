@@ -1,0 +1,35 @@
+{% extends "pages/index.html" %}
+
+{% block menu %}
+    {% include 'pages/header2.html' %}
+{% endblock menu %}
+
+{% block app_content %}
+
+<h2>iPad Themes</h2>
+<div class="row">
+    <div class="col-md-8">
+        <table class="table table-sm table-striped">
+            <thead class="thead-dark">
+                <th>Theme Name</th>
+                <th colspan="2"><center>Actions</center></th>
+            </thead>
+            <tbody>
+                {% for theme in themes %}
+                <tr>
+                    <td>{{theme.name}}</td>
+                    <td><a href="{% url 'setting_assets_list' theme.id %}"><i class="fa fa-eye" aria-hidden="true"></i> View</a></td>
+                    <td><a href="{% url 'edit_theme' theme.id %}"><i class="fas fa-pencil-alt"></i> Edit</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4">
+        {% if perms.ipad_config.add_theme %}
+        <a href="{% url 'add_theme' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Theme</a>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

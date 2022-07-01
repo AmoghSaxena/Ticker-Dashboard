@@ -1,0 +1,50 @@
+{% extends "pages/hotels/details.html" %}
+
+
+{% block hotel_menu_content%}
+<h2>
+    FQDNs
+</h2>
+
+
+<div class="row">
+    <div class="col-md-8">
+            <table class="table table-sm table-striped">
+                <thead class="thead-dark">
+                    <th>Server Name</th>
+                    <th>FQDN</th>
+                </thead>
+                <tr>
+                    <td>DVS</td><td>{{fqdns.DVS}}</td>
+                </tr>
+                <tr>
+                    <td>DAS</td><td>{{fqdns.DAS}}</td>
+                </tr>
+                <tr>
+                    <td>HIS</td><td>{{fqdns.HIS}}</td>
+                </tr>
+                <tr>
+                    <td>MDS</td><td>{{fqdns.MDS}}</td>
+                </tr>
+                <tr>
+                    <td>VOD</td><td>{{fqdns.VOD}}</td>
+                </tr>
+                <tr>
+                    <td>BUTLER</td><td>{{fqdns.BUTLER}}</td>
+                </tr>
+                <tr>
+                    <td>Analytics</td><td>{{fqdns.ANALYTICS}}</td>
+                </tr>
+            </table>
+    </div>
+    <div class="col-md-4">
+        {% if perms.ipad_config.add_hotel %}
+        <form action="{% url 'sync_fqdns' hotel.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary"><i class="fas fa-retweet"></i> Sync From DVP</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock hotel_menu_content %}

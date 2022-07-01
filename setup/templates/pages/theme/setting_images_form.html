@@ -1,0 +1,20 @@
+{% extends "pages/theme/details.html" %}
+{% load crispy_forms_tags %}
+
+{% block hotel_menu_content %}
+
+  <h3>Edit setting asset</h3>
+
+  <div class="row">
+    <div class="col-md-4">
+      <form method="POST" enctype="multipart/form-data"
+            action="{% url 'setting_assets_edit' theme.id setting_asset.id %}">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Save" class="btn btn-primary">
+      </form>
+    </div>
+  </div>
+
+
+{% endblock hotel_menu_content %}

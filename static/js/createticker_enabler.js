@@ -1,6 +1,6 @@
 function fostaticEnabler() {
-	document.getElementById("primary_form").hidden = true;
-	document.getElementById("secondary_form").hidden = true;
+	document.getElementById("static_form").hidden = true;
+	// document.getElementById("secondary_form").hidden = true;
 	document.getElementById("animation_form").hidden = true;
 	document.getElementById("emergency_form").hidden = true;
 	document.getElementById("hello1").hidden = true;
@@ -14,69 +14,64 @@ function fostaticEnabler() {
 	document.getElementById("static_logo").hidden = true;
 	document.getElementById("emergency_text").hidden = true;
 	document.getElementById("submit").disabled = true;
-	document.getElementById("staticticker").style.background = "#00ab66";
-	document.getElementById("primaryticker").style.background = "#292b2c";
-	document.getElementById("secondaryticker").style.background = "#292b2c";
-	document.getElementById("animationticker").style.background = "#292b2c";
-	document.getElementById("occurancysection").hidden = true;
-	document.getElementById("datatimesection").hidden = true;
+	document.getElementById("scrollingticker").style.background = "#00ab66";
+	document.getElementById("multimediaticker").style.background = "#292b2c";
+
+	// document.getElementById("occurancysection").hidden = true;
+	// document.getElementById("datatimesection").hidden = true;
 }
 
 function fosubmit(id) {
-	if (id == "staticticker") {
+	if (id == "multimediaticker") {
 		document.getElementById("static_form").hidden = false;
-		document.getElementById("staticticker").style.background = "#00ab66";
-		document.getElementById("primaryticker").style.background = "#292b2c";
-		document.getElementById("secondaryticker").style.background = "#292b2c";
-		document.getElementById("animationticker").style.background = "#292b2c";
-		document.getElementById("primary_form").hidden = true;
-		document.getElementById("secondary_form").hidden = true;
-		document.getElementById("animation_form").hidden = true;
-		document.getElementById("emergency_form").hidden = true;
-	}
-	if (id == "primaryticker") {
-		document.getElementById("static_form").hidden = true;
-		document.getElementById("primary_form").hidden = false;
-		document.getElementById("staticticker").style.background = "#292b2c";
-		document.getElementById("primaryticker").style.background = "#00ab66";
-		document.getElementById("secondaryticker").style.background = "#292b2c";
-		document.getElementById("animationticker").style.background = "#292b2c";
-		document.getElementById("secondary_form").hidden = true;
-		document.getElementById("animation_form").hidden = true;
-		document.getElementById("emergency_form").hidden = true;
-	}
-	if (id == "secondaryticker") {
-		document.getElementById("static_form").hidden = true;
-		document.getElementById("primary_form").hidden = true;
-		document.getElementById("secondary_form").hidden = false;
-		document.getElementById("staticticker").style.background = "#292b2c";
-		document.getElementById("primaryticker").style.background = "#292b2c";
-		document.getElementById("secondaryticker").style.background = "#00ab66";
-		document.getElementById("animationticker").style.background = "#292b2c";
-		document.getElementById("animation_form").hidden = true;
-		document.getElementById("emergency_form").hidden = true;
-	}
-	if (id == "animationticker") {
-		document.getElementById("static_form").hidden = true;
+		document.getElementById("multimediaticker").style.background = "#00ab66";
+		document.getElementById("scrollingticker").style.background = "#292b2c";
 		document.getElementById("primary_form").hidden = true;
 		document.getElementById("secondary_form").hidden = true;
 		document.getElementById("animation_form").hidden = false;
-		document.getElementById("staticticker").style.background = "#292b2c";
-		document.getElementById("primaryticker").style.background = "#292b2c";
-		document.getElementById("secondaryticker").style.background = "#292b2c";
-		document.getElementById("animationticker").style.background = "#00ab66";
 		document.getElementById("emergency_form").hidden = true;
 	}
+	if (id == "scrollingticker") {
+		document.getElementById("static_form").hidden = true;
+		document.getElementById("primary_form").hidden = false;
+		document.getElementById("multimediaticker").style.background = "#292b2c";
+		document.getElementById("scrollingticker").style.background = "#00ab66";
+		document.getElementById("secondary_form").hidden = false;
+		document.getElementById("animation_form").hidden = true;
+		document.getElementById("emergency_form").hidden = true;
+	}
+	// if (id == "secondaryticker") {
+	// 	document.getElementById("static_form").hidden = true;
+	// 	document.getElementById("primary_form").hidden = true;
+	// 	document.getElementById("secondary_form").hidden = false;
+	// 	document.getElementById("multimediaticker").style.background = "#292b2c";
+	// 	document.getElementById("scrollingticker").style.background = "#292b2c";
+	// 	document.getElementById("secondaryticker").style.background = "#00ab66";
+	// 	document.getElementById("animationticker").style.background = "#292b2c";
+	// 	document.getElementById("animation_form").hidden = true;
+	// 	document.getElementById("emergency_form").hidden = true;
+	// }
+	// if (id == "animationticker") {
+	// 	document.getElementById("static_form").hidden = true;
+	// 	document.getElementById("primary_form").hidden = true;
+	// 	document.getElementById("secondary_form").hidden = true;
+	// 	document.getElementById("animation_form").hidden = false;
+	// 	document.getElementById("multimediaticker").style.background = "#292b2c";
+	// 	document.getElementById("scrollingticker").style.background = "#292b2c";
+	// 	document.getElementById("secondaryticker").style.background = "#292b2c";
+	// 	document.getElementById("animationticker").style.background = "#00ab66";
+	// 	document.getElementById("emergency_form").hidden = true;
+	// }
 	if (id == "emergencyticker") {
 		document.getElementById("static_form").hidden = true;
 		document.getElementById("primary_form").hidden = true;
 		document.getElementById("secondary_form").hidden = true;
 		document.getElementById("animation_form").hidden = true;
 		document.getElementById("emergency_form").hidden = false;
-		document.getElementById("staticticker").style.background = "#292b2c";
-		document.getElementById("primaryticker").style.background = "#292b2c";
-		document.getElementById("secondaryticker").style.background = "#292b2c";
-		document.getElementById("animationticker").style.background = "#292b2c";
+		document.getElementById("multimediaticker").style.background = "#292b2c";
+		document.getElementById("scrollingticker").style.background = "#292b2c";
+		// document.getElementById("secondaryticker").style.background = "#292b2c";
+		// document.getElementById("animationticker").style.background = "#292b2c";
 	}
 }
 
@@ -87,6 +82,8 @@ function foeventEnabler(id) {
 	if (id == "static_form_data") {
 		b = document.getElementById("static_form_data");
 		if (b.checked) {
+			document.getElementById("animation_form_data").checked = false;
+			document.getElementById("hello4").hidden = true;
 			document.getElementById("hello1").hidden = false;
 		} else {
 			document.getElementById("hello1").hidden = true;
@@ -111,6 +108,8 @@ function foeventEnabler(id) {
 	if (id == "animation_form_data") {
 		b = document.getElementById("animation_form_data");
 		if (b.checked) {
+			document.getElementById("static_form_data").checked = false;
+			document.getElementById("hello1").hidden = true;
 			document.getElementById("hello4").hidden = false;
 		} else {
 			document.getElementById("hello4").hidden = true;
@@ -204,34 +203,72 @@ function fobuttonenabler() {
 	}
 }
 
-function foemergencytickerenabler(){
-    var a = document.getElementById("static_form_data");
-	var b = document.getElementById("primary_form_data");
-	var c = document.getElementById("secondary_form_data");
-	var d = document.getElementById("animation_form_data");
-	var e= document.getElementById("emergency_form_data");
+// function foemergencytickerenabler(){
+//     var a = document.getElementById("static_form_data");
+// 	var b = document.getElementById("primary_form_data");
+// 	var c = document.getElementById("secondary_form_data");
+// 	var d = document.getElementById("animation_form_data");
+// 	var e= document.getElementById("emergency_form_data");
 
-	if(e.checked)
-	{
-		// document.getElementById("primary_form").hidden = false;
-		// document.getElementById("secondary_form").hidden = false;
-		// document.getElementById("animation_form").hidden = false;
-		// document.getElementById("static_form").hidden = false;
+// 	if(e.checked){
+// 		if (a.checked || b.checked || c.checked || d.checked) {
+// 			if (confirm("Do you want to clear tickers other than emergency ticker")) {
+// 				document.getElementById("static_form_data").checked = false;
+// 				document.getElementById("primary_form_data").checked = false;
+// 				document.getElementById("secondary_form_data").checked = false;
+// 				document.getElementById("animation_form_data").checked = false;
+// 				document.getElementById("primary_form").hidden = true;
+// 				document.getElementById("secondary_form").hidden = true;
+// 				document.getElementById("animation_form").hidden = true;
+// 				document.getElementById("static_form").hidden = true;
+// 			} else {
+// 				document.getElementById("emergency_form_data").checked = false;
+// 			}
+// 		}
+// 		// document.getElementById("primary_form").hidden = false;
+// 		// document.getElementById("secondary_form").hidden = false;
+// 		// document.getElementById("animation_form").hidden = false;
+// 		// document.getElementById("static_form").hidden = false;
+// 	}
+// 	foeventEnabler("emergency_form_data")
+// }
+
+
+
+function foselectoneticker(id){
+	
+	if (id=="scrollingticker"){
+		document.getElementById("ticker_priority").value = "Medium";
+		document.getElementById("ticker_priority").disabled = false;
+		document.getElementById("static_form_data").checked = false;
+		document.getElementById("animation_form_data").checked = false;
+		document.getElementById("hello4").hidden = true;
+		document.getElementById("hello1").hidden = true;
+		document.getElementById("emergency_form_data").checked = false;
+		document.getElementById("hello5").hidden = true;
 	}
-	else{
-		if (a.checked || b.checked || c.checked || d.checked) {
-			if (confirm("Do you want to clear tickers other than emergency ticker")) {
-				document.getElementById("static_form_data").checked = false;
-				document.getElementById("primary_form_data").checked = false;
-				document.getElementById("secondary_form_data").checked = false;
-				document.getElementById("animation_form_data").checked = false;
-				document.getElementById("primary_form").hidden = true;
-				document.getElementById("secondary_form").hidden = true;
-				document.getElementById("animation_form").hidden = true;
-				document.getElementById("static_form").hidden = true;
-			} else {
-				document.getElementById("emergency_form_data").checked = false;
-			}
-		}
+
+	if (id=="multimediaticker"){
+		document.getElementById("ticker_priority").value = "Medium";
+		document.getElementById("ticker_priority").disabled = false;
+		document.getElementById("primary_form_data").checked = false;
+		document.getElementById("secondary_form_data").checked = false;
+		document.getElementById("hello2").hidden = true;
+		document.getElementById("hello3").hidden = true;
+		document.getElementById("emergency_form_data").checked = false;
+		document.getElementById("hello5").hidden = true;
+	}
+
+	if (id=="emergencyticker"){
+		document.getElementById("static_form_data").checked = false;
+		document.getElementById("primary_form_data").checked = false;
+		document.getElementById("secondary_form_data").checked = false;
+		document.getElementById("animation_form_data").checked = false;
+		document.getElementById("hello1").hidden = true;
+		document.getElementById("hello2").hidden = true;
+		document.getElementById("hello3").hidden = true;
+		document.getElementById("hello4").hidden = true;
+		document.getElementById("ticker_priority").value = "High";
+		document.getElementById("ticker_priority").disabled = true;
 	}
 }

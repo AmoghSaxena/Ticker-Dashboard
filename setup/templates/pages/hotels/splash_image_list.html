@@ -1,0 +1,85 @@
+{% extends "pages/hotels/details.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block hotel_menu_content %}
+        <h3>Hotel splash images</h3>
+        <div class="row form-inline">
+            <div class="col-md-10">
+                <a class="btn btn-primary float-right" data-toggle="modal" data-target="#add" href="#add"><i class="fas fa-plus"></i> Add</a>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10">
+                <table class="table table-sm table-striped">
+                    <thead class="thead-dark">
+                        <th>Image Name</th>
+                        <th>Image</th>
+                        <th>Position</th>
+                        <th>Visibility</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        {% for image in splash_images %}
+                            <tr>
+                                <td>{{image.image_key}}</td>
+                                <td>
+                                  <img height="60" width="100" src="{{image.icon.assetName.url}}" alt="{{image.icon.assetName}}" />
+                                </td>
+                                <td>{{image.position}}</td>
+                                <td>{{image.visibility}}</td>
+                                <td><a href="{% url 'splash_image_edit' hotel.id image.id %}">Edit</a></td>
+                                <td><a class="confirm-delete" href="{% url 'splash_image_delete' hotel.id image.id %}">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="addSplashImageLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'splash_image_add'  hotel.id %}" >
+        {% csrf_token %}
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="addSplashImageLabel">
+            Add splash image
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{form | crispy}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" title="Your custom upload logic">Submit</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<script>
+{% if  is_form_failed %}
+        $(window).on('load',function(){
+        $('#add').modal('show');
+    });
+
+{% endif %}
+
+</script>
+
+{% endblock hotel_menu_content %}
+
+
+
+
+
+
+
