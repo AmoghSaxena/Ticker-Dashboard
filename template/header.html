@@ -195,7 +195,7 @@
     document.getElementById("primary_logo_pos").hidden = true;
     document.getElementById("static_logo").hidden = true;
     document.getElementById("dynamicTickerMotion").hidden = true;
-    document.getElementById("arrowDown").hidden = true;
+    document.getElementById("arrowLeft").hidden = true;
   }
 
   function fologoenabler(id)
@@ -414,27 +414,31 @@ function fopositionbox(id)
                     <div class="sb-sidenav-menu bg-white m-3 mt-4 rounded-border ">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            <a class="nav-link mx-2 my-1 border-bottom {% if request.path == '/index/' or request.path == '/'%} active text-white rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'index'%}">
+                            <a class="nav-link mx-2 my-1 {% if request.path == '/index/' or request.path == '/'%} active text-white rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'index'%}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt fs-5"></i></div>
                                 Dashboard
                             </a>
-                            <a class="nav-link mx-2 my-1 border-bottom {% if request.path == '/createticker/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'createticker'%}">
+                            <a class="nav-link mx-2 my-1 {% if request.path == '/createticker/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'createticker'%}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-square-plus fs-5"></i></div>
                                 Create Ticker
                             </a>
-                            {% comment %} <a class="nav-link mx-2 my-1 border-bottom {% if request.path == '/preview/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'preview'%}">
+                            {% comment %} <a class="nav-link mx-2 my-1 {% if request.path == '/preview/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'preview'%}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-tv fs-5"></i></div>
                                 Preview
                             </a> {% endcomment %}
-                            <a class="nav-link mx-2 my-1 border-bottom {% if request.path == '/active/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'active'%}">
+                            <a class="nav-link mx-2 my-1 {% if request.path == '/active/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'active'%}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-bolt fs-5"></i></div>
                                 Active
+                            </a>
+                            <a class="nav-link mx-2 my-1 {% if request.path == '/Schedule/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'active'%}">
+                              <div class="sb-nav-link-icon"><i class="fa-solid fa-bolt fs-5"></i></div>
+                              Scheduled
                             </a>
                             <!-- <a class="nav-link mx-2 my-1 border-bottom {% if request.path == '/pending/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'pending'%}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-spinner fs-5"></i></div>
                                 Pending
                             </a> -->
-                            <a class="nav-link mx-2 my-1 border-bottom {% if request.path == '/history/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'history'%}">
+                            <a class="nav-link mx-2 my-1 {% if request.path == '/history/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'history'%}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-clock-rotate-left fs-5"></i></div>
                                 History
                             </a>
@@ -452,7 +456,6 @@ function fopositionbox(id)
                                     <a class="nav-link text-dark" href="/accounts/logout/"><i class="fa fa-sign-out fa-fw fs-6"></i> Logout</a>
                                 </nav>
                             </div>
-                            
                         </div>
                     </div>
                 </nav>

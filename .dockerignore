@@ -1,0 +1,8 @@
+.*
+!.coveragerc
+!.env
+!.pylintrc
+venv
+dbdata
+db_all
+*.sqlite

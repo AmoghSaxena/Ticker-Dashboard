@@ -159,22 +159,20 @@
       border-radius: 12px;
   }
 
-  /* Mark input boxes that gets an error on validation: */
   input.invalid {
     background-color: #ffdddd;
   }
 
-  /* Hide all steps by default: */
   .tab {
     display: none;
   }
 
   /* Make circles that indicate the steps of the form: */
   .step {
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbbbbb;
+    height: 50px;
+    width: 50px;
+    margin: 30px;
+    background-color: #a8a8a8;
     border: none;  
     border-radius: 50%;
     display: inline-block;
@@ -182,12 +180,14 @@
   }
 
   .step.active {
-    opacity: 1;
+    background-color: #008353;
+    opacity: 5;
   }
 
   /* Mark the steps that are finished and valid: */
   .step.finish {
-    background-color: #04AA6D;
+    background-color: #008353;
+    opacity: 0.7;
   }
 
 *,
