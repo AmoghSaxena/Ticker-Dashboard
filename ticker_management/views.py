@@ -31,7 +31,8 @@ def index(request):
     ticker_count={
         'active':len(active_ticker),
         'pending':8,
-        'total':len(total_ticker)+len(active_ticker)
+        'total':len(total_ticker)+len(active_ticker),
+        'user':request.user.username
     }
 
     return render(request, 'index.html',ticker_count)
@@ -110,7 +111,8 @@ def createticker(request):
                 'High',
                 'Medium',
                 'Low'
-            ]
+            ],
+            'user':request.user.username
         }
     
     if request.method == 'POST':
@@ -138,16 +140,16 @@ def active(request):
     
     tickerdatalist=sorted(tickerdatalist,key=lambda item: item['ticker_id'],reverse=True)
 
-    tmp={'tickerdatalist':tickerdatalist}
+    tmp={'tickerdatalist':tickerdatalist,'user':request.user.username}
 
     return render(request, 'active.html',tmp)
 
 def pending(request):
-    return render(request, 'pending.html')   
+    return render(request, 'pending.html',{'user':request.user.username})   
 
 @login_required
 def history(request):
-    return render(request, 'history.html') 
+    return render(request, 'history.html',{'user':request.user.username}) 
 
 @login_required
 def preview(request,id):
@@ -165,58 +167,58 @@ def preview(request,id):
         return render(request, 'preview.html',t.get())
         
 @login_required
-def schedule(request,id):
+def scheduled(request):
 
-    if request.method == 'POST':
+    # if request.method == 'POST':
         
-        a=request.POST.get('wingselection')
-        b=request.POST.get('floorselection')
-        c=request.POST.get('roomselection')
+    #     a=request.POST.get('wingselection')
+    #     b=request.POST.get('floorselection')
+    #     c=request.POST.get('roomselection')
 
-        if (request.POST.get('scheduleenabler')!=None):
-            print('Inside enabler')
-        else:
-            print('Outside enabler')
+    #     if (request.POST.get('scheduleenabler')!=None):
+    #         print('Inside enabler')
+    #     else:
+    #         print('Outside enabler')
         
-        start_date=request.POST.get('start_date')
-        end_date=request.POST.get('end_date')
+    #     start_date=request.POST.get('start_date')
+    #     end_date=request.POST.get('end_date')
 
-        created_for=str(a)+' '+str(b)+' '+str(c)
+    #     created_for=str(a)+' '+str(b)+' '+str(c)
         
-        t=TickerDetails.objects.filter(ticker_id=int(id)).values()
+    #     t=TickerDetails.objects.filter(ticker_id=int(id)).values()
 
-        t.update(ticker_start_time=start_date,ticker_end_time=end_date,created_for=created_for)
+    #     t.update(ticker_start_time=start_date,ticker_end_time=end_date,created_for=created_for)
 
-        return redirect('/')
+    #     return redirect('/')
 
-    else:
-        roomconfig=filterData('resources/resourcexml')
-        roomconfig['ticker_id']=id
-        frequency = [
-            '15 minutes', 
-            '30 minutes', 
-            '45 minutes', 
-            '1 hour', 
-            '75 minutes', 
-            '90 minutes', 
-            '105 minutes', 
-            '2 hour', 
-            '3 hour',
-            '4 hour',  
-            '5 hour',  
-            '6 hour',  
-            '7 hour',  
-            '8 hour',
-            '12 hour',
-            '24 hour'  
-            ]
+    # else:
+    #     roomconfig=filterData('resources/resourcexml')
+    #     roomconfig['ticker_id']=id
+    #     frequency = [
+    #         '15 minutes', 
+    #         '30 minutes', 
+    #         '45 minutes', 
+    #         '1 hour', 
+    #         '75 minutes', 
+    #         '90 minutes', 
+    #         '105 minutes', 
+    #         '2 hour', 
+    #         '3 hour',
+    #         '4 hour',  
+    #         '5 hour',  
+    #         '6 hour',  
+    #         '7 hour',  
+    #         '8 hour',
+    #         '12 hour',
+    #         '24 hour'  
+    #         ]
 
-        days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+    #     days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 
-        roomconfig['routine']=frequency
-        roomconfig['routine_days']=days
+    #     roomconfig['routine']=frequency
+    #     roomconfig['routine_days']=days
 
-        return render(request, 'schedule.html',roomconfig)
+        return render(request, 'scheduled.html',{'user':request.user.username})
 
     # now = datetime.now() # current date and time
 

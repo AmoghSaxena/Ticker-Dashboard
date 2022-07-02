@@ -22,6 +22,15 @@
         .container-fluid .path {
           border-radius: 20px;
         }
+        body {
+          -ms-overflow-style: none; 
+          overflow-y: scroll;
+          user-select: none
+        }
+
+body::-webkit-scrollbar { 
+  width: 0 !important;
+}
         </style>
 
 <script>
@@ -382,36 +391,24 @@ function fopositionbox(id)
 
     </head>
     <body class="sb-nav-fixed" style="background-color: #F4ECF7;" onload="foloader();">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-white overflow-hidden rounded-border m-3" style="background-image: url('/static/image/headers.jpg');">
+      <div class="sb-topnav" style="background-color: #F4ECF7;">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-white overflow-hidden rounded-border m-3">
             <!-- Navbar Brand-->
             <!-- <a class="bg-dark navbar-brand ps-3 fs-2 fw-bold text-primary ml-2" style="background-image: url('/static/image/header.jpg');" href="{% url 'index'%}"><i class="fas fa-cogs text-warning"></i> ticker</a> -->
 
             <!-- Sidebar Toggle-->
 
-            <button class="btn btn-link btn-sm m-2 me-lg-0 fs-5 text-dark" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
+            <button class="btn btn-link btn-sm m-3 me-lg-0 fs-5 text-dark" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <div class="form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
               <a class="m-3" href="{% url 'index'%}"><img src="/static/image/Ticker-logos_transparent.png" style="width: 150px;"></a>
             </div>
-            <!-- Navbar-->
-            <!-- <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4 bg-dark">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end border" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
-                    </ul>
-                </li>
-            </ul> -->
         </nav>
-        
+      </div>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion" id="sidenavAccordion">
 
-                    <div class="sb-sidenav-menu bg-white m-3 mt-4 rounded-border ">
+                    <div class="sb-sidenav-menu bg-white m-3 mt-4 rounded-border">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
                             <a class="nav-link mx-2 my-1 {% if request.path == '/index/' or request.path == '/'%} active text-white rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'index'%}">
@@ -430,8 +427,8 @@ function fopositionbox(id)
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-bolt fs-5"></i></div>
                                 Active
                             </a>
-                            <a class="nav-link mx-2 my-1 {% if request.path == '/Schedule/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'active'%}">
-                              <div class="sb-nav-link-icon"><i class="fa-solid fa-bolt fs-5"></i></div>
+                            <a class="nav-link mx-2 my-1 {% if request.path == '/scheduled/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'scheduled'%}">
+                              <div class="sb-nav-link-icon"><i class="fa-solid fa-calendar-days fs-5"></i></div>
                               Scheduled
                             </a>
                             <!-- <a class="nav-link mx-2 my-1 border-bottom {% if request.path == '/pending/'%} active rounded-border bg-gradient-secondary text-white {% else %} text-dark {% endif %}" href="{% url 'pending'%}">
@@ -443,15 +440,16 @@ function fopositionbox(id)
                                 History
                             </a>
 
-                            <a class="nav-link collapsed mx-2 my-1 text-dark" onclick="profile()">
+
+                            <a class="nav-link collapsed mx-2 my-1 text-dark" onclick="profile();">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user fa-fw fs-5"></i></div>
-                                Profile
+                                {{user}}
                                 <div  id="arrowLeft" class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-left"></i></div>
                                 <div  id="arrowDown" class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="profileContent">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link text-dark" href="#"><i class="fa fa-user-circle fa-fw fs-6"></i> User</a> 
+                                    <a class="nav-link text-dark" href="#"><i class="fa fa-user-circle fa-fw fs-6"></i> Change Password</a> 
                                     <a class="nav-link text-dark" href="/admin"><i class="fa fa-cog fa-fw fs-6"></i> Settings</a>
                                     <a class="nav-link text-dark" href="/accounts/logout/"><i class="fa fa-sign-out fa-fw fs-6"></i> Logout</a>
                                 </nav>
