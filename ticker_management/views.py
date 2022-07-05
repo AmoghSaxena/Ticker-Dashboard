@@ -9,37 +9,49 @@ from datetime import datetime
 from ticker_management.models import TickerDetails,TickerHistory
 from ticker_management.tasks import test_fun
 
+import json
+import sys
 from .forms import LoginForm
-
-
-#Api
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from django.http import QueryDict
 from .serializers import TaskSerializer
-
 from rest_framework.response import Response
 from .models import Task
 #Api
 
+def login(request):
+    form = LoginForm(request.POST or None)
+    msg = None
+    if request.method == "POST":
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                user_login(request, user)
+                return redirect(request.GET['next'])
+            else:
+                msg = 'Invalid credentials'
+        else:
+            msg = 'Error validating the form'
+    return render(request, "login.html", {"form": form, "msg": msg})
 
 @login_required
 def index(request):
-
     active_ticker=TickerDetails.objects.all().filter(is_active=1)
     total_ticker=TickerHistory.objects.all()
-
+    history_count = 8
     ticker_count={
         'active':len(active_ticker),
-        'pending':8,
-        'total':len(total_ticker)+len(active_ticker),
+        'history':history_count,
+        'total':(history_count+len(active_ticker)),
+        'events': 12,
         'user':request.user.username
     }
-
     return render(request, 'index.html',ticker_count)
 
 @login_required
-def createticker(request):
-
+def createTicker(request):
     data = {
             'pos_box':[
                 'top-right',
@@ -112,64 +124,169 @@ def createticker(request):
                 'Medium',
                 'Low'
             ],
-            'user':request.user.username
+            'user':request.user.username,
+            'frequency' :[
+                '15 minutes', 
+                '30 minutes', 
+                '45 minutes', 
+                '1 hour', 
+                '75 minutes', 
+                '90 minutes', 
+                '105 minutes', 
+                '2 hour', 
+                '3 hour',
+                '4 hour',  
+                '5 hour',  
+                '6 hour',  
+                '7 hour',  
+                '8 hour',
+                '12 hour',
+                '24 hour'  
+            ],
+            'days' :['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
         }
-    
     if request.method == 'POST':
-        if (
-            request.POST.get('static_ticker_enabler')=='' or 
-            request.POST.get('primary_ticker_enabler')=='' or 
-            request.POST.get('secondary_ticker_enabler')=='' or 
-            request.POST.get('animation_ticker_enabler')=='' or 
-            request.POST.get('emergency_ticker_enabler')==''
-           ):
-            return redirect(preview,id=datagetter(request).get('ticker_id'))
-        else:
-            return render(request, 'createticker.html', data)
+        print(request.POST.get('tickerSelecter'))
+        datagetter(request)
+        
+        return redirect(index)
+        # if (
+        #     request.POST.get('static_ticker_enabler')=='' or 
+        #     request.POST.get('primary_ticker_enabler')=='' or 
+        #     request.POST.get('secondary_ticker_enabler')=='' or 
+        #     request.POST.get('animation_ticker_enabler')=='' or 
+        #     request.POST.get('emergency_ticker_enabler')==''
+        #    ):
+        #     # datagetter(request)
+        #     # return redirect(preview,id=datagetter(request).get('ticker_id'))
+        # else:
+        #     return render(request, 'createticker.html', data)
     else:
         return render(request, 'createticker.html', data)
 
 @login_required
 def active(request):
-
-    t=TickerDetails.objects.all().filter(is_active=1).values()
-
-    tickerdatalist=list()
-    for a in t:
-        tickerdatalist.append(a)
-    
-    tickerdatalist=sorted(tickerdatalist,key=lambda item: item['ticker_id'],reverse=True)
-
-    tmp={'tickerdatalist':tickerdatalist,'user':request.user.username}
-
+    data=TickerDetails.objects.all().filter(is_active=1).values()
+    tickerDataList=list()
+    for item in data:
+        tickerDataList.append(item)
+    tickerDataList=sorted(tickerDataList,key=lambda item: item['ticker_id'],reverse=True)
+    tmp={'tickerDataList':tickerDataList,'user':request.user.username}
     return render(request, 'active.html',tmp)
-
-def pending(request):
-    return render(request, 'pending.html',{'user':request.user.username})   
 
 @login_required
 def history(request):
-    return render(request, 'history.html',{'user':request.user.username}) 
-
-@login_required
-def preview(request,id):
-    if request.method == 'POST':
-        # print(request.POST.get('ticker_id_field'))
-        id=request.POST.get('ticker_id_field')
-
-        # print(roomconfig.get('ticker_id','no data found'))
-
-        return redirect(schedule,id=id)
-
-        # return render(request, 'schedule.html',roomconfig)
-    else:
-        t=TickerDetails.objects.filter(ticker_id=int(id)).values()
-        return render(request, 'preview.html',t.get())
+    data=TickerDetails.objects.all().filter(is_active=1).values()
+    tickerDataList=list()
+    for item in data:
+        tickerDataList.append(item)
+    tickerDataList=sorted(tickerDataList,key=lambda item: item['ticker_id'],reverse=True)
+    tmp={'tickerDataList':tickerDataList,'user':request.user.username}
+    return render(request, 'history.html',tmp) 
         
 @login_required
 def scheduled(request):
+    events= [
+        {
+            'title': 'Emergency',
+            'start': '2022-08-07'
+        },
+        {
+            'title': 'Dynamic',
+            'start': '2022-07-07',
+            'end': '2022-07-10'
+        },
+        {
+            'groupId': 999,
+            'title': 'Primary',
+            'start': '2022-07-09T16:00:00'
+        },
+        {
+            'groupId': 999,
+            'title': 'Dynamic',
+            'start': '2022-07-16T16:00:00'
+        },
+        {
+            'title': 'Secondary',
+            'start': '2022-07-11',
+            'end': '2022-07-13'
+        },
+        {
+            'title': 'Emergency',
+            'start': '2022-07-12T10:30:00',
+            'end': '2022-07-12T12:30:00'
+        },
+        {
+            'title': 'Static',
+            'start': '2022-07-12T12:00:00'
+        },
+        {
+            'title': 'Primary',
+            'start': '2022-07-12T14:30:00'
+        },
+        {
+            'title': 'Primary',
+            'start': '2022-07-12T17:30:00'
+        },
+        {
+            'title': 'media',
+            'start': '2022-07-12T20:00:00'
+        },
+        {
+            'title': 'Emergency',
+            'start': '2022-07-13T07:00:00'
+        }
+    ]
+    sys.stdout = open('hello.js','a')
+    test=json.dumps(events)
+    print("var eventData = '{}'".format(test))
+    return render(request, 'scheduled.html',{'user':request.user.username, 'events':test})
 
-    # if request.method == 'POST':
+@api_view(['GET', 'POST', 'DELETE'])
+def taskPost(request,pk="0"):
+    if request.method == 'POST':
+        # print(request)
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        d={}
+        d['ip']=ip
+        d.update(request.POST)
+        print(d)
+        for i,j in d.items():
+            if type(j) == list:
+                d[i] = j[0]
+        query_dict = QueryDict('', mutable=True)
+        query_dict.update(d)
+        serializer = TaskSerializer(data=query_dict)
+        print(str(serializer))
+        print("........................................")
+        print("serializer isValid: " + str(serializer.is_valid()))
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data)
+    elif request.method == 'GET':
+        tasks = Task.objects.all().order_by('-id')
+        serializer = TaskSerializer(tasks, many=True)
+        print(serializer)
+        return Response(serializer.data)
+    elif request.method == 'DELETE':
+        serializer = TaskSerializer(data=request.data)
+        p=serializer.initial_data
+        q=int(p.get('id'))
+        print(type(q))
+        task = Task.objects.get(id=q)
+        task.delete()
+
+        return Response('Item succsesfully delete!')
+
+def pending(request):
+    return render(request, 'pending.html',{'user':request.user.username}) 
+
+def schedule(request):
+        # if request.method == 'POST':
         
     #     a=request.POST.get('wingselection')
     #     b=request.POST.get('floorselection')
@@ -218,8 +335,6 @@ def scheduled(request):
     #     roomconfig['routine']=frequency
     #     roomconfig['routine_days']=days
 
-        return render(request, 'scheduled.html',{'user':request.user.username})
-
     # now = datetime.now() # current date and time
 
     # year = now.strftime("%Y")
@@ -241,48 +356,18 @@ def scheduled(request):
     # return HttpResponse('day:{},month:{},{}:{}'.format(day,month,hour,minute))
 
     # print(request.POST.get('delay'))
+    pass
 
-def login(request):
-
-    form = LoginForm(request.POST or None)
-    msg = None
-    if request.method == "POST":
-
-        if form.is_valid():
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                user_login(request, user)
-                return redirect(request.GET['next'])
-            else:
-                msg = 'Invalid credentials'
-        else:
-            msg = 'Error validating the form'
-
-    return render(request, "login.html", {"form": form, "msg": msg})
-
-
-
-@api_view(['GET', 'POST', 'DELETE'])
-def taskPost(request,pk="0"):
+def preview(request,id):
     if request.method == 'POST':
-        serializer = TaskSerializer(data=request.data)
-        print(serializer.initial_data)
-        if serializer.is_valid():
-            print("valid")
-            serializer.save()
-        return Response(serializer.data)
-    elif request.method == 'GET':
-        tasks = Task.objects.all().order_by('-id')
-        serializer = TaskSerializer(tasks, many=True)
-        return Response(serializer.data)
-    elif request.method == 'DELETE':
-        serializer = TaskSerializer(data=request.data)
-        p=serializer.initial_data
-        q=int(p.get('id'))
-        print(type(q))
-        task = Task.objects.get(id=q)
-        task.delete()
+        # print(request.POST.get('ticker_id_field'))
+        id=request.POST.get('ticker_id_field')
 
-        return Response('Item succsesfully delete!')
+        # print(roomconfig.get('ticker_id','no data found'))
+
+        return redirect(schedule,id=id)
+
+        # return render(request, 'schedule.html',roomconfig)
+    else:
+        t=TickerDetails.objects.filter(ticker_id=int(id)).values()
+        return render(request, 'preview.html',t.get())

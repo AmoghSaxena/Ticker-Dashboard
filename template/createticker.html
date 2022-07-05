@@ -360,25 +360,27 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="bg-white rounded-border">
-                            <div class="card-header bg-gradient-secondary p-3">
+                            <div class="card-header tickernav-color p-3 text-white">
                                 <i class="fa-solid fa-sliders"></i>
                                 Create Ticker
                             </div>
-                            <form id="regForm" action="" class="">
-                                <div style="text-align:center;margin-top:40px;">
+
+                            <form id="regForm" action="" class="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                                <div class="d-lg-block d-md-block d-sm-block d-none" style="text-align:center;margin-top:40px;">
                                     <span class="step"><i class="fa-solid fa-plus fs-3 m-2 text-white"></i></i><div>Create</div></span>
                                     <span class="step"><i class="fa-solid fa-tv fs-3 m-2 text-white"></i><div>Preview</div></span>
                                     <span class="step"><i class="fa-solid fa-calendar fs-3 m-2 text-white"></i><div>Schedule</div></span>
                                     <span class="step"><i class="fa-solid fa-check-to-slot fs-3 m-2 text-white"></i><div>Success</div></span>
                                 </div>
 
-                                <div class="tab m-2">
+                                <div class="tab m-3">
                                     <strong>Select Ticker Type</strong>
-                                    <select name="" class="form-select mb-3 p-3" aria-label="Default select example" onchange="foselector();" id="tickerSelecter">
+                                    <select name="tickerSelecter" class="form-select mb-3 p-3" aria-label="Default select example" onchange="foselector();" id="tickerSelecter">
                                         <option selected>Select Ticker</option>
-                                        <option value="1">Scrolling Ticker</option>
-                                        <option value="2">Media Ticker</option>
-                                        <option value="3">Emergency Ticker</option>
+                                        <option value="scrolling">Scrolling Ticker</option>
+                                        <option value="media">Media Ticker</option>
+                                        <option value="emergency">Emergency Ticker</option>
                                     </select>
 
                                     <div id="scrolling">
@@ -388,7 +390,7 @@
                                                 <label for="scrollingTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label>
                                             </div>
                                             <div class="form-check form-switch mb-3">
-                                                <input class="form-check-input" name="primaryScrollingTicker" type="checkbox" value=" " id="primaryEnable" onclick="foenabler(this.id);">
+                                                <input class="form-check-input" name="primaryScrollingTicker" type="checkbox" value="enabled" id="primaryEnable" onclick="foenabler(this.id);">
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                 Primary Scrolling Ticker
                                                 </label>
@@ -396,7 +398,7 @@
                                             <div id="primary">
                                                 <strong class="">Enter Your Primary Ticker Message</strong>
                                                 <div class="form-group form-floating mb-3">
-                                                    <textarea name="primary_ticker_msg" class="form-control" id="primaryTickerMessage" rows="4" placeholder="Type Message for Static Ticker" value=" "></textarea>
+                                                    <textarea name="primaryTickerMessage" class="form-control" id="primaryTickerMessage" rows="4" placeholder="Type Message for Static Ticker" value=" "></textarea>
                                                     <label for="primaryTickerMessage" class="text-muted">Type Message for Primary Ticker</label>
                                                 </div>
                                                 <div class="row mb-3">
@@ -411,7 +413,7 @@
                                                         <div class="form-check mb-3">
                                                             <strong for="favcolor">Choose Background Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                            <input name="primaryBackgroundColor" type="color" id="primaryBgColor" value="#F15412">
+                                                            <input name="primaryBgColor" type="color" id="primaryBgColor" value="#F15412">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -462,19 +464,19 @@
                                                 <div class="row mb-3">
                                                     <div class="col-md-3">
                                                         <div class="form-check form-switch mb-3">
-                                                            <input name="primaryTickerLogoEnabler" class="form-check-input" type="checkbox" value=" " id="primaryLogoEnabler" onclick=fologoenabler(this.id)>
+                                                            <input name="primaryTickerLogoEnabler" class="form-check-input" type="checkbox" value="enabled" id="primaryLogoEnabler" onclick=fologoenabler(this.id)>
                                                             <label class="form-check-label" for="flexCheckDefault">
                                                                 Set logo on Primary Ticker 
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3" id="primary_file_obj">
+                                                    <div class="col-md-3" id="primaryLogo">
                                                         <div class="form-group">
                                                             <strong for="exampleFormControlFile1">upload image logo</strong>
-                                                            <input name="primaryTickerLogo" accept=".png" type="file" class="form-control-file" value=" " id="primaryLogo" onchange=Filevalidation(this.id)>
+                                                            <input name="primaryTickerLogo" type="file" accept=".png" id="primaryTickerLogo" class="form-control-file" onchange=Filevalidation(this.id)>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6" id="primary_logo_pos">
+                                                    <div class="col-md-6" id="primaryLogoPosition">
                                                         <strong>Logo Position</strong>
                                                         <select name="primaryTickerLogoPosition" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in logo_position %}
@@ -486,7 +488,7 @@
                                             </div>
                     
                                             <div class="form-check form-switch mb-3">
-                                                <input class="form-check-input" name="" type="checkbox" value=" " id="secondaryEnable" onclick="foenabler(this.id);">
+                                                <input class="form-check-input" name="secondaryScrollingEnable" type="checkbox" value="enabled" id="secondaryEnable" onclick="foenabler(this.id);">
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                 Secondary Scrolling Ticker
                                                 </label>
@@ -494,7 +496,7 @@
                                             <div id="secondary">
                                                 <strong>Enter Your Secondary Ticker Message</strong>
                                                 <div class="form-group form-floating mb-3">
-                                                    <textarea name="secondary_ticker_msg" class="form-control" rows="4" value=" " placeholder="Type Message for Static Ticker"></textarea>
+                                                    <textarea name="secondaryTickerMessage" id="secondaryTickerMessage" class="form-control" rows="4" value=" " placeholder="Type Message for Static Ticker"></textarea>
                                                     <label for="secondaryTickerMessage" class="text-muted">Type Message for Secondary Ticker</label>
                                                 </div>
                                                 <div class="row mb-3">
@@ -509,7 +511,7 @@
                                                         <div class="form-check form-switch mb-3">
                                                             <strong for="favcolor">Choose Background Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                            <input name="secondaryBackgroundColor" type="color" id="secondaryBgColor" value="#F15412">
+                                                            <input name="secondaryBgColor" type="color" id="secondaryBgColor" value="#F15412">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -552,8 +554,8 @@
                                                 <div class="col-md-6">
                                                     <strong class="">Ticker Duration</strong>
                                                     <div class="form-group form-floating">
-                                                        <input type="number" name="scrollingTickerTimeInterval" value="1"  required class="form-control" id="number" rows="4" placeholder="Enter Time" />
-                                                        <label for="number" class="text-muted">Enter Time</label>
+                                                        <input type="number" name="scrollingTickerTimeInterval" min="1" value="1"  required class="form-control" id="number" rows="4" placeholder="Enter Time" />
+                                                        <label for="number" class="text-muted">Enter Time Minutes</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -574,7 +576,7 @@
                                                 <label for="mediaTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label>
                                             </div>
                                             <div class="form-check form-switch mb-3">
-                                                <input class="form-check-input" name="staticTickerEnabler" type="checkbox" value=" " id="staticEnable" onclick="foenabler(this.id);">
+                                                <input class="form-check-input" name="staticTickerEnabler" type="checkbox" value="enabled" id="staticEnable" onclick="foenabler(this.id);">
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                 Static Ticker
                                                 </label>
@@ -582,7 +584,7 @@
                                             <div id="static">
                                                 <strong>Enter Your Static Ticker Message</strong>
                                                 <div class="form-group form-floating mb-3">
-                                                    <input class="form-control" id="staricTickerMessage" rows="4" placeholder="Type dMessage for Static Ticker (20 letters)"  type = "text" name = "staricTickerMessage" value=" " maxlength = "20" />
+                                                    <input class="form-control" id="staticTickerMessage" rows="4" placeholder="Type dMessage for Static Ticker (20 letters)"  type = "text" name = "staticTickerMessage" value=" " maxlength = "20" />
                                                     <label for="staricTickerMessage" class="text-muted">Type Message for Static Ticker <small>(20 letters max.)</small></label>
                                                 </div>
                                                 <div class="row mb-3">
@@ -630,13 +632,13 @@
                                                 <div class="row mb-3">
                                                     <div class="col-md-4">
                                                         <div class="form-check form-switch mb-3">
-                                                            <input name="staticTickerLogoEnabler" class="form-check-input" type="checkbox" value="" id="staticTickerLogoEnabler" onclick=fologoenabler(this.id)>
+                                                            <input name="staticTickerLogoEnabler" class="form-check-input" type="checkbox" value="enabled" id="staticTickerLogoEnabler" onclick=fologoenabler(this.id)>
                                                             <label class="form-check-label" for="flexCheckDefault">
                                                                 Set logo on Static Ticker 
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-8" id='static_logo'>
+                                                    <div class="col-md-8" id='staticTickerLogo'>
                                                         <div class="form-group">
                                                             <strong for="exampleFormControlFile1">upload image logo</strong>
                                                             <input name="staticTickerLogo" value="1" type="file" accept=".png" id="staticTickerLogo" class="form-control-file" onchange=Filevalidation(this.id)>
@@ -646,7 +648,7 @@
                                         </div>
                     
                                         <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input" name="dynamicTickerEnabler" type="checkbox" value=" " id="dynamicEnable" onclick="foenabler(this.id);">
+                                            <input class="form-check-input" name="dynamicTickerEnabler" type="checkbox" value="enabled" id="dynamicEnable" onclick="foenabler(this.id);">
                                             <label class="form-check-label" for="flexCheckDefault">
                                             Dynamic Ticker
                                             </label>
@@ -667,9 +669,9 @@
                                                         {% endfor %}
                                                     </select>
                                                 </div>
-                                                <div class="col-md-4" id="dynamicTickerMotion">
+                                                <div class="col-md-4" id="dynamicTickerLocation">
                                                     <strong>Location</strong>
-                                                    <select name="dynamicTickerMotion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                    <select name="dynamicTickerLocation" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                         {% for items in location %}
                                                         <option>{{items}}</option>
                                                         {% endfor %}
@@ -681,8 +683,8 @@
                                             <div class="col-md-6">
                                                 <strong class="">Ticker Duration</strong>
                                                 <div class="form-group form-floating">
-                                                    <input type="number" name="mediaTickerTimeInterval" value="1" required class="form-control" id="number" rows="4" placeholder="Enter Time" />
-                                                    <label for="number" class="text-muted">Enter Time</label>
+                                                    <input type="number" name="mediaTickerTimeInterval" min="1" value="1" required class="form-control" id="number" rows="4" placeholder="Enter Time" />
+                                                    <label for="number" class="text-muted">Enter Time Minutes</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -705,7 +707,7 @@
                                         <div class="row mb-3">
                                             <div class="col-md-4">
                                                 <strong>Emergency Ticker List</strong>
-                                                <select name="emergencyTickerPosition" class="form-select mb-3 mb-md-0 p-3" onchange="foenabler(this.id);" id="emergencySelecter" aria-label="Default select example">
+                                                <select name="emergencySelecter" class="form-select mb-3 mb-md-0 p-3" onchange="foenabler(this.id);" id="emergencySelecter" aria-label="Default select example">
                                                     {% for items in emergency_ticker_list %}
                                                     <option>{{items}}</option>
                                                     {% endfor %}
@@ -799,10 +801,10 @@
                                     </div>
                                 </div>
                     
-                                <div class="tab">
+                                <div class="tab m-3">
                                     <div class="m-1" id="">
                                         <div id="">
-                                            <div class="row m-3">
+                                            <div class="row mb-3">
                         
                                                 <div class="col-md-4">
                                                     <strong>Wings</strong>
@@ -830,17 +832,18 @@
                                                 </div>
                                             </div>
                     
-                                            <div class="row m-3">
+                                            <div class="row mb-3">
                                                 <div class="col-md-4">
                                                     <div class="form-check form-switch mb-3">
-                                                        <input name="scheduleenabler" class="form-check-input form-check-input" type="checkbox" onchange="foenabler(this.id);" value="" id="scheduleenabler">
+                                                        <input name="scheduleEnabler" class="form-check-input form-check-input" type="checkbox" onchange="foenabler(this.id);" value="enabled" id="scheduleEnabler">
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             Schedule now 
                                                         </label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row m-3" id="occurancysection">
+                                            
+                                            <div class="row mb-3" id="occurancySection">
                                                 <div class="col-md-2"> 
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="occurancy" id="onetime" onchange="foenabler(this.id);" checked>
@@ -858,28 +861,35 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row m-3" id="datatimesection">
-                                                <div class="col-md-4" id="startDate">
+                                            
+                                            <div class="row" id="dateTimeSection">
+                                                <div class="col-md-4 mb-3" id="startDate">
                                                     <strong>Start Date | Time</strong>
                                                     <div class="form-group form-floating">
-                                                        <input type="datetime-local" class="form-control"  name="start_date" placeholder="Enter Date">
+                                                        <input type="datetime-local" class="form-control"  name="startDate" placeholder="Enter Date">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4" id=endDate>
+                                                <div class="col-md-4 mb-3" id=endDate>
                                                     <strong>End Date | Time</strong>
                                                     <div class="form-group form-floating">
-                                                        <input type="datetime-local" class="form-control" id="" name="end_date" placeholder="Enter Date">
+                                                        <input type="datetime-local" class="form-control" id="" name="endDate" placeholder="Enter Date">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4" id="frequency">
+                                                <div class="col-md-4 mb-3" id="frequency">
                                                     <strong>Display Frequency | Display in Every</strong>
                                                     <select name="delay" id="" onchange=foeventEnabler(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                        {% for items in routine %}
+                                                        {% for items in frequency %}
                                                         <option>{{items}}</option>
                                                         {% endfor %}
                                                     </select>
                                                 </div>
-                    
+                                                <div class="mb-3" id="days">
+                                                    <strong class="mx-2">Days</strong>
+                                                    {% for items in days %}
+                                                        <input class="form-check-input" type="checkbox" name="{{items}}" id="{{items}}">
+                                                        <label class="mx-2">{{items}}</label>
+                                                    {% endfor %}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -901,14 +911,11 @@
                 </div>
 
                 <script>
-                    var currentTab = 0; // Current tab is set to be the first tab (0)
-                    showTab(currentTab); // Display the current tab
-                    
+                    var currentTab = 0; 
+                    showTab(currentTab);
                     function showTab(n) {
-                    // This function will display the specified tab of the form...
                     var x = document.getElementsByClassName("tab");
                     x[n].style.display = "block";
-                    //... and fix the Previous/Next buttons:
                     if (n == 0) {
                         document.getElementById("prevBtn").style.display = "none";
                     } else {

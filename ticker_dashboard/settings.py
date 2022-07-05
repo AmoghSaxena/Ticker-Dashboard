@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'directory',
+    'django_ftpserver',
     'ticker_management',
     'django_celery_results',
     'django_celery_beat'
@@ -179,7 +180,6 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 #127.0.0.1:6379
 
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
          'rest_framework.authentication.BasicAuthentication',
@@ -189,3 +189,5 @@ REST_FRAMEWORK = {
         #'knox.auth.TokenAuthentication',
     ]
 }
+
+DIRECTORY_DIRECTORY = 'media'

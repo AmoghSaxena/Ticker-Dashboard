@@ -10,11 +10,17 @@ from django.urls import reverse
 class TickerDetails(models.Model):
     ticker_id = models.AutoField(primary_key=True)
     ticker_type = models.CharField(max_length=60)
+    ticker_title = models.CharField(max_length=50,default='Not Specific')
     # dated_on = models.DateTimeField()
     ticker_json = models.TextField(blank=True)
     ticker_start_time =models.DateTimeField(null=True)
     ticker_end_time =models.DateTimeField(null=True)
-    created_for = models.CharField(max_length=300, null=True)
+    wings = models.CharField(max_length=300, null=True)
+    floors = models.CharField(max_length=300, null=True)
+    rooms = models.CharField(max_length=300, null=True)
+    frequency = models.CharField(max_length=30,null=True)
+    occuring_days = models.CharField(max_length=50,null=True)
+    ticker_priority= models.CharField(max_length=10,default='Not Set')
     created_by = models.CharField(max_length=50, blank=True, null=True)
     created_on = models.DateTimeField()
     modified_by = models.CharField(max_length=50, blank=True, null=True)
@@ -22,7 +28,7 @@ class TickerDetails(models.Model):
     is_active = models.PositiveIntegerField()
     is_deleted = models.PositiveIntegerField()
     deleted_on = models.DateTimeField(blank=True, null=True)
-    reason_for_delete = models.CharField(max_length=300, blank=True, null=True)
+    # reason_for_delete = models.CharField(max_length=300, blank=True, null=True)
     # photo = models.ImageField(upload_to="myimage")
 
 
@@ -31,10 +37,16 @@ class TickerHistory(models.Model):
     history_id = models.AutoField(primary_key=True)
     ticker_id = models.PositiveIntegerField()
     ticker_type = models.CharField(max_length=40)
+    ticker_title = models.CharField(max_length=50,default='Not Specific')
     ticker_json = models.TextField(blank=True)
     ticker_start_time =models.DateTimeField(null=True)
     ticker_end_time =models.DateTimeField(null=True)
-    created_for = models.CharField(max_length=300)
+    wings = models.CharField(max_length=300, null=True)
+    floors = models.CharField(max_length=300, null=True)
+    rooms = models.CharField(max_length=300, null=True)
+    frequency = models.CharField(max_length=30,null=True)
+    occuring_days = models.CharField(max_length=50,null=True)
+    ticker_priority= models.CharField(max_length=10,default='Not Set')
     created_by = models.CharField(max_length=50, blank=True, null=True)
     created_on = models.DateTimeField()
     modified_by = models.CharField(max_length=50, blank=True, null=True)
@@ -42,7 +54,7 @@ class TickerHistory(models.Model):
     is_active = models.PositiveIntegerField()
     is_deleted = models.PositiveIntegerField()
     deleted_on = models.DateTimeField(blank=True, null=True)
-    reason_for_delete = models.CharField(max_length=300, blank=True, null=True)
+    # reason_for_delete = models.CharField(max_length=300, blank=True, null=True)
 
 
 class Task(models.Model):
@@ -50,10 +62,10 @@ class Task(models.Model):
     tv_condition_after = models.CharField(max_length=200)
     room_no = models.CharField(max_length=200)
     key = models.CharField(max_length=200)
-    ip = models.CharField(max_length=200)
     ipad_condition_before = models.CharField(max_length=200)
     ipad_condition_after = models.CharField(max_length=200)
     completed = models.BooleanField(default=False, blank=True, null=True)
+    ip = models.CharField(max_length=200)
             
    
 

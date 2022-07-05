@@ -1,188 +1,193 @@
 {% extends "base.html" %}
 {% block content %}
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4 mt-5">
-                      <div class="path my-4 text-muted fs-5 bg-white p-2 col-md-2 col-sm-3">  
-                          <div class="mx-1"><i class="fas fa-tachometer-alt fs-5"></i> Dashboard</div>
-                      </div>
-
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6 col-sm-6">
-                                <div class="rounded-border text-dark mb-4 overflow-hidden bg-white shadow">
-                                    <div class="d-flex align-items-center justify-content-between my-3 mx-4">
-                                      <div>
-                                        <div class="fw-bold text-muted">Active Ticker</div>
-                                        <div class="text-dark fw-bold fs-5 mb-3">{{active}}</div>
-                                        <a class="small text-muted" href="#">more</a>
-                                      </div>
-                                      <div class="text-white bg-gradient-info p-2 rounded"><i class="fa-solid fa-bolt fs-3"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6 col-sm-6">
-                              <div class="rounded-border text-dark mb-4 overflow-hidden bg-white shadow">
-                                  <div class="d-flex align-items-center justify-content-between my-3 mx-4">
-                                    <div>
-                                      <div class="fw-bold text-muted">History</div>
-                                      <div class="text-dark fw-bold fs-5 mb-3">{{active}}</div>
-                                      <a class="small text-muted" href="#">more</a>
-                                    </div>
-                                    <div class="text-white bg-gradient-info p-2 rounded"><i class="fa-solid fa-clock-rotate-left fs-3"></i></div>
-                                  </div>
-                              </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6 col-sm-6">
-                              <div class="rounded-border text-dark mb-4 overflow-hidden bg-white shadow">
-                                  <div class="d-flex align-items-center justify-content-between my-3 mx-4">
-                                    <div>
-                                      <div class="fw-bold text-muted">Total Ticker</div>
-                                      <div class="text-dark fw-bold fs-5 mb-3">{{active}}</div>
-                                      <a class="small text-muted" href="#">more</a>
-                                    </div>
-                                    <div class="text-white bg-gradient-info p-2 rounded"><i class="fa-solid fa-square-check fs-3"></i></div>
-                                  </div>
-                              </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6 col-sm-6">
-                              <div class="rounded-border text-dark mb-4 overflow-hidden bg-white shadow">
-                                  <div class="d-flex align-items-center justify-content-between my-3 mx-4">
-                                    <div>
-                                      <div class="fw-bold text-muted">Today's Event</div>
-                                      <div class="text-dark fw-bold fs-5 mb-3">{{active}}</div>
-                                      <a class="small text-muted" href="#">more</a>
-                                    </div>
-                                    <div class="text-white bg-gradient-info p-2 rounded"><i class="fa-solid fa-calendar-days fs-3"></i></div>
-                                  </div>
-                              </div>
-                            </div>
-                        <!-- </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area me-1"></i>
-                                        Area Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Bar Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <div class="mb-4 rounded-border bg-white">
-                          <div class="d-flex align-items-center justify-content-between bg-gradient-secondary my-2 p-3 rounded-border">
-                            <div class="text-white">
-                              <i class="fas fa-table me-1"></i>
-                              History
-                            </div>
-                            <a class="text-white" href="{% url 'active'%}" role="button">more</a>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4 mt-5">
+          <div class="path my-4 text-muted fs-5 bg-white p-2 col-md-2 col-sm-3">  
+              <div class="mx-1"><i class="fas fa-tachometer-alt fs-5"></i> Dashboard</div>
+          </div>
+            <div class="row">
+                <div class="col-xl-3 col-md-6 col-sm-6">
+                    <div class="rounded-border text-dark mb-4 overflow-hidden bg-white shadow">
+                        <div class="d-flex align-items-center justify-content-between my-3 mx-4">
+                          <div>
+                            <div class="fw-bold text-muted">Active Ticker</div>
+                            <div class="text-dark fw-bold fs-5 mb-3">{{active}}</div>
+                            <a class="small text-muted" href="#">more</a>
                           </div>
-                            <div class=" table-responsive">
-                                <table class="table table-bordered">
-                                    <thead class="bg-white text-dark">
-                                      <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Schedule on</th>
-                                        <th scope="col">Start</th>
-                                        <th scope="col">end</th>
-                                        <th scope="col">Ticker Type</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <th scope="row">501</th>
-                                        <td>Wing A</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Static Ticker</td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">502</th>
-                                        <td>502, 365, 458</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Primary Ticker</td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">503</th>
-                                        <td>All</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>secondary Ticker</td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">504</th>
-                                        <td>Wing B</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Animetion Ticker</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>  
-                            </div>
-                        </div>
-
-                        <div class="mb-4 rounded-border bg-white">
-                          <div class="d-flex align-items-center justify-content-between bg-gradient-secondary my-2 p-3 rounded-border">
-                            <div class="text-white">
-                              <i class="fas fa-table me-1"></i>
-                              Active Ticker
-                            </div>
-                            <a class="text-white" href="{% url 'active'%}" role="button">more</a>
-                          </div>
-                            <div class=" table-responsive">
-                                <table class="table table-bordered">
-                                    <thead class="bg-white text-dark">
-                                      <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Schedule on</th>
-                                        <th scope="col">Start</th>
-                                        <th scope="col">end</th>
-                                        <th scope="col">Ticker Type</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <th scope="row">501</th>
-                                        <td>Wing A</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Static Ticker</td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">502</th>
-                                        <td>502, 365, 458</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Primary Ticker</td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">503</th>
-                                        <td>All</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>secondary Ticker</td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">504</th>
-                                        <td>Wing B</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Sat 07/04/2022 10:35</td>
-                                        <td>Animetion Ticker</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>  
-                            </div>
+                          <div class="text-white tickernav-color p-2 rounded"><i class="fa-solid fa-bolt fs-3"></i></div>
                         </div>
                     </div>
-                </main>
+                </div>
+                <div class="col-xl-3 col-md-6 col-sm-6">
+                  <div class="rounded-border text-dark mb-4 overflow-hidden bg-white shadow">
+                      <div class="d-flex align-items-center justify-content-between my-3 mx-4">
+                        <div>
+                          <div class="fw-bold text-muted">History</div>
+                          <div class="text-dark fw-bold fs-5 mb-3">{{history}}</div>
+                          <a class="small text-muted" href="#">more</a>
+                        </div>
+                        <div class="text-white tickernav-color p-2 rounded"><i class="fa-solid fa-clock-rotate-left fs-3"></i></div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-sm-6">
+                  <div class="rounded-border text-dark mb-4 overflow-hidden bg-white shadow">
+                      <div class="d-flex align-items-center justify-content-between my-3 mx-4">
+                        <div>
+                          <div class="fw-bold text-muted">Total Ticker</div>
+                          <div class="text-dark fw-bold fs-5 mb-3">{{total}}</div>
+                          <a class="small text-muted" href="#">more</a>
+                        </div>
+                        <div class="text-white tickernav-color p-2 rounded"><i class="fa-solid fa-square-check fs-3"></i></div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-sm-6">
+                  <div class="rounded-border text-dark mb-4 overflow-hidden bg-white shadow">
+                      <div class="d-flex align-items-center justify-content-between my-3 mx-4">
+                        <div>
+                          <div class="fw-bold text-muted">Today's Event</div>
+                          <div class="text-dark fw-bold fs-5 mb-3">{{events}}</div>
+                          <a class="small text-muted" href="#">more</a>
+                        </div>
+                        <div class="text-white tickernav-color p-2 rounded"><i class="fa-solid fa-calendar-days fs-3"></i></div>
+                      </div>
+                  </div>
+                </div>
+                <div class="mb-4 rounded-border bg-white">
+                  <!-- <div class="d-flex align-items-center justify-content-between bg-gradient-secondary my-2 p-3 rounded-border"> -->
+                    <div class="d-flex align-items-center justify-content-between my-2 p-3 rounded-border" style="background-color: #354259;">
+                    <div class="text-white">
+                      <i class="fas fa-table me-1"></i>
+                      Active Ticker
+                    </div>
+                    <a class="text-white" href="{% url 'active'%}" role="button">more</a>
+                  </div>
+                  <div class=" table-responsive">
+                      <table class="table table-bordered">
+                          <thead class="bg-white text-dark">
+                              <tr>
+                                <th>#</th>
+                                <th>Ticker_Title</th>
+                                <th>Date</th>
+                                <th>T_ID</th>
+                                <th>Ticker_Type</th>
+                                <th>Priority</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                <th>1</th>
+                                <td>This is my Ticker</td>
+                                <td>Sat 07/04/2022 10:35</td>
+                                <td>501</td>
+                                <td>Scrolling Ticker</td>
+                                <td>Medium</td>
+                              </tr>
+                              <tr>
+                                <th>2</th>
+                                <td>This is my Ticker</td>
+                                <td>Sat 07/04/2022 10:35</td>
+                                <td>501</td>
+                                <td>Scrolling Ticker</td>
+                                <td>Medium</td>
+                              </tr>
+                              <tr>
+                                <th>3</th>
+                                <td>This is my Ticker</td>
+                                <td>Sat 07/04/2022 10:35</td>
+                                <td>501</td>
+                                <td>Scrolling Ticker</td>
+                                <td>Medium</td>
+                              </tr>
+                              <tr>
+                                <th>4</th>
+                                <td>This is my Ticker</td>
+                                <td>Sat 07/04/2022 10:35</td>
+                                <td>501</td>
+                                <td>Scrolling Ticker</td>
+                                <td>Medium</td>
+                              </tr>
+                              <tr>
+                                <th>5</th>
+                                <td>This is my Ticker</td>
+                                <td>Sat 07/04/2022 10:35</td>
+                                <td>501</td>
+                                <td>Scrolling Ticker</td>
+                                <td>Medium</td>
+                              </tr>
+                          </tbody>
+                      </table>  
+                  </div>
+                </div>
+                <div class="mb-4 rounded-border bg-white">
+                  <!-- <div class="d-flex align-items-center justify-content-between bg-gradient-secondary my-2 p-3 rounded-border"> -->
+                    <div class="d-flex align-items-center justify-content-between my-2 p-3 rounded-border" style="background-color: #354259;">
+                    <div class="text-white">
+                      <i class="fas fa-table me-1"></i>
+                      History
+                    </div>
+                    <a class="text-white" href="{% url 'history'%}" role="button">more</a>
+                  </div>
+                  <div class=" table-responsive">
+                      <table class="table table-bordered">
+                          <thead class="bg-white text-dark">
+                              <tr>
+                                <th>#</th>
+                                <th>Ticker_Title</th>
+                                <th>Date</th>
+                                <th>T_ID</th>
+                                <th>Ticker_Type</th>
+                                <th>Priority</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                <th>1</th>
+                                <td>This is my Ticker</td>
+                                <td>Sat 07/04/2022 10:35</td>
+                                <td>501</td>
+                                <td>Scrolling Ticker</td>
+                                <td>Medium</td>
+                              </tr>
+                              <tr>
+                                <th>2</th>
+                                <td>This is my Ticker</td>
+                                <td>Sat 07/04/2022 10:35</td>
+                                <td>501</td>
+                                <td>Scrolling Ticker</td>
+                                <td>Medium</td>
+                              </tr>
+                              <tr>
+                                <th>3</th>
+                                <td>This is my Ticker</td>
+                                <td>Sat 07/04/2022 10:35</td>
+                                <td>501</td>
+                                <td>Scrolling Ticker</td>
+                                <td>Medium</td>
+                              </tr>
+                              <tr>
+                                <th>4</th>
+                                <td>This is my Ticker</td>
+                                <td>Sat 07/04/2022 10:35</td>
+                                <td>501</td>
+                                <td>Scrolling Ticker</td>
+                                <td>Medium</td>
+                              </tr>
+                              <tr>
+                                <th>5</th>
+                                <td>This is my Ticker</td>
+                                <td>Sat 07/04/2022 10:35</td>
+                                <td>501</td>
+                                <td>Scrolling Ticker</td>
+                                <td>Medium</td>
+                              </tr>
+                          </tbody>
+                      </table>  
+                  </div>
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock %}
