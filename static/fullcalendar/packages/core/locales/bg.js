@@ -3,7 +3,6 @@
     typeof define === 'function' && define.amd ? define(factory) :
     (global = global || self, (global.FullCalendarLocales = global.FullCalendarLocales || {}, global.FullCalendarLocales.bg = factory()));
 }(this, function () { 'use strict';
-
     var bg = {
         code: "bg",
         week: {

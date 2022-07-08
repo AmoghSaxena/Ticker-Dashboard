@@ -1,0 +1,11 @@
+--2022-07-07 11:14:52--  https://media.ticker.dns.army/image_1_1.png
+Resolving media.ticker.dns.army (media.ticker.dns.army)... 152.67.6.184
+Connecting to media.ticker.dns.army (media.ticker.dns.army)|152.67.6.184|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 38037 (37K) [image/png]
+Saving to: ‘image_1_1.png.1’
+
+     0K .......... .......... .......... .......              100%  455K=0.08s
+
+2022-07-07 11:14:54 (455 KB/s) - ‘image_1_1.png.1’ saved [38037/38037]
+

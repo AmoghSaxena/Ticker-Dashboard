@@ -54,13 +54,15 @@
                                     <div class="card-body">
                                         <form method="post">
                                             {% csrf_token %}
+                                            <strong class="text-color">Username</strong>
                                             <div class="form-floating mb-3">
                                                 {{ form.username }}
-                                                <label for="inputUsername">Username</label>
+                                                <label for="inputUsername">Enter Your Username</label>
                                             </div>
+                                            <strong class="text-color">Password</strong>
                                             <div class="form-floating mb-3">
                                                 {{ form.password }}
-                                                <label for="inputPassword">Password</label>
+                                                <label for="inputPassword">Enter Your Password</label>
                                             </div>
                                             <input type="submit" class="border-0 rounded text-white p-3" value="login" style="width: 100%; background-color: #354259;">
                                         </form>

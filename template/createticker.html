@@ -7,7 +7,7 @@
                 <div class="path my-4 text-muted fs-5 bg-white p-2 col-md-2 col-sm-3">  
                     <div class="mx-1"><i class="fa-solid fa-square-plus fs-5"></i> Create Ticker</div>
                 </div>
-                <!-- <h3 class="mt-4"><strong><b>Create Ticker</b></strong> <i class="fas fa-long-arrow-alt-right"></i> Preview <i class="fas fa-long-arrow-alt-right"></i> Schedule</h3>
+                <!-- <h3 class="mt-4"><strong class="text-color"><b>Create Ticker</b></strong> <i class="fas fa-long-arrow-alt-right"></i> Preview <i class="fas fa-long-arrow-alt-right"></i> Schedule</h3>
                 <div class="m-2">
                     <div class="border border-primary rounded bg-light">
                         <div class="btn-group m-2 btn-group-lg d-flex justify-content-center" role="group" aria-label="Basic example">
@@ -368,35 +368,35 @@
                             <form id="regForm" action="" class="" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                                 <div class="d-lg-block d-md-block d-sm-block d-none" style="text-align:center;margin-top:40px;">
-                                    <span class="step"><i class="fa-solid fa-plus fs-3 m-2 text-white"></i></i><div>Create</div></span>
-                                    <span class="step"><i class="fa-solid fa-tv fs-3 m-2 text-white"></i><div>Preview</div></span>
-                                    <span class="step"><i class="fa-solid fa-calendar fs-3 m-2 text-white"></i><div>Schedule</div></span>
-                                    <span class="step"><i class="fa-solid fa-check-to-slot fs-3 m-2 text-white"></i><div>Success</div></span>
+                                    <span class="step m-2"><i class="fa-solid fa-plus fs-3 m-2 text-white"></i></i><strong class="text-color">Create</strong></span>
+                                    <span class="step"><i class="fa-solid fa-tv fs-3 m-2 text-white"></i><strong class="text-color">Preview</strong></span>
+                                    <span class="step"><i class="fa-solid fa-calendar fs-3 m-2 text-white"></i><strong class="text-color">Schedule</strong></span>
+                                    <span class="step"><i class="fa-solid fa-check-to-slot fs-3 m-2 text-white"></i><strong class="text-color">Success</strong></span>
                                 </div>
 
                                 <div class="tab m-3">
-                                    <strong>Select Ticker Type</strong>
+                                    <strong class="text-color">Select Ticker Type</strong>
                                     <select name="tickerSelecter" class="form-select mb-3 p-3" aria-label="Default select example" onchange="foselector();" id="tickerSelecter">
-                                        <option selected>Select Ticker</option>
-                                        <option value="scrolling">Scrolling Ticker</option>
-                                        <option value="media">Media Ticker</option>
-                                        <option value="emergency">Emergency Ticker</option>
+                                        <option class="text-color" selected value="">Select Ticker</option>
+                                        <option class="text-color" value="scrolling">Scrolling Ticker</option>
+                                        <option class="text-color" value="media">Media Ticker</option>
+                                        <option class="text-color" value="emergency">Emergency Ticker</option>
                                     </select>
 
                                     <div id="scrolling">
-                                            <strong>Ticker Title</strong>
+                                            <strong class="text-color">Ticker Title</strong>
                                             <div class="form-group form-floating mb-3">
                                                 <input class="form-control" id="scrollingTickerTitle" placeholder="Enter Ticker Title"  type = "text" name="scrollingTickerTitle" value = "" maxlength = "20" />
-                                                <label for="scrollingTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label>
+                                                <label for="scrollingTickerTitle" class="text-muted text-color">Enter Ticker Title <small>(20 letters max.)</small></label>
                                             </div>
                                             <div class="form-check form-switch mb-3">
                                                 <input class="form-check-input" name="primaryScrollingTicker" type="checkbox" value="enabled" id="primaryEnable" onclick="foenabler(this.id);">
-                                                <label class="form-check-label" for="flexCheckDefault">
+                                                <strong class="form-check-label text-color" for="flexCheckDefault">
                                                 Primary Scrolling Ticker
-                                                </label>
+                                                </strong>
                                             </div>
                                             <div id="primary">
-                                                <strong class="">Enter Your Primary Ticker Message</strong>
+                                                <strong class="text-color">Enter Your Primary Ticker Message</strong>
                                                 <div class="form-group form-floating mb-3">
                                                     <textarea name="primaryTickerMessage" class="form-control" id="primaryTickerMessage" rows="4" placeholder="Type Message for Static Ticker" value=" "></textarea>
                                                     <label for="primaryTickerMessage" class="text-muted">Type Message for Primary Ticker</label>
@@ -404,14 +404,14 @@
                                                 <div class="row mb-3">
                                                     <div class="col-md-4">
                                                         <div class="form-check mb-3">
-                                                            <strong for="favcolor">Choose Font Color</strong><br>
+                                                            <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Font Color</label>
                                                             <input name="primaryFontColor" type="color" id="primaryFontColor" value="#000000">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="form-check mb-3">
-                                                            <strong for="favcolor">Choose Background Color</strong><br>
+                                                            <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Background Color</label>
                                                             <input name="primaryBgColor" type="color" id="primaryBgColor" value="#F15412">
                                                         </div>
@@ -419,7 +419,7 @@
                                                 </div>
                                                 <div class="row mb-3">
                                                     <div class="col-md-6">
-                                                        <strong>Font Style</strong>
+                                                        <strong class="text-color">Font Style</strong>
                                                         <select name="primaryFontType" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in font_style %}
                                                             <option>{{items}}</option>
@@ -427,7 +427,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <strong>Font Size</strong>
+                                                        <strong class="text-color">Font Size</strong>
                                                         <select name="primaryFontSize" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in font_size %}
                                                             <option>{{items}}</option>
@@ -435,7 +435,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <strong>Position BOX</strong>
+                                                        <strong class="text-color">Position BOX</strong>
                                                         <select name="primaryPositionBox" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in position %}
                                                             <option>{{items}}</option>
@@ -445,7 +445,7 @@
                                                 </div>
                                                 <div class="row mb-3">
                                                     <div class="col-md-6">
-                                                        <strong>Speed</strong>
+                                                        <strong class="text-color">Speed</strong>
                                                         <select name="primaryTickerSpeed" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in speed %}
                                                             <option>{{items}}</option>
@@ -453,7 +453,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <strong>Ticker Motion</strong>
+                                                        <strong class="text-color">Ticker Motion</strong>
                                                         <select name="primaryTickerMotion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in motion %}
                                                             <option>{{items}}</option>
@@ -465,19 +465,19 @@
                                                     <div class="col-md-3">
                                                         <div class="form-check form-switch mb-3">
                                                             <input name="primaryTickerLogoEnabler" class="form-check-input" type="checkbox" value="enabled" id="primaryLogoEnabler" onclick=fologoenabler(this.id)>
-                                                            <label class="form-check-label" for="flexCheckDefault">
+                                                            <strong class="form-check-label text-color" for="flexCheckDefault">
                                                                 Set logo on Primary Ticker 
-                                                            </label>
+                                                            </strong>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3" id="primaryLogo">
                                                         <div class="form-group">
-                                                            <strong for="exampleFormControlFile1">upload image logo</strong>
+                                                            <strong class="text-color" for="exampleFormControlFile1">upload image logo</strong>
                                                             <input name="primaryTickerLogo" type="file" accept=".png" id="primaryTickerLogo" class="form-control-file" onchange=Filevalidation(this.id)>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6" id="primaryLogoPosition">
-                                                        <strong>Logo Position</strong>
+                                                        <strong class="text-color">Logo Position</strong>
                                                         <select name="primaryTickerLogoPosition" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in logo_position %}
                                                             <option>{{items}}</option>
@@ -489,12 +489,12 @@
                     
                                             <div class="form-check form-switch mb-3">
                                                 <input class="form-check-input" name="secondaryScrollingEnable" type="checkbox" value="enabled" id="secondaryEnable" onclick="foenabler(this.id);">
-                                                <label class="form-check-label" for="flexCheckDefault">
+                                                <strong class="form-check-label text-color" for="flexCheckDefault">
                                                 Secondary Scrolling Ticker
-                                                </label>
+                                                </strong>
                                             </div>
                                             <div id="secondary">
-                                                <strong>Enter Your Secondary Ticker Message</strong>
+                                                <strong class="text-color">Enter Your Secondary Ticker Message</strong>
                                                 <div class="form-group form-floating mb-3">
                                                     <textarea name="secondaryTickerMessage" id="secondaryTickerMessage" class="form-control" rows="4" value=" " placeholder="Type Message for Static Ticker"></textarea>
                                                     <label for="secondaryTickerMessage" class="text-muted">Type Message for Secondary Ticker</label>
@@ -502,14 +502,14 @@
                                                 <div class="row mb-3">
                                                     <div class="col-md-4">
                                                         <div class="form-check mb-3">
-                                                            <strong for="favcolor">Choose Font Color</strong><br>
+                                                            <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Font Color</label>
                                                             <input name="secondaryFontColor" type="color" id="secondaryFontColor" value="#000000">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="form-check form-switch mb-3">
-                                                            <strong for="favcolor">Choose Background Color</strong><br>
+                                                            <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Background Color</label>
                                                             <input name="secondaryBgColor" type="color" id="secondaryBgColor" value="#F15412">
                                                         </div>
@@ -517,7 +517,7 @@
                                                 </div>
                                                 <div class="row mb-3">
                                                     <div class="col-md-3">
-                                                        <strong>Font Style</strong>
+                                                        <strong class="text-color">Font Style</strong>
                                                         <select name="secondaryFontType" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in font_style %}
                                                             <option>{{items}}</option>
@@ -525,7 +525,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <strong>Position BOX</strong>
+                                                        <strong class="text-color">Position BOX</strong>
                                                         <select name="secondaryPositionBox" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in position %}
                                                             <option>{{items}}</option>
@@ -533,7 +533,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <strong>Speed</strong>
+                                                        <strong class="text-color">Speed</strong>
                                                         <select name="secondaryTickerSpeed" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in speed %}
                                                             <option>{{items}}</option>
@@ -541,7 +541,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <strong>Ticker Motion</strong>
+                                                        <strong class="text-color">Ticker Motion</strong>
                                                         <select name="secondaryTickerMotion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in motion %}
                                                             <option>{{items}}</option>
@@ -552,15 +552,15 @@
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
-                                                    <strong class="">Ticker Duration</strong>
+                                                    <strong class="text-color">Ticker Duration</strong>
                                                     <div class="form-group form-floating">
                                                         <input type="number" name="scrollingTickerTimeInterval" min="1" value="1"  required class="form-control" id="number" rows="4" placeholder="Enter Time" />
                                                         <label for="number" class="text-muted">Enter Time Minutes</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <strong>Set Priority</strong>
-                                                    <select name="scrollingTickerPriority" class="form-select p-3" id="ticker_priority" onchange=foeventEnabler(this.id) aria-label="Default select example">
+                                                    <strong class="text-color">Set Priority</strong>
+                                                    <select name="scrollingTickerPriority" class="form-select p-3" id="scrollingTickerPriority" aria-label="Default select example">
                                                         {% for items in priority %}
                                                         <option>{{items}}</option>
                                                         {% endfor %}
@@ -570,34 +570,34 @@
                                     </div>
                     
                                     <div id="media">
-                                            <strong>Ticker Title</strong>
+                                            <strong class="text-color">Ticker Title</strong>
                                             <div class="form-group form-floating mb-3">
-                                                <input class="form-control" id="mediaTickerTitle" rows="4" placeholder="Enter Ticker Title"  type = "text" name="mediaTickerTitle" value=" " maxlength = "20" />
+                                                <input class="form-control" id="mediaTickerTitle" rows="4" placeholder="Enter Ticker Title"  type = "text" name="mediaTickerTitle" value="" maxlength = "20" />
                                                 <label for="mediaTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label>
                                             </div>
                                             <div class="form-check form-switch mb-3">
                                                 <input class="form-check-input" name="staticTickerEnabler" type="checkbox" value="enabled" id="staticEnable" onclick="foenabler(this.id);">
-                                                <label class="form-check-label" for="flexCheckDefault">
+                                                <strong class="form-check-label text-color" for="flexCheckDefault">
                                                 Static Ticker
-                                                </label>
+                                                </strong>
                                             </div>
                                             <div id="static">
-                                                <strong>Enter Your Static Ticker Message</strong>
+                                                <strong class="text-color">Enter Your Static Ticker Message</strong>
                                                 <div class="form-group form-floating mb-3">
-                                                    <input class="form-control" id="staticTickerMessage" rows="4" placeholder="Type dMessage for Static Ticker (20 letters)"  type = "text" name = "staticTickerMessage" value=" " maxlength = "20" />
+                                                    <input class="form-control" id="staticTickerMessage" rows="4" placeholder="Type dMessage for Static Ticker (20 letters)"  type = "text" name = "staticTickerMessage" value="" maxlength = "20" />
                                                     <label for="staricTickerMessage" class="text-muted">Type Message for Static Ticker <small>(20 letters max.)</small></label>
                                                 </div>
                                                 <div class="row mb-3">
                                                     <div class="col-md-4">
                                                         <div class="form-check mb-3">
-                                                            <strong for="favcolor">Choose Font Color</strong><br>
+                                                            <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Font Color</label>
                                                             <input name="staticFontColor" type="color" value="#000000">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="form-check mb-3">
-                                                            <strong for="favcolor">Choose Background Color</strong><br>
+                                                            <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Background Color</label>
                                                             <input name="staticBgColor" type="color" value="#F15412">
                                                         </div>
@@ -605,7 +605,7 @@
                                                 </div>
                                                 <div class="row mb-3">
                                                     <div class="col-md-6">
-                                                        <strong>Font Style</strong>
+                                                        <strong class="text-color">Font Style</strong>
                                                         <select name="staticFontType" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in font_style %}
                                                             <option>{{items}}</option>
@@ -613,7 +613,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <strong>Font Size</strong>
+                                                        <strong class="text-color">Font Size</strong>
                                                         <select name="staticFontSize" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in font_size %}
                                                             <option>{{items}}</option>
@@ -621,7 +621,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <strong>Position BOX</strong>
+                                                        <strong class="text-color">Position BOX</strong>
                                                         <select name="staticPositionBox" id="staticPositionBox" onchange=fopositionbox(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                             {% for items in pos_box %}
                                                             <option>{{items}}</option>
@@ -633,15 +633,15 @@
                                                     <div class="col-md-4">
                                                         <div class="form-check form-switch mb-3">
                                                             <input name="staticTickerLogoEnabler" class="form-check-input" type="checkbox" value="enabled" id="staticTickerLogoEnabler" onclick=fologoenabler(this.id)>
-                                                            <label class="form-check-label" for="flexCheckDefault">
+                                                            <strong class="form-check-label text-color" for="flexCheckDefault">
                                                                 Set logo on Static Ticker 
-                                                            </label>
+                                                            </strong>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-8" id='staticTickerLogo'>
                                                         <div class="form-group">
-                                                            <strong for="exampleFormControlFile1">upload image logo</strong>
-                                                            <input name="staticTickerLogo" value="1" type="file" accept=".png" id="staticTickerLogo" class="form-control-file" onchange=Filevalidation(this.id)>
+                                                            <strong class="text-color" for="exampleFormControlFile1">upload image logo</strong>
+                                                            <input name="staticTickerLogo" type="file" accept=".png" id="staticTickerLogo" class="form-control-file" value="" onchange=Filevalidation(this.id)>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -649,20 +649,20 @@
                     
                                         <div class="form-check form-switch mb-3">
                                             <input class="form-check-input" name="dynamicTickerEnabler" type="checkbox" value="enabled" id="dynamicEnable" onclick="foenabler(this.id);">
-                                            <label class="form-check-label" for="flexCheckDefault">
+                                            <strong class="form-check-label text-color" for="flexCheckDefault">
                                             Dynamic Ticker
-                                            </label>
+                                            </strong>
                                         </div>
                                         <div id="dynamic">
                                             <div class="row mb-3">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <strong for="exampleFormControlFile1">upload short Video</strong>
+                                                        <strong class="text-color" for="exampleFormControlFile1">upload short Video</strong>
                                                         <input name="dynamicTickerVideo" value="1" type="file" class="form-control-file" id="dynamicTickerVideo" accept=".mp4" onchange=Filevalidation(this.id)>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <strong>Position BOX</strong>
+                                                    <strong class="text-color">Position BOX</strong>
                                                     <select name="dynamicTickerPosition" class="form-select mb-3 mb-md-0 p-3" id="dynamicTickerPosition" onchange=fopositionbox(this.id) aria-label="Default select example">
                                                         {% for items in pos_box %}
                                                         <option>{{items}}</option>
@@ -670,7 +670,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4" id="dynamicTickerLocation">
-                                                    <strong>Location</strong>
+                                                    <strong class="text-color">Location</strong>
                                                     <select name="dynamicTickerLocation" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                         {% for items in location %}
                                                         <option>{{items}}</option>
@@ -681,14 +681,14 @@
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
-                                                <strong class="">Ticker Duration</strong>
+                                                <strong class="text-color">Ticker Duration</strong>
                                                 <div class="form-group form-floating">
-                                                    <input type="number" name="mediaTickerTimeInterval" min="1" value="1" required class="form-control" id="number" rows="4" placeholder="Enter Time" />
+                                                    <input type="number" name="mediaTickerTimeInterval" min="1" value="" required class="form-control" id="number" rows="4" placeholder="Enter Time" />
                                                     <label for="number" class="text-muted">Enter Time Minutes</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <strong>Set Priority</strong>
+                                                <strong class="text-color">Set Priority</strong>
                                                 <select name="mediaTickerPriority" class="form-select p-3" id="mediaTickerPriority" onchange=foeventEnabler(this.id) aria-label="Default select example">
                                                     {% for items in priority %}
                                                     <option>{{items}}</option>
@@ -699,14 +699,14 @@
                                     </div>
                     
                                     <div id="emergency">
-                                        <strong>Ticker Title</strong>
+                                        <strong class="text-color">Ticker Title</strong>
                                         <div class="form-group form-floating mb-3">
-                                            <input class="form-control" id="emergencyTickerTitle" rows="4" placeholder="Enter Ticker Title"  type = "text" name="emergencyTickerTitle" value = " " maxlength = "20" />
+                                            <input class="form-control" id="emergencyTickerTitle" rows="4" placeholder="Enter Ticker Title"  type = "text" name="emergencyTickerTitle" value = "" maxlength = "20" />
                                             <label for="emergencyTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-4">
-                                                <strong>Emergency Ticker List</strong>
+                                                <strong class="text-color">Emergency Ticker List</strong>
                                                 <select name="emergencySelecter" class="form-select mb-3 mb-md-0 p-3" onchange="foenabler(this.id);" id="emergencySelecter" aria-label="Default select example">
                                                     {% for items in emergency_ticker_list %}
                                                     <option>{{items}}</option>
@@ -717,8 +717,8 @@
                                             <div class="col-md-6 mt-4 justify-content-center" id="custom">
                                                 <div class="form-group" id="emergency_text">
                                                     <label for="emergencyTickerFile">Upload</label>
-                                                    <input name="emergencyTickerFile" value="1" type="file" class="form-control-file" id="emergencyTickerFile"></br>   
-                                                    <strong>upload jpeg/png for Static Ticker | upload mp4 file for Dynamic Ticker</strong>
+                                                    <input name="emergencyTickerFile" accept=".png,.mp4" value="" type="file" class="form-control-file" id="emergencyTickerFile"></br>   
+                                                    <strong class="text-color">upload jpeg/png for Static Ticker | upload mp4 file for Dynamic Ticker</strong>
                                                 </div>
                                             </div>
                                         </div>
@@ -807,7 +807,7 @@
                                             <div class="row mb-3">
                         
                                                 <div class="col-md-4">
-                                                    <strong>Wings</strong>
+                                                    <strong class="text-color">Wings</strong>
                                                     <select name="wingselection" multiple id="wingselection" class="form-select mb-3 mb-md-0 p-3 selectpicker" aria-label="Default select example">
                                                         {% for items in wings %}
                                                         <option value="{{items}}">{{items}}</option>
@@ -815,7 +815,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <strong>Floor</strong>
+                                                    <strong class="text-color">Floor</strong>
                                                     <select name="floorselection" multiple id="floorselection" class="form-select mb-3 mb-md-0 p-3 selectpicker" aria-label="Default select example">
                                                         {% for items in floor %}
                                                         <option>{{items}}</option>
@@ -823,7 +823,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <strong>Rooms</strong>
+                                                    <strong class="text-color">Rooms</strong>
                                                     <select name="roomselection" multiple id="roomselection" class="form-select mb-3 mb-md-0 p-3 selectpicker" aria-label="Default select example">
                                                         {% for items in keys %}
                                                         <option value="{{items}}">{{items}}</option>
@@ -836,9 +836,9 @@
                                                 <div class="col-md-4">
                                                     <div class="form-check form-switch mb-3">
                                                         <input name="scheduleEnabler" class="form-check-input form-check-input" type="checkbox" onchange="foenabler(this.id);" value="enabled" id="scheduleEnabler">
-                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                        <strong class="form-check-label text-color" for="flexCheckDefault">
                                                             Schedule now 
-                                                        </label>
+                                                        </strong>
                                                     </div>
                                                 </div>
                                             </div>
@@ -847,47 +847,47 @@
                                                 <div class="col-md-2"> 
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="occurancy" id="onetime" onchange="foenabler(this.id);" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                        <strong class="form-check-label text-color" for="flexRadioDefault1">
                                                             One-Time
-                                                        </label>
+                                                        </strong>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="occurancy" id="recurring" onchange="foenabler(this.id);">
-                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                        <strong class="form-check-label text-color" for="flexRadioDefault2">
                                                             Recurring
-                                                        </label>
+                                                        </strong>
                                                     </div>
                                                 </div>
                                             </div>
                                             
                                             <div class="row" id="dateTimeSection">
                                                 <div class="col-md-4 mb-3" id="startDate">
-                                                    <strong>Start Date | Time</strong>
+                                                    <strong class="text-color">Start Date | Time</strong>
                                                     <div class="form-group form-floating">
                                                         <input type="datetime-local" class="form-control"  name="startDate" placeholder="Enter Date">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4 mb-3" id=endDate>
-                                                    <strong>End Date | Time</strong>
+                                                    <strong class="text-color">End Date | Time</strong>
                                                     <div class="form-group form-floating">
                                                         <input type="datetime-local" class="form-control" id="" name="endDate" placeholder="Enter Date">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4 mb-3" id="frequency">
-                                                    <strong>Display Frequency | Display in Every</strong>
+                                                    <strong class="text-color">Display Frequency | Display in Every</strong>
                                                     <select name="delay" id="" onchange=foeventEnabler(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                         {% for items in frequency %}
-                                                        <option>{{items}}</option>
+                                                        <option class="text-color">{{items}}</option>
                                                         {% endfor %}
                                                     </select>
                                                 </div>
                                                 <div class="mb-3" id="days">
-                                                    <strong class="mx-2">Days</strong>
+                                                    <strong class="mx-2 text-color">Days</strong>
                                                     {% for items in days %}
                                                         <input class="form-check-input" type="checkbox" name="{{items}}" id="{{items}}">
-                                                        <label class="mx-2">{{items}}</label>
+                                                        <label class="mx-2 text-color">{{items}}</label>
                                                     {% endfor %}
                                                 </div>
                                             </div>
@@ -902,7 +902,7 @@
                                 <div style="overflow:auto;" class="m-3">
                                     <div style="float:right;">
                                     <button class="btn btn-outline-success my-4 m-2" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="nextBtn" onclick="nextPrev(1);">Next</button>
                                     </div>
                                 </div>
                             </form>
@@ -948,8 +948,81 @@
                     // Otherwise, display the correct tab:
                     showTab(currentTab);
                     }
+
+                    function validateForm()
+                    {
+                        select = document.getElementById("tickerSelecter");
+                        option = select.options[select.selectedIndex];
                     
-                    function validateForm() {
+                        if (option.text == "Scrolling Ticker")
+                        {
+                            if (document.getElementById("scrollingTickerTitle").value == "")
+                            {
+                                return false;
+                            }
+                            else
+                            {return true;}
+                        }
+                        else if (option.text == "Media Ticker")
+                        {
+                            if (document.getElementById("mediaTickerTitle").value == "")
+                            {return false;}
+                            else
+                            {
+                                var staticEnable = document.getElementById("staticEnable");
+                                var dynamicEnable = document.getElementById("dynamicEnable");
+                                
+                                if (staticEnable.checked == false && dynamicEnable.checked == false)
+                                {return false;}
+                                else
+                                {
+                                    if (staticEnable.checked)
+                                    {
+                                        if (document.getElementById("staticTickerMessage").value == "")
+                                        {return false;}
+                                        else
+                                        {
+                                            return true;
+                                            {% comment %} alert("1");
+                                            if ((document.getElementById("staticTickerLogoEnabler").checked==true) && (document.getElementById("staticTickerLogo").value == undefined))
+                                            {alert(2);return false;}
+                                            else{alert(3);return true;} {% endcomment %}
+                                        }
+                                    }
+                                    else
+                                    {
+                                        return true;
+                                        {% comment %} alert("1");
+                                        if ((dynamicEnable == true)  && (document.getElementById("dynamicTickerVideo").value == undefined))
+                                        {return false;}
+                                        else
+                                        {return true;} {% endcomment %}
+                                    }
+                                }
+                            }
+                        }
+                        else if (option.text == "Emergency Ticker")
+                        {
+                            if (document.getElementById("emergencyTickerTitle").value == "")
+                            {
+                                {return false;}
+                            }
+                            else
+                            {
+                                emergencyselector = document.getElementById("emergencySelecter");
+                                custom = emergencyselector.options[emergencyselector.selectedIndex];
+                                if (custom.text == "Custom" && document.getElementById("emergencyTickerFile").value == "")
+                                {return false;}
+                                else{return true;}
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    
+                    function validateFormf(){
                     // This function deals with validation of the form fields
                     var x, y, i, valid = true;
                     x = document.getElementsByClassName("tab");
@@ -961,7 +1034,7 @@
                         // add an "invalid" class to the field:
                         y[i].className += " invalid";
                         // and set the current valid status to false
-                        valid = true;
+                        valid = false;
                         }
                     }
                     // If the valid status is true, mark the step as finished and valid:

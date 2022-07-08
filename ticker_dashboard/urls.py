@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ticker_management.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('files/', include('directory.urls')),
+    # path('files/', include('directory.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

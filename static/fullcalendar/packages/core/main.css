@@ -23,7 +23,7 @@ body .fc {
 
 .fc-bgevent {
   /* default look for background events */
-  background: #8fdf82;
+  background: #354259;
   opacity: 0.3;
 }
 
@@ -261,12 +261,12 @@ temporary rendered events).
   font-size: 0.85em;
   line-height: 1.4;
   border-radius: 3px;
-  border: 1px solid #f67280;
+  border: 1px solid #354259;
 }
 
 .fc-event,
 .fc-event-dot {
-  background-color: #f67280;
+  background-color: #354259;
   /* default BACKGROUND color */
 }
 
@@ -323,8 +323,8 @@ temporary rendered events).
   /* user of this util can scope within a lower z-index */
   top: 50%;
   left: 50%;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   margin-left: -20px;
   margin-top: -20px;
 }
@@ -566,7 +566,7 @@ TODO: more distinction between this file and common.css
 .fc-unthemed .fc-popover,
 .fc-unthemed .fc-list-view,
 .fc-unthemed .fc-list-heading td {
-  border-color: #f9f9f9;
+  border-color: #e2e2e2;
 }
 
 .fc-unthemed .fc-popover {
@@ -580,7 +580,7 @@ TODO: more distinction between this file and common.css
 }
 
 .fc-unthemed td.fc-today {
-  background: #40e0d0;
+  background: #99bdcf;
 }
 
 .fc-unthemed .fc-disabled-day {
@@ -717,14 +717,14 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 /* "primary" coloring */
 .fc-button-primary {
   color: #fff;
-  background-color: #f67280;
-  border-color: #f67280;
+  background-color: #354259;
+  border-color: #354259;
 }
 
 .fc-button-primary:hover {
   color: #fff;
-  background-color: #f67280;
-  border-color: #f67280;
+  background-color: #354259;
+  border-color: #354259;
 }
 
 
@@ -736,15 +736,15 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .fc-button-primary:disabled {
   color: #fff;
-  background-color: #f67280;
-  border-color: #f67280;
+  background-color: #354259;
+  border-color: #354259;
 }
 
 .fc-button-primary:not(:disabled):active,
 .fc-button-primary:not(:disabled).fc-button-active {
   color: #fff;
-  background-color: #f67280;
-  border-color: #f67280;
+  background-color: #354259;
+  border-color: #354259;
 }
 
 .fc-button-primary:not(:disabled):active:focus,

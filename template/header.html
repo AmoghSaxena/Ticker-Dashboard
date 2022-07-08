@@ -81,6 +81,7 @@
       document.getElementById("emergency").hidden = true;
       document.getElementById("scheduleEnabler").checked = false;
       document.getElementById("scheduleEnabler").disabled = false;
+      document.getElementById("scrollingTickerPriority").value = "Medium";
       foenabler("scheduleEnabler");
     }
     else if (option.text == "Media Ticker")
@@ -90,6 +91,7 @@
       document.getElementById("emergency").hidden = true;
       document.getElementById("scheduleEnabler").checked = false;
       document.getElementById("scheduleEnabler").disabled = false;
+      document.getElementById("mediaTickerPriority").value = "Medium";
       foenabler("scheduleEnabler");
     }
     else if (option.text == "Emergency Ticker")
@@ -421,11 +423,11 @@ function fopositionbox(id)
 
     if(option.text == "center")
     {
-      document.getElementById("dynamicTickerMotion").hidden = false;
+      document.getElementById("dynamicTickerLocation").hidden = false;
     }
     else
     {
-      document.getElementById("dynamicTickerMotion").hidden = true;
+      document.getElementById("dynamicTickerLocation").hidden = true;
     }
 
   }

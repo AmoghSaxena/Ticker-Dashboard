@@ -2,7 +2,7 @@ import json
 import datetime
 import time
 import os
-from .models import TickerDetails
+from .models import TickerDetails,SetUp
 from django.core.files.storage import FileSystemStorage
 import xml.etree.ElementTree
 
@@ -15,6 +15,10 @@ def dateformatter(dateobj,timeorday):
 
 def FileUploader(request,ticker_db_data):
     
+    dvs_data=SetUp.objects.filter(id=1).values()
+
+    apache_server_url=str(dvs_data.get().get('Apache_server_url'))
+
     ticker_id=ticker_db_data.get('ticker_id',-1)
     
     temp=ticker_db_data.get('ticker_json',None)
@@ -25,25 +29,23 @@ def FileUploader(request,ticker_db_data):
 
     print("outside")
 
-    if ticker_json.get('main_ticker_condition','not found')!='not found' and ticker_json.get('main_ticker_logo','not found')!='not found':
+    if ticker_json.get('main_ticker_condition','not found')==True and ticker_json.get('main_ticker_logo','not found')==True:
 
         a=request.FILES['primaryTickerLogo']
 
         fss.save(a.name,a)
-
-        print("Inside")
+        
         ext=a.name.split('.')[-1]
         filename="%s_%s_%s.%s"%('image',ticker_id,1,ext)
-        print("Inside")
 
         old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
         new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
 
         os.rename(old_name,new_name)
 
-        ticker_json['main_ticker_logo_name']=filename
+        ticker_json['main_ticker_logo_name']=apache_server_url+'/'+filename
     
-    elif ticker_json.get('static_ticker_condition','not found')!='not found' and ticker_json.get('static_ticker_logo','not found')!='not found':
+    elif ticker_json.get('static_ticker_condition','not found')==True and ticker_json.get('static_ticker_logo','not found')==True:
 
         a=request.FILES.get('staticTickerLogo')
 
@@ -57,9 +59,9 @@ def FileUploader(request,ticker_db_data):
 
         os.rename(old_name,new_name)
 
-        ticker_json['static_ticker_logo_name']=filename
+        ticker_json['static_ticker_logo_name']=apache_server_url+'/'+filename
     
-    elif ticker_json.get('moving_ticker_condition','not found')!='not found':
+    elif ticker_json.get('moving_ticker_condition','not found')==True:
         
         a=request.FILES.get('dynamicTickerVideo')
 
@@ -73,17 +75,15 @@ def FileUploader(request,ticker_db_data):
 
         os.rename(old_name,new_name)
 
-        ticker_json['moving_ticker_logo_name']=filename
+        ticker_json['moving_ticker_logo_name']=apache_server_url+'/'+filename
 
-    elif  ticker_json.get('emergency_ticker_condition','not found')!='not found':
-        print('HEllo I am here.')
+    elif  ticker_json.get('emergency_ticker_condition','not found')==True and request.POST.get('emergencySelecter')=='Custom':
+        
         a=request.FILES.get('emergencyTickerFile')
 
         fss.save(a.name,a)
 
         ext=a.name.split('.')[-1]
-
-        print(ext)
 
         filename=str()
 
@@ -95,9 +95,12 @@ def FileUploader(request,ticker_db_data):
         old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
         new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
         os.rename(old_name,new_name)
-    
 
-    print(request.POST.get('emergencySelecter'))
+        ticker_json['emergency_ticker_logo_name']=apache_server_url+'/'+filename
+    
+    else:
+        print("No Image for upload")
+    
     return json.dumps(ticker_json, indent=3)
 
 
@@ -197,7 +200,7 @@ def datagetter(request):
             tickertype='Scrolling Ticker'
             tickerTitle=request.POST.get('scrollingTickerTitle')
             tickerPriority=request.POST.get('scrollingTickerPriority')
-            CONFIG_DATA['time_interval']= int(request.POST.get('scrollingTickerTimeInterval'))
+            CONFIG_DATA['time_interval']= int(request.POST.get('scrollingTickerTimeInterval')) * 60
             
 
             main_ticker_condition = request.POST.get('primaryScrollingTicker')
@@ -221,8 +224,11 @@ def datagetter(request):
                     CONFIG_DATA['main_ticker_condition']=True
                     CONFIG_DATA['main_ticker_position'] =main_ticker_position
                     CONFIG_DATA['main_ticker_message'] = main_ticker_message
-                    CONFIG_DATA['main_ticker_logo'] = main_ticker_logo
-                    if CONFIG_DATA['main_ticker_logo'] == 'enabled':
+                    if main_ticker_logo == "enabled":
+                        CONFIG_DATA['main_ticker_logo'] = True
+                    else:
+                        CONFIG_DATA['main_ticker_logo'] = False
+                    if CONFIG_DATA['main_ticker_logo'] == True:
                         CONFIG_DATA['main_ticker_logo_position'] = main_ticker_logo_position
                         
                     if main_ticker_font == 'TimesNewRoman' or main_ticker_font == 'MyriadProFont' or main_ticker_font == 'Ubuntu':
@@ -289,7 +295,7 @@ def datagetter(request):
             tickertype='Media Ticker' 
             tickerTitle=request.POST.get('mediaTickerTitle')
             tickerPriority=request.POST.get('mediaTickerPriority')
-            CONFIG_DATA['time_interval']= int(request.POST.get('mediaTickerTimeInterval'))
+            CONFIG_DATA['time_interval']= int(request.POST.get('mediaTickerTimeInterval')) * 60
 
 
             static_ticker_condition = request.POST.get('staticTickerEnabler')
@@ -311,7 +317,7 @@ def datagetter(request):
                     CONFIG_DATA['position_static_ticker']=position_static_ticker
                     CONFIG_DATA['static_ticker_bgcolor']=hex_to_rgb(static_ticker_bgcolor)
                     CONFIG_DATA['static_ticker_font_color']=hex_to_rgb(static_ticker_font_color)
-                    if static_ticker_logo== 'enabled':
+                    if static_ticker_logo== 'enabled' or CONFIG_DATA['position_static_ticker']=='center':
                         CONFIG_DATA['static_ticker_logo']=True
                     else:
                         CONFIG_DATA['static_ticker_logo']=False
@@ -365,11 +371,8 @@ def datagetter(request):
             tickertype='Emergency Ticker'
             tickerTitle=request.POST.get('emergencyTickerTitle')
             tickerPriority='High'
-            print("gtcccnio")
             try:
-
                 CONFIG_DATA['emergency_ticker_condition']= True
-            
             except Exception as emergencyscroll:
                 print('Exception raised during emergencyscroll',emergencyscroll)
 
@@ -378,14 +381,16 @@ def datagetter(request):
         
         CONFIG_DATA=json.dumps(CONFIG_DATA, indent=3)
 
-        print("gtnio")
+        print(CONFIG_DATA)
+
         data_saver(request,tickertype,CONFIG_DATA,tickerTitle,tickerPriority)
 
-        t=TickerDetails.objects.filter(ticker_title=tickerTitle,ticker_priority=tickerPriority,ticker_type=tickertype,ticker_json=CONFIG_DATA).values()
-        print("gtnio")
+        try:
+            t=TickerDetails.objects.filter(ticker_title=tickerTitle,ticker_priority=tickerPriority,ticker_type=tickertype,ticker_json=CONFIG_DATA).values()
+        except Exception as e:
+            print("Exception when fetching for update: ",e)
 
         CONFIG_DATA=FileUploader(request,t.get())
-        print("gtnio")
 
         try:
             t.update(ticker_json=CONFIG_DATA)
@@ -455,10 +460,11 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
 
     tickerobj.ticker_json=CONFIG_DATA1
     
-    if request.POST.get('tickerSelecter')== 'emergency':
+    if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scheduleEnabler') == 'enabled':
         tickerobj.ticker_start_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         tickerobj.frequency = str(1)
         tickerobj.occuring_days = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        tickerobj.ticker_end_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     else:
         if request.POST.get('occurancy')=='enabled':
             tickerobj.ticker_start_time=dateformatter(request.POST.get('startDate'),'time')
@@ -470,6 +476,7 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
             tickerobj.ticker_start_time=dateformatter(request.POST.get('startDate'),'time')
             tickerobj.frequency = str(1)
             tickerobj.occuring_days = dateformatter(request.POST.get('startDate'),'days')
+            tickerobj.ticker_end_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     tickerobj.wings=str(request.POST.get('wingselection'))
     tickerobj.floors=str(request.POST.get('floorselection'))
@@ -488,6 +495,7 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
     tickerobj.is_deleted=0
 
     tickerobj.save()
+
 
 def schedulingdata():
     pass

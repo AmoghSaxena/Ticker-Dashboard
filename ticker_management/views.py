@@ -1,3 +1,5 @@
+import os
+import json
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate
@@ -6,19 +8,17 @@ from ticker_management.gadget import datagetter,filterData, schedulingdata
 from django.http import HttpResponse
 from django_celery_beat.models import PeriodicTask,CrontabSchedule
 from datetime import datetime
-from ticker_management.models import TickerDetails,TickerHistory
+from ticker_management.models import TickerDetails,TickerHistory,SetUp
 from ticker_management.tasks import test_fun
-
-import json
-import sys
+from pathlib import Path
 from .forms import LoginForm
 from rest_framework.decorators import api_view
 from django.http import QueryDict
-from .serializers import TaskSerializer
+from .serializers import TaskSerializer, TaskSerializerConfig
 from rest_framework.response import Response
 from .models import Task
 #Api
-
+BASE_DIR = Path(__file__).resolve().parent
 def login(request):
     form = LoginForm(request.POST or None)
     msg = None
@@ -38,20 +38,23 @@ def login(request):
 
 @login_required
 def index(request):
-    active_ticker=TickerDetails.objects.all().filter(is_active=1)
+    active_ticker_length=TickerDetails.objects.all().filter(is_active=1)
+    active_ticker=TickerDetails.objects.all().filter(is_active=1).order_by('modified_on').reverse()[:5]
     total_ticker=TickerHistory.objects.all()
     history_count = 8
     ticker_count={
-        'active':len(active_ticker),
+        'active':len(active_ticker_length),
         'history':history_count,
-        'total':(history_count+len(active_ticker)),
+        'total':(history_count+len(active_ticker_length)),
         'events': 12,
+        'active_ticker_data':active_ticker,
         'user':request.user.username
     }
     return render(request, 'index.html',ticker_count)
 
 @login_required
 def createTicker(request):
+    syncDVSData()
     data = {
             'pos_box':[
                 'top-right',
@@ -101,8 +104,8 @@ def createTicker(request):
                 ],
             
             'motion':[
-                'left',
-                'right'
+                'left-right',
+                'right-left'
                 ],
 
             'location':[
@@ -146,7 +149,7 @@ def createTicker(request):
             'days' :['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
         }
     if request.method == 'POST':
-        print(request.POST.get('tickerSelecter'))
+        # print(request.POST.get('tickerSelecter'))
         datagetter(request)
         
         return redirect(index)
@@ -163,6 +166,12 @@ def createTicker(request):
         #     return render(request, 'createticker.html', data)
     else:
         return render(request, 'createticker.html', data)
+
+
+@login_required
+def updateTicker(request,ticker_id):
+    pass
+
 
 @login_required
 def active(request):
@@ -237,10 +246,29 @@ def scheduled(request):
             'start': '2022-07-13T07:00:00'
         }
     ]
-    sys.stdout = open('hello.js','a')
-    test=json.dumps(events)
-    print("var eventData = '{}'".format(test))
+    
     return render(request, 'scheduled.html',{'user':request.user.username, 'events':test})
+
+def isEdit(request):
+    pass
+
+def isRestore(request):
+    pass
+
+def isDelete(request, id):
+    tickerDataDelete = TickerDetails.objects.get(ticker_id=id)  
+    tickerDataDelete.delete()  
+    return redirect(active)
+
+def syncDVSData():
+
+    dvs_data=SetUp.objects.filter(id=1).values()
+    print(dvs_data.get())
+    FQDN=dvs_data.get().get('FQDN')
+    Dvs_Token=dvs_data.get().get('Dvs_Token')
+    a="curl -s --location --request POST 'https://{2}/dvs/api/key/selectR' --header 'Content-Type: application/vnd.digivalet.v1+json' --header 'Access-Token: {3}' --data-raw '{0}' | jq  > {1}/../static/resources/resource.json".format('{}',BASE_DIR,FQDN,Dvs_Token)
+    print(a)
+    os.system(a)
 
 @api_view(['GET', 'POST', 'DELETE'])
 def taskPost(request,pk="0"):
@@ -281,6 +309,20 @@ def taskPost(request,pk="0"):
         task.delete()
 
         return Response('Item succsesfully delete!')
+
+
+@api_view(['GET'])
+def configApi(request,pk="0"):
+    if request.method == 'GET':
+        serializer = TaskSerializerConfig(data=request.data)
+        p=serializer.initial_data
+        q=int(p.get('ticker_id'))
+        tasks = TickerDetails.objects.filter(ticker_id=q).values_list('ticker_json')
+        serializer = TaskSerializerConfig(tasks.get(), many=False)
+        print(serializer.__dict__)
+        return Response(json.loads(serializer._args[0][0]))
+
+
 
 def pending(request):
     return render(request, 'pending.html',{'user':request.user.username}) 
