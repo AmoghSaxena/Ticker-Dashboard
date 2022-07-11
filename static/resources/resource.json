@@ -949,6 +949,28 @@
       "modified_on": null
     },
     {
+      "id": "108",
+      "key_number": "1414",
+      "number": "1414",
+      "key_category_id": "14",
+      "key_category_name": "1 Bay Deluxe",
+      "wing_id": "15",
+      "wing_name": "Tower A",
+      "floor_id": "20",
+      "floor_name": "12th Floor",
+      "with_dvc": "1",
+      "number_of_dvc": "1",
+      "number_of_ipad": "1",
+      "number_of_tv": "0",
+      "is_handed_over": "0",
+      "is_active": "1",
+      "is_deleted": "0",
+      "created_by": "Digivalet Admin",
+      "created_on": "11, Jul 2022, 03:47 PM",
+      "modified_by": null,
+      "modified_on": null
+    },
+    {
       "id": "74",
       "key_number": "1501",
       "number": "1501",

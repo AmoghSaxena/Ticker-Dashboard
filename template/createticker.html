@@ -808,10 +808,25 @@
                         
                                                 <div class="col-md-4">
                                                     <strong class="text-color">Wings</strong>
-                                                    <select name="wingselection" multiple id="wingselection" class="form-select mb-3 mb-md-0 p-3 selectpicker" aria-label="Default select example">
-                                                        {% for items in wings %}
-                                                        <option value="{{items}}">{{items}}</option>
-                                                        {% endfor %}
+                                                    <!-- <select class="form-select chosen-select p-5" multiple aria-label=".form-select-lg example" tabindex="8">
+                                                        <option>Design</option>
+                                                        <option>HTML5</option>
+                                                        <option>CSS3</option>
+                                                        <option>jQuery</option>
+                                                        <option>BS4</option>
+                                                        <option>Bootstrap</option>
+                                                        <option>WordPress</option>
+                                                        <option>FrontEnd</option>
+                                                      </select> -->
+                                                    <select name="wingselection" multiple id="wingselection" class="form-select mb-3 mb-md-0 p-3 chosen-select" aria-label="Default select example">
+                                                        <option>Design</option>
+                                                        <option>HTML5</option>
+                                                        <option>CSS3</option>
+                                                        <option>jQuery</option>
+                                                        <option>BS4</option>
+                                                        <option>Bootstrap</option>
+                                                        <option>WordPress</option>
+                                                        <option>FrontEnd</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4">
@@ -832,6 +847,15 @@
                                                 </div>
                                             </div>
                     
+
+
+                <script src="/static/js/jquery-3.3.1.min.js"></script>
+                <script src="/static/js/chosen.jquery.min.js"></script>
+                <script>
+                $(function(){
+                    $(".chosen-select").chosen(); 
+                })
+                </script>
                                             <div class="row mb-3">
                                                 <div class="col-md-4">
                                                     <div class="form-check form-switch mb-3">
@@ -976,28 +1000,28 @@
                                 {return false;}
                                 else
                                 {
-                                    if (staticEnable.checked)
-                                    {
-                                        if (document.getElementById("staticTickerMessage").value == "")
-                                        {return false;}
-                                        else
-                                        {
-                                            return true;
-                                            {% comment %} alert("1");
-                                            if ((document.getElementById("staticTickerLogoEnabler").checked==true) && (document.getElementById("staticTickerLogo").value == undefined))
-                                            {alert(2);return false;}
-                                            else{alert(3);return true;} {% endcomment %}
-                                        }
-                                    }
-                                    else
-                                    {
-                                        return true;
-                                        {% comment %} alert("1");
-                                        if ((dynamicEnable == true)  && (document.getElementById("dynamicTickerVideo").value == undefined))
-                                        {return false;}
-                                        else
-                                        {return true;} {% endcomment %}
-                                    }
+                                    // if (staticEnable.checked)
+                                    // {
+                                    //     if (document.getElementById("staticTickerMessage").value == "")
+                                    //     {return false;}
+                                    //     else
+                                    //     {
+                                    //         return true;
+                                    //         {% comment %} alert("1");
+                                    //         if ((document.getElementById("staticTickerLogoEnabler").checked==true) && (document.getElementById("staticTickerLogo").value == undefined))
+                                    //         {alert(2);return false;}
+                                    //         else{alert(3);return true;} {% endcomment %}
+                                    //     }
+                                    // }
+                                    // else
+                                    // {
+                                    //     return true;
+                                    //     {% comment %} alert("1");
+                                    //     if ((dynamicEnable == true)  && (document.getElementById("dynamicTickerVideo").value == undefined))
+                                    //     {return false;}
+                                    //     else
+                                    //     {return true;} {% endcomment %}
+                                    // }
                                 }
                             }
                         }
@@ -1055,6 +1079,7 @@
                     }
                     
                 </script>
+
 
             </div>
         </main>

@@ -169,8 +169,10 @@ def createTicker(request):
 
 
 @login_required
-def updateTicker(request,ticker_id):
-    pass
+def updateTicker(request,id):
+    ticker_object= TickerDetails.objects.filter(ticker_id=id).values()
+
+    return render(request, 'createticker.html', ticker_object.get())
 
 
 @login_required
@@ -249,8 +251,8 @@ def scheduled(request):
     
     return render(request, 'scheduled.html',{'user':request.user.username, 'events':test})
 
-def isEdit(request):
-    pass
+    
+    return redirect(index)
 
 def isRestore(request):
     pass
@@ -267,7 +269,7 @@ def syncDVSData():
     FQDN=dvs_data.get().get('FQDN')
     Dvs_Token=dvs_data.get().get('Dvs_Token')
     a="curl -s --location --request POST 'https://{2}/dvs/api/key/selectR' --header 'Content-Type: application/vnd.digivalet.v1+json' --header 'Access-Token: {3}' --data-raw '{0}' | jq  > {1}/../static/resources/resource.json".format('{}',BASE_DIR,FQDN,Dvs_Token)
-    print(a)
+    # print(a)
     os.system(a)
 
 @api_view(['GET', 'POST', 'DELETE'])

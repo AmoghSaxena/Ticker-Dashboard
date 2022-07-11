@@ -9,7 +9,6 @@ urlpatterns = [
     path('active/', views.active, name = 'active'),
     path('history/', views.history, name = 'history'),
     path('scheduled/', views.scheduled, name = 'scheduled'),
-    path('edit/<str:id>', views.isEdit, name = 'edit'),
     path('restore/<str:id>', views.isRestore, name = 'restore'),
     path('delete/<str:id>', views.isDelete, name = 'delete'),
     path('preview/<str:id>/', views.preview, name = 'preview'),
