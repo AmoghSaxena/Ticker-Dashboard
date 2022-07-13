@@ -12,6 +12,7 @@ class SetUp(models.Model):
     Dvs_Token=models.CharField(max_length=150,null=True)
     Rundeck_Token=models.CharField(max_length=150,null=True)
     Apache_server_url=models.CharField(max_length=150,null=True)
+    Ticker_FQDN=models.CharField(max_length=150,null=True)
 
 class TickerDetails(models.Model):
     ticker_id = models.AutoField(primary_key=True)

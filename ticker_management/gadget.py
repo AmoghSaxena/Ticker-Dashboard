@@ -3,6 +3,7 @@ import datetime
 import time
 import os
 from .models import TickerDetails,SetUp
+from ticker_management.ticker_schedules import schedulingticker
 from django.core.files.storage import FileSystemStorage
 import xml.etree.ElementTree
 
@@ -102,74 +103,6 @@ def FileUploader(request,ticker_db_data):
         print("No Image for upload")
     
     return json.dumps(ticker_json, indent=3)
-
-
-
-    # if request.POST.get('static_ticker_logo')!=None:
-
-    #     a=request.FILES['static_logo']
-
-    #     fss=FileSystemStorage()
-    #     fss.save(a.name,a)
-
-    #     ext=a.name.split('.')[-1]
-    #     filename="%s_%s_%s.%s"%('image',ticker_id,1,ext)
-
-    #     old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
-    #     new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
-
-    #     os.rename(old_name,new_name)
-
-    #     ticker_json['static_ticker_logo_name']=filename
-    
-    # if request.POST.get('primary_ticker_logo')!=None:
-
-    #     a=request.FILES['primary_logo']
-
-    #     fss=FileSystemStorage()
-    #     fss.save(a.name,a)
-
-    #     ext=a.name.split('.')[-1]
-    #     filename="%s_%s_%s.%s"%('image',ticker_id,2,ext)
-
-    #     old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
-    #     new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
-
-    #     os.rename(old_name,new_name)
-
-    #     ticker_json['main_ticker_logo_name']=filename
-    
-    # if request.POST.get('animation_ticker_enabler')!=None:
-
-    #     a=request.FILES['animation_video']
-
-    #     fss=FileSystemStorage()
-    #     fss.save(a.name,a)
-
-    #     ext=a.name.split('.')[-1]
-    #     filename="%s_%s_%s.%s"%('video',ticker_id,4,ext)
-
-    #     old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
-    #     new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
-
-    #     os.rename(old_name,new_name)
-
-    #     ticker_json['moving_ticker_logo_name']=filename
-    
-    # t=TickerDetails.objects.filter(ticker_id=int(ticker_id))
-
-    # print(t)
-
-    # t.update(ticker_json=xyz)
-
-    # t.ticker_json=xyz
-
-    # print(type(t))
-
-    # t.save()
-
-    
-    # t.update(ticker_json=xyz)
 
 def hex_to_rgb(value):
     value = value.lstrip('#')
@@ -389,6 +322,8 @@ def datagetter(request):
             t=TickerDetails.objects.filter(ticker_title=tickerTitle,ticker_priority=tickerPriority,ticker_type=tickertype,ticker_json=CONFIG_DATA).values()
         except Exception as e:
             print("Exception when fetching for update: ",e)
+        
+        ticker_id_for_schedule=t.get().get('ticker_id',-1)
 
         CONFIG_DATA=FileUploader(request,t.get())
 
@@ -397,57 +332,10 @@ def datagetter(request):
         except TickerDetails.DoesNotExist:
             print('Unable to update')
         
+        schedulingticker(request,ticker_id_for_schedule)
+
     except Exception as e:
         print(e)
-
-    # try:
-    #     tickertype=str()
-
-        
-        
-    #     '''Emergency Ticker'''
-
-
-    #     #Static Ticker
-        
-    #     else:
-    #         print('Static condition false')
-
-    #     #Primary Ticker
-           
-    #     else:
-    #         print('Primary Ticker False')
-        
-    #     #Secondary Ticker Conditions
-        
-    #     else:
-    #         print('Secondary ticker False')
-        
-    #     #Animation Ticker
-
-    #     else:
-    #         print('Animation Ticker False')
-        
-    #     #Emergency Ticker
-
-    #     if emergency_ticker_condition == '':
-    #             if len(tickertype)==0:
-    #                 tickertype='Emergency '
-    #             else:
-    #                 tickertype+=', Emergency'
-    #             CONFIG_DATA['emergency_ticker_condition']=True
-    #     else:
-    #             CONFIG_DATA['emergency_ticker_condition']=False
-
- 
-    #     xyz=json.dumps(CONFIG_DATA, indent=3)
-
-    #     data_saver(tickertype,xyz)
-
-
-    #     return t.get()
-    # except Exception as e:
-    #     print(e)
 
 
 def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
@@ -497,8 +385,37 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
     tickerobj.save()
 
 
-def schedulingdata():
-    pass
+def filterData(file):
+
+    roomType = {'All'}
+    floor = {'All'}
+    key = ['All']
+
+    document = xml.etree.ElementTree.parse(file).getroot()
+
+    for item in document.findall('node'):
+        if item.get('room_type') != None:
+            roomType.add(item.get('room_type'))
+
+    a=sorted(roomType)
+
+    roomTypeValue = 'All'#input('Choice Room Type : ')
+    for item in document.findall('node'):
+        if (roomTypeValue == 'All' or item.get('room_type') == roomTypeValue) and item.get('room_type') != None:
+            floor.add(item.get('floor'))
+    b=sorted(floor)
+
+    floorValue = 'All'#input('Choice Floor : ')
+    for item in document.findall('node'):
+        if (floorValue == 'All' or item.get('floor') == floorValue) and item.get('floor') != None:
+            key.append(item.get('key_no'))
+    c=sorted(key)
+
+    wings=list()
+    wings.append('All')
+
+    return {'wings':wings,'roomtype':a,'floor':b,'keys':c}
+
 
     #Rundeck data
 
@@ -554,33 +471,121 @@ def schedulingdata():
 
 
 
-def filterData(file):
+    # try:
+    #     tickertype=str()
 
-    roomType = {'All'}
-    floor = {'All'}
-    key = ['All']
+        
+        
+    #     '''Emergency Ticker'''
 
-    document = xml.etree.ElementTree.parse(file).getroot()
 
-    for item in document.findall('node'):
-        if item.get('room_type') != None:
-            roomType.add(item.get('room_type'))
+    #     #Static Ticker
+        
+    #     else:
+    #         print('Static condition false')
 
-    a=sorted(roomType)
+    #     #Primary Ticker
+           
+    #     else:
+    #         print('Primary Ticker False')
+        
+    #     #Secondary Ticker Conditions
+        
+    #     else:
+    #         print('Secondary ticker False')
+        
+    #     #Animation Ticker
 
-    roomTypeValue = 'All'#input('Choice Room Type : ')
-    for item in document.findall('node'):
-        if (roomTypeValue == 'All' or item.get('room_type') == roomTypeValue) and item.get('room_type') != None:
-            floor.add(item.get('floor'))
-    b=sorted(floor)
+    #     else:
+    #         print('Animation Ticker False')
+        
+    #     #Emergency Ticker
 
-    floorValue = 'All'#input('Choice Floor : ')
-    for item in document.findall('node'):
-        if (floorValue == 'All' or item.get('floor') == floorValue) and item.get('floor') != None:
-            key.append(item.get('key_no'))
-    c=sorted(key)
+    #     if emergency_ticker_condition == '':
+    #             if len(tickertype)==0:
+    #                 tickertype='Emergency '
+    #             else:
+    #                 tickertype+=', Emergency'
+    #             CONFIG_DATA['emergency_ticker_condition']=True
+    #     else:
+    #             CONFIG_DATA['emergency_ticker_condition']=False
 
-    wings=list()
-    wings.append('All')
+ 
+    #     xyz=json.dumps(CONFIG_DATA, indent=3)
 
-    return {'wings':wings,'roomtype':a,'floor':b,'keys':c}
+    #     data_saver(tickertype,xyz)
+
+
+    #     return t.get()
+    # except Exception as e:
+    #     print(e)
+
+
+
+
+
+    # if request.POST.get('static_ticker_logo')!=None:
+
+    #     a=request.FILES['static_logo']
+
+    #     fss=FileSystemStorage()
+    #     fss.save(a.name,a)
+
+    #     ext=a.name.split('.')[-1]
+    #     filename="%s_%s_%s.%s"%('image',ticker_id,1,ext)
+
+    #     old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
+    #     new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
+
+    #     os.rename(old_name,new_name)
+
+    #     ticker_json['static_ticker_logo_name']=filename
+    
+    # if request.POST.get('primary_ticker_logo')!=None:
+
+    #     a=request.FILES['primary_logo']
+
+    #     fss=FileSystemStorage()
+    #     fss.save(a.name,a)
+
+    #     ext=a.name.split('.')[-1]
+    #     filename="%s_%s_%s.%s"%('image',ticker_id,2,ext)
+
+    #     old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
+    #     new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
+
+    #     os.rename(old_name,new_name)
+
+    #     ticker_json['main_ticker_logo_name']=filename
+    
+    # if request.POST.get('animation_ticker_enabler')!=None:
+
+    #     a=request.FILES['animation_video']
+
+    #     fss=FileSystemStorage()
+    #     fss.save(a.name,a)
+
+    #     ext=a.name.split('.')[-1]
+    #     filename="%s_%s_%s.%s"%('video',ticker_id,4,ext)
+
+    #     old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
+    #     new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
+
+    #     os.rename(old_name,new_name)
+
+    #     ticker_json['moving_ticker_logo_name']=filename
+    
+    # t=TickerDetails.objects.filter(ticker_id=int(ticker_id))
+
+    # print(t)
+
+    # t.update(ticker_json=xyz)
+
+    # t.ticker_json=xyz
+
+    # print(type(t))
+
+    # t.save()
+
+    
+    # t.update(ticker_json=xyz)

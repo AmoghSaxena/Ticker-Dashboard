@@ -7,356 +7,7 @@
                 <div class="path my-4 text-muted fs-5 bg-white p-2 col-md-2 col-sm-3">  
                     <div class="mx-1"><i class="fa-solid fa-square-plus fs-5"></i> Create Ticker</div>
                 </div>
-                <!-- <h3 class="mt-4"><strong class="text-color"><b>Create Ticker</b></strong> <i class="fas fa-long-arrow-alt-right"></i> Preview <i class="fas fa-long-arrow-alt-right"></i> Schedule</h3>
-                <div class="m-2">
-                    <div class="border border-primary rounded bg-light">
-                        <div class="btn-group m-2 btn-group-lg d-flex justify-content-center" role="group" aria-label="Basic example">
-                            {% comment %} <button type="button" class="btn btn-dark" id='staticticker' onclick=fosubmit(this.id)>Static Ticker</button>
-                            <button type="button" class="btn btn-dark" id='primaryticker' onclick=fosubmit(this.id)>Primary Ticker</button>
-                            <button type="button" class="btn btn-dark" id='secondaryticker' onclick=fosubmit(this.id)>Secondary Ticker</button>
-                            <button type="button" class="btn btn-dark" id='animationticker' onclick=fosubmit(this.id)>Animation Ticker</button>
-                            <button type="button" class="btn btn-danger" id='emergencyticker' onclick=fosubmit(this.id)>Emergency Ticker</button> {% endcomment %}
-
-                            <button type="button" class="btn btn-dark" id="scrollingticker" onclick="fosubmit(this.id);foselectoneticker(this.id);">Scrolling Ticker</button>
-                            <button type="button" class="btn btn-dark" id="multimediaticker" onclick="fosubmit(this.id);foselectoneticker(this.id);">Multi-media Ticker</button>
-                            <button type="button" class="btn btn-danger" id="emergencyticker" onclick="fosubmit(this.id);foselectoneticker(this.id);">Emergency Ticker</button>
-                        </div>
-                        <form method="POST" class=" border rounded m-2" id="mainform" enctype="multipart/form-data">
-                            {% csrf_token %}
-                                <div class="m-1" id="primary_form">
-                                    <div class="form-check form-switch mb-3">
-                                        <input name="primary_ticker_enabler" class="form-check-input" type="checkbox" value="" id="primary_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                        Enable Primary Ticker 
-                                        </label>
-                                    </div>
-                                    <div id='hello2'>
-                                        <label>Enter Your Primary Ticker Message</label>
-                                        <div class="form-group form-floating mb-3">
-                                            <textarea name="primary_ticker_msg" class="form-control" id="inputFirstName2" rows="4" placeholder="Type Message for Static Ticker" /></textarea>
-                                            <label for="inputFirstName">Type Message for Primary Ticker</label>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-4">
-                                                <div class="form-check mb-3">
-                                                    <label for="favcolor">Choose Font Color</label><br>
-                                                    <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                    <input name="primary_font_color" type="color" id="font_color2" name="favcolor" value="#000000">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="form-check mb-3">
-                                                    <label for="favcolor">Choose Background Color</label><br>
-                                                    <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                    <input name="primary_background_color" type="color" id="bg_color2" name="favcolor" value="#F15412">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <label>Font Style</label>
-                                                <select name="primary_font_type" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in font_style %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Font Size</label>
-                                                <select name="primary_font_size" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in font_size %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Position BOX</label>
-                                                <select name="primary_position_box" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in position %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <label>Speed</label>
-                                                <select name="primary_ticker_speed" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in speed %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Ticker Motion</label>
-                                                <select name="primary_ticker_motion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in motion %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-3">
-                                                <div class="form-check form-switch mb-3">
-                                                    <input name="primary_ticker_logo" class="form-check-input" type="checkbox" value="" id="primary_logo_enabler" onclick=foeventEnabler(this.id)>
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Apply logo on Primary Ticker 
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3" id="primary_file_obj">
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlFile1">upload image logo</label>
-                                                    <input name="primary_ticker_file" accept=".png" type="file" class="form-control-file" id="primary_logo_cond" onchange=Filevalidation(this.id)>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6" id="primary_logo_pos">
-                                                <label>Logo Position</label>
-                                                <select name="primary_ticker_logo_position" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in logo_position %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="m-1" id="secondary_form">
-                                    <div class="form-check  form-switch mb-3">
-                                        <input name="secondary_ticker_enabler" class="form-check-input" type="checkbox" value="" id="secondary_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                        Enable Secondary Ticker 
-                                        </label>
-                                    </div>
-                                    <div id='hello3'>
-                                        <label>Enter Your Secondary Ticker Message</label>
-                                        <div class="form-group form-floating mb-3">
-                                            <textarea name="secondary_ticker_msg" class="form-control" rows="4" placeholder="Type Message for Static Ticker" /></textarea>
-                                            <label for="inputFirstName">Type Message for Secondary Ticker</label>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-4">
-                                                <div class="form-check mb-3">
-                                                    <label for="favcolor">Choose Font Color</label><br>
-                                                    <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                    <input name="secondary_font_color" type="color" id="font_color" name="favcolor" value="#000000">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="form-check form-switch mb-3">
-                                                    <label for="favcolor">Choose Background Color</label><br>
-                                                    <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                    <input name="secondary_background_color" type="color" id="bg_color3" name="favcolor" value="#F15412">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-3">
-                                                <label>Font Style</label>
-                                                <select name="secondary_font_type" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in font_style %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Position BOX</label>
-                                                <select name="secondary_position_box" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in position %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Speed</label>
-                                                <select name="secondary_ticker_speed" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in speed %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Ticker Motion</label>
-                                                <select name="secondary_ticker_motion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in motion %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="m-1" id="animation_form">
-                                    <div class="form-check form-switch mb-3">
-                                        <input name="animation_ticker_enabler" class="form-check-input" type="checkbox" value="" id="animation_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                        Enable Animation Ticker 
-                                        </label>
-                                    </div>
-                                    <div id='hello4'>
-                                        <div class="row mb-3">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlFile1">upload image logo</label>
-                                                    <input name="animation_video" type="file" class="form-control-file" id="animation_video_cond" accept=".mp4" onchange=Filevalidation(this.id)>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Position BOX</label>
-                                                <select name="animation_position" class="form-select mb-3 mb-md-0 p-3" id="animation_pos" onchange=foeventEnabler(this.id) aria-label="Default select example">
-                                                    {% for items in pos_box %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4" id="animation_text">
-                                                <label>Location</label>
-                                                <select name="animation_ticker_motion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in location %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="m-1" id="static_form">
-                                    <div class="form-check form-switch mb-3">
-                                        <input class="form-check-input" name="static_ticker_enabler" type="checkbox" value="" id="static_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                        Enable Static Ticker 
-                                        </label>
-                                    </div>
-                                    <div id="hello1">
-                                        <label>Enter Your Static Ticker Message</label>
-                                        <div class="form-group form-floating mb-3">
-                                            <input class="form-control" id="inputFirstName1" rows="4" placeholder="Type dMessage for Static Ticker (20 letters)"  type = "text" name = "static_ticker_msg" value = "" maxlength = "20" />
-                                            <label for="inputFirstName">Type Message for Static Ticker <small>(20 letters max.)</small></label>
-                                        </div>
-                                        <div class="row mb-3">
-                                        <div class="col-md-4">
-                                                <div class="form-check mb-3">
-                                                    <label for="favcolor">Choose Font Color</label><br>
-                                                    <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                    <input name="static_font_color" type="color" name="favcolor" value="#000000">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="form-check mb-3">
-                                                    <label for="favcolor">Choose Background Color</label><br>
-                                                    <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                    <input name="static_background_color" type="color"  name="favcolor" value="#F15412">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <label>Font Style</label>
-                                                <select name="static_font_type" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in font_style %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Font Size</label>
-                                                <select name="static_font_size" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in font_size %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Position BOX</label>
-                                                <select name="static_position_box" id="static_pos_box" onchange=foeventEnabler(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                    {% for items in pos_box %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-4">
-                                                <div class="form-check form-switch mb-3">
-                                                    <input name="static_ticker_logo" class="form-check-input" type="checkbox" value="" id="checkbox_for_static_logo" onclick=foeventEnabler(this.id)>
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Apply logo on Static Ticker 
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8" id='static_logo'>
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlFile1">upload image logo</label>
-                                                    <input name="static_logo" type="file" accept=".png" id="static_image_cond" class="form-control-file" id="static_logo" onchange=Filevalidation(this.id)>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="m-1" id="emergency_form">
-                                    <div class="form-check form-switch mb-3">
-                                        <input name="emergency_ticker_enabler" class="form-check-input" type="checkbox" value="" id="emergency_form_data" onclick="foeventEnabler(this.id);fobuttonenabler();">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                        Enable Emergency Ticker 
-                                        </label>
-                                    </div>
-
-                                    <div id='hello5'>
-                                        <div class="row mb-3">
-                                            <div class="col-md-4">
-                                                <label>Emergency Ticker List</label>
-                                                <select name="emergency_position" class="form-select mb-3 mb-md-0 p-3" id="emergency_pos" onchange=foeventEnabler(this.id) aria-label="Default select example">
-                                                    {% for items in emergency_ticker_list %}
-                                                    <option>{{items}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2"></div>
-                                            <div class="col-md-6 mt-3 d-flex justify-content-center" >
-                                                <div class="form-group" id="emergency_text">
-                                                    <label for="exampleFormControlFile1">Upload</label>
-                                                    <input name="emergency_media" type="file" class="form-control-file" id="emergency_file_upload">    
-                                                    <label>upload jpeg/png for Static Ticker | upload mp4 file for Dynamic Ticker</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                            {% comment %} <button class="btn btn-danger">Clear</button> {% endcomment %}
-                                    </div>
-                                </div>
-                            
-                                <div class="row mb-3">
-                                    <div class="col-md-4">
-                                        <label class="m-1">Ticker Duration</label>
-                                        <div class="form-group form-floating m-3">
-                                            <input type="number" name='time_interval' required class="form-control" id="number" rows="4" placeholder="Enter Time" />
-                                            <label for="number">Enter Time</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Set Priority</label>
-                                        <select name="emergency_position" class="form-select mt-3 p-3" id="ticker_priority" onchange=foeventEnabler(this.id) aria-label="Default select example">
-                                            {% for items in priority %}
-                                            <option>{{items}}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4" >
-                                        <div class="form-group mt-5" id="">
-                                            <div class="form-group m-3">
-                                                <input type="submit" class="border rounded btn-primary p-3 btn-lg btn-block" id="submit" value="Preview & Schedule Ticker" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        </form>
-                    </div>
-                </div> -->
-
+ 
                 <div class="row">
                     <div class="col-12">
                         <div class="bg-white rounded-border">
@@ -777,7 +428,7 @@
 
                                                 <div class="video-descriptionss p-3">
                                                         <video autoplay loop muted style="width: 200px; height: 200px;">
-                                                            <source src="/static/rcb_animationnn.mp4" type="video/mp4">
+                                                            <source src="/static/rcb_animation.mp4" type="video/mp4">
                                                             <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
                                                         </video>
                                                 </div>
@@ -808,29 +459,51 @@
                         
                                                 <div class="col-md-4">
                                                     <strong class="text-color">Wings</strong>
-                                                    <select name="wingselection" multiple id="wingselection" class="form-select mb-3 mb-md-0 p-3 selectpicker" aria-label="Default select example">
-                                                        {% for items in wings %}
-                                                        <option value="{{items}}">{{items}}</option>
+                                                    <!-- <div class="border rounded p-3">
+                                                        <select name="wingSelection" multiple id="wingSelection" class="form-select" aria-label="Default select example">      
+                                                            <option value="alice">Alice</option>
+                                                            <option value="bob">Bob</option>
+                                                            <option value="carol">Carol</option>     
+                                                            <option value="alice">Alice</option>
+                                                            <option value="bob">Bob</option>
+                                                            <option value="carol">Carol</option>     
+                                                            <option value="alice">Alice</option>
+                                                            <option value="bob">Bob</option>
+                                                            <option value="carol">Carol</option>     
+                                                            <option value="alice">Alice</option>
+                                                            <option value="bob">Bob</option>
+                                                            <option value="carol">Carol</option>
+                                                        </select>
+                                                    </div> -->
+                                                    <select name="wingSelection" multiple id="wingSelection" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        <option>All</option>
+                                                        {% for items in wing %}
+                                                            <option>{{items}}</option>
                                                         {% endfor %}
                                                     </select>
                                                 </div>
+
+
                                                 <div class="col-md-4">
                                                     <strong class="text-color">Floor</strong>
-                                                    <select name="floorselection" multiple id="floorselection" class="form-select mb-3 mb-md-0 p-3 selectpicker" aria-label="Default select example">
+                                                    <select name="floorSelection" multiple id="floorSelection" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        <option>All</option>
                                                         {% for items in floor %}
-                                                        <option>{{items}}</option>
+                                                            <option>{{items}}</option>
                                                         {% endfor %}
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <strong class="text-color">Rooms</strong>
-                                                    <select name="roomselection" multiple id="roomselection" class="form-select mb-3 mb-md-0 p-3 selectpicker" aria-label="Default select example">
-                                                        {% for items in keys %}
-                                                        <option value="{{items}}">{{items}}</option>
+                                                    <select name="roomSelection" multiple id="roomSelection" class="form-select mb-3 mb-md-0 p-3 selectpicker" aria-label="Default select example">
+                                                        <option>All</option>
+                                                        {% for items in key %}
+                                                            <option>{{items}}</option>
                                                         {% endfor %}
                                                     </select>
                                                 </div>
                                             </div>
+
                     
                                             <div class="row mb-3">
                                                 <div class="col-md-4">
@@ -983,20 +656,20 @@
                                         else
                                         {
                                             return true;
-                                            {% comment %} alert("1");
-                                            if ((document.getElementById("staticTickerLogoEnabler").checked==true) && (document.getElementById("staticTickerLogo").value == undefined))
-                                            {alert(2);return false;}
-                                            else{alert(3);return true;} {% endcomment %}
+                                            // {% comment %} alert("1");
+                                            // if ((document.getElementById("staticTickerLogoEnabler").checked==true) && (document.getElementById("staticTickerLogo").value == undefined))
+                                            // {alert(2);return false;}
+                                            // else{alert(3);return true;} {% endcomment %}
                                         }
                                     }
                                     else
                                     {
                                         return true;
-                                        {% comment %} alert("1");
-                                        if ((dynamicEnable == true)  && (document.getElementById("dynamicTickerVideo").value == undefined))
-                                        {return false;}
-                                        else
-                                        {return true;} {% endcomment %}
+                                        // {% comment %} alert("1");
+                                        // if ((dynamicEnable == true)  && (document.getElementById("dynamicTickerVideo").value == undefined))
+                                        // {return false;}
+                                        // else
+                                        // {return true;} {% endcomment %}
                                     }
                                 }
                             }
@@ -1055,6 +728,34 @@
                     }
                     
                 </script>
+
+<script type="text/javascript" src="/static/js/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.multi-select.js"></script>
+<script type="text/javascript">
+$(function(){
+    $('#floorselection').multiSelect();
+    $('#ice-cream').multiSelect();
+    $('#line-wrap-example').multiSelect({
+        positionMenuWithin: $('.position-menu-within')
+    });
+    $('#categories').multiSelect({
+        noneText: 'All categories',
+        presets: [
+            {
+                name: 'All categories',
+                all: true
+            },
+            {
+                name: 'My categories',
+                options: ['a', 'c']
+            }
+        ]
+    });
+    $('#modal-example').multiSelect({
+        'modalHTML': '<div class="multi-select-modal">'
+    });
+});
+</script>
 
             </div>
         </main>

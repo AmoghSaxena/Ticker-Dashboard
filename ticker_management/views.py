@@ -1,10 +1,11 @@
 import os
 import json
+import xml.etree.ElementTree
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as user_login
-from ticker_management.gadget import datagetter,filterData, schedulingdata
+from ticker_management.gadget import datagetter,filterData
 from django.http import HttpResponse
 from django_celery_beat.models import PeriodicTask,CrontabSchedule
 from datetime import datetime
@@ -52,9 +53,38 @@ def index(request):
     }
     return render(request, 'index.html',ticker_count)
 
+def filterData():
+    DVSDATA = dict()
+    roomTypeData = {'All'}
+    wingData = {'All'}
+    floorData = {'All'}
+    keyData = {'All'}
+    xmlDocument = xml.etree.ElementTree.parse(f"{BASE_DIR}/resources/res.xml").getroot()
+    jsonDocument = json.load(open(f"{BASE_DIR}/resources/resource.json"))
+
+    for item in xmlDocument.findall('node'):
+        if item.get('room_type') != None:
+            roomTypeData.add(item.get('room_type'))
+        if item.get('floor') != None:
+            floorData.add(item.get('floor'))
+        if item.get('key_no') != None:
+            keyData.add(item.get('key_no'))
+
+    for item in jsonDocument.get('data'):
+        wingData.add(item.get('wing_name'))
+    
+    DVSDATA["roomType"]=sorted(roomTypeData)
+    DVSDATA["wing"] = sorted(wingData)
+    DVSDATA["floor"] = sorted(floorData)
+    DVSDATA["key"] = sorted(keyData)
+    
+    return DVSDATA
+
+
 @login_required
 def createTicker(request):
     syncDVSData()
+    
     data = {
             'pos_box':[
                 'top-right',
@@ -148,6 +178,10 @@ def createTicker(request):
             ],
             'days' :['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
         }
+    
+    data['scheduledata']=filterData()
+
+
     if request.method == 'POST':
         # print(request.POST.get('tickerSelecter'))
         datagetter(request)
@@ -247,7 +281,7 @@ def scheduled(request):
         }
     ]
     
-    return render(request, 'scheduled.html',{'user':request.user.username, 'events':test})
+    return render(request, 'scheduled.html',{'user':request.user.username, 'events':events})
 
 def isEdit(request):
     pass
@@ -261,14 +295,12 @@ def isDelete(request, id):
     return redirect(active)
 
 def syncDVSData():
-
     dvs_data=SetUp.objects.filter(id=1).values()
     print(dvs_data.get())
     FQDN=dvs_data.get().get('FQDN')
     Dvs_Token=dvs_data.get().get('Dvs_Token')
-    a="curl -s --location --request POST 'https://{2}/dvs/api/key/selectR' --header 'Content-Type: application/vnd.digivalet.v1+json' --header 'Access-Token: {3}' --data-raw '{0}' | jq  > {1}/../static/resources/resource.json".format('{}',BASE_DIR,FQDN,Dvs_Token)
-    print(a)
-    os.system(a)
+    dvs_data="curl -s --location --request POST 'https://{2}/dvs/api/key/selectR' --header 'Content-Type: application/vnd.digivalet.v1+json' --header 'Access-Token: {3}' --data-raw '{0}' | jq  > {1}/../static/resources/resource.json".format('{}',BASE_DIR,FQDN,Dvs_Token)
+    os.system(dvs_data)
 
 @api_view(['GET', 'POST', 'DELETE'])
 def taskPost(request,pk="0"):
@@ -319,8 +351,10 @@ def configApi(request,pk="0"):
         q=int(p.get('ticker_id'))
         tasks = TickerDetails.objects.filter(ticker_id=q).values_list('ticker_json')
         serializer = TaskSerializerConfig(tasks.get(), many=False)
-        print(serializer.__dict__)
         return Response(json.loads(serializer._args[0][0]))
+
+
+
 
 
 
@@ -413,3 +447,4 @@ def preview(request,id):
     else:
         t=TickerDetails.objects.filter(ticker_id=int(id)).values()
         return render(request, 'preview.html',t.get())
+
