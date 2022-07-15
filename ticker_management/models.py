@@ -11,6 +11,7 @@ class SetUp(models.Model):
     FQDN=models.CharField(max_length=60)
     Dvs_Token=models.CharField(max_length=150,null=True)
     Rundeck_Token=models.CharField(max_length=150,null=True)
+    Rundeck_Api_Version=models.IntegerField(default=-1)
     Apache_server_url=models.CharField(max_length=150,null=True)
     Ticker_FQDN=models.CharField(max_length=150,null=True)
 
@@ -25,8 +26,9 @@ class TickerDetails(models.Model):
     wings = models.CharField(max_length=300, null=True)
     floors = models.CharField(max_length=300, null=True)
     rooms = models.CharField(max_length=300, null=True)
+    roomTypeSelection=models.CharField(max_length=300,null=True)
     frequency = models.CharField(max_length=30,null=True)
-    occuring_days = models.CharField(max_length=50,null=True)
+    occuring_days = models.CharField(max_length=500,null=True)
     ticker_priority= models.CharField(max_length=10,default='Not Specific')
     created_by = models.CharField(max_length=50, blank=True, null=True)
     created_on = models.DateTimeField()

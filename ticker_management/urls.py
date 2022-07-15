@@ -12,7 +12,7 @@ urlpatterns = [
     path('edit/<str:id>', views.isEdit, name = 'edit'),
     path('restore/<str:id>', views.isRestore, name = 'restore'),
     path('delete/<str:id>', views.isDelete, name = 'delete'),
-    path('preview/<str:id>/', views.preview, name = 'preview'),
+    path('details/<str:id>', views.details, name = 'details'),
 	path('ticker-post/', views.taskPost),
     path('ticker-config-api/', views.configApi)
 ]

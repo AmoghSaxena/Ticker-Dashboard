@@ -16,12 +16,11 @@ app.config_from_object(settings,namespace='CELERY')
 
 #Celery Beat
 
-app.conf.beat_schedule= {
-    'celery_beat_name':
-    {
-        'task':'Task_Performer.tasks.celery_beat_name',
-        'schedule': crontab(hour=14,minute=47)
-    }
+app.conf.beat_schedule = {
+    'default': {
+        'task':'Task_Performer.tasks.callticker',
+        'schedule': crontab(hour="*/4")
+    },
 }
 
 app.autodiscover_tasks()

@@ -13,6 +13,14 @@
         <link href="/static/css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="/static/css/preview.css" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
+        <!-- Select2 CSS --> 
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
+        <!-- jQuery --> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+        <!-- Select2 JS --> 
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
         <style>
 
         .nav a:hover{
@@ -67,97 +75,24 @@
             }
 
 
-            /* yaha se mirjapur ki gaddi hamari */
 
-
-        .multi-select-container {
-            display: inline-block;
-            position: relative;
-            min-width: 100%;
-        }
-
-        .multi-select-menu {
-            position: absolute;
-            left: 0;
-            z-index: 1;
-            float: left;
-            min-width: 100%;
-            background: #fff;
-            margin: 1em 0;
-            border: 1px solid rgb(207, 207, 207);
-            display: none;
-        }
-
-        .multi-select-menuitem {
-            display: block;
-            padding: 0.6em 1em 0.6em 30px;
-            white-space: nowrap;
-        }
-
-        .multi-select-menuitem--titled:before {
-            display: block;
-            font-weight: bold;
-            content: attr(data-group-title);
-        }
-
-        .multi-select-menuitem--titledsr:before {
-            display: block;
-            font-weight: bold;
-            content: attr(data-group-title);
-            border: 0;
-            clip: rect(0 0 0 0);
-            height: 1px;
-            margin: -1px;
-            overflow: hidden;
-            padding: 0;
-            position: absolute;
-            width: 1px;
-        }
-
-        .multi-select-menuitem + .multi-select-menuitem {
-            padding-top: 0;
-        }
-
-        .multi-select-button {
-            display: inline-block;
-            max-width: 20em;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            cursor: default;
-        }
-
-        .multi-select-button:after {
-            content: "";
-            display: inline-block;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0.4em 0.4em 0 0.4em;
-            border-color: #999 transparent transparent transparent;
-            margin-left: 0.4em;
-            vertical-align: 0.1em;
-        }
-
-        .multi-select-container--open .multi-select-menu {
-            display: block;
-        }
-
-        .multi-select-container--open .multi-select-button:after {
-            border-width: 0 0.4em 0.4em 0.4em;
-            border-color: transparent transparent #999 transparent;
-        }
-
-        .multi-select-container--positioned .multi-select-menu {
-            /* Avoid border/padding on menu messing with JavaScript width calculation */
-            box-sizing: border-box;
-        }
-
-        .multi-select-container--positioned .multi-select-menu label {
-            /* Allow labels to line wrap when menu is artificially narrowed */
-            white-space: normal;
-        }
-
+            .select2-container--default .select2-selection--multiple{
+              border-color: #d0d4da;
+              padding: 0.5rem 0rem;
+            }
+            select2-container--focus{
+              border-color: #d0d4da !important;
+              /* padding: 1rem 0.65rem; */
+            }
+            .select2-container{
+              width: 100% !important;
+            }
+            .select2-container--default .select2-selection--multiple .select2-selection__choice{
+              background-color: #FFFFFD;
+              border: 1px solid #354259;
+              color:#354259;
+    
+            }
 
         </style>
 

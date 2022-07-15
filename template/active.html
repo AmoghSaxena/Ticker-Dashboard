@@ -52,7 +52,8 @@
                             <td>{{tickerData.frequency}}</td>
                             <td>{{tickerData.ticker_priority}}</td>
                             <td>
-                                <a class="text-color mx-1" href="{% url 'createticker'%}"><i class="fa-solid fa-pen-to-square"></i> Edit</a></br>
+                                <!-- <a class="text-color mx-1" href="{% url 'createticker'%}"><i class="fa-solid fa-pen-to-square"></i> Edit</a></br> -->
+                                <a class="text-info mx-1" href={% url 'details' tickerData.ticker_id %}><i class="fas fa-eye"></i> Details</a></br>
                                 <a class="text-danger mx-1" href="/delete/{{ tickerData.ticker_id }}"><i class="fas fa-trash"></i> Delete</a>
                             </td>
                         </tr>

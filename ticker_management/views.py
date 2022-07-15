@@ -1,5 +1,9 @@
 import os
+import requests
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
 import json
+import subprocess
 import xml.etree.ElementTree
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
@@ -10,7 +14,6 @@ from django.http import HttpResponse
 from django_celery_beat.models import PeriodicTask,CrontabSchedule
 from datetime import datetime
 from ticker_management.models import TickerDetails,TickerHistory,SetUp
-from ticker_management.tasks import test_fun
 from pathlib import Path
 from .forms import LoginForm
 from rest_framework.decorators import api_view
@@ -55,13 +58,12 @@ def index(request):
 
 def filterData():
     DVSDATA = dict()
-    roomTypeData = {'All'}
-    wingData = {'All'}
-    floorData = {'All'}
-    keyData = {'All'}
+    roomTypeData = set()
+    wingData = set()
+    floorData = set()
+    keyData = set()
     xmlDocument = xml.etree.ElementTree.parse(f"{BASE_DIR}/resources/res.xml").getroot()
     jsonDocument = json.load(open(f"{BASE_DIR}/resources/resource.json"))
-
     for item in xmlDocument.findall('node'):
         if item.get('room_type') != None:
             roomTypeData.add(item.get('room_type'))
@@ -69,22 +71,17 @@ def filterData():
             floorData.add(item.get('floor'))
         if item.get('key_no') != None:
             keyData.add(item.get('key_no'))
-
     for item in jsonDocument.get('data'):
         wingData.add(item.get('wing_name'))
-    
     DVSDATA["roomType"]=sorted(roomTypeData)
     DVSDATA["wing"] = sorted(wingData)
     DVSDATA["floor"] = sorted(floorData)
     DVSDATA["key"] = sorted(keyData)
-    
     return DVSDATA
-
 
 @login_required
 def createTicker(request):
     syncDVSData()
-    
     data = {
             'pos_box':[
                 'top-right',
@@ -178,14 +175,16 @@ def createTicker(request):
             ],
             'days' :['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
         }
-    
-    data['scheduledata']=filterData()
-
-
+    data['scheduleData']=filterData()
     if request.method == 'POST':
+
+
+        # print(request.POST.get('startDate'),request.POST.get('endDate'))
+
+        # print(request.POST.get('Sunday'),request.POST.get('Monday'))
         # print(request.POST.get('tickerSelecter'))
-        datagetter(request)
         
+        datagetter(request)
         return redirect(index)
         # if (
         #     request.POST.get('static_ticker_enabler')=='' or 
@@ -229,59 +228,23 @@ def history(request):
         
 @login_required
 def scheduled(request):
-    events= [
-        {
-            'title': 'Emergency',
-            'start': '2022-08-07'
-        },
-        {
-            'title': 'Dynamic',
-            'start': '2022-07-07',
-            'end': '2022-07-10'
-        },
-        {
-            'groupId': 999,
-            'title': 'Primary',
-            'start': '2022-07-09T16:00:00'
-        },
-        {
-            'groupId': 999,
-            'title': 'Dynamic',
-            'start': '2022-07-16T16:00:00'
-        },
-        {
-            'title': 'Secondary',
-            'start': '2022-07-11',
-            'end': '2022-07-13'
-        },
-        {
-            'title': 'Emergency',
-            'start': '2022-07-12T10:30:00',
-            'end': '2022-07-12T12:30:00'
-        },
-        {
-            'title': 'Static',
-            'start': '2022-07-12T12:00:00'
-        },
-        {
-            'title': 'Primary',
-            'start': '2022-07-12T14:30:00'
-        },
-        {
-            'title': 'Primary',
-            'start': '2022-07-12T17:30:00'
-        },
-        {
-            'title': 'media',
-            'start': '2022-07-12T20:00:00'
-        },
-        {
-            'title': 'Emergency',
-            'start': '2022-07-13T07:00:00'
-        }
-    ]
-    
-    return render(request, 'scheduled.html',{'user':request.user.username, 'events':events})
+    eventData = dict()
+    events = list()
+    ticker_obj=TickerDetails.objects.values('ticker_id','ticker_title','ticker_start_time','ticker_end_time')
+    for item in ticker_obj:
+        data = dict()
+        data['groupId']=item.get('ticker_id')
+        data['title']=item.get('ticker_title')
+        data['start']=item.get('ticker_start_time').strftime('%Y-%m-%dT%H:%M:%S')
+        data['end']=item.get('ticker_end_time').strftime('%Y-%m-%dT%H:%M:%S')
+        events.append(data)
+    eventData['events'] = events
+    event = json.dumps(eventData)
+    # txt = str(event)
+    # txt = txt.replace("{'","{").replace("':",":").replace(", '",", ")
+    with open('{0}/../static/resources/events.json'.format(BASE_DIR), 'w') as f:
+        f.write(str(event))
+    return render(request, 'scheduled.html',{'user':request.user.username})
 
 def isEdit(request):
     pass
@@ -296,7 +259,7 @@ def isDelete(request, id):
 
 def syncDVSData():
     dvs_data=SetUp.objects.filter(id=1).values()
-    print(dvs_data.get())
+    # print(dvs_data.get())
     FQDN=dvs_data.get().get('FQDN')
     Dvs_Token=dvs_data.get().get('Dvs_Token')
     dvs_data="curl -s --location --request POST 'https://{2}/dvs/api/key/selectR' --header 'Content-Type: application/vnd.digivalet.v1+json' --header 'Access-Token: {3}' --data-raw '{0}' | jq  > {1}/../static/resources/resource.json".format('{}',BASE_DIR,FQDN,Dvs_Token)
@@ -305,7 +268,6 @@ def syncDVSData():
 @api_view(['GET', 'POST', 'DELETE'])
 def taskPost(request,pk="0"):
     if request.method == 'POST':
-        # print(request)
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
             ip = x_forwarded_for.split(',')[0]
@@ -314,16 +276,12 @@ def taskPost(request,pk="0"):
         d={}
         d['ip']=ip
         d.update(request.POST)
-        print(d)
         for i,j in d.items():
             if type(j) == list:
                 d[i] = j[0]
         query_dict = QueryDict('', mutable=True)
         query_dict.update(d)
         serializer = TaskSerializer(data=query_dict)
-        print(str(serializer))
-        print("........................................")
-        print("serializer isValid: " + str(serializer.is_valid()))
         if serializer.is_valid():
             serializer.save()
         return Response(serializer.data)
@@ -339,9 +297,7 @@ def taskPost(request,pk="0"):
         print(type(q))
         task = Task.objects.get(id=q)
         task.delete()
-
         return Response('Item succsesfully delete!')
-
 
 @api_view(['GET'])
 def configApi(request,pk="0"):
@@ -356,10 +312,6 @@ def configApi(request,pk="0"):
 
 
 
-
-
-def pending(request):
-    return render(request, 'pending.html',{'user':request.user.username}) 
 
 def schedule(request):
         # if request.method == 'POST':
@@ -434,17 +386,56 @@ def schedule(request):
     # print(request.POST.get('delay'))
     pass
 
-def preview(request,id):
-    if request.method == 'POST':
-        # print(request.POST.get('ticker_id_field'))
-        id=request.POST.get('ticker_id_field')
 
-        # print(roomconfig.get('ticker_id','no data found'))
+def details(request, id):
+    data = dict()
+    dvs_data=SetUp.objects.filter(id=1).values()
+    FQDN=dvs_data.get().get('FQDN')
+    Dvs_Token=dvs_data.get().get('Dvs_Token')
+    Rundeck_Token=dvs_data.get().get('Rundeck_Token')
+    # rundeck_out="curl --location --request GET 'https://{0}/r/api/17/execution/6036/output' --header 'X-Rundeck-Auth-Token: {1}'".format(FQDN,Rundeck_Token)
+    r = requests.get(f"https://{FQDN}/r/api/17/execution/6036/output", headers={"X-Rundeck-Auth-Token":Rundeck_Token})
+    try:
+        # process = subprocess.Popen(rundeck_out, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        # output = process.stderr.read()
+        # exitstatus = process.wait()
+        exitstatus = 0
+        if exitstatus == 0:
+            xmlDocument = xml.etree.ElementTree.parse(process.stdout).getroot()
+            xmlDocument = xml.etree.ElementTree.parse(process.stdout).getroot()
+            tree = ET.parse(r.text).getroot()
+            for item in xmlDocument.iter('entry'):
+                if item.get('level') == 'ERROR':
+                    data['log'] = item.get('log')
+                    data['room'] = item.get('node')
+                    print(data)
+            return render(request, 'tickerdetails.html')
+        else:
+            return HttpResponse(output.decode('utf-8'))
+    except Exception as e:
+        return HttpResponse(e)
+    # try:
+    #     r = requests.get(f"https://{FQDN}/r/api/17/execution/6036/output", headers={"X-Rundeck-Auth-Token":Rundeck_Token})
+    #     tree = ET.parse(r.text)
+    #     root = tree.getroot()
+    #     xmlDocument = root
+    #     items = xmlDocument.getElementsByTagName('entry')
+    #     print(items[1].attributes['time'].value)
+    #     print(xmlDocument.tag)
+    #     print(xmlDocument.attrib)
+    #     for neighbor in xmlDocument.iter('entry'):
+    #         print(neighbor.attrib)
+    #     # for item in xmlDocument.findall('entries'):
+    #     #     print(item.get('entry').attrib)
 
-        return redirect(schedule,id=id)
+    #     return HttpResponse("hello")
 
-        # return render(request, 'schedule.html',roomconfig)
-    else:
-        t=TickerDetails.objects.filter(ticker_id=int(id)).values()
-        return render(request, 'preview.html',t.get())
-
+    # # for entries_xml in root.findall('entries'):
+    # #     entry_data = entries_xml.find('entry').text
+    # #     # name = country.get('name')
+    # #     print(entry_data)
+    # # print(root)
+    #     return HttpResponse("Data Saved!")
+    # except OSError as exc:
+    #     if exc.errno == 36:
+    #         return HttpResponse(r.text)

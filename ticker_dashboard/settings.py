@@ -141,7 +141,9 @@ TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_L10N = True
+
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -169,6 +171,8 @@ CELERY_ACCEPT_CONTEXT = ['application/json']
 CELERY_RESULT_SERIALIZER='json'
 CELERY_TASK_SERIALIZER='json'
 CELERY_TIMEZONE='Asia/Kolkata'
+
+DJANGO_CELERY_BEAT_TZ_AWARE = False
 
 CELERY_RESULT_BACKEND = 'django-db'
 

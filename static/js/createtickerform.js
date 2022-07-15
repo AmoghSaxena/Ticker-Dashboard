@@ -181,6 +181,7 @@ function foselector()
     document.getElementById("primaryLogo").hidden = true;
     document.getElementById("primaryLogoPosition").hidden = true;
     document.getElementById("staticTickerLogo").hidden = true;
+    getdata()
   }
 
   function fologoenabler(id)

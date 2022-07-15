@@ -9,7 +9,9 @@ import xml.etree.ElementTree
 
 def dateformatter(dateobj,timeorday):
     dateobj=datetime.datetime.strptime(dateobj,"%Y-%m-%dT%H:%M")
+    print(dateobj)
     if timeorday=='time':
+        print(dateobj.strftime('%Y-%m-%d %H:%M:%S'))
         return dateobj.strftime('%Y-%m-%d %H:%M:%S')
     else:
         return dateobj.strftime('%A')
@@ -28,7 +30,7 @@ def FileUploader(request,ticker_db_data):
 
     fss=FileSystemStorage()
 
-    print("outside")
+    # print("outside")
 
     if ticker_json.get('main_ticker_condition','not found')==True and ticker_json.get('main_ticker_logo','not found')==True:
 
@@ -101,6 +103,8 @@ def FileUploader(request,ticker_db_data):
     
     else:
         print("No Image for upload")
+    
+    ticker_json['ticker_id'] = ticker_id
     
     return json.dumps(ticker_json, indent=3)
 
@@ -222,7 +226,6 @@ def datagetter(request):
                 except Exception as secondaryscroll:
                     print('Exception raised during secondaryscroll',secondaryscroll)
             
-
         elif tickerSelection == 'media':
             
             tickertype='Media Ticker' 
@@ -298,7 +301,6 @@ def datagetter(request):
                 except Exception as animationscroll:
                     print('Exception raised during animationscroll',animationscroll)
             
-
         elif tickerSelection == 'emergency':
 
             tickertype='Emergency Ticker'
@@ -329,10 +331,14 @@ def datagetter(request):
 
         try:
             t.update(ticker_json=CONFIG_DATA)
-        except TickerDetails.DoesNotExist:
-            print('Unable to update')
+        except TickerDetails.DoesNotExist  as e:
+            print('Unable to update: ',e)
+
+        try:
+            schedulingticker(request,ticker_id_for_schedule)
+        except Exception as e:
+            print('Error While schedule: ',e)
         
-        schedulingticker(request,ticker_id_for_schedule)
 
     except Exception as e:
         print(e)
@@ -354,21 +360,52 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
         tickerobj.occuring_days = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         tickerobj.ticker_end_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     else:
-        if request.POST.get('occurancy')=='enabled':
+        if request.POST.get('recurring')=='enabled':
+            
             tickerobj.ticker_start_time=dateformatter(request.POST.get('startDate'),'time')
             tickerobj.ticker_end_time=dateformatter(request.POST.get('endDate'),'time')
 
+            print(tickerobj.ticker_start_time,tickerobj.ticker_end_time)
+
+
             tickerobj.frequency = request.POST.get('delay')
-            tickerobj.occuring_days = request.POST.get('occuring_days')
+
+            occuring_days=str()
+
+            if request.POST.get('Sunday')=="enabled":
+                occuring_days+='Sunday,'
+
+            if request.POST.get('Monday')=="enabled":
+                occuring_days+='Monday,'
+
+            if request.POST.get('Tuesday')=="enabled":
+                occuring_days+='Tuesday,'
+
+            if request.POST.get('Wednesday')=="enabled":
+                occuring_days+='Wednesday,'
+
+            if request.POST.get('Thursday')=="enabled":
+                occuring_days+='Thursday,'
+
+            if request.POST.get('Friday')=="enabled":
+                occuring_days+='Friday,'
+
+            if request.POST.get('Saturday')=="enabled":
+                occuring_days+='Saturday'
+            
+            tickerobj.occuring_days = occuring_days
+
         else:
             tickerobj.ticker_start_time=dateformatter(request.POST.get('startDate'),'time')
             tickerobj.frequency = str(1)
             tickerobj.occuring_days = dateformatter(request.POST.get('startDate'),'days')
-            tickerobj.ticker_end_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            tickerobj.ticker_end_time=dateformatter(request.POST.get('startDate'),'time')
 
-    tickerobj.wings=str(request.POST.get('wingselection'))
-    tickerobj.floors=str(request.POST.get('floorselection'))
-    tickerobj.rooms=str(request.POST.get('roomselection'))
+    print(tickerobj.ticker_start_time,tickerobj.ticker_end_time)
+    tickerobj.wings=str(request.POST.getlist('wingSelection'))
+    tickerobj.floors=str(request.POST.getlist('floorSelection'))
+    tickerobj.rooms=str(request.POST.getlist('roomSelection'))
+    tickerobj.roomTypeSelection=str(request.POST.getlist('roomTypeSelection'))
 
     #field not set for occurancy
     tickerobj.ticker_priority=tickerPriority
