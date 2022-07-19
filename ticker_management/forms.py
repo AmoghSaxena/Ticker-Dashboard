@@ -19,6 +19,31 @@ class LoginForm(forms.Form):
             }
         ))
 
+
+class ChangePassword(forms.Form):
+    oldPassword = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Enter Old Password",
+                "class": "form-control"
+            }
+        ))
+    newPassword = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Enter New Password",
+                "class": "form-control"
+            }
+        ))
+    confirmPassword = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Confirmation New Password",
+                "class": "form-control"
+            }
+        ))
+
+
 values_logo_position = [
     ('left','left'),
     ('right','right')

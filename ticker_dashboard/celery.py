@@ -18,8 +18,8 @@ app.config_from_object(settings,namespace='CELERY')
 
 app.conf.beat_schedule = {
     'default': {
-        'task':'Task_Performer.tasks.callticker',
-        'schedule': crontab(hour="*/4")
+        'task':'Task_Performer.tasks.makeMeAlive',
+        'schedule': crontab(hour=22,minute=22)
     },
 }
 

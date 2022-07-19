@@ -1,9 +1,39 @@
 from celery import shared_task
+from .models import TickerDetails
+from datetime import datetime
+import json
 import subprocess
 
 @shared_task(bind=True)
-def callticker(self,command):
-    subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+def makeMeAlive():
+    print("Make System Alive")
+
+@shared_task(bind=True)
+def callticker(self,command,ticker_id):
+    process_output=subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    # rundeck_id=0
+    (output, err) = process_output.communicate()
+
+    # p_status = output.wait()
+    # print("Command output : ", output.decode())
+    # print("Command exit status/return code : ", p_status)
+
+
+    rundeck_obj=json.loads(output.decode())
+    rundeckid=int(rundeck_obj.get('id'))
+    ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
+    deleted=False
+    if (ticker_obj.get().get('frequency')=='1'):
+        deleted=True
+    
+    if deleted:
+        ticker_obj.update(rundeckid=rundeckid,is_deleted=1,is_active=0)
+    else:
+        now = datetime.now()
+        if ticker_obj.get().get('ticker_end_time')>=now:
+            ticker_obj.update(rundeckid=rundeckid,is_deleted=1,is_active=0)
+        else:
+            ticker_obj.update(rundeckid=rundeckid)
 
 # @shared_task(bind=True)
 # def celery_beat_name(self):

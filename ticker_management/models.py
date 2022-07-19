@@ -15,6 +15,17 @@ class SetUp(models.Model):
     Apache_server_url=models.CharField(max_length=150,null=True)
     Ticker_FQDN=models.CharField(max_length=150,null=True)
 
+class RundeckLog(models.Model):
+    rundeck_id=models.IntegerField(primary_key=True)
+    ticker_id=models.IntegerField(null=True)
+    ticker_title=models.CharField(max_length=150,null=True)
+    execution= models.CharField(max_length=150,null=True,default="Pending")
+    successfull_nodes= models.TextField(blank=True,null=True,default="None")
+    failed_nodes= models.TextField(blank=True,null=True,default="None")
+    tv_status=models.CharField(max_length=150,null=True,default="None")
+    iPad_status=models.CharField(max_length=150,null=True,default="None")
+   
+   
 class TickerDetails(models.Model):
     ticker_id = models.AutoField(primary_key=True)
     ticker_type = models.CharField(max_length=60)
@@ -37,8 +48,12 @@ class TickerDetails(models.Model):
     is_active = models.PositiveIntegerField()
     is_deleted = models.PositiveIntegerField()
     deleted_on = models.DateTimeField(blank=True, null=True)
+    rundeckid = models.PositiveIntegerField(null=True)
     # reason_for_delete = models.CharField(max_length=300, blank=True, null=True)
     # photo = models.ImageField(upload_to="myimage")
+
+    def __str__(self):
+        return " Ticker Title : "+self.ticker_title+ ",     Id : (" + str(self.ticker_id)+")"
 
 
 class TickerHistory(models.Model):
@@ -62,6 +77,7 @@ class TickerHistory(models.Model):
     is_active = models.PositiveIntegerField()
     is_deleted = models.PositiveIntegerField()
     deleted_on = models.DateTimeField(blank=True, null=True)
+    rundeckid = models.PositiveIntegerField(null=True)
     # reason_for_delete = models.CharField(max_length=300, blank=True, null=True)
 
 
@@ -81,8 +97,7 @@ class Task(models.Model):
 class PublishedManager(models.Manager):
 
     def get_queryset(self):
-        return super(PublishedManager, self).get_queryset()\
-                .filter(status='published')
+        return super(PublishedManager, self).get_queryset().filter(status='published')
 
 class Post(models.Model):
     STATUS_CHOICES = (
@@ -97,7 +112,6 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
-
     objects = models.Manager()
     published = PublishedManager()
 

@@ -51,9 +51,9 @@
             }
 
             body {
-              background: linear-gradient(-45deg, #C2DED1, #ECE5C7, #C2DED1, #ECE5C7);
+              background: linear-gradient(-45deg, #ECE5C7, #C2DED1, #ECE5C7, #C2DED1, #ECE5C7, #C2DED1, #ECE5C7, #C2DED1, #ECE5C7);
               background-size: 400% 400%;
-              animation: gradient 5s ease infinite;
+              animation: gradient 10s ease infinite;
             }
 
             @keyframes gradient {
@@ -135,18 +135,23 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-clock-rotate-left fs-5"></i></div>
                                 History
                             </a>
-                            <a class="nav-link collapsed mx-2 my-1 text-color" id="profileOpen" onclick="profile(this.id);">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user fa-fw fs-5"></i></div>
+                            <a class="nav-link collapsed mx-2 my-1 text-color" id="profileOpen" onclick="profile();">
+                                <div class="sb-nav-link-icon">
+                                  <i class="fas fa-user fa-fw fs-5"></i>
+                                </div>
                                 {{user}}
-                                <div  id="arrowDown" class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-left"></i></div>
+                                <div  id="arrowDown" class="sb-sidenav-collapse-arrow">
+                                  <i class="fas fa-angle-left"></i>
+                                </div>
                             </a>
                             <div class="collapse" id="profileContent">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link text-color text-size-nav" href="#"><i class="fa-solid fa-lock me-1 fs-6"></i> Change Password</a> 
+                                    <a class="nav-link text-color text-size-nav" href="/accounts/changepassword/"><i class="fa-solid fa-lock me-1 fs-6"></i> Change Password</a> 
                                     <a class="nav-link text-color text-size-nav" href="/admin"><i class="fa fa-cog me-1 fs-6"></i> Settings</a>
                                     <a class="nav-link text-color text-size-nav" href="/accounts/logout/"><i class="fa fa-sign-out me-1 fs-6"></i> Logout</a>
                                 </nav>
                             </div>
+
                         </div>
                     </div>
                 </nav>

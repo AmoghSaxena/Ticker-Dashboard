@@ -131,7 +131,7 @@ def schedule_tasks(ticker_id,command):
         # print("Hello I want access")
 
         schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute)
-        task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,)))
+        task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
 
         # print("Hello I want access")
     
@@ -181,40 +181,44 @@ def schedule_tasks(ticker_id,command):
 
             if hour1==hour2:
                 hour=hour1
-                minute='*/'+str(frequency)
+                minute=str(minute1)+'/'+str(frequency)
             else:
 
                 print(frequency,int(frequency)==0)
 
                 if (int(frequency)%60==0):
                     hour='*/,'+hour1+'-'+hour2
-                    minute='*/'+str(frequency)
+                    minute=str(minute1)+'/'+str(frequency)
                 else:
                     hour='*'+','+hour1+'-'+hour2
-                    minute='*/'+str(int(frequency)%60)
+                    minute=str(minute1)+'/'+str(int(frequency)%60)
 
         else:
             day=day1+"-"+day2
             week=str(ticker_obj.get().get('occuring_days')).lower()
 
-            if (int(frequency)%60==0):
-                    hour='*/,'+hour1+'-'+hour2
-                    minute='*/'+str(frequency)
+            if hour1==hour2:
+                hour=hour1
+                minute=str(minute1)+'/'+str(frequency)
             else:
-                hour='*'+','+hour1+'-'+hour2
-                minute='*/'+str(int(frequency)%60)
 
+                print(frequency,int(frequency)==0)
 
-        
+                if (int(frequency)%60==0):
+                    hour='*/,'+hour1+'-'+hour2
+                    minute=str(minute1)+'/'+str(frequency)
+                else:
+                    hour='*'+','+hour1+'-'+hour2
+                    minute=str(minute1)+'/'+str(int(frequency)%60)
         
         print(month,day,week,hour,minute)
 
         if week=='':
             schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute)
-            task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,)))
+            task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
         else:
             schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute,day_of_week=week)
-            task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,)))
+            task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
       
 
 def schedulingticker(request,ticker_id):
@@ -237,6 +241,7 @@ def schedulingticker(request,ticker_id):
     
     # print("inside 2")
 
+
     part_a="curl --location --request POST 'https://"+str(FQDN)+"/r/api/"+str(Rundeck_Api_Version)+"/job/0d0c3cfe-adcd-4f86-8c03-adaa1cd2c0e0/run' --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-Rundeck-Auth-Token: "+str(Rundeck_Token)+"""' --header 'Cookie: JSESSIONID=56pr1s6s16yt1fsckqzcyjwfc' --data-raw '{ "argString": "-whichnode \\"""+'"'+str(configuration)+'''\\" -FQDN \\'''
     part_b='"'+str(Ticker_FQDN)+'\\" -jsonFile \\"'+str(ticker_id)+"""\\" -BasicAuth \\"YWRtaW46YWRtaW4xMjM0\\""}'"""
     
@@ -245,7 +250,7 @@ def schedulingticker(request,ticker_id):
 
         if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scheduleEnabler') == 'enabled':
 
-            callticker(command)
+            callticker(command,ticker_id)
 
         else:
             # print("3")

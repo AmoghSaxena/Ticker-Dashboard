@@ -55,7 +55,7 @@ body .fc {
 
 .fc-popover .fc-header .fc-title {
   margin: 0 2px;
-  color: rgb(73, 73, 73);
+  color: #354259;
 }
 
 .fc-popover .fc-header .fc-close {
@@ -576,7 +576,7 @@ TODO: more distinction between this file and common.css
 .fc-unthemed .fc-divider,
 .fc-unthemed .fc-popover .fc-header,
 .fc-unthemed .fc-list-heading td {
-  background: rgb(172, 172, 172);
+  background: rgb(201, 212, 240);
 }
 
 .fc-unthemed td.fc-today {

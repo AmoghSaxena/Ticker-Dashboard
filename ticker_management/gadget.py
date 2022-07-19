@@ -91,8 +91,10 @@ def FileUploader(request,ticker_db_data):
         filename=str()
 
         if ext == 'mp4':
+            ticker_json['emergency_ticker_style'] = 'dynamic'
             filename="%s_%s_%s.%s"%('video',ticker_id,5,ext)        
         else:
+            ticker_json['emergency_ticker_style'] = 'static'
             filename="%s_%s_%s.%s"%('image',ticker_id,5,ext)
         
         old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
@@ -259,16 +261,16 @@ def datagetter(request):
                         CONFIG_DATA['static_ticker_logo']=False
                         # ImageUploader(ticker_logo)
                     if static_ticker_font_size == 'x-large':
-                        CONFIG_DATA['static_ticker_font_size'] = 80
+                        CONFIG_DATA['static_ticker_font_size'] = 120
                         #CONFIG_DATA['static_ticker_image_size'] = 13.45
                     elif static_ticker_font_size == 'large':
-                        CONFIG_DATA['static_ticker_font_size'] = 60
+                        CONFIG_DATA['static_ticker_font_size'] = 100
                         #CONFIG_DATA['static_ticker_image_size'] = 15.45
                     elif static_ticker_font_size == 'normal':
-                        CONFIG_DATA['static_ticker_font_size'] = 40
+                        CONFIG_DATA['static_ticker_font_size'] = 80
                         #CONFIG_DATA['static_ticker_image_size'] = 17.45
                     elif static_ticker_font_size == 'small':
-                        CONFIG_DATA['static_ticker_font_size'] = 20
+                        CONFIG_DATA['static_ticker_font_size'] = 40
                         #CONFIG_DATA['static_ticker_image_size'] = 19.45
                             
                     if static_ticker_font_type == 'TimesNewRoman' or static_ticker_font_type == 'MyriadProFont' or static_ticker_font_type == 'Ubuntu':
@@ -290,7 +292,7 @@ def datagetter(request):
                 try:
                     # moving_video= request.POST.get('animation_video')
                     moving_ticker_localtion= request.POST.get('dynamicTickerPosition')
-                    moving_ticker_center_size=request.POST.get('dynamicTickerMotion')
+                    moving_ticker_center_size=request.POST.get('dynamicTickerLocation')
 
                     CONFIG_DATA['moving_ticker_condition']= True
                             
@@ -314,11 +316,15 @@ def datagetter(request):
         else:
             print('No ticker selected')
         
+        CONFIG_DATA['ticker_type']=tickertype
         CONFIG_DATA=json.dumps(CONFIG_DATA, indent=3)
 
-        print(CONFIG_DATA)
+        # print(CONFIG_DATA)
 
-        data_saver(request,tickertype,CONFIG_DATA,tickerTitle,tickerPriority)
+        try:
+            data_saver(request,tickertype,CONFIG_DATA,tickerTitle,tickerPriority)
+        except Exception as e:
+            print("Exception while insertion: ",e)
 
         try:
             t=TickerDetails.objects.filter(ticker_title=tickerTitle,ticker_priority=tickerPriority,ticker_type=tickertype,ticker_json=CONFIG_DATA).values()
@@ -407,7 +413,6 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
     tickerobj.rooms=str(request.POST.getlist('roomSelection'))
     tickerobj.roomTypeSelection=str(request.POST.getlist('roomTypeSelection'))
 
-    #field not set for occurancy
     tickerobj.ticker_priority=tickerPriority
 
     tickerobj.created_by=request.user.username

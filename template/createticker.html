@@ -4,7 +4,7 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-3 mt-5">
-                <div class="path my-4 text-muted fs-5 bg-white p-2 col-md-2 col-sm-3">  
+                <div class="path my-4 text-muted fs-5 bg-white p-2 col-xl-2 col-md-3 col-sm-2">  
                     <div class="mx-1"><i class="fa-solid fa-square-plus fs-5"></i> Create Ticker</div>
                 </div>
  
@@ -16,8 +16,8 @@
                                 Create Ticker
                             </div>
 
-                            <form id="regForm" action="" class="" method="POST" enctype="multipart/form-data">
-                            {% csrf_token %}
+                            <form id="createTickerForm" action="" class="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
                                 <div class="d-lg-block d-md-block d-sm-block d-none" style="text-align:center;margin-top:40px;">
                                     <span class="step m-2"><i class="fa-solid fa-plus fs-3 m-2 text-white"></i></i><strong class="text-color">Create</strong></span>
                                     <span class="step"><i class="fa-solid fa-tv fs-3 m-2 text-white"></i><strong class="text-color">Preview</strong></span>
@@ -113,7 +113,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3">
-                                                    <div class="col-md-3">
+                                                    <div class="col-xl-3 col-md-6 col-sm-6">
                                                         <div class="form-check form-switch mb-3">
                                                             <input name="primaryTickerLogoEnabler" class="form-check-input" type="checkbox" value="enabled" id="primaryLogoEnabler" onclick=fologoenabler(this.id)>
                                                             <strong class="form-check-label text-color" for="flexCheckDefault">
@@ -121,7 +121,7 @@
                                                             </strong>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3" id="primaryLogo">
+                                                    <div class="col-xl-3 col-md-6 col-sm-6" id="primaryLogo">
                                                         <div class="form-group">
                                                             <strong class="text-color" for="exampleFormControlFile1">upload image logo</strong>
                                                             <input name="primaryTickerLogo" type="file" accept=".png" id="primaryTickerLogo" class="form-control-file" onchange=Filevalidation(this.id)>
@@ -322,7 +322,7 @@
                                                 </div>
                                                 <div class="col-md-4" id="dynamicTickerLocation">
                                                     <strong class="text-color">Location</strong>
-                                                    <select name="dynamicTickerLocation" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                    <select name="dynamicTickerLocation" id="dynamicTickerLocation" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                         {% for items in location %}
                                                         <option>{{items}}</option>
                                                         {% endfor %}
@@ -364,8 +364,7 @@
                                                     {% endfor %}
                                                 </select>
                                             </div>
-                                            <div class="col-md-2"></div>
-                                            <div class="col-md-6 mt-4 justify-content-center" id="custom">
+                                            <div class="col mt-4 justify-content-center" id="custom">
                                                 <div class="form-group" id="emergency_text">
                                                     <label for="emergencyTickerFile">Upload</label>
                                                     <input name="emergencyTickerFile" accept=".png,.mp4" value="" type="file" class="form-control-file" id="emergencyTickerFile"></br>   
@@ -376,10 +375,10 @@
                                     </div>
                                 </div>
                                       
-                                <div class="tab">
+                                <div class="tab m-3">
                                     <div class="row">
                                     
-                                        {% comment %} <div class="col-lg-8 mx-auto">
+                                        <!--<div class="col-lg-8 mx-auto">
                                             <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
                                                 <video autoplay loop muted>
                                                     <source src="/static/RCB.mp4" type="video/mp4">
@@ -414,7 +413,7 @@
                                                 <div class="border border-dark border-5" style="width: 300px;"></div>
                                             </center>
                                 
-                                        </div>   {% endcomment %}
+                                        </div> -->
                                          <div class="col-lg-8 mx-auto">
                                             <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
                                                 <video autoplay loop muted>
@@ -439,7 +438,7 @@
                                             </center>
                                 
                                         </div>  
-                                        <marquee class="col-lg-8 mx-auto " behavior="scroll" direction="left" scrollamount="12" bgcolor="#ffffff" style="font-size: 15px;">
+                                        <!-- <marquee class="col-lg-8 mx-auto " behavior="scroll" direction="left" scrollamount="12" bgcolor="#ffffff" style="font-size: 15px;">
                                             Royal Challengers Bangalore (RCB) has always been one of the most popular franchises since the inception of the Indian Premier League (IPL) in the year 2008. Some of the greatest players like Rahul Dravid, Jacques Kallis, Anil Kumble, Muttiah Muralitharan, Chris Gayle, and AB de Villiers have all been part of this team in the past. Their star player and former captain, Virat Kohli, is the only cricketer to represent a single franchise since the first season, which is RCB.
                                         </marquee>
                                         <marquee class="col-lg-8 mx-auto "  behavior="scroll" direction="right" scrollamount="15" bgcolor="#0000FF" style="margin: -8px; font-size: 50px; padding: 20px;">
@@ -447,7 +446,7 @@
                                                 Despite having such a star-studded team, the elusive trophy has still eluded RCB. They have managed to reach three finals in 2009, 2011, and 2016 but failed to cross the line on all three occasions. After 15 long seasons in the league, their trophy cabinet remains empty. The Bangalore-based franchise has one of the most loyal and crazy fans in the IPL, as they follow their side passionately in every edition. The well-known slogan of ‘Ee Sala Cup Namde’ means ‘This year the Cup is Ours’ is a yearly reckoning of all the RCB fans, especially the ones who live in the garden city of Bangalore.
                                                 The fans’ love and support for the team are visible every season as they hope their side will end the trophy drought soon. The loud chants of ‘RCB RCB RCB’ around the Chinnaswamy Stadium in Bangalore are heard in every single match from these fans. With the 2022 campaign ending in disappointment, the supporters and the RCB team would hope to come back stronger in 2023. Despite being without a trophy, there are some of the mind-boggling and unbelievable records that RCB has created in the tournament’s history. These achievements are astonishing and it looks like it’s never going to be repeated by any player or a team again in the league.
                                             </p>
-                                        </marquee>
+                                        </marquee> -->
                                     </div>
                                 </div>
                     
@@ -458,16 +457,16 @@
                                                 
                                                 <div class="col-md-3">
                                                     <strong class="text-color">Room Type</strong>
-                                                    <select name="roomTypeSelection" multiple id="roomTypeSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="data(this.id);filterforkeys(this.id);">
+                                                    <select name="roomTypeSelection" multiple id="roomTypeSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
                                                         <option>All</option>
-                                                        {% for items in scheduleData.roomType %}
+                                                        <!-- {% for items in scheduleData.roomType %}
                                                             <option value="{{items}}">{{items}}</option>
-                                                        {% endfor %}
+                                                        {% endfor %} -->
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <strong class="text-color">Wings</strong>
-                                                    <select name="wingSelection" multiple id="wingSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="data(this.id);filterforkeys(this.id);">
+                                                    <select name="wingSelection" multiple id="wingSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
                                                         <option>All</option>
                                                         <!-- {% for items in scheduleData.wing %}
                                                             <option>{{items}}</option>
@@ -476,7 +475,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <strong class="text-color">Floor</strong>
-                                                    <select name="floorSelection" multiple id="floorSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="data(this.id);filterforkeys(this.id);">
+                                                    <select name="floorSelection" multiple id="floorSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
                                                         <option>All</option>
                                                         <!-- {% for items in scheduleData.floor %}
                                                             <option>{{items}}</option>
@@ -485,7 +484,8 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <strong class="text-color">Key</strong>
-                                                    <select name="roomSelection" multiple id="roomSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="data(this.id);filterforkeys(this.id);">
+                                                    <select name="roomSelection" multiple id="roomSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
+                                                        <option>All</option>
                                                         <!-- {% for items in scheduleData.key %}
                                                             <option>{{items}}</option>
                                                         {% endfor %} -->
@@ -562,159 +562,14 @@
 
                                 <div style="overflow:auto;" class="m-3">
                                     <div style="float:right;">
-                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="nextBtn" onclick="nextPrev(1);">Next</button>
+                                        <button class="btn btn-outline-success my-4 m-2" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                        <button class="btn btn-outline-success my-4 m-2" type="button" id="nextBtn" onclick="nextPrev(1);">Next</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-
-<script>
-    var currentTab = 0; 
-    showTab(currentTab);
-    function showTab(n) {
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
-    if (n == 0) {
-        document.getElementById("prevBtn").style.display = "none";
-    } else {
-        document.getElementById("prevBtn").style.display = "inline";
-    }
-    if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
-    } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
-    }
-    fixStepIndicator(n)
-    }
-    
-    function nextPrev(n) {
-    var x = document.getElementsByClassName("tab");
-    if (n == 1 && !validateForm()) return false;
-    x[currentTab].style.display = "none";
-    currentTab = currentTab + n;
-    if (currentTab >= x.length) {
-        document.getElementById("regForm").submit();
-        return false;
-    }
-    showTab(currentTab);
-    }
-
-    function validateForm()
-    {
-        select = document.getElementById("tickerSelecter");
-        option = select.options[select.selectedIndex];
-    
-        if (option.text == "Scrolling Ticker")
-        {
-            if (document.getElementById("scrollingTickerTitle").value == "")
-            {
-                return false;
-            }
-            else
-            {return true;}
-        }
-        else if (option.text == "Media Ticker")
-        {
-            if (document.getElementById("mediaTickerTitle").value == "")
-            {return false;}
-            else
-            {
-                var staticEnable = document.getElementById("staticEnable");
-                var dynamicEnable = document.getElementById("dynamicEnable");
-                
-                if (staticEnable.checked == false && dynamicEnable.checked == false)
-                {return false;}
-                else
-                {
-                    if (staticEnable.checked)
-                    {
-                        if (document.getElementById("staticTickerMessage").value == "")
-                        {return false;}
-                        else
-                        {
-                            return true;
-                            // {% comment %} alert("1");
-                            // if ((document.getElementById("staticTickerLogoEnabler").checked==true) && (document.getElementById("staticTickerLogo").value == undefined))
-                            // {alert(2);return false;}
-                            // else{alert(3);return true;} {% endcomment %}
-                        }
-                    }
-                    else
-                    {
-                        return true;
-                        // {% comment %} alert("1");
-                        // if ((dynamicEnable == true)  && (document.getElementById("dynamicTickerVideo").value == undefined))
-                        // {return false;}
-                        // else
-                        // {return true;} {% endcomment %}
-                    }
-                }
-            }
-        }
-        else if (option.text == "Emergency Ticker")
-        {
-            if (document.getElementById("emergencyTickerTitle").value == "")
-            {
-                {return false;}
-            }
-            else
-            {
-                emergencyselector = document.getElementById("emergencySelecter");
-                custom = emergencyselector.options[emergencyselector.selectedIndex];
-                if (custom.text == "Custom" && document.getElementById("emergencyTickerFile").value == "")
-                {return false;}
-                else{return true;}
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-    
-    function validateFormf(){
-    var x, y, i, valid = true;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByTagName("input");
-    for (i = 0; i < y.length; i++) {
-        if (y[i].value == "") {
-        y[i].className += " invalid";
-        valid = false;
-        }
-    }
-    if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
-    }
-    return valid;
-    }
-    
-    function fixStepIndicator(n) {
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
-    }
-    x[n].className += " active";
-    }
-</script>
-
-<script>
-$("#roomTypeSelection").select2({
-    placeholder:'Select Room Type'
-});
-$("#wingSelection").select2({
-    placeholder:'Select Wing'
-});
-$("#floorSelection").select2({
-    placeholder:'Select Floor'
-});
-$("#roomSelection").select2({
-    placeholder:'Select Room Key'
-});
-</script>
-
             </div>
         </main>
     {% endblock %}

@@ -11,7 +11,6 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializerConfig(serializers.ModelSerializer):
-
 	class Meta:
 		model = TickerDetails
 		fields = ('ticker_json',)
