@@ -1,26 +1,38 @@
 var currentTab = 0; 
     showTab(currentTab);
     function showTab(n) {
+        // alert(n)
     var x = document.getElementsByClassName("tab");
     x[n].style.display = "block";
     if (n == 0) {
         document.getElementById("prevBtn").style.display = "none";
+        document.getElementById("SubForm").style.display = "none";
     } else {
         document.getElementById("prevBtn").style.display = "inline";
+        document.getElementById("SubForm").style.display = "none";
     }
     if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
+        document.getElementById("nextBtn").innerHTML = "Schedule";
+        document.getElementById("SubForm").style.display = "none";
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
+        document.getElementById("SubForm").style.display = "none";
     }
     fixStepIndicator(n)
     }
     
     function nextPrev(n) {
     var x = document.getElementsByClassName("tab");
+    var rex = document.getElementById("nextBtn");
+    // alert(n);
     if (n == 1 && !validateForm()) return false;
     x[currentTab].style.display = "none";
     currentTab = currentTab + n;
+    // alert(currentTab);
+    if (currentTab == 3){
+        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("SubForm").style.display = "inline";
+    }
     if (currentTab >= x.length) {
         document.getElementById("createTickerForm").submit();
         return false;
@@ -28,22 +40,71 @@ var currentTab = 0;
     showTab(currentTab);
     }
 
-    function submitForm(){
-        
-    }
     function validateForm()
     {
-        select = document.getElementById("tickerSelecter");
-        option = select.options[select.selectedIndex];
+        var select = document.getElementById("tickerSelecter");
+        var option = select.options[select.selectedIndex];
+
+        var tmp;
     
         if (option.text == "Scrolling Ticker")
-        {
+        {           
             if (document.getElementById("scrollingTickerTitle").value == "")
             {
                 return false;
             }
             else
-            {return true;}
+            {
+                var primaryEnable = document.getElementById("primaryEnable");
+                var secondaryEnable = document.getElementById("secondaryEnable");
+                var primaryLogoEnabler=document.getElementById("primaryLogoEnabler");
+
+                if (primaryEnable.checked == false && secondaryEnable.checked == false)
+                {return false;}
+                else if(primaryEnable.checked == true && secondaryEnable.checked == true)
+                {
+                    if (document.getElementById("primaryTickerMessage").value == "")
+                    {return false;}
+                    else
+                    {
+                        if(primaryLogoEnabler.checked)
+                        {
+                            tmp=document.getElementById("primaryTickerLogo");
+                            if(tmp.files.length == 0 )
+                            {return false;}
+                        }
+                        if (document.getElementById("secondaryTickerMessage").value == "")
+                        {return false;}
+                        else
+                        {return true;}
+                    }
+                }
+                else if (primaryEnable.checked == true && secondaryEnable.checked == false)
+                {
+                    if (document.getElementById("primaryTickerMessage").value == "")
+                    {return false;}
+                    else
+                    {
+                        if(primaryLogoEnabler.checked)
+                        {
+                            tmp=document.getElementById("primaryTickerLogo");
+                            if(tmp.files.length == 0 )
+                            {return false;}
+                            else
+                            {return true;}
+                        }
+                        else{return true;}
+                    }
+                }
+                else
+                {
+                    if (document.getElementById("secondaryTickerMessage").value == "")
+                    {return false;}
+                    else
+                    {return true;}
+                }
+            }
+
         }
         else if (option.text == "Media Ticker")
         {
@@ -60,11 +121,26 @@ var currentTab = 0;
                 {
                     if (staticEnable.checked)
                     {
+                        var staticTickerLogoEnabler=document.getElementById("staticTickerLogoEnabler");
+                        tmp=document.getElementById("staticTickerLogo");
+
                         if (document.getElementById("staticTickerMessage").value == "")
-                        {return false;}
+                        {
+                            if (staticTickerLogoEnabler.checked)
+                            {
+                                if(tmp.files.length==0){return false;}
+                                else{return true;}
+                            }
+                            else{return false;}
+                        }
                         else
                         {
-                            return true;
+                            if (staticTickerLogoEnabler.checked)
+                            {
+                                if(tmp.files.length==0){return false;}
+                                else{return true;}
+                            }
+                            else{return true;}
                             // {% comment %} alert("1");
                             // if ((document.getElementById("staticTickerLogoEnabler").checked==true) && (document.getElementById("staticTickerLogo").value == undefined))
                             // {alert(2);return false;}
@@ -73,7 +149,12 @@ var currentTab = 0;
                     }
                     else
                     {
-                        return true;
+                        
+                        tmp=document.getElementById("dynamicTickerVideo");
+
+                        if (tmp.files.length==0){return false;}
+                        else{return true;}
+
                         // {% comment %} alert("1");
                         // if ((dynamicEnable == true)  && (document.getElementById("dynamicTickerVideo").value == undefined))
                         // {return false;}
@@ -91,8 +172,8 @@ var currentTab = 0;
             }
             else
             {
-                emergencyselector = document.getElementById("emergencySelecter");
-                custom = emergencyselector.options[emergencyselector.selectedIndex];
+                var emergencyselector = document.getElementById("emergencySelecter");
+                var custom = emergencyselector.options[emergencyselector.selectedIndex];
                 if (custom.text == "Custom" && document.getElementById("emergencyTickerFile").value == "")
                 {return false;}
                 else{return true;}

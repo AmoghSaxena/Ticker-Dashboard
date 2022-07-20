@@ -22,7 +22,7 @@ from django.http import QueryDict
 from .serializers import TaskSerializer, TaskSerializerConfig
 from rest_framework.response import Response
 from .models import Task
-from ticker_management.rundecklog import initial_data
+from ticker_management.rundecklog import initial_data, abortTicker
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.mail import EmailMessage
 #Api
@@ -122,7 +122,8 @@ def createTicker(request):
             'location':[
                 'small',
                 'normal',
-                'large'
+                'large',
+                'Emergency'
                 ],
                 
             'emergency_ticker_list':[
@@ -229,6 +230,25 @@ def detail(request, id):
     except Exception as e:
         return HttpResponse('Error: '+str(e))
 
+
+@login_required
+def abort(request, id):
+    try:
+        ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
+        logObject = list()
+        if ticker_obj.get().get('rundeckid')!=None:
+            logObject.append(abortTicker(ticker_obj))
+            rundeckLogData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
+            rundeckLog=sorted(rundeckLogData,key=lambda item: item['rundeck_id'],reverse=True)
+        else:
+            rundeckLog=list()
+            dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get().get('ticker_id'), 'ticker_title': ticker_obj.get().get('ticker_title'), 'execution': "pending", 'successfull_nodes':
+             "None", 'failed_nodes': 'None', 'tv_status': 'None', 'iPad_status': 'None'}
+            rundeckLog.append(dictwithoutrundeckid)
+        return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog, 'logObject':logObject})
+    except Exception as e:
+        return HttpResponse('Error: '+str(e))
+
 @login_required
 def isEdit(request):
     pass
@@ -285,6 +305,7 @@ def changePassword(request):
         return render(request, 'changepassword.html', {'form': form, 'msg': msg})
     except Exception as e:
         return HttpResponse(e)
+
 
 
 @login_required

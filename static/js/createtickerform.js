@@ -30,16 +30,11 @@ function foselector()
       document.getElementById("emergency").hidden = false;
       document.getElementById("scheduleEnabler").disabled = true;
       document.getElementById("scheduleEnabler").checked = true;
+      document.getElementById("scheduleEnablerLater").hidden = true;
       foenabler("scheduleEnabler");
     }
     else
     {
-      document.getElementById("scrolling").hidden = true;
-      document.getElementById("media").hidden = true;
-      document.getElementById("emergency").hidden = true;
-      document.getElementById("scheduleEnabler").checked = false;
-      document.getElementById("scheduleEnabler").disabled = false;
-      foenabler("scheduleEnabler");
     }
   }
   
@@ -118,13 +113,32 @@ function foselector()
       b=document.getElementById("scheduleEnabler");
       if (b.checked)
       {
+        document.getElementById("scheduleEnablerLater").checked = false;
         document.getElementById("occurancySection").hidden = true;
         document.getElementById("dateTimeSection").hidden = true;
      }
       else
       {
+        document.getElementById("scheduleEnablerLater").checked = true;
         document.getElementById("occurancySection").hidden = false;
         document.getElementById("dateTimeSection").hidden = false;
+      }
+    }
+
+    if(id=="scheduleEnablerLater")
+    {
+      b=document.getElementById("scheduleEnablerLater");
+      if(b.checked)
+      {
+        document.getElementById("scheduleEnabler").checked = false;
+        document.getElementById("occurancySection").hidden = false;
+        document.getElementById("dateTimeSection").hidden = false;
+      }
+      else
+      {
+        document.getElementById("scheduleEnabler").checked = true;
+        document.getElementById("occurancySection").hidden = true;
+        document.getElementById("dateTimeSection").hidden = true;
       }
     }
   
@@ -133,6 +147,7 @@ function foselector()
       b=document.getElementById("onetime");
       if (b.checked)
       {
+        document.getElementById("recurring").checked = false;
         document.getElementById("endDate").hidden = true;
         document.getElementById("frequency").hidden = true;
         document.getElementById("days").hidden = true;
@@ -150,6 +165,7 @@ function foselector()
       b=document.getElementById("recurring");
       if (b.checked)
       {
+        document.getElementById("onetime").checked = false;
         document.getElementById("endDate").hidden = false;
         document.getElementById("frequency").hidden = false;
         document.getElementById("days").hidden = false;
@@ -161,8 +177,7 @@ function foselector()
         document.getElementById("days").hidden = true;
       }
     }
-    
-  }
+}
   
   function foLoader()
   {
@@ -181,7 +196,6 @@ function foselector()
     document.getElementById("primaryLogo").hidden = true;
     document.getElementById("primaryLogoPosition").hidden = true;
     document.getElementById("staticTickerLogo").hidden = true;
-    document.getElementById("dynamicTickerLocation").hidden = true;
     getdata();
   }
 
@@ -235,17 +249,17 @@ function foselector()
     }
   }
   
-document.addEventListener("DOMContentLoaded", function(){
-    var btn = document.getElementById("myBtn");
-    var element = document.getElementById("myCollapse");
+// document.addEventListener("DOMContentLoaded", function(){
+//     var btn = document.getElementById("myBtn");
+//     var element = document.getElementById("myCollapse");
 
-    // Create a collapse instance, toggles the collapse element on invocation
-    var myCollapse = new bootstrap.Collapse(element);
+//     // Create a collapse instance, toggles the collapse element on invocation
+//     var myCollapse = new bootstrap.Collapse(element);
 
-    btn.addEventListener("click", function(){
-        myCollapse.toggle();
-    });
-});
+//     btn.addEventListener("click", function(){
+//         myCollapse.toggle();
+//     });
+// });
 function Filevalidation(id)
 {
     FileTypeChecker(id);
@@ -424,6 +438,388 @@ function getdata() {
   }
   xhttp.open("GET", "/static/resources/resource.json", true);
   xhttp.send();
+}
+
+
+function schedulebuttonenabler(id)
+{
+    if(id == "scheduleenabler")
+    {
+        var b = document.getElementById("scheduleenabler");
+        if (b.checked)
+        {
+            document.getElementById("occurancysection").hidden = true;
+            document.getElementById("datatimesection").hidden = true;
+        }
+        else
+        {
+            document.getElementById("occurancysection").hidden = false;
+            document.getElementById("datatimesection").hidden = false;
+        }
+    }
+}
+
+function alldataremove(id)
+{
+    if (id=="roomSelection")
+    {
+    var select = document.getElementById("roomSelection");
+    var length = select.options.length;
+    for (i = length-1; i >= 0; i--) {
+        select.options[i] = null;
+    }
+    }
+    if (id == "floorSelection") {
+        var select = document.getElementById("floorSelection");
+        var length = select.options.length;
+        for (i = length - 1; i >= 0; i--) {
+            select.options[i] = null;
+        }
+    }
+    if (id=="wingSelection"){
+    var select = document.getElementById("wingSelection");
+    var length = select.options.length;
+    for (i = length - 1; i >= 0; i--) {
+        select.options[i] = null;
+    }
+    }
+    if (id=="roomTypeSelection"){
+    var select = document.getElementById("roomTypeSelection");
+    var length = select.options.length;
+    for (i = length - 1; i >= 0; i--) {
+        select.options[i] = null;
+    }
+    }
+}
+
+function filterforkeys(id) {
+    roomtype = document.getElementById('roomTypeSelection');
+    wing = document.getElementById('wingSelection');
+    floor = document.getElementById('floorSelection');
+    roomnumber = document.getElementById('roomSelection');
+
+    var option;
+    var selected = [];
+
+
+    var request = new XMLHttpRequest();
+
+    request.open("GET", "/static/resources/resource.json", false);
+    request.send(null);
+
+    var javaobj = JSON.parse(request.responseText);
+
+    if (id == "roomSelection") {
+
+        if (roomnumber.options.length > 0) {
+
+            for (var option of roomnumber.options) {
+                if (option.selected && option.text != 'All') {
+                    //var request = new XMLHttpRequest();
+
+                    for (var i = 0; i < javaobj.data.length; i++) {
+
+                        if (option.text == javaobj.data[i].key_number && option.text != 'All') {
+                            // alert(javaobj.data[i].key_category_name);
+                            document.getElementById('roomTypeSelection').value = javaobj.data[i].key_category_name;
+                            document.getElementById('floorSelection').value = javaobj.data[i].floor_name;
+                            document.getElementById('wingSelection').value = javaobj.data[i].wing_name;
+                        }
+                    }
+                }
+            }
+        } else
+        {
+            const arr = [];
+            var opt;
+
+            for (var i=0; i< javaobj.data.length;i++)
+            {
+                opt = document.createElement('option');
+                opt.innerHTML = javaobj.data[i].key_number;
+                if (!arr.includes(opt.innerHTML)) {
+                    roomnumber.appendChild(opt);
+                    arr.push(opt.innerHTML);
+                }
+            }
+
+
+            if (roomtype.options.length == 0){
+
+                for (var i = 0; i < javaobj.data.length; i++) {
+                    opt = document.createElement('option');
+                    opt.innerHTML = javaobj.data[i].key_category_name;
+                    if (!arr.includes(opt.innerHTML)) {
+                        roomtype.appendChild(opt);
+                        arr.push(opt.innerHTML);
+                    }                    
+                }
+            }
+
+            if (wing.options.length == 0)
+            {
+                for (var i = 0; i < javaobj.data.length; i++) {
+                    opt = document.createElement('option');
+                    opt.innerHTML = javaobj.data[i].wing_name;
+                    if (!arr.includes(opt.innerHTML)) {
+                        wing.appendChild(opt);
+                        arr.push(opt.innerHTML);
+                    }
+                }
+            }
+
+            if (floor.options.length== 0)
+            {
+                for (var i = 0; i < javaobj.data.length; i++) {
+                    opt = document.createElement('option');
+                    opt.innerHTML = javaobj.data[i].floor_name;
+                    if (!arr.includes(opt.innerHTML)) {
+                        floor.appendChild(opt);
+                        arr.push(opt.innerHTML);
+                    }
+                }
+            }
+        }
+
+    } else if (id == "floorSelection") {
+        
+        if (floor.options.length > 0) {
+
+            for (var option of floor.options) {
+                if (option.selected && option.text != 'All') {
+                    //var request = new XMLHttpRequest();
+
+                    for (var i = 0; i < javaobj.data.length; i++) {
+
+                        if (option.text == javaobj.data[i].floor_name && option.text != 'All') {
+                            // alert(javaobj.data[i].key_category_name);
+                            document.getElementById('roomTypeSelection').value = javaobj.data[i].key_category_name;
+                            document.getElementById('wingSelection').value = javaobj.data[i].wing_name;
+
+                            alldataremove("roomSelection");
+
+                            opt = document.createElement('option');
+                            opt.innerHTML = javaobj.data[i].key_number;
+                            roomnumber.appendChild(opt);
+                        }
+                    }
+                }
+            }
+
+        } 
+        else{
+            const arr = [];
+            var opt;
+            
+            if (roomtype.options.length == 0){
+
+                for (var i = 0; i < javaobj.data.length; i++) {
+                    opt = document.createElement('option');
+                    opt.innerHTML = javaobj.data[i].key_category_name;
+                    if (!arr.includes(opt.innerHTML)) {
+                        roomtype.appendChild(opt);
+                        arr.push(opt.innerHTML);
+                    }
+                }
+
+            }
+
+            if (wing.options.length == 0)
+            {
+                for (var i = 0; i < javaobj.data.length; i++) {
+                    opt = document.createElement('option');
+                    opt.innerHTML = javaobj.data[i].wing_name;
+                    if (!arr.includes(opt.innerHTML)) {
+                        wing.appendChild(opt);
+                        arr.push(opt.innerHTML);
+                    }
+                }
+            }
+
+            for (var i = 0; i < javaobj.data.length; i++)
+            {
+                opt = document.createElement('option');
+                opt.innerHTML = javaobj.data[i].floor_name;
+                if (!arr.includes(opt.innerHTML)) {
+                    floor.appendChild(opt);
+                    arr.push(opt.innerHTML);
+                }
+            }
+
+            if (roomnumber.options.length== 0)
+            {
+                for (var i = 0; i < javaobj.data.length; i++) {
+                    opt = document.createElement('option');
+                    opt.innerHTML = javaobj.data[i].key_number;
+                    if (!arr.includes(opt.innerHTML)) {
+                        roomnumber.appendChild(opt);
+                        arr.push(opt.innerHTML);
+                    }
+                }
+            }
+        }
+
+    } else if (id == "wingSelection") {
+
+        if (wing.options.length > 0) {
+            for (var option of winglength.options) {
+                if (option.selected && option.text != 'All') {
+                    //var request = new XMLHttpRequest();
+                    alldataremove("roomSelection");
+                    alldataremove("floor");
+
+                    for (var i = 0; i < javaobj.data.length; i++) {
+
+                        if (option.text == javaobj.data[i].wing_name && option.text != 'All') {
+                            // alert(javaobj.data[i].key_category_name);
+                            document.getElementById('roomTypeSelection').value = javaobj.data[i].key_category_name;
+                            
+                            opt = document.createElement('option');
+                            opt.innerHTML = javaobj.data[i].key_number;
+                            roomnumber.appendChild(opt);
+                            opt = document.createElement('option');
+                            opt.innerHTML = javaobj.data[i].floor_name;
+                            floor.appendChild(opt);
+                        }
+                    }
+                }
+            }
+        }else
+        {
+            const arr = [];
+            var opt;
+
+            if (roomtype.options.length == 0){
+
+                for (var i = 0; i < javaobj.data.length; i++) {
+                    opt = document.createElement('option');
+                    opt.innerHTML = javaobj.data[i].key_category_name;
+                    if (!arr.includes(opt.innerHTML)) {
+                        roomtype.appendChild(opt);
+                        arr.push(opt.innerHTML);
+                    }
+                }
+
+            }
+
+            for (var i = 0; i < javaobj.data.length; i++)
+            {
+                opt = document.createElement('option');
+                opt.innerHTML = javaobj.data[i].wing_name;
+                if (!arr.includes(opt.innerHTML)) {
+                    wing.appendChild(opt);
+                    arr.push(opt.innerHTML);
+                }
+            }
+
+            if (floor.options.length == 0)
+            {
+                for (var i = 0; i < javaobj.data.length; i++) {
+                    opt = document.createElement('option');
+                    opt.innerHTML = javaobj.data[i].floor_name;
+                    if (!arr.includes(opt.innerHTML)) {
+                        floor.appendChild(opt);
+                        arr.push(opt.innerHTML);
+                    }
+                }
+            }
+
+            if (roomnumber.options.length== 0)
+            {
+                for (var i = 0; i < javaobj.data.length; i++) {
+                    opt = document.createElement('option');
+                    opt.innerHTML = javaobj.data[i].key_number;
+                    if (!arr.includes(opt.innerHTML)) {
+                        roomnumber.appendChild(opt);
+                        arr.push(opt.innerHTML);
+                    }
+                }
+            }
+        }
+    }
+    else if (id == "roomTypeSelection") {
+
+        if (roomtype.options.length > 0) {
+
+            for (var option of roomtype.options) {
+                if (option.selected && option.text != 'All') {
+                    //var request = new XMLHttpRequest();
+                    alldataremove("roomSelection");
+                    alldataremove("floorSelection");
+                    alldataremove("wingSelection");
+
+                    for (var i = 0; i < javaobj.data.length; i++) {
+
+                        if (option.text == javaobj.data[i].key_category_name && option.text != 'All') {
+                            // alert(javaobj.data[i].key_category_name);
+                            
+                            opt = document.createElement('option');
+                            opt.innerHTML = javaobj.data[i].key_number;
+                            roomnumber.appendChild(opt);
+
+                            opt = document.createElement('option');
+                            opt.innerHTML = javaobj.data[i].floor_name;
+                            floor.appendChild(opt);
+                            
+                            opt = document.createElement('option');
+                            opt.innerHTML = javaobj.data[i].wing_name;
+                            wing.appendChild(opt);
+                        }
+                    }
+                }
+            }
+        } else {
+            const arr = [];
+            var opt;
+
+            for (var i = 0; i < javaobj.data.length; i++)
+            {
+                opt = document.createElement('option');
+                opt.innerHTML = javaobj.data[i].key_category_name;
+                if (!arr.includes(opt.innerHTML)) {
+                    roomtype.appendChild(opt);
+                    arr.push(opt.innerHTML);
+                }
+            }
+                        
+            if (wing.options.length == 0){
+
+                for (var i = 0; i < javaobj.data.length; i++) {
+                    opt = document.createElement('option');
+                    opt.innerHTML = javaobj.data[i].wing_name;
+                    if (!arr.includes(opt.innerHTML)) {
+                        wing.appendChild(opt);
+                        arr.push(opt.innerHTML);
+                    }
+                }
+
+            }
+
+            if (floor.options.length == 0)
+            {
+                for (var i = 0; i < javaobj.data.length; i++) {
+                    opt = document.createElement('option');
+                    opt.innerHTML = javaobj.data[i].floor_name;
+                    if (!arr.includes(opt.innerHTML)) {
+                        floor.appendChild(opt);
+                        arr.push(opt.innerHTML);
+                    }
+                }
+            }
+
+            if (roomnumber.options.length== 0)
+            {
+                for (var i = 0; i < javaobj.data.length; i++) {
+                    opt = document.createElement('option');
+                    opt.innerHTML = javaobj.data[i].key_number;
+                    if (!arr.includes(opt.innerHTML)) {
+                        roomnumber.appendChild(opt);
+                        arr.push(opt.innerHTML);
+                    }
+                }
+            }
+        }
+    } else {}
 }
 
 

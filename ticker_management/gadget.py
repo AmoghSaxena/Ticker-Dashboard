@@ -297,8 +297,11 @@ def datagetter(request):
                     CONFIG_DATA['moving_ticker_condition']= True
                             
                     CONFIG_DATA['moving_ticker_localtion'] = moving_ticker_localtion
-                    if CONFIG_DATA['moving_ticker_localtion'] == "center":
-                        CONFIG_DATA['moving_ticker_center_size'] = moving_ticker_center_size
+                    CONFIG_DATA['moving_ticker_center_size'] = moving_ticker_center_size
+                    
+                    if CONFIG_DATA['moving_ticker_localtion'] == "fullscreen":
+                        CONFIG_DATA['moving_ticker_localtion'] = "center"
+                        CONFIG_DATA['moving_ticker_center_size'] = "full"
 
                 except Exception as animationscroll:
                     print('Exception raised during animationscroll',animationscroll)

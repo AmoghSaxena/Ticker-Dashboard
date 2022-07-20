@@ -23,7 +23,7 @@
                                 <th>Failed&nbspNodes</th>
                                 <th>TV&nbspStatus</th>
                                 <th>iPad&nbspStatus</th>
-                                <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -36,7 +36,7 @@
                                 <th>Failed&nbspNodes</th>
                                 <th>TV&nbspStatus</th>
                                 <th>iPad&nbspStatus</th>
-                                <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                             </tr>
                         </tfoot>
 
@@ -52,11 +52,11 @@
                             {% elif item.execution == 'aborted' %}
                                 <td class="text-secondary fw-bold">{{item.execution}}</td>
                             {% elif item.execution == 'running' %}
-                                <td class="text-primary fw-bold">{{item.execution}}</td>
+                                <td class="text-primary spinner-grow fw-bold">{{item.execution}}</td>
                             {% elif item.execution == 'failed' %}
                                 <td class="text-danger fw-bold">{{item.execution}}</td>
                             {% else %}
-                                <td class="text-color fw-bold">{{item.execution}}</td>
+                                <td class="text-color spinner-grow fw-bold">{{item.execution}}</td>
                             {% endif %}
                             
                             {% if item.successfull_nodes == '[]' %}
@@ -75,11 +75,11 @@
                             <td>{{item.iPad_status}}</td>
                             <td>
                                 {% if item.execution == 'pending' %}
-                                    <a class="mx-1 text-danger" href="#"><i class="fa-solid fa-ban"></i> Stop</a>
+                                    <a class="btn btn-danger" href="#"><i class="fa-solid fa-ban"></i> Stop</a>
                                 {% elif item.execution == 'running' %}
-                                    <a class="mx-1 text-danger" href="#"><i class="fa-solid fa-ban"></i> Aborted</a>
+                                    <a class="btn btn-danger" href={% url 'abort' item.ticker_id %}><i class="fa-solid fa-ban"></i> Abort</a>
                                 {% else %}
-                                    <a class="mx-1 text-danger disabled" href="#"><i class="fa-solid fa-ban"></i> Stop</a>
+                                    <a class="btn btn-danger disabled" href="#"><i class="fa-solid fa-ban"></i> Stop</a>
                                 {% endif %}
                                 <!-- <a class="mx-1 text-color" href="#" id="rundeckLog"><i class="fa-solid fa-memo"></i> Log</a> -->
                             </td>
