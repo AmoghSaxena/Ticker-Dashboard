@@ -1,5 +1,5 @@
 import json
-import datetime
+from datetime import datetime,timedelta
 import xml.etree.ElementTree as ET
 from .models import SetUp
 from ticker_management.tasks import callticker
@@ -8,6 +8,31 @@ from pathlib import Path
 from django_celery_beat.models import PeriodicTask,CrontabSchedule
 
 BASE_DIR = Path(__file__).resolve().parent
+
+
+def replacer(s):
+    return str(s).replace('{','').replace('}','').replace(' ','')
+
+def addrecurringtime(start_time,end_time,frequency):
+   minutes=set()
+   hours=set()
+   day=set()
+#    day_of_week=set()
+   month=set()
+
+   while (start_time<end_time):
+       minutes.add(int(start_time.strftime('%M')))
+       hours.add(int(start_time.strftime('%H')))
+       day.add(int(start_time.strftime('%d')))
+    #    day_of_week.add(start_time.strftime('%A'))
+       month.add(int(start_time.strftime('%m')))
+
+       start_time+=timedelta(minutes=frequency)
+
+
+   return {"hours":replacer(hours),"minutes":replacer(minutes),
+           "days":replacer(day)#"day_of_week":replacer(day_of_week)
+           ,"month":replacer(month)}
 
 def xmlFileRead(tagList,idList,root):
     
@@ -99,18 +124,17 @@ def roomConfigurations(request):
         print("inside 2")
         return xmlFileRead(tagList,idList,root)
 
-
 def schedule_tasks(ticker_id,command):
 
     ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
 
     print(ticker_id,ticker_obj.get())
     
-    start_dateobj=datetime.datetime.strftime(ticker_obj.get().get('ticker_start_time'), '%Y-%m-%d %H:%M:%S')
-    end_dateobj=datetime.datetime.strftime(ticker_obj.get().get('ticker_end_time'), '%Y-%m-%d %H:%M:%S')
+    start_dateobj=datetime.strftime(ticker_obj.get().get('ticker_start_time'), '%Y-%m-%d %H:%M:%S')
+    end_dateobj=datetime.strftime(ticker_obj.get().get('ticker_end_time'), '%Y-%m-%d %H:%M:%S')
 
-    start_dateobj=datetime.datetime.strptime(start_dateobj,'%Y-%m-%d %H:%M:%S')
-    end_dateobj=datetime.datetime.strptime(end_dateobj,'%Y-%m-%d %H:%M:%S')
+    start_dateobj=datetime.strptime(start_dateobj,'%Y-%m-%d %H:%M:%S')
+    end_dateobj=datetime.strptime(end_dateobj,'%Y-%m-%d %H:%M:%S')
 
     print(start_dateobj,end_dateobj)
     
@@ -137,89 +161,103 @@ def schedule_tasks(ticker_id,command):
     
     else:
         
-        year1 = start_dateobj.strftime("%Y")
+        # year1 = start_dateobj.strftime("%Y")
 
-        month1 = start_dateobj.strftime("%m")
+        # month1 = start_dateobj.strftime("%m")
 
-        day1 = start_dateobj.strftime("%d")
+        # day1 = start_dateobj.strftime("%d")
 
-        hour1 = start_dateobj.strftime("%H")
+        # hour1 = start_dateobj.strftime("%H")
 
-        minute1 = int(start_dateobj.strftime("%M"))
+        # minute1 = int(start_dateobj.strftime("%M"))
 
-        year2 = end_dateobj.strftime("%Y")
+        # year2 = end_dateobj.strftime("%Y")
 
-        month2 = end_dateobj.strftime("%m")
+        # month2 = end_dateobj.strftime("%m")
 
-        day2 = end_dateobj.strftime("%d")
+        # day2 = end_dateobj.strftime("%d")
 
-        hour2 = end_dateobj.strftime("%H")
+        # hour2 = end_dateobj.strftime("%H")
 
-        minute2 = int(end_dateobj.strftime("%M"))
+        # minute2 = int(end_dateobj.strftime("%M"))
 
-        day=str()
-        month=str()
-        week=str()
-        hour=str()
-        minute=str()
+        # day=str()
+        # month=str()
+        # week=str()
+        # hour=str()
+        # minute=str()
+
+        # frequency=str(ticker_obj.get().get('frequency'))
+        # if 'minutes' in frequency:
+        #     frequency=frequency.split(" ")[0]
+        # else:
+        #     frequency=frequency.split(" ")[0]
+        #     frequency=int(frequency)*60
+
+        # if (month1==month2):
+        #     month=month1
+        # else:
+        #     month=month1+"-"+month2
+        
+        # if (day1==day2):
+        #     day=day1
+
+        #     if hour1==hour2:
+        #         hour=hour1
+        #         minute=str(minute1)+'/'+str(frequency)
+        #     else:
+
+        #         print(frequency,int(frequency)==0)
+
+        #         if (int(frequency)%60==0):
+        #             hour=hour1+'-'+hour2
+        #             minute=str(minute1)+'/'+str(frequency)
+        #         else:
+        #             hour=hour1+'-'+hour2
+        #             minute=str(minute1)+'/'+str(int(frequency)%60)
+
+        # else:
+        #     day=day1+"-"+day2
+            # week=str(ticker_obj.get().get('occuring_days')).lower()
+
+        #     if hour1==hour2:
+        #         hour=hour1
+        #         minute=str(minute1)+'/'+str(frequency)
+        #     else:
+        #         print(frequency,int(frequency)==0)
+
+        #         if (int(frequency)%60==0):
+        #             hour=hour1+'-'+hour2
+        #             minute=str(minute1)+'/'+str(frequency)
+        #         else:
+        #             hour=hour1+'-'+hour2+'/'+str(int(frequency)//60)
+        #             minute=str(minute1)+'/'+str(int(frequency)%60)
+        
+        # print(minute,hour,day,month,week)
+
+        # if week=='':
+        #     schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute)
+        #     task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
+        # else:
+        #     schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute,day_of_week=week)
+        #     task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
+        
+        week=str(ticker_obj.get().get('occuring_days')).replace(',')
 
         frequency=str(ticker_obj.get().get('frequency'))
+
         if 'minutes' in frequency:
             frequency=frequency.split(" ")[0]
         else:
             frequency=frequency.split(" ")[0]
-
             frequency=int(frequency)*60
 
-        if (month1==month2):
-            month=month1
-        else:
-            month=month1+"-"+month2
-        
-        if (day1==day2):
-            day=day1
+        data=addrecurringtime(start_dateobj,end_dateobj,int(frequency))
 
-            if hour1==hour2:
-                hour=hour1
-                minute=str(minute1)+'/'+str(frequency)
-            else:
+        print(data,data.get('day_of_week'),str(data.get('day_of_week')))
 
-                print(frequency,int(frequency)==0)
-
-                if (int(frequency)%60==0):
-                    hour='*/,'+hour1+'-'+hour2
-                    minute=str(minute1)+'/'+str(frequency)
-                else:
-                    hour='*'+','+hour1+'-'+hour2
-                    minute=str(minute1)+'/'+str(int(frequency)%60)
-
-        else:
-            day=day1+"-"+day2
-            week=str(ticker_obj.get().get('occuring_days')).lower()
-
-            if hour1==hour2:
-                hour=hour1
-                minute=str(minute1)+'/'+str(frequency)
-            else:
-
-                print(frequency,int(frequency)==0)
-
-                if (int(frequency)%60==0):
-                    hour='*/,'+hour1+'-'+hour2
-                    minute=str(minute1)+'/'+str(frequency)
-                else:
-                    hour='*'+','+hour1+'-'+hour2
-                    minute=str(minute1)+'/'+str(int(frequency)%60)
-        
-        print(month,day,week,hour,minute)
-
-        if week=='':
-            schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute)
-            task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
-        else:
-            schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute,day_of_week=week)
-            task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
-      
+        schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=data.get('month'),day_of_month=data.get('days'),hour=data.get('hours'),minute=data.get('minutes'))#,day_of_week=data.get('day_of_week'))
+        task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
 
 def schedulingticker(request,ticker_id):
 

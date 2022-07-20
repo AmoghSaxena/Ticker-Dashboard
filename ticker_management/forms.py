@@ -25,21 +25,24 @@ class ChangePassword(forms.Form):
         widget=forms.PasswordInput(
             attrs={
                 "placeholder": "Enter Old Password",
-                "class": "form-control"
+                "class": "form-control",
+                "id": "oldPassword"
             }
         ))
     newPassword = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
                 "placeholder": "Enter New Password",
-                "class": "form-control"
+                "class": "form-control",
+                "id": "newPassword"
             }
         ))
     confirmPassword = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
                 "placeholder": "Confirmation New Password",
-                "class": "form-control"
+                "class": "form-control",
+                "id": "confirmPassword"
             }
         ))
 

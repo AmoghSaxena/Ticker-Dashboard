@@ -23,7 +23,7 @@
                                 <th>Failed&nbspNodes</th>
                                 <th>TV&nbspStatus</th>
                                 <th>iPad&nbspStatus</th>
-                                <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -36,7 +36,7 @@
                                 <th>Failed&nbspNodes</th>
                                 <th>TV&nbspStatus</th>
                                 <th>iPad&nbspStatus</th>
-                                <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                             </tr>
                         </tfoot>
 
@@ -75,14 +75,23 @@
                             <td>{{item.iPad_status}}</td>
                             <td>
                                 {% if item.execution == 'pending' %}
-                                    <a class="mx-1 btn btn-danger" href="#"><i class="fa-solid fa-ban"></i> Stop</a>
+                                    <a class="mx-1 text-danger" href="#"><i class="fa-solid fa-ban"></i> Stop</a>
                                 {% elif item.execution == 'running' %}
-                                    <a class="mx-1 btn btn-danger" href="#"><i class="fa-solid fa-ban"></i> Stop</a>
+                                    <a class="mx-1 text-danger" href="#"><i class="fa-solid fa-ban"></i> Aborted</a>
                                 {% else %}
-                                    <a class="mx-1 btn btn-danger disabled" href="#"><i class="fa-solid fa-ban"></i> Stop</a>
+                                    <a class="mx-1 text-danger disabled" href="#"><i class="fa-solid fa-ban"></i> Stop</a>
                                 {% endif %}
+                                <!-- <a class="mx-1 text-color" href="#" id="rundeckLog"><i class="fa-solid fa-memo"></i> Log</a> -->
                             </td>
                         </tr>
+                        {% if false %}
+                        <tr>
+                            <td colspan="9">
+                                <strong class = "text- text-danger">Log : </strong>{{logObject}}
+                            </td>
+                        </tr>
+                        {% else %}
+                        {% endif %}
                         
                         {% if item.execution == 'pending' %}
                         <script>

@@ -27,6 +27,10 @@ var currentTab = 0;
     }
     showTab(currentTab);
     }
+
+    function submitForm(){
+        
+    }
     function validateForm()
     {
         select = document.getElementById("tickerSelecter");

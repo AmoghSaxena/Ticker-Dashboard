@@ -220,13 +220,32 @@ function foselector()
     var x = document.getElementById("profileContent");
     if (x.style.display === "none") {
       x.style.display = "block";
-      document.getElementById("arrowDown").style.transform = 'rotate(90deg)';
+      // document.getElementById("arrowDown").style.transform = 'rotate(0deg)';
     } else {
       x.style.display = "none";
-      document.getElementById("arrowDown").style.transform = 'rotate(-90deg)';
+      // document.getElementById("arrowDown").style.transform = 'rotate(180deg)';
+    }
+  }
+  function profileExpander() {
+    var x = document.getElementById("profileContent");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
     }
   }
   
+document.addEventListener("DOMContentLoaded", function(){
+    var btn = document.getElementById("myBtn");
+    var element = document.getElementById("myCollapse");
+
+    // Create a collapse instance, toggles the collapse element on invocation
+    var myCollapse = new bootstrap.Collapse(element);
+
+    btn.addEventListener("click", function(){
+        myCollapse.toggle();
+    });
+});
 function Filevalidation(id)
 {
     FileTypeChecker(id);

@@ -23,7 +23,8 @@ from .serializers import TaskSerializer, TaskSerializerConfig
 from rest_framework.response import Response
 from .models import Task
 from ticker_management.rundecklog import initial_data
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.hashers import make_password, check_password
+from django.core.mail import EmailMessage
 #Api
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -139,13 +140,15 @@ def createTicker(request):
             ],
             'user':request.user.username,
             'frequency' :[
+                '5 minutes',
+                '10 minutes',
                 '15 minutes', 
                 '30 minutes', 
                 '45 minutes', 
-                '1 hour', 
-                '75 minutes', 
-                '90 minutes', 
-                '105 minutes', 
+                '1 hour',
+                '75 minutes',
+                '90 minutes'
+                '105 minutes'
                 '2 hour', 
                 '3 hour',
                 '4 hour',  
@@ -212,8 +215,9 @@ def history(request):
 def detail(request, id):
     try:
         ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
+        logObject = list()
         if ticker_obj.get().get('rundeckid')!=None:
-            initial_data(ticker_obj)
+            logObject.append(initial_data(ticker_obj))
             rundeckLogData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
             rundeckLog=sorted(rundeckLogData,key=lambda item: item['rundeck_id'],reverse=True)
         else:
@@ -221,9 +225,8 @@ def detail(request, id):
             dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get().get('ticker_id'), 'ticker_title': ticker_obj.get().get('ticker_title'), 'execution': "pending", 'successfull_nodes':
              "None", 'failed_nodes': 'None', 'tv_status': 'None', 'iPad_status': 'None'}
             rundeckLog.append(dictwithoutrundeckid)
-        return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog})
+        return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog, 'logObject':logObject})
     except Exception as e:
-        # print(e)
         return HttpResponse('Error: '+str(e))
 
 @login_required
@@ -262,23 +265,27 @@ def isDelete(request, id):
 
 @login_required
 def changePassword(request):
+    # setupMail()
     form = ChangePassword(request.POST or None)
     msg = None
-    u = request.user.username
-    p = request.user.password
-    print(u, p)
-    if request.method == 'POST':
-        pass
-        # form = PasswordChangeForm(request.user, request.POST)
-        # if form.is_valid():
-        #     user = form.save()
-        #     update_session_auth_hash(request, user)  # Important!
-        #     msg = 'Your password was successfully updated!'
-        #     return render(request, 'changepassword.html', {'form': form,'msg': msg})
-        # else:
-        #     msg = 'Please correct the error below.'
-    else:
+    try:
+        if request.method == 'POST':
+            old = request.POST.get('oldPassword')
+            new = request.POST.get('newPassword')
+            if check_password(old, request.user.password):
+                if form.is_valid():
+                    request.user.set_password(new)
+                    newuser = request.user.save()
+                    update_session_auth_hash(request, newuser)
+                    msg = 'Your password was successfully updated!'
+                else:
+                    msg = 'Error validating the form'
+            else:
+                msg = 'Invalid credentials'
         return render(request, 'changepassword.html', {'form': form, 'msg': msg})
+    except Exception as e:
+        return HttpResponse(e)
+
 
 @login_required
 def syncDVSData(request):
@@ -357,5 +364,12 @@ def configApi(request,pk="0"):
         serializer = TaskSerializerConfig(tasks.get(), many=False)
         return Response(json.loads(serializer._args[0][0]))
 
-
-    
+def setupMail():
+    try:
+        subject = "Hello"
+        body = ""
+        emailQueue = ['temper.projectgroup@gmail.com']
+        email = EmailMessage(subject, body, to=emailQueue)
+        email.send()
+    except Exception as e:
+        print(e)

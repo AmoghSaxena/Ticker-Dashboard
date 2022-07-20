@@ -85,7 +85,6 @@ function filterforkeys(id) {
                     }
                 }
             }
-            alert(document.getElementById('roomTypeSelection').attributes);
         } else
         {
             const arr = [];

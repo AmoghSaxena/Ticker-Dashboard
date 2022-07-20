@@ -4,7 +4,7 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-3 mt-5">
-                <div class="path my-4 text-muted fs-5 bg-white p-2 col-xl-2 col-md-3 col-sm-2">  
+                <div class="path my-4 text-muted fs-5 bg-white p-2 col-xl-2 col-md-3 col-sm-3">  
                     <div class="mx-1"><i class="fa-solid fa-square-plus fs-5"></i> Create Ticker</div>
                 </div>
  
@@ -57,14 +57,14 @@
                                                         <div class="form-check mb-3">
                                                             <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                            <input name="primaryFontColor" type="color" id="primaryFontColor" value="#000000">
+                                                            <input name="primaryFontColor" type="color" id="primaryFontColor" value="#F7F9F9">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="form-check mb-3">
                                                             <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                            <input name="primaryBgColor" type="color" id="primaryBgColor" value="#F15412">
+                                                            <input name="primaryBgColor" type="color" id="primaryBgColor" value="#B03A2E">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -155,14 +155,14 @@
                                                         <div class="form-check mb-3">
                                                             <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                            <input name="secondaryFontColor" type="color" id="secondaryFontColor" value="#000000">
+                                                            <input name="secondaryFontColor" type="color" id="secondaryFontColor" value="#D0D3D4">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="form-check form-switch mb-3">
                                                             <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                            <input name="secondaryBgColor" type="color" id="secondaryBgColor" value="#F15412">
+                                                            <input name="secondaryBgColor" type="color" id="secondaryBgColor" value="#17202A">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -243,14 +243,14 @@
                                                         <div class="form-check mb-3">
                                                             <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                            <input name="staticFontColor" type="color" value="#000000">
+                                                            <input name="staticFontColor" type="color" value="#FDFEFE">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="form-check mb-3">
                                                             <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                            <input name="staticBgColor" type="color" value="#F15412">
+                                                            <input name="staticBgColor" type="color" value="#424949">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -292,7 +292,7 @@
                                                     <div class="col-md-8" id='staticTickerLogo'>
                                                         <div class="form-group">
                                                             <strong class="text-color" for="exampleFormControlFile1">upload image logo</strong>
-                                                            <input name="staticTickerLogo" type="file" accept=".png" id="staticTickerLogo" class="form-control-file" value="" onchange=Filevalidation(this.id)>
+                                                            <input name="staticTickerLogo" type="file" accept=".png" id="staticTickerLogo" class="form-control-file" value="1" onchange=Filevalidation(this.id)>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -563,7 +563,8 @@
                                 <div style="overflow:auto;" class="m-3">
                                     <div style="float:right;">
                                         <button class="btn btn-outline-success my-4 m-2" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                        <button class="btn btn-outline-success my-4 m-2" type="button" id="nextBtn" onclick="nextPrev(1);">Next</button>
+                                        <button class="btn btn-outline-success my-4 m-2" type="button" id="nextBtn" onclick="nextPrev(1);submitForm();">Next</button>
+                                        <button class="btn btn-outline-success my-4 m-2" type="button" id="SubForm" disabled></button>
                                     </div>
                                 </div>
                             </form>

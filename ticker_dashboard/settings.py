@@ -94,7 +94,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ticker_dashboard.wsgi.application'
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.axolites.com'
+EMAIL_HOST_USER = 'ticker@axolites.com'
+EMAIL_HOST_PASSWORD = '92b9a3b730#123'
+DEFAULT_FROM_EMAIL = 'ticker@axolites.com'
+SERVER_EMAIL = 'ticker@axolites.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
