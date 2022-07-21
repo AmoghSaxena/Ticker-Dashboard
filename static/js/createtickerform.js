@@ -11,6 +11,7 @@ function foselector()
       document.getElementById("scheduleEnabler").checked = false;
       document.getElementById("scheduleEnabler").disabled = false;
       document.getElementById("scrollingTickerPriority").value = "Medium";
+      document.getElementById("scheduleLaterDiv").hidden = false;
       foenabler("scheduleEnabler");
     }
     else if (option.text == "Media Ticker")
@@ -21,6 +22,7 @@ function foselector()
       document.getElementById("scheduleEnabler").checked = false;
       document.getElementById("scheduleEnabler").disabled = false;
       document.getElementById("mediaTickerPriority").value = "Medium";
+      document.getElementById("scheduleLaterDiv").hidden = false;
       foenabler("scheduleEnabler");
     }
     else if (option.text == "Emergency Ticker")
@@ -30,7 +32,7 @@ function foselector()
       document.getElementById("emergency").hidden = false;
       document.getElementById("scheduleEnabler").disabled = true;
       document.getElementById("scheduleEnabler").checked = true;
-      document.getElementById("scheduleEnablerLater").hidden = true;
+      document.getElementById("scheduleLaterDiv").hidden = true;
       foenabler("scheduleEnabler");
     }
     else

@@ -1,5 +1,5 @@
 import json
-import datetime
+from datetime import datetime,timedelta
 import time
 import os
 from .models import TickerDetails,SetUp
@@ -8,7 +8,7 @@ from django.core.files.storage import FileSystemStorage
 import xml.etree.ElementTree
 
 def dateformatter(dateobj,timeorday):
-    dateobj=datetime.datetime.strptime(dateobj,"%Y-%m-%dT%H:%M")
+    dateobj=datetime.strptime(dateobj,"%Y-%m-%dT%H:%M")
     print(dateobj)
     if timeorday=='time':
         print(dateobj.strftime('%Y-%m-%d %H:%M:%S'))
@@ -293,6 +293,9 @@ def datagetter(request):
                     # moving_video= request.POST.get('animation_video')
                     moving_ticker_localtion= request.POST.get('dynamicTickerPosition')
                     moving_ticker_center_size=request.POST.get('dynamicTickerLocation')
+                    moving_ticker_color=request.POST.get('dynamicTickerBorderColor')
+
+                    CONFIG_DATA['moving_ticker_color']=hex_to_rgb(moving_ticker_color)
 
                     CONFIG_DATA['moving_ticker_condition']= True
                             
@@ -330,23 +333,26 @@ def datagetter(request):
             print("Exception while insertion: ",e)
 
         try:
-            t=TickerDetails.objects.filter(ticker_title=tickerTitle,ticker_priority=tickerPriority,ticker_type=tickertype,ticker_json=CONFIG_DATA).values()
+            t=TickerDetails.objects.filter(ticker_title=tickerTitle,ticker_priority=tickerPriority,ticker_type=tickertype,ticker_json=CONFIG_DATA,created_on__gte=str(datetime.now()-timedelta(minutes=1))).values()
         except Exception as e:
             print("Exception when fetching for update: ",e)
+            t=None
         
-        ticker_id_for_schedule=t.get().get('ticker_id',-1)
+        if t!=None:
+            
+            ticker_id_for_schedule=t.get().get('ticker_id',-1)
 
-        CONFIG_DATA=FileUploader(request,t.get())
+            CONFIG_DATA=FileUploader(request,t.get())
 
-        try:
-            t.update(ticker_json=CONFIG_DATA)
-        except TickerDetails.DoesNotExist  as e:
-            print('Unable to update: ',e)
+            try:
+                t.update(ticker_json=CONFIG_DATA)
+            except TickerDetails.DoesNotExist  as e:
+                print('Unable to update: ',e)
 
-        try:
-            schedulingticker(request,ticker_id_for_schedule)
-        except Exception as e:
-            print('Error While schedule: ',e)
+            try:
+                schedulingticker(request,ticker_id_for_schedule)
+            except Exception as e:
+                print('Error While schedule: ',e)
         
 
     except Exception as e:
@@ -364,10 +370,10 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
     tickerobj.ticker_json=CONFIG_DATA1
     
     if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scheduleEnabler') == 'enabled':
-        tickerobj.ticker_start_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        tickerobj.ticker_start_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         tickerobj.frequency = str(1)
-        tickerobj.occuring_days = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        tickerobj.ticker_end_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        tickerobj.occuring_days = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        tickerobj.ticker_end_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     else:
         if request.POST.get('recurring')=='enabled':
             
@@ -375,7 +381,6 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
             tickerobj.ticker_end_time=dateformatter(request.POST.get('endDate'),'time')
 
             print(tickerobj.ticker_start_time,tickerobj.ticker_end_time)
-
 
             tickerobj.frequency = request.POST.get('delay')
 
@@ -410,7 +415,7 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
             tickerobj.occuring_days = dateformatter(request.POST.get('startDate'),'days')
             tickerobj.ticker_end_time=dateformatter(request.POST.get('startDate'),'time')
 
-    print(tickerobj.ticker_start_time,tickerobj.ticker_end_time)
+    # print(tickerobj.ticker_start_time,tickerobj.ticker_end_time)
     tickerobj.wings=str(request.POST.getlist('wingSelection'))
     tickerobj.floors=str(request.POST.getlist('floorSelection'))
     tickerobj.rooms=str(request.POST.getlist('roomSelection'))
@@ -419,10 +424,10 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
     tickerobj.ticker_priority=tickerPriority
 
     tickerobj.created_by=request.user.username
-    tickerobj.created_on=datetime.datetime.now()
+    tickerobj.created_on=datetime.now()
     
     tickerobj.modified_by=request.user.username
-    tickerobj.modified_on=datetime.datetime.now()
+    tickerobj.modified_on=datetime.now()
     
     tickerobj.is_active=1
     tickerobj.is_deleted=0

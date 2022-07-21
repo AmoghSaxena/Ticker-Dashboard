@@ -98,8 +98,8 @@ def createTicker(request):
                 ],
 
             'position':[
-                'up',
-                'down'
+                'down',
+                'up'
                 ],
 
             'logo_position':[
@@ -226,7 +226,7 @@ def detail(request, id):
             dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get().get('ticker_id'), 'ticker_title': ticker_obj.get().get('ticker_title'), 'execution': "pending", 'successfull_nodes':
              "None", 'failed_nodes': 'None', 'tv_status': 'None', 'iPad_status': 'None'}
             rundeckLog.append(dictwithoutrundeckid)
-        return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog, 'logObject':logObject})
+        return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog, 'logObject':list()})
     except Exception as e:
         return HttpResponse('Error: '+str(e))
 

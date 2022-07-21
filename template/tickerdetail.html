@@ -52,11 +52,11 @@
                             {% elif item.execution == 'aborted' %}
                                 <td class="text-secondary fw-bold">{{item.execution}}</td>
                             {% elif item.execution == 'running' %}
-                                <td class="text-primary spinner-grow fw-bold">{{item.execution}}</td>
+                                <td class="text-primary fw-bold">{{item.execution}}</td>
                             {% elif item.execution == 'failed' %}
                                 <td class="text-danger fw-bold">{{item.execution}}</td>
                             {% else %}
-                                <td class="text-color spinner-grow fw-bold">{{item.execution}}</td>
+                                <td class="text-color fw-bold">{{item.execution}}</td>
                             {% endif %}
                             
                             {% if item.successfull_nodes == '[]' %}

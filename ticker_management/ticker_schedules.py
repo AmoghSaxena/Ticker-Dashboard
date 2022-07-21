@@ -242,7 +242,6 @@ def schedule_tasks(ticker_id,command):
         #     schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute,day_of_week=week)
         #     task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
         
-        week=str(ticker_obj.get().get('occuring_days')).replace(',')
 
         frequency=str(ticker_obj.get().get('frequency'))
 
@@ -251,12 +250,35 @@ def schedule_tasks(ticker_id,command):
         else:
             frequency=frequency.split(" ")[0]
             frequency=int(frequency)*60
-
+        
         data=addrecurringtime(start_dateobj,end_dateobj,int(frequency))
 
-        print(data,data.get('day_of_week'),str(data.get('day_of_week')))
+        if ',' in data.get('days'):
 
-        schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=data.get('month'),day_of_month=data.get('days'),hour=data.get('hours'),minute=data.get('minutes'))#,day_of_week=data.get('day_of_week'))
+            week=str(ticker_obj.get().get('occuring_days')).split(',')
+
+            all_week= ['Sunday',
+                        'Monday',
+                        'Tuesday',
+                        'Wednesday',
+                        'Thursday',
+                        'Friday',
+                        'Saturday']
+
+            for i in range(len(week)):
+                if i==0:
+                    week_number=str(all_week.index(week[i]))+','
+                elif i==len(week)-1:
+                    week_number+=str(all_week.index(week[i]))
+                else:
+                    week_number+=str(all_week.index(week[i]))+','
+        
+        else:
+            week_number=str(start_dateobj.strftime('%A'))
+
+        print(data,week_number)
+
+        schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=data.get('month'),day_of_month=data.get('days'),hour=data.get('hours'),minute=data.get('minutes'),day_of_week=week_number)
         task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
 
 def schedulingticker(request,ticker_id):

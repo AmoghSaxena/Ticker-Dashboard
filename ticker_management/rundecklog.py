@@ -23,11 +23,12 @@ def initial_data(ticker_obj):
             RundeckLog_obj.successfull_nodes=successfulNodes
             RundeckLog_obj.failed_nodes=failedNodes
             RundeckLog_obj.save()
+            
             if status == 'succeeded' or status == 'aborted' or status == 'failed':
                 errorLog = requests.get(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/execution/{rundeckid}/output/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"})
                 errorLogOutput = errorLog.json()
                 errorLog = errorLogOutput['entries'][-1]['log']
-            return errorLog
+                return errorLog
         else:
             print("Response status code is not 200")
     except Exception as e:
@@ -68,9 +69,9 @@ def abortTicker(ticker_obj):
                 errorLog = errorLogOutput['entries'][-1]['log']
                 if status == 'aborted':
                     requests.post(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/job/{Rundeck_Stop_Job}/run/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"}, json={ "argString": f"-whichnode \"{nodes}\""})
+                return errorLog
             elif status == 'running':
                 requests.get(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/execution/{rundeckid}/abort/", headers={"X-Rundeck-Auth-Token": Rundeck_Token})
-            return errorLog
         else:
             print("Response status code is not 200")
     except Exception as e:

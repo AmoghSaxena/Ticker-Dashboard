@@ -55,7 +55,7 @@ class TickerDetails(models.Model):
     # photo = models.ImageField(upload_to="myimage")
 
     def __str__(self):
-        return " Ticker Title : "+self.ticker_title+ ",     Id : (" + str(self.ticker_id)+")"
+        return " Ticker Title : "+self.ticker_title+ "  ,     Id : (" + str(self.ticker_id)+")"
 
 
 class TickerHistory(models.Model):

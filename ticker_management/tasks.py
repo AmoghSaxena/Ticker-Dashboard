@@ -3,6 +3,7 @@ from .models import TickerDetails
 from datetime import datetime
 import json
 import subprocess
+from ticker_management.rundecklog import initial_data
 
 @shared_task(bind=True)
 def makeMeAlive():
@@ -34,6 +35,9 @@ def callticker(self,command,ticker_id):
             ticker_obj.update(rundeckid=rundeckid,is_deleted=1,is_active=0)
         else:
             ticker_obj.update(rundeckid=rundeckid)
+    
+    ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
+    initial_data(ticker_obj)
 
 # @shared_task(bind=True)
 # def celery_beat_name(self):
