@@ -60,26 +60,29 @@ class TickerDetails(models.Model):
 
 class TickerHistory(models.Model):
     history_id = models.AutoField(primary_key=True)
-    ticker_id = models.PositiveIntegerField()
-    ticker_type = models.CharField(max_length=40)
+    ticker_id = models.PositiveIntegerField(null=True)
+    ticker_type = models.CharField(max_length=60)
     ticker_title = models.CharField(max_length=50,default='Not Specific')
+    # dated_on = models.DateTimeField()
     ticker_json = models.TextField(blank=True)
     ticker_start_time =models.DateTimeField(null=True)
     ticker_end_time =models.DateTimeField(null=True)
     wings = models.CharField(max_length=300, null=True)
     floors = models.CharField(max_length=300, null=True)
     rooms = models.CharField(max_length=300, null=True)
+    roomTypeSelection=models.CharField(max_length=300,null=True)
     frequency = models.CharField(max_length=30,null=True)
-    occuring_days = models.CharField(max_length=50,null=True)
+    occuring_days = models.CharField(max_length=500,null=True)
     ticker_priority= models.CharField(max_length=10,default='Not Specific')
     created_by = models.CharField(max_length=50, blank=True, null=True)
     created_on = models.DateTimeField()
     modified_by = models.CharField(max_length=50, blank=True, null=True)
-    modified_on = models.DateTimeField(blank=True, null=True)
+    modified_on = models.DateTimeField()
     is_active = models.PositiveIntegerField()
     is_deleted = models.PositiveIntegerField()
     deleted_on = models.DateTimeField(blank=True, null=True)
     rundeckid = models.PositiveIntegerField(null=True)
+    
     # reason_for_delete = models.CharField(max_length=300, blank=True, null=True)
 
 

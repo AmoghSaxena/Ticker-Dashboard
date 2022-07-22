@@ -1481,6 +1481,60 @@
          "title": "Welcome",
          "start": "2022-07-21T15:16:13",
          "end": "2022-07-21T15:16:13"
+      },
+      {
+         "groupId": 349,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-21T16:39:00",
+         "end": "2022-07-21T16:00:00"
+      },
+      {
+         "groupId": 350,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-21T16:41:24",
+         "end": "2022-07-21T16:41:24"
+      },
+      {
+         "groupId": 351,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-21T16:44:00",
+         "end": "2022-07-21T17:10:00"
+      },
+      {
+         "groupId": 353,
+         "title": "adsfgh",
+         "start": "2022-07-21T18:38:06",
+         "end": "2022-07-21T18:38:06"
+      },
+      {
+         "groupId": 354,
+         "title": "hello Ticker",
+         "start": "2022-07-21T19:09:48",
+         "end": "2022-07-21T19:09:48"
+      },
+      {
+         "groupId": 355,
+         "title": "hello Ticker",
+         "start": "2022-07-21T19:12:48",
+         "end": "2022-07-21T19:12:48"
+      },
+      {
+         "groupId": 356,
+         "title": "Okada Birthday",
+         "start": "2022-07-21T19:14:24",
+         "end": "2022-07-21T19:14:24"
+      },
+      {
+         "groupId": 357,
+         "title": "Multi-Media Ticker",
+         "start": "2022-07-21T19:17:46",
+         "end": "2022-07-21T19:17:46"
+      },
+      {
+         "groupId": 358,
+         "title": "hello Ticker",
+         "start": "2022-07-21T19:22:44",
+         "end": "2022-07-21T19:22:44"
       }
    ]
 }

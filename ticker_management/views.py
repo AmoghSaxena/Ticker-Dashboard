@@ -19,11 +19,12 @@ from pathlib import Path
 from .forms import LoginForm, ChangePassword
 from rest_framework.decorators import api_view
 from django.http import QueryDict
-from .serializers import TaskSerializer, TaskSerializerConfig
+from .serializers import TaskSerializer, TaskSerializerConfig,TaskSerializerConfigHistory
 from rest_framework.response import Response
 from .models import Task
-from ticker_management.rundecklog import initial_data, abortTicker
+from ticker_management.rundecklog import rundeck_update, abortTicker
 from django.contrib.auth.hashers import make_password, check_password
+from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage
 #Api
 BASE_DIR = Path(__file__).resolve().parent
@@ -49,15 +50,17 @@ def login(request):
 def index(request):
     active_ticker_length=TickerDetails.objects.all().filter()
     active_ticker=TickerDetails.objects.all().filter().order_by('modified_on').reverse()[:5]
-    total_ticker=TickerHistory.objects.all()
+    history_ticker_length=TickerHistory.objects.all()
+    history_ticker=TickerHistory.objects.all().filter().order_by('modified_on').reverse()[:5]
     today_event=TickerDetails.objects.filter(ticker_start_time__lte=str(date.today())+str(" 23:59:59"),ticker_start_time__gt=str(date.today())+str(" 00:00:00"))
-    history_count = 8
+
     ticker_count={
         'active':len(active_ticker_length),
-        'history':history_count,
-        'total':(history_count+len(active_ticker_length)),
+        'history':len(history_ticker_length),
+        'total':(len(history_ticker_length)+len(active_ticker_length)),
         'events': len(today_event),
         'active_ticker_data':active_ticker,
+        'history_ticker_data':history_ticker,
         'user':request.user.username
     }
     return render(request, 'index.html',ticker_count)
@@ -122,8 +125,7 @@ def createTicker(request):
             'location':[
                 'small',
                 'normal',
-                'large',
-                'Emergency'
+                'large'
                 ],
                 
             'emergency_ticker_list':[
@@ -137,7 +139,8 @@ def createTicker(request):
             'priority':[
                 'High',
                 'Medium',
-                'Low'
+                'Low',
+                'Emergency'
             ],
             'user':request.user.username,
             'frequency' :[
@@ -202,7 +205,7 @@ def scheduled(request):
 
 @login_required
 def history(request):
-    data=TickerDetails.objects.all().filter(is_active=1).values()
+    data=TickerHistory.objects.all().values()
     tickerDataList=list()
     for item in data:
         tickerDataList.append(item)
@@ -218,8 +221,13 @@ def detail(request, id):
         ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
         logObject = list()
         if ticker_obj.get().get('rundeckid')!=None:
-            logObject.append(initial_data(ticker_obj))
+            # logObject.append(initial_data(ticker_obj))
             rundeckLogData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
+            rundeckProcess=RundeckLog.objects.all().filter(ticker_id=int(id),execution='running').values()
+
+            for i in rundeckProcess:
+                rundeck_update(i.get('rundeck_id'))
+
             rundeckLog=sorted(rundeckLogData,key=lambda item: item['rundeck_id'],reverse=True)
         else:
             rundeckLog=list()
@@ -260,20 +268,37 @@ def isRestore(request):
 @login_required
 def isDelete(request, id):
     try:
-        tickerDataDelete = TickerDetails.objects.get(ticker_id=id)
-        if tickerDataDelete.get('main_ticker_condition','not found')==True and tickerDataDelete.get('main_ticker_logo','not found')==True:
-            image_name=tickerDataDelete.get('main_ticker_logo_name')
-        elif tickerDataDelete.get('static_ticker_condition','not found')==True and tickerDataDelete.get('static_ticker_logo','not found')==True:
-            image_name=tickerDataDelete.get('static_ticker_logo_name')
-        elif tickerDataDelete.get('moving_ticker_condition','not found')==True:
-            image_name=tickerDataDelete.get('moving_ticker_logo_name')
-        elif  tickerDataDelete.get('emergency_ticker_condition','not found')==True:
-            image_name=tickerDataDelete.get('emergency_ticker_logo_name')
-    except Exception as e:
-        messages.info(request, 'Specificied ID not found')
-        return redirect(active)
+        tickerDataDelete = TickerDetails.objects.filter(ticker_id=id).values().get()
+
+        ticker_json=json.loads(tickerDataDelete.get('ticker_json'))
+
+
+        # print(tickerDataDelete,type(tickerDataDelete))
+        if ticker_json.get('main_ticker_condition','not found')==True and ticker_json.get('main_ticker_logo','not found')==True:
+            image_name=ticker_json.get('main_ticker_logo_name')
+        elif ticker_json.get('static_ticker_condition','not found')==True and ticker_json.get('static_ticker_logo','not found')==True:
+            image_name=ticker_json.get('static_ticker_logo_name')
+        elif ticker_json.get('moving_ticker_condition','not found')==True:
+            image_name=ticker_json.get('moving_ticker_logo_name')
+        elif  ticker_json.get('emergency_ticker_condition','not found')==True:
+            image_name=ticker_json.get('emergency_ticker_logo_name')
+    except TickerDetails.DoesNotExist  as e:
+        try:
+            tickerDataDelete = TickerHistory.objects.filter(ticker_id=id).values().get()
+            ticker_json=json.loads(tickerDataDelete.get('ticker_json'))
+            if ticker_json.get('main_ticker_condition','not found')==True and ticker_json.get('main_ticker_logo','not found')==True:
+                image_name=ticker_json.get('main_ticker_logo_name')
+            elif ticker_json.get('static_ticker_condition','not found')==True and ticker_json.get('static_ticker_logo','not found')==True:
+                image_name=ticker_json.get('static_ticker_logo_name')
+            elif ticker_json.get('moving_ticker_condition','not found')==True:
+                image_name=ticker_json.get('moving_ticker_logo_name')
+            elif  ticker_json.get('emergency_ticker_condition','not found')==True:
+                image_name=ticker_json.get('emergency_ticker_logo_name')
+        except TickerHistory.DoesNotExist  as e:
+            messages.info(request, 'Specificied ID not found')
+            return redirect(active)
     try:
-        os.remove(image_name.split('/')[-1])
+        os.remove(FileSystemStorage().base_location+image_name.split('/')[-1])
     except Exception as e:
         print("No image found!",e)
     try:
@@ -364,13 +389,13 @@ def taskPost(request,pk="0"):
     elif request.method == 'GET':
         tasks = Task.objects.all().order_by('-id')
         serializer = TaskSerializer(tasks, many=True)
-        print(serializer)
+        # print(serializer)
         return Response(serializer.data)
     elif request.method == 'DELETE':
         serializer = TaskSerializer(data=request.data)
         p=serializer.initial_data
         q=int(p.get('id'))
-        print(type(q))
+        # print(type(q))
         task = Task.objects.get(id=q)
         task.delete()
         return Response('Item succsesfully delete!')
@@ -381,9 +406,16 @@ def configApi(request,pk="0"):
         serializer = TaskSerializerConfig(data=request.data)
         p=serializer.initial_data
         q=int(p.get('ticker_id'))
-        tasks = TickerDetails.objects.filter(ticker_id=q).values_list('ticker_json')
-        serializer = TaskSerializerConfig(tasks.get(), many=False)
-        return Response(json.loads(serializer._args[0][0]))
+        try:
+            tasks = TickerDetails.objects.filter(ticker_id=q).values_list('ticker_json')
+            serializer = TaskSerializerConfig(tasks.get(), many=False)
+            return Response(json.loads(serializer._args[0][0]))
+
+        except TickerDetails.DoesNotExist  as e:
+            tasks=TickerHistory.objects.filter(ticker_id=q).values_list('ticker_json')
+            serializer = TaskSerializerConfigHistory(tasks.get(), many=False)
+            return Response(json.loads(serializer._args[0][0]))
+       
 
 def setupMail():
     try:

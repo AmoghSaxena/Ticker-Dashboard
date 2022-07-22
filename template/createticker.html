@@ -1,337 +1,203 @@
-    {% extends "base.html" %}
-    {% block content %}
+{% extends "base.html" %}
+{% block content %}
 
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid px-3 mt-5">
-                <div class="path my-4 text-muted fs-5 bg-white p-2 col-xl-2 col-md-3 col-sm-3">  
-                    <div class="mx-1"><i class="fa-solid fa-square-plus fs-5"></i> Create Ticker</div>
-                </div>
- 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="bg-white rounded-border">
-                            <div class="card-header tickernav-color p-3 text-white">
-                                <i class="fa-solid fa-sliders"></i>
-                                Create Ticker
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-3 mt-5">
+            <div class="path my-4 text-muted fs-5 bg-white p-2 col-xl-2 col-md-3 col-sm-3">  
+                <div class="mx-1"><i class="fa-solid fa-square-plus fs-5"></i> Create Ticker</div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="bg-white rounded-border">
+                        <div class="card-header tickernav-color p-3 text-white">
+                            <i class="fa-solid fa-sliders"></i>
+                            Create Ticker
+                        </div>
+
+                        <form id="createTickerForm" action="" class="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="d-lg-block d-md-block d-sm-block d-none" style="text-align:center;margin-top:40px;">
+                                <span class="step"><i class="fa-solid fa-plus fs-3 m-2 text-white"></i></i><strong class="text-color">Create</strong></span>
+                                <span class="step"><i class="fa-solid fa-tv fs-3 m-2 text-white"></i><strong class="text-color">Preview</strong></span>
+                                <span class="step"><i class="fa-solid fa-calendar fs-3 m-2 text-white"></i><strong class="text-color">Schedule</strong></span>
+                                <!-- <span class="step"><i class="fa-solid fa-check-to-slot fs-3 m-2 text-white"></i><strong class="text-color">Success</strong></span> -->
                             </div>
 
-                            <form id="createTickerForm" action="" class="" method="POST" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                <div class="d-lg-block d-md-block d-sm-block d-none" style="text-align:center;margin-top:40px;">
-                                    <span class="step"><i class="fa-solid fa-plus fs-3 m-2 text-white"></i></i><strong class="text-color">Create</strong></span>
-                                    <span class="step"><i class="fa-solid fa-tv fs-3 m-2 text-white"></i><strong class="text-color">Preview</strong></span>
-                                    <span class="step"><i class="fa-solid fa-calendar fs-3 m-2 text-white"></i><strong class="text-color">Schedule</strong></span>
-                                    <!-- <span class="step"><i class="fa-solid fa-check-to-slot fs-3 m-2 text-white"></i><strong class="text-color">Success</strong></span> -->
-                                </div>
+                            <div class="tab m-3">
+                                <strong class="text-color">Select Ticker Type</strong>
+                                <select name="tickerSelecter" class="form-select mb-3 p-3" aria-label="Default select example" onchange="foselector();" id="tickerSelecter">
+                                    <option class="text-color" selected value="">Select Ticker</option>
+                                    <option class="text-color" value="scrolling">Scrolling Ticker</option>
+                                    <option class="text-color" value="media">Media Ticker</option>
+                                    <option class="text-color" value="emergency">Emergency Ticker</option>
+                                </select>
 
-                                <div class="tab m-3">
-                                    <strong class="text-color">Select Ticker Type</strong>
-                                    <select name="tickerSelecter" class="form-select mb-3 p-3" aria-label="Default select example" onchange="foselector();" id="tickerSelecter">
-                                        <option class="text-color" selected value="">Select Ticker</option>
-                                        <option class="text-color" value="scrolling">Scrolling Ticker</option>
-                                        <option class="text-color" value="media">Media Ticker</option>
-                                        <option class="text-color" value="emergency">Emergency Ticker</option>
-                                    </select>
-
-                                    <div id="scrolling">
-                                            <strong class="text-color">Ticker Title</strong>
+                                <div id="scrolling">
+                                        <strong class="text-color">Ticker Title</strong>
+                                        <div class="form-group form-floating mb-3">
+                                            <input class="form-control" id="scrollingTickerTitle" placeholder="Enter Ticker Title"  type = "text" name="scrollingTickerTitle" value = "" maxlength = "20" />
+                                            <label for="scrollingTickerTitle" class="text-muted text-color">Enter Ticker Title <small>(20 letters max.)</small></label>
+                                        </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" name="primaryScrollingTicker" type="checkbox" value="enabled" id="primaryEnable" onclick="foenabler(this.id);">
+                                            <strong class="form-check-label text-color" for="flexCheckDefault">
+                                            Primary Scrolling Ticker
+                                            </strong>
+                                        </div>
+                                        <div id="primary">
+                                            <strong class="text-color">Enter Your Primary Ticker Message</strong>
                                             <div class="form-group form-floating mb-3">
-                                                <input class="form-control" id="scrollingTickerTitle" placeholder="Enter Ticker Title"  type = "text" name="scrollingTickerTitle" value = "" maxlength = "20" />
-                                                <label for="scrollingTickerTitle" class="text-muted text-color">Enter Ticker Title <small>(20 letters max.)</small></label>
+                                                <textarea name="primaryTickerMessage" class="form-control" id="primaryTickerMessage" rows="4" placeholder="Type Message for Static Ticker" value=" "></textarea>
+                                                <label for="primaryTickerMessage" class="text-muted">Type Message for Primary Ticker</label>
                                             </div>
-                                            <div class="form-check form-switch mb-3">
-                                                <input class="form-check-input" name="primaryScrollingTicker" type="checkbox" value="enabled" id="primaryEnable" onclick="foenabler(this.id);">
-                                                <strong class="form-check-label text-color" for="flexCheckDefault">
-                                                Primary Scrolling Ticker
-                                                </strong>
-                                            </div>
-                                            <div id="primary">
-                                                <strong class="text-color">Enter Your Primary Ticker Message</strong>
-                                                <div class="form-group form-floating mb-3">
-                                                    <textarea name="primaryTickerMessage" class="form-control" id="primaryTickerMessage" rows="4" placeholder="Type Message for Static Ticker" value=" "></textarea>
-                                                    <label for="primaryTickerMessage" class="text-muted">Type Message for Primary Ticker</label>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <div class="col-md-4">
-                                                        <div class="form-check mb-3">
-                                                            <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
-                                                            <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                            <input name="primaryFontColor" type="color" id="primaryFontColor" value="#F7F9F9">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-check mb-3">
-                                                            <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
-                                                            <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                            <input name="primaryBgColor" type="color" id="primaryBgColor" value="#FF3232">
-                                                        </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <div class="form-check mb-3">
+                                                        <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
+                                                        <label for="favcolor" class="text-muted">Pick Font Color</label>
+                                                        <input name="primaryFontColor" type="color" id="primaryFontColor" value="#F7F9F9">
                                                     </div>
                                                 </div>
-                                                <div class="row mb-3">
-                                                    <div class="col-md-6">
-                                                        <strong class="text-color">Font Style</strong>
-                                                        <select name="primaryFontType" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                            {% for items in font_style %}
-                                                            <option>{{items}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <strong class="text-color">Font Size</strong>
-                                                        <select name="primaryFontSize" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                            {% for items in font_size %}
-                                                            <option>{{items}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <strong class="text-color">Position BOX</strong>
-                                                        <select name="primaryPositionBox" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                            {% for items in position %}
-                                                            <option>{{items}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <div class="col-md-6">
-                                                        <strong class="text-color">Speed</strong>
-                                                        <select name="primaryTickerSpeed" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                            {% for items in speed %}
-                                                            <option>{{items}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <strong class="text-color">Ticker Motion</strong>
-                                                        <select name="primaryTickerMotion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                            {% for items in motion %}
-                                                            <option>{{items}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <div class="col-xl-3 col-md-6 col-sm-6">
-                                                        <div class="form-check form-switch mb-3">
-                                                            <input name="primaryTickerLogoEnabler" class="form-check-input" type="checkbox" value="enabled" id="primaryLogoEnabler" onclick=fologoenabler(this.id)>
-                                                            <strong class="form-check-label text-color" for="flexCheckDefault">
-                                                                Set logo on Primary Ticker 
-                                                            </strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-3 col-md-6 col-sm-6" id="primaryLogo">
-                                                        <div class="form-group">
-                                                            <strong class="text-color" for="exampleFormControlFile1">upload image logo</strong>
-                                                            <input name="primaryTickerLogo" type="file" accept=".png" id="primaryTickerLogo" class="form-control-file" onchange=Filevalidation(this.id)>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6" id="primaryLogoPosition">
-                                                        <strong class="text-color">Logo Position</strong>
-                                                        <select name="primaryTickerLogoPosition" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                            {% for items in logo_position %}
-                                                            <option>{{items}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                    
-                                            <div class="form-check form-switch mb-3">
-                                                <input class="form-check-input" name="secondaryScrollingEnable" type="checkbox" value="enabled" id="secondaryEnable" onclick="foenabler(this.id);">
-                                                <strong class="form-check-label text-color" for="flexCheckDefault">
-                                                Secondary Scrolling Ticker
-                                                </strong>
-                                            </div>
-                                            <div id="secondary">
-                                                <strong class="text-color">Enter Your Secondary Ticker Message</strong>
-                                                <div class="form-group form-floating mb-3">
-                                                    <textarea name="secondaryTickerMessage" id="secondaryTickerMessage" class="form-control" rows="4" value=" " placeholder="Type Message for Static Ticker"></textarea>
-                                                    <label for="secondaryTickerMessage" class="text-muted">Type Message for Secondary Ticker</label>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <div class="col-md-4">
-                                                        <div class="form-check mb-3">
-                                                            <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
-                                                            <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                            <input name="secondaryFontColor" type="color" id="secondaryFontColor" value="#D0D3D4">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-check form-switch mb-3">
-                                                            <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
-                                                            <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                            <input name="secondaryBgColor" type="color" id="secondaryBgColor" value="#17202A">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <div class="col-md-3">
-                                                        <strong class="text-color">Font Style</strong>
-                                                        <select name="secondaryFontType" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                            {% for items in font_style %}
-                                                            <option>{{items}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <strong class="text-color">Position BOX</strong>
-                                                        <select name="secondaryPositionBox" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                            {% for items in position %}
-                                                            <option>{{items}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <strong class="text-color">Speed</strong>
-                                                        <select name="secondaryTickerSpeed" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                            {% for items in speed %}
-                                                            <option>{{items}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <strong class="text-color">Ticker Motion</strong>
-                                                        <select name="secondaryTickerMotion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                            {% for items in motion %}
-                                                            <option>{{items}}</option>
-                                                            {% endfor %}
-                                                        </select>
+                                                <div class="col-md-8">
+                                                    <div class="form-check mb-3">
+                                                        <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
+                                                        <label for="favcolor" class="text-muted">Pick Background Color</label>
+                                                        <input name="primaryBgColor" type="color" id="primaryBgColor" value="#FF3232">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
-                                                    <strong class="text-color">Ticker Duration</strong>
-                                                    <div class="form-group form-floating">
-                                                        <input type="number" name="scrollingTickerTimeInterval" min="1" value="1"  required class="form-control" id="number" rows="4" placeholder="Enter Time" />
-                                                        <label for="number" class="text-muted">Enter Time Minutes</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <strong class="text-color">Set Priority</strong>
-                                                    <select name="scrollingTickerPriority" class="form-select p-3" id="scrollingTickerPriority" aria-label="Default select example">
-                                                        {% for items in priority %}
+                                                    <strong class="text-color">Font Style</strong>
+                                                    <select name="primaryFontType" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        {% for items in font_style %}
                                                         <option>{{items}}</option>
                                                         {% endfor %}
                                                     </select>
                                                 </div>
-                                            </div>
-                                    </div>
-                    
-                                    <div id="media">
-                                            <strong class="text-color">Ticker Title</strong>
-                                            <div class="form-group form-floating mb-3">
-                                                <input class="form-control" id="mediaTickerTitle" rows="4" placeholder="Enter Ticker Title"  type = "text" name="mediaTickerTitle" value="" maxlength = "20" />
-                                                <label for="mediaTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label>
-                                            </div>
-                                            <div class="form-check form-switch mb-3">
-                                                <input class="form-check-input" name="staticTickerEnabler" type="checkbox" value="enabled" id="staticEnable" onclick="foenabler(this.id);">
-                                                <strong class="form-check-label text-color" for="flexCheckDefault">
-                                                Static Ticker
-                                                </strong>
-                                            </div>
-                                            <div id="static">
-                                                <strong class="text-color">Enter Your Static Ticker Message</strong>
-                                                <div class="form-group form-floating mb-3">
-                                                    <input class="form-control" id="staticTickerMessage" rows="4" placeholder="Type dMessage for Static Ticker (20 letters)"  type = "text" name = "staticTickerMessage" value="" maxlength = "20" />
-                                                    <label for="staricTickerMessage" class="text-muted">Type Message for Static Ticker <small>(20 letters max.)</small></label>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <div class="col-md-4">
-                                                        <div class="form-check mb-3">
-                                                            <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
-                                                            <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                            <input name="staticFontColor" type="color" value="#FDFEFE">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-check mb-3">
-                                                            <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
-                                                            <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                            <input name="staticBgColor" type="color" value="#424949">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <div class="col-md-6">
-                                                        <strong class="text-color">Font Style</strong>
-                                                        <select name="staticFontType" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                            {% for items in font_style %}
-                                                            <option>{{items}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <strong class="text-color">Font Size</strong>
-                                                        <select name="staticFontSize" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                            {% for items in font_size %}
-                                                            <option>{{items}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <strong class="text-color">Position BOX</strong>
-                                                        <select name="staticPositionBox" id="staticPositionBox" onchange=fopositionbox(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                            {% for items in pos_box %}
-                                                            <option>{{items}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <div class="col-md-4">
-                                                        <div class="form-check form-switch mb-3">
-                                                            <input name="staticTickerLogoEnabler" class="form-check-input" type="checkbox" value="enabled" id="staticTickerLogoEnabler" onclick=fologoenabler(this.id)>
-                                                            <strong class="form-check-label text-color" for="flexCheckDefault">
-                                                                Set logo on Static Ticker 
-                                                            </strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-8" id='staticTickerLogo'>
-                                                        <div class="form-group">
-                                                            <strong class="text-color" for="exampleFormControlFile1">upload image logo</strong>
-                                                            <input name="staticTickerLogo" type="file" accept=".png" id="staticTickerLogo" class="form-control-file" value="1" onchange=Filevalidation(this.id)>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                        </div>
-                    
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input" name="dynamicTickerEnabler" type="checkbox" value="enabled" id="dynamicEnable" onclick="foenabler(this.id);">
-                                            <strong class="form-check-label text-color" for="flexCheckDefault">
-                                            Dynamic Ticker
-                                            </strong>
-                                        </div>
-                                        <div id="dynamic">
-                                            <div class="row mb-3">
                                                 <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <strong class="text-color" for="exampleFormControlFile1">upload short Video</strong>
-                                                        <input name="dynamicTickerVideo" value="1" type="file" class="form-control-file" id="dynamicTickerVideo" accept=".mp4" onchange=Filevalidation(this.id)>
-                                                    </div>
+                                                    <strong class="text-color">Font Size</strong>
+                                                    <select name="primaryFontSize" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        {% for items in font_size %}
+                                                        <option>{{items}}</option>
+                                                        {% endfor %}
+                                                    </select>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <strong class="text-color">Position BOX</strong>
-                                                    <select name="dynamicTickerPosition" class="form-select mb-3 mb-md-0 p-3" id="dynamicTickerPosition" onchange=fopositionbox(this.id) aria-label="Default select example">
-                                                        {% for items in pos_box %}
+                                                    <select name="primaryPositionBox" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        {% for items in position %}
                                                         <option>{{items}}</option>
                                                         {% endfor %}
                                                     </select>
                                                 </div>
-                                                <div class="col-md-3" id="dynamicTickerLocations">
-                                                    <strong class="text-color">Size</strong>
-                                                    <select name="dynamicTickerLocation" id="dynamicTickerLocations" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                        {% for items in location %}
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <strong class="text-color">Speed</strong>
+                                                    <select name="primaryTickerSpeed" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        {% for items in speed %}
+                                                        <option>{{items}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <strong class="text-color">Ticker Motion</strong>
+                                                    <select name="primaryTickerMotion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        {% for items in motion %}
+                                                        <option>{{items}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-xl-3 col-md-6 col-sm-6">
+                                                    <div class="form-check form-switch mb-3">
+                                                        <input name="primaryTickerLogoEnabler" class="form-check-input" type="checkbox" value="enabled" id="primaryLogoEnabler" onclick=fologoenabler(this.id)>
+                                                        <strong class="form-check-label text-color" for="flexCheckDefault">
+                                                            Set logo on Primary Ticker 
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-3 col-md-6 col-sm-6" id="primaryLogo">
+                                                    <div class="form-group">
+                                                        <strong class="text-color" for="exampleFormControlFile1">upload image logo</strong>
+                                                        <input name="primaryTickerLogo" type="file" accept=".png" id="primaryTickerLogo" class="form-control-file" onchange=Filevalidation(this.id)>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" id="primaryLogoPosition">
+                                                    <strong class="text-color">Logo Position</strong>
+                                                    <select name="primaryTickerLogoPosition" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        {% for items in logo_position %}
+                                                        <option>{{items}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" name="secondaryScrollingEnable" type="checkbox" value="enabled" id="secondaryEnable" onclick="foenabler(this.id);">
+                                            <strong class="form-check-label text-color" for="flexCheckDefault">
+                                            Secondary Scrolling Ticker
+                                            </strong>
+                                        </div>
+                                        <div id="secondary">
+                                            <strong class="text-color">Enter Your Secondary Ticker Message</strong>
+                                            <div class="form-group form-floating mb-3">
+                                                <textarea name="secondaryTickerMessage" id="secondaryTickerMessage" class="form-control" rows="4" value=" " placeholder="Type Message for Static Ticker"></textarea>
+                                                <label for="secondaryTickerMessage" class="text-muted">Type Message for Secondary Ticker</label>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <div class="form-check mb-3">
+                                                        <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
+                                                        <label for="favcolor" class="text-muted">Pick Font Color</label>
+                                                        <input name="secondaryFontColor" type="color" id="secondaryFontColor" value="#D0D3D4">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-check form-switch mb-3">
+                                                        <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
+                                                        <label for="favcolor" class="text-muted">Pick Background Color</label>
+                                                        <input name="secondaryBgColor" type="color" id="secondaryBgColor" value="#17202A">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <strong class="text-color">Font Style</strong>
+                                                    <select name="secondaryFontType" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        {% for items in font_style %}
                                                         <option>{{items}}</option>
                                                         {% endfor %}
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <strong class="text-color" for="favcolor">Set border Color</strong><br>
-                                                    <label for="favcolor" class="text-muted">Pick border Color</label>
-                                                    <input name="dynamicTickerBorderColor" type="color" id="dynamicTickerBorderColor" value="#D0D3D4">
+                                                    <strong class="text-color">Position BOX</strong>
+                                                    <select name="secondaryPositionBox" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        {% for items in position %}
+                                                        <option>{{items}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <strong class="text-color">Speed</strong>
+                                                    <select name="secondaryTickerSpeed" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        {% for items in speed %}
+                                                        <option>{{items}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <strong class="text-color">Ticker Motion</strong>
+                                                    <select name="secondaryTickerMotion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        {% for items in motion %}
+                                                        <option>{{items}}</option>
+                                                        {% endfor %}
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -339,250 +205,338 @@
                                             <div class="col-md-6">
                                                 <strong class="text-color">Ticker Duration</strong>
                                                 <div class="form-group form-floating">
-                                                    <input type="number" name="mediaTickerTimeInterval" min="1" value="1" required class="form-control" id="number" placeholder="Enter Time" />
+                                                    <input type="number" name="scrollingTickerTimeInterval" min="1" value="1"  required class="form-control" id="number" rows="4" placeholder="Enter Time" />
                                                     <label for="number" class="text-muted">Enter Time Minutes</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <strong class="text-color">Set Priority</strong>
-                                                <select name="mediaTickerPriority" class="form-select p-3" id="mediaTickerPriority" onchange=foeventEnabler(this.id) aria-label="Default select example">
+                                                <select name="scrollingTickerPriority" class="form-select p-3" id="scrollingTickerPriority" aria-label="Default select example">
                                                     {% for items in priority %}
                                                     <option>{{items}}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-                    
-                                    <div id="emergency">
+                                </div>
+                
+                                <div id="media">
                                         <strong class="text-color">Ticker Title</strong>
                                         <div class="form-group form-floating mb-3">
-                                            <input class="form-control" id="emergencyTickerTitle" rows="4" placeholder="Enter Ticker Title"  type = "text" name="emergencyTickerTitle" value = "" maxlength = "20" />
-                                            <label for="emergencyTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label>
+                                            <input class="form-control" id="mediaTickerTitle" rows="4" placeholder="Enter Ticker Title"  type = "text" name="mediaTickerTitle" value="" maxlength = "20" />
+                                            <label for="mediaTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label>
                                         </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" name="staticTickerEnabler" type="checkbox" value="enabled" id="staticEnable" onclick="foenabler(this.id);">
+                                            <strong class="form-check-label text-color" for="flexCheckDefault">
+                                            Static Ticker
+                                            </strong>
+                                        </div>
+                                        <div id="static">
+                                            <strong class="text-color">Enter Your Static Ticker Message</strong>
+                                            <div class="form-group form-floating mb-3">
+                                                <input class="form-control" id="staticTickerMessage" rows="4" placeholder="Type dMessage for Static Ticker (20 letters)"  type = "text" name = "staticTickerMessage" value="" maxlength = "20" />
+                                                <label for="staricTickerMessage" class="text-muted">Type Message for Static Ticker <small>(20 letters max.)</small></label>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <div class="form-check mb-3">
+                                                        <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
+                                                        <label for="favcolor" class="text-muted">Pick Font Color</label>
+                                                        <input name="staticFontColor" type="color" value="#FDFEFE">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-check mb-3">
+                                                        <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
+                                                        <label for="favcolor" class="text-muted">Pick Background Color</label>
+                                                        <input name="staticBgColor" type="color" value="#424949">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <strong class="text-color">Font Style</strong>
+                                                    <select name="staticFontType" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        {% for items in font_style %}
+                                                        <option>{{items}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <strong class="text-color">Font Size</strong>
+                                                    <select name="staticFontSize" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        {% for items in font_size %}
+                                                        <option>{{items}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <strong class="text-color">Position BOX</strong>
+                                                    <select name="staticPositionBox" id="staticPositionBox" onchange=fopositionbox(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                        {% for items in pos_box %}
+                                                        <option>{{items}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <div class="form-check form-switch mb-3">
+                                                        <input name="staticTickerLogoEnabler" class="form-check-input" type="checkbox" value="enabled" id="staticTickerLogoEnabler" onclick=fologoenabler(this.id)>
+                                                        <strong class="form-check-label text-color" for="flexCheckDefault">
+                                                            Set logo on Static Ticker 
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8" id='staticTickerLogo'>
+                                                    <div class="form-group">
+                                                        <strong class="text-color" for="exampleFormControlFile1">upload image logo</strong>
+                                                        <input name="staticTickerLogo" type="file" accept=".png" id="staticTickerLogo" class="form-control-file" value="1" onchange=Filevalidation(this.id)>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" name="dynamicTickerEnabler" type="checkbox" value="enabled" id="dynamicEnable" onclick="foenabler(this.id);">
+                                        <strong class="form-check-label text-color" for="flexCheckDefault">
+                                        Dynamic Ticker
+                                        </strong>
+                                    </div>
+                                    <div id="dynamic">
                                         <div class="row mb-3">
-                                            <div class="col-md-4">
-                                                <strong class="text-color">Emergency Ticker List</strong>
-                                                <select name="emergencySelecter" class="form-select mb-3 mb-md-0 p-3" onchange="foenabler(this.id);" id="emergencySelecter" aria-label="Default select example">
-                                                    {% for items in emergency_ticker_list %}
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <strong class="text-color" for="exampleFormControlFile1">upload short Video</strong>
+                                                    <input name="dynamicTickerVideo" value="1" type="file" class="form-control-file" id="dynamicTickerVideo" accept=".mp4" onchange=Filevalidation(this.id)>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <strong class="text-color">Position BOX</strong>
+                                                <select name="dynamicTickerPosition" class="form-select mb-3 mb-md-0 p-3" id="dynamicTickerPosition" onchange=fopositionbox(this.id) aria-label="Default select example">
+                                                    {% for items in pos_box %}
                                                     <option>{{items}}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
-                                            <div class="col mt-4 justify-content-center" id="custom">
-                                                <div class="form-group" id="emergency_text">
-                                                    <label for="emergencyTickerFile">Upload</label>
-                                                    <input name="emergencyTickerFile" accept=".png,.mp4" value="" type="file" class="form-control-file" id="emergencyTickerFile"></br>   
-                                                    <strong class="text-color">upload jpeg/png for Static Ticker | upload mp4 file for Dynamic Ticker</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                      
-                                <div class="tab m-3">
-                                    <div class="row">
-                                    
-                                        <div class="col-lg-8 mx-auto">
-                                            <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
-                                                <video autoplay loop muted>
-                                                    <source src="/static/RCB.mp4" type="video/mp4">
-                                                    <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
-                                                </video>
-                                                
-                                                <div class="video-descriptions">
-                                                    <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#ffffff" class="text-dark p-2 font-weight-bold;" style="font-size: 15px;">
-                                                        Royal Challengers Bangalore (RCB) has always been one of the most popular franchises since the inception of the Indian Premier League (IPL) in the year 2008. Some of the greatest players like Rahul Dravid, Jacques Kallis, Anil Kumble, Muttiah Muralitharan, Chris Gayle, and AB de Villiers have all been part of this team in the past. Their star player and former captain, Virat Kohli, is the only cricketer to represent a single franchise since the first season, which is RCB.
-                                                    </marquee>
-                                                    <marquee behavior="scroll" direction="left" scrollamount="15" bgcolor="#0000FF	" class="" style="margin: -8px; font-size: 50px; padding: 20px;">
-                                                        <p class="mb-4">            
-                                                            Despite having such a star-studded team, the elusive trophy has still eluded RCB. They have managed to reach three finals in 2009, 2011, and 2016 but failed to cross the line on all three occasions. After 15 long seasons in the league, their trophy cabinet remains empty. The Bangalore-based franchise has one of the most loyal and crazy fans in the IPL, as they follow their side passionately in every edition. The well-known slogan of ‘Ee Sala Cup Namde’ means ‘This year the Cup is Ours’ is a yearly reckoning of all the RCB fans, especially the ones who live in the garden city of Bangalore.
-                                                            The fans’ love and support for the team are visible every season as they hope their side will end the trophy drought soon. The loud chants of ‘RCB RCB RCB’ around the Chinnaswamy Stadium in Bangalore are heard in every single match from these fans. With the 2022 campaign ending in disappointment, the supporters and the RCB team would hope to come back stronger in 2023. Despite being without a trophy, there are some of the mind-boggling and unbelievable records that RCB has created in the tournament’s history. These achievements are astonishing and it looks like it’s never going to be repeated by any player or a team again in the league.
-                                                        </p>>
-                                                    </marquee>
-                                                </div>
-
-                                                <div class="video-description">
-                                                    <img class="img-responsive m-1" width="60" src="/static/image/rcb-logo.png" alt="Logo" scale="0" style="background-color:#0000FF;">
-                                                </div>
-
-                                                <div class="video-descriptionss p-3">
-                                                        <video autoplay loop muted style="width: 200px; height: 200px;">
-                                                            <source src="/static/rcb_animationnn.mp4" type="video/mp4">
-                                                            <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
-                                                        </video>
-                                                </div>
-                                            </div>
-                                            <center>
-                                                <div class="border border-dark border-5" style="width: 80px;"></div>
-                                                <div class="border border-dark border-5" style="width: 300px;"></div>
-                                            </center>
-                                        </div>
-                                         <!-- <div class="col-lg-8 mx-auto">
-                                            <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
-                                                <video autoplay loop muted>
-                                                    <source src="/static/RCB.mp4" type="video/mp4">
-                                                    <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
-                                                </video>
-
-                                                <div class="video-description">
-                                                    <img class="img-responsive m-1" width="60" src="/static/image/rcb-logo.png" alt="Logo" scale="0" style="background-color:#0000FF;">
-                                                </div>
-
-                                                <div class="video-descriptionss p-3">
-                                                        <video autoplay loop muted style="width: 200px; height: 200px;">
-                                                            <source src="/static/rcb_animation.mp4" type="video/mp4">
-                                                            <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
-                                                        </video>
-                                                </div>
-                                            </div>
-                                            <center>
-                                                <div class="border border-dark border-5" style="width: 80px;"></div>
-                                                <div class="border border-dark border-5" style="width: 300px;"></div>
-                                            </center>
-                                
-                                        </div>   -->
-                                        <!-- <marquee class="col-lg-8 mx-auto " behavior="scroll" direction="left" scrollamount="12" bgcolor="#ffffff" style="font-size: 15px;">
-                                            Royal Challengers Bangalore (RCB) has always been one of the most popular franchises since the inception of the Indian Premier League (IPL) in the year 2008. Some of the greatest players like Rahul Dravid, Jacques Kallis, Anil Kumble, Muttiah Muralitharan, Chris Gayle, and AB de Villiers have all been part of this team in the past. Their star player and former captain, Virat Kohli, is the only cricketer to represent a single franchise since the first season, which is RCB.
-                                        </marquee>
-                                        <marquee class="col-lg-8 mx-auto "  behavior="scroll" direction="right" scrollamount="15" bgcolor="#0000FF" style="margin: -8px; font-size: 50px; padding: 20px;">
-                                            <p class="mb-4">            
-                                                Despite having such a star-studded team, the elusive trophy has still eluded RCB. They have managed to reach three finals in 2009, 2011, and 2016 but failed to cross the line on all three occasions. After 15 long seasons in the league, their trophy cabinet remains empty. The Bangalore-based franchise has one of the most loyal and crazy fans in the IPL, as they follow their side passionately in every edition. The well-known slogan of ‘Ee Sala Cup Namde’ means ‘This year the Cup is Ours’ is a yearly reckoning of all the RCB fans, especially the ones who live in the garden city of Bangalore.
-                                                The fans’ love and support for the team are visible every season as they hope their side will end the trophy drought soon. The loud chants of ‘RCB RCB RCB’ around the Chinnaswamy Stadium in Bangalore are heard in every single match from these fans. With the 2022 campaign ending in disappointment, the supporters and the RCB team would hope to come back stronger in 2023. Despite being without a trophy, there are some of the mind-boggling and unbelievable records that RCB has created in the tournament’s history. These achievements are astonishing and it looks like it’s never going to be repeated by any player or a team again in the league.
-                                            </p>
-                                        </marquee> -->
-                                    </div>
-                                </div>
-                    
-                                <div class="tab m-3">
-                                    <div class="m-1" id="">
-                                        <div id="">
-                                            <div class="row mb-3">
-                                                
-                                                <div class="col-md-3">
-                                                    <strong class="text-color">Room Type</strong>
-                                                    <select name="roomTypeSelection" multiple id="roomTypeSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
-                                                        <option>All</option>
-                                                        <!-- {% for items in scheduleData.roomType %}
-                                                            <option value="{{items}}">{{items}}</option>
-                                                        {% endfor %} -->
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <strong class="text-color">Wings</strong>
-                                                    <select name="wingSelection" multiple id="wingSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
-                                                        <option>All</option>
-                                                        <!-- {% for items in scheduleData.wing %}
-                                                            <option>{{items}}</option>
-                                                        {% endfor %} -->
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <strong class="text-color">Floor</strong>
-                                                    <select name="floorSelection" multiple id="floorSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
-                                                        <option>All</option>
-                                                        <!-- {% for items in scheduleData.floor %}
-                                                            <option>{{items}}</option>
-                                                        {% endfor %} -->
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <strong class="text-color">Key</strong>
-                                                    <select name="roomSelection" multiple id="roomSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
-                                                        <option>All</option>
-                                                        <!-- {% for items in scheduleData.key %}
-                                                            <option>{{items}}</option>
-                                                        {% endfor %} -->
-                                                    </select>
-                                                </div>
-                                            </div>
-                    
-                                            <div class="row mb-3">
-                                                <div class="col-md-3">
-                                                    <div class="form-check form-switch mb-3">
-                                                        <input name="scheduleEnabler" class="form-check-input form-check-input" type="checkbox" onchange="foenabler(this.id);" value="enabled" id="scheduleEnabler">
-                                                        <strong class="form-check-label text-color" for="flexCheckDefault">
-                                                            Schedule now 
-                                                        </strong>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-check form-switch mb-3" id="scheduleLaterDiv">
-                                                        <input name="scheduleEnablerLater" class="form-check-input form-check-input" type="checkbox" onchange="foenabler(this.id);" value="enabled" id="scheduleEnablerLater">
-                                                        <strong class="form-check-label text-color" for="flexCheckDefault">
-                                                            Schedule Later 
-                                                        </strong>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="row mb-3" id="occurancySection">
-                                                <div class="col-md-2"> 
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="onetime" id="onetime" onchange="foenabler(this.id);" checked>
-                                                        <strong class="form-check-label text-color" for="flexRadioDefault1">
-                                                            One-Time
-                                                        </strong>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="recurring" id="recurring" onchange="foenabler(this.id);" value="enabled">
-                                                        <strong class="form-check-label text-color" for="flexRadioDefault2">
-                                                            Recurring
-                                                        </strong>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="row" id="dateTimeSection">
-                                                <div class="col-md-4 mb-3" id="startDate">
-                                                    <strong class="text-color">Start Date | Time</strong>
-                                                    <div class="form-group form-floating">
-                                                        <input type="datetime-local" class="form-control"  name="startDate" placeholder="Enter Date">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 mb-3" id=endDate>
-                                                    <strong class="text-color">End Date | Time</strong>
-                                                    <div class="form-group form-floating">
-                                                        <input type="datetime-local" class="form-control" id="" name="endDate" placeholder="Enter Date">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 mb-3" id="frequency">
-                                                    <strong class="text-color">Display in Every</strong>
-                                                    <select name="delay" id="delay" onchange=foeventEnabler(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                        {% for items in frequency %}
-                                                        <option class="text-color">{{items}}</option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3" id="days">
-                                                    <strong class="mx-2 text-color">Days</strong>
-                                                    {% for items in days %}
-                                                        <input class="form-check-input" type="checkbox" name="{{items}}" id="{{items}}" value="enabled" checked>
-                                                        <label class="mx-2 text-color">{{items}}</label>
+                                            <div class="col-md-3" id="dynamicTickerLocations">
+                                                <strong class="text-color">Size</strong>
+                                                <select name="dynamicTickerLocation" id="dynamicTickerLocations" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                    {% for items in location %}
+                                                    <option>{{items}}</option>
                                                     {% endfor %}
-                                                </div>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <strong class="text-color" for="favcolor">Set border Color</strong><br>
+                                                <label for="favcolor" class="text-muted">Pick border Color</label>
+                                                <input name="dynamicTickerBorderColor" type="color" id="dynamicTickerBorderColor" value="#D0D3D4">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <strong class="text-color">Ticker Duration</strong>
+                                            <div class="form-group form-floating">
+                                                <input type="number" name="mediaTickerTimeInterval" min="1" value="1" required class="form-control" id="number" placeholder="Enter Time" />
+                                                <label for="number" class="text-muted">Enter Time Minutes</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong class="text-color">Set Priority</strong>
+                                            <select name="mediaTickerPriority" class="form-select p-3" id="mediaTickerPriority" onchange=foeventEnabler(this.id) aria-label="Default select example">
+                                                {% for items in priority %}
+                                                <option>{{items}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <div id="emergency">
+                                    <strong class="text-color">Ticker Title</strong>
+                                    <div class="form-group form-floating mb-3">
+                                        <input class="form-control" id="emergencyTickerTitle" rows="4" placeholder="Enter Ticker Title"  type = "text" name="emergencyTickerTitle" value = "" maxlength = "20" />
+                                        <label for="emergencyTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <strong class="text-color">Emergency Ticker List</strong>
+                                            <select name="emergencySelecter" class="form-select mb-3 mb-md-0 p-3" onchange="foenabler(this.id);" id="emergencySelecter" aria-label="Default select example">
+                                                {% for items in emergency_ticker_list %}
+                                                <option>{{items}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col mt-4 justify-content-center" id="custom">
+                                            <div class="form-group" id="emergency_text">
+                                                <label for="emergencyTickerFile">Upload</label>
+                                                <input name="emergencyTickerFile" accept=".png,.mp4" value="" type="file" class="form-control-file" id="emergencyTickerFile"></br>   
+                                                <strong class="text-color">upload jpeg/png for Static Ticker | upload mp4 file for Dynamic Ticker</strong>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <!-- <div class="tab">
-                                    <h1>Pinky Promise you want to Schedule?</h1>
-                                </div> -->
-
-                                <div style="overflow:auto;" class="m-3">
-                                    <div style="float:right;">
-                                        <button class="btn btn-outline-success my-4 m-2" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                        <button class="btn btn-outline-success my-4 m-2" type="button" id="nextBtn" onclick="nextPrev(1);submitForm();">Next</button>
-                                        <button class="btn btn-outline-success my-4 m-2" type="button" id="SubForm" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Scheduling</button>
+                            </div>
+                                    
+                            <div class="tab m-3">
+                                <marquee>hello</marquee>
+                                    <div class="col-lg-8 mx-auto">
+                                        <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
+                                            <video autoplay loop muted>
+                                                <source src="/static/RCB.mp4" type="video/mp4">
+                                                <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
+                                            </video>
+                                            <div class="setting-one">
+                                                <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#ffffff" class="text-dark p-2 font-weight-bold;" style="font-size: 15px;">
+                                                    Royal Challengers Bangalore (RCB) has always been one of the most popular franchises since the inception of the Indian Premier League (IPL) in the year 2008. Some of the greatest players like Rahul Dravid, Jacques Kallis, Anil Kumble, Muttiah Muralitharan, Chris Gayle, and AB de Villiers have all been part of this team in the past. Their star player and former captain, Virat Kohli, is the only cricketer to represent a single franchise since the first season, which is RCB.
+                                                </marquee>
+                                            </div>
+                                            
+                                            <div class="setting-two">
+                                            </div>
+                                            <div class="setting-three">
+                                                <img class="img-responsive m-1" width="60" src="/static/image/rcb-logo.png" alt="Logo" scale="0" style="background-color:#0000FF;">
+                                            </div>
+                                        </div>
+                                        
+                                        <center>
+                                            <div class="border border-dark border-5" style="width: 80px;"></div>
+                                            <div class="border border-dark border-5" style="width: 300px;"></div>
+                                        </center>
+                                    </div>
+                            </div>
+                
+                            <div class="tab m-3">
+                                <div class="m-1" id="">
+                                    <div id="">
+                                        <div class="row mb-3">
+                                            
+                                            <div class="col-md-3">
+                                                <strong class="text-color">Room Type</strong>
+                                                <select name="roomTypeSelection" multiple id="roomTypeSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
+                                                    <option>All</option>
+                                                    <!-- {% for items in scheduleData.roomType %}
+                                                        <option value="{{items}}">{{items}}</option>
+                                                    {% endfor %} -->
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <strong class="text-color">Wings</strong>
+                                                <select name="wingSelection" multiple id="wingSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
+                                                    <option>All</option>
+                                                    <!-- {% for items in scheduleData.wing %}
+                                                        <option>{{items}}</option>
+                                                    {% endfor %} -->
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <strong class="text-color">Floor</strong>
+                                                <select name="floorSelection" multiple id="floorSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
+                                                    <option>All</option>
+                                                    <!-- {% for items in scheduleData.floor %}
+                                                        <option>{{items}}</option>
+                                                    {% endfor %} -->
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <strong class="text-color">Key</strong>
+                                                <select name="roomSelection" multiple id="roomSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
+                                                    <option>All</option>
+                                                    <!-- {% for items in scheduleData.key %}
+                                                        <option>{{items}}</option>
+                                                    {% endfor %} -->
+                                                </select>
+                                            </div>
+                                        </div>
+                
+                                        <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                <div class="form-check form-switch mb-3">
+                                                    <input name="scheduleEnabler" class="form-check-input form-check-input" type="checkbox" onchange="foenabler(this.id);" value="enabled" id="scheduleEnabler">
+                                                    <strong class="form-check-label text-color" for="flexCheckDefault">
+                                                        Schedule now 
+                                                    </strong>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-check form-switch mb-3" id="scheduleLaterDiv">
+                                                    <input name="scheduleEnablerLater" class="form-check-input form-check-input" type="checkbox" onchange="foenabler(this.id);" value="enabled" id="scheduleEnablerLater">
+                                                    <strong class="form-check-label text-color" for="flexCheckDefault">
+                                                        Schedule Later 
+                                                    </strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mb-3" id="occurancySection">
+                                            <div class="col-md-2"> 
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="onetime" id="onetime" onchange="foenabler(this.id);" checked>
+                                                    <strong class="form-check-label text-color" for="flexRadioDefault1">
+                                                        One-Time
+                                                    </strong>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="recurring" id="recurring" onchange="foenabler(this.id);" value="enabled">
+                                                    <strong class="form-check-label text-color" for="flexRadioDefault2">
+                                                        Recurring
+                                                    </strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row" id="dateTimeSection">
+                                            <div class="col-md-4 mb-3" id="startDate">
+                                                <strong class="text-color">Start Date | Time</strong>
+                                                <div class="form-group form-floating">
+                                                    <input type="datetime-local" class="form-control"  name="startDate" placeholder="Enter Date">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3" id=endDate>
+                                                <strong class="text-color">End Date | Time</strong>
+                                                <div class="form-group form-floating">
+                                                    <input type="datetime-local" class="form-control" id="" name="endDate" placeholder="Enter Date">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3" id="frequency">
+                                                <strong class="text-color">Display in Every</strong>
+                                                <select name="delay" id="delay" onchange=foeventEnabler(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                    {% for items in frequency %}
+                                                    <option class="text-color">{{items}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="mb-3" id="days">
+                                                <strong class="mx-2 text-color">Days</strong>
+                                                {% for items in days %}
+                                                    <input class="form-check-input" type="checkbox" name="{{items}}" id="{{items}}" value="enabled" checked>
+                                                    <label class="mx-2 text-color">{{items}}</label>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                            
+                            <!-- <div class="tab">
+                                <h1>Pinky Promise you want to Schedule?</h1>
+                            </div> -->
+
+                            <div style="overflow:auto;" class="m-3">
+                                <div style="float:right;">
+                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="nextBtn" onclick="nextPrev(1);submitForm();">Next</button>
+                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="SubForm" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Scheduling</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </main>
-    {% endblock %}
+        </div>
+    </main>
+{% endblock %}

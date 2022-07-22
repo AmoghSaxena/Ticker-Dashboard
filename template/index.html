@@ -112,48 +112,20 @@
                                 <th>Priority</th>
                               </tr>
                           </thead>
+
                           <tbody>
+                            {% for tickerData in history_ticker_data %}
                               <tr>
-                                <th>1</th>
-                                <td>This is my Ticker</td>
-                                <td>Sat 07/04/2022 10:35</td>
-                                <td>501</td>
-                                <td>Scrolling Ticker</td>
-                                <td>Medium</td>
+                                  <td>{{forloop.counter}}</td>
+                                  <td>{{tickerData.ticker_title}}</td>
+                                  <td>{{tickerData.ticker_start_time}}</td>
+                                  <td>{{tickerData.ticker_id}}</td>
+                                  <td>{{tickerData.ticker_type}}</td>
+                                  <td>{{tickerData.ticker_priority}}</td>
                               </tr>
-                              <tr>
-                                <th>2</th>
-                                <td>This is my Ticker</td>
-                                <td>Sat 07/04/2022 10:35</td>
-                                <td>501</td>
-                                <td>Scrolling Ticker</td>
-                                <td>Medium</td>
-                              </tr>
-                              <tr>
-                                <th>3</th>
-                                <td>This is my Ticker</td>
-                                <td>Sat 07/04/2022 10:35</td>
-                                <td>501</td>
-                                <td>Scrolling Ticker</td>
-                                <td>Medium</td>
-                              </tr>
-                              <tr>
-                                <th>4</th>
-                                <td>This is my Ticker</td>
-                                <td>Sat 07/04/2022 10:35</td>
-                                <td>501</td>
-                                <td>Scrolling Ticker</td>
-                                <td>Medium</td>
-                              </tr>
-                              <tr>
-                                <th>5</th>
-                                <td>This is my Ticker</td>
-                                <td>Sat 07/04/2022 10:35</td>
-                                <td>501</td>
-                                <td>Scrolling Ticker</td>
-                                <td>Medium</td>
-                              </tr>
-                          </tbody>
+                            {% endfor %}
+                            </tbody>
+
                       </table>  
                   </div>
                 </div>

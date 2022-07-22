@@ -53,7 +53,7 @@
                             <td>{{tickerData.ticker_priority}}</td>
                             <td>
                                 <a class="text-color mx-1" href="{% url 'createticker'%}"><i class="fa-solid fa-arrow-rotate-left"></i> Restore</a></br>
-                                <a class="text-danger mx-1" id="deleteTickers"><i class="fas fa-trash"></i> Delete</a>
+                                <a class="text-danger mx-1" href={% url 'delete' tickerData.ticker_id %} id="deleteTickers"><i class="fas fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         {% endfor %}

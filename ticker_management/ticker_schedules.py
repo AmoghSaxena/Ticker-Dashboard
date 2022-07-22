@@ -152,97 +152,11 @@ def schedule_tasks(ticker_id,command):
 
         minute = int(start_dateobj.strftime("%M"))
 
-        # print("Hello I want access")
-
         schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute)
         task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
 
-        # print("Hello I want access")
-    
     else:
         
-        # year1 = start_dateobj.strftime("%Y")
-
-        # month1 = start_dateobj.strftime("%m")
-
-        # day1 = start_dateobj.strftime("%d")
-
-        # hour1 = start_dateobj.strftime("%H")
-
-        # minute1 = int(start_dateobj.strftime("%M"))
-
-        # year2 = end_dateobj.strftime("%Y")
-
-        # month2 = end_dateobj.strftime("%m")
-
-        # day2 = end_dateobj.strftime("%d")
-
-        # hour2 = end_dateobj.strftime("%H")
-
-        # minute2 = int(end_dateobj.strftime("%M"))
-
-        # day=str()
-        # month=str()
-        # week=str()
-        # hour=str()
-        # minute=str()
-
-        # frequency=str(ticker_obj.get().get('frequency'))
-        # if 'minutes' in frequency:
-        #     frequency=frequency.split(" ")[0]
-        # else:
-        #     frequency=frequency.split(" ")[0]
-        #     frequency=int(frequency)*60
-
-        # if (month1==month2):
-        #     month=month1
-        # else:
-        #     month=month1+"-"+month2
-        
-        # if (day1==day2):
-        #     day=day1
-
-        #     if hour1==hour2:
-        #         hour=hour1
-        #         minute=str(minute1)+'/'+str(frequency)
-        #     else:
-
-        #         print(frequency,int(frequency)==0)
-
-        #         if (int(frequency)%60==0):
-        #             hour=hour1+'-'+hour2
-        #             minute=str(minute1)+'/'+str(frequency)
-        #         else:
-        #             hour=hour1+'-'+hour2
-        #             minute=str(minute1)+'/'+str(int(frequency)%60)
-
-        # else:
-        #     day=day1+"-"+day2
-            # week=str(ticker_obj.get().get('occuring_days')).lower()
-
-        #     if hour1==hour2:
-        #         hour=hour1
-        #         minute=str(minute1)+'/'+str(frequency)
-        #     else:
-        #         print(frequency,int(frequency)==0)
-
-        #         if (int(frequency)%60==0):
-        #             hour=hour1+'-'+hour2
-        #             minute=str(minute1)+'/'+str(frequency)
-        #         else:
-        #             hour=hour1+'-'+hour2+'/'+str(int(frequency)//60)
-        #             minute=str(minute1)+'/'+str(int(frequency)%60)
-        
-        # print(minute,hour,day,month,week)
-
-        # if week=='':
-        #     schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute)
-        #     task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
-        # else:
-        #     schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute,day_of_week=week)
-        #     task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
-        
-
         frequency=str(ticker_obj.get().get('frequency'))
 
         if 'minutes' in frequency:
@@ -295,51 +209,16 @@ def schedulingticker(request,ticker_id):
     part_a=str()
     part_b=str()
 
-    # print("inside 1")
-
     configuration=roomConfigurations(request)
     
-    # print("inside 2")
-
-
     part_a="curl --location --request POST 'https://"+str(FQDN)+"/r/api/"+str(Rundeck_Api_Version)+"/job/0d0c3cfe-adcd-4f86-8c03-adaa1cd2c0e0/run' --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-Rundeck-Auth-Token: "+str(Rundeck_Token)+"""' --header 'Cookie: JSESSIONID=56pr1s6s16yt1fsckqzcyjwfc' --data-raw '{ "argString": "-whichnode \\"""+'"'+str(configuration)+'''\\" -FQDN \\'''
     part_b='"'+str(Ticker_FQDN)+'\\" -jsonFile \\"'+str(ticker_id)+"""\\" -BasicAuth \\"YWRtaW46YWRtaW4xMjM0\\""}'"""
     
     command=part_a+part_b
     if (len(command)>0):
-
         if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scheduleEnabler') == 'enabled':
-
             callticker(command,ticker_id)
-
         else:
-            # print("3")
             schedule_tasks(ticker_id,command)
     else:
         print("No scheduled processes")
-
-
-
-"""
-            ALL USED APIs
-
-1.  curl --location --request POST 'https://dvs-uatblue.digivalet.com/r/api/17/job/0d0c3cfe-adcd-4f86-8c03-adaa1cd2c0e0/run' --header 'Accept: 
-    application/json' --header 'X-Rundeck-Auth-Token: GPE0a5rF328fUHV9Zwj1kmQSudVY0zOn' --header 'Content-Type: application/json' --data-raw '
-    { "argString": "-whichnode \"standard-1274\" -FQDN \"ticker.dns.army\" -jsonFile \"48\""}'
-
-2.  curl --location --request POST 'https://dvs-uatblue.digivalet.com/r/api/17/job/0d0c3cfe-adcd-4f86-8c03-adaa1cd2c0e0/run' --header 'Content-Type: 
-    application/json' --header 'Accept: application/json' --header 'X-Rundeck-Auth-Token: GPE0a5rF328fUHV9Zwj1kmQSudVY0zOn' --header 'Cookie: JSESSIONID=
-    c7ttfr9ur2t4giiq0voyyz7q' --data-raw '{ "argString": "-whichnode \"tags: '\''Standard'\''\" -FQDN \"ticker.dns.army\" -jsonFile \"64\" -BasicAuth 
-    \"YWRtaW46YWRtaW4xMjM0\"" 
-
-3.  curl --location --request POST 'https://dvs-uatblue.digivalet.com/r/api/17/job/0d0c3cfe-adcd-4f86-8c03-adaa1cd2c0e0/run' \
-    --header 'Content-Type: application/json' \
-    --header 'Accept: application/json' \
-    --header 'X-Rundeck-Auth-Token: GPE0a5rF328fUHV9Zwj1kmQSudVY0zOn' \
-    --header 'Cookie: JSESSIONID=56pr1s6s16yt1fsckqzcyjwfc' \
-    --data-raw '{
-    "argString": "-whichnode \"standard-1274\" -FQDN \"ticker.dns.army\" -jsonFile \"64\" -BasicAuth \"YWRtaW46YWRtaW4xMjM0\""
-
-4.  
-
-"""
