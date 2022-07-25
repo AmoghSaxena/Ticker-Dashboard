@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="author" content="" />
         <title>ticker</title>
         
@@ -13,6 +14,17 @@
         <link href="/static/css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="/static/css/preview.css" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Select2 CSS --> 
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
+        <!-- jQuery --> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+        <!-- Select2 JS --> 
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
         <style>
 
         .nav a:hover{
@@ -43,9 +55,9 @@
             }
 
             body {
-              background: linear-gradient(-45deg, #C2DED1, #ECE5C7, #C2DED1, #ECE5C7);
+              background: linear-gradient(-45deg, #ECE5C7, #C2DED1, #ECE5C7, #C2DED1, #ECE5C7, #C2DED1, #ECE5C7, #C2DED1, #ECE5C7);
               background-size: 400% 400%;
-              animation: gradient 5s ease infinite;
+              animation: gradient 10s ease infinite;
             }
 
             @keyframes gradient {
@@ -69,513 +81,34 @@
 
 
 
+            .select2-container--default .select2-selection--multiple{
+              border-color: #d0d4da;
+              padding: 0.5rem 0rem;
+            }
+            select2-container--focus{
+              border-color: #d0d4da !important;
+              /* padding: 1rem 0.65rem; */
+            }
+            .select2-container{
+              width: 100% !important;
+            }
+            .select2-container--default .select2-selection--multiple .select2-selection__choice{
+              background-color: #FFFFFD;
+              border: 1px solid #354259;
+              color:#354259;
+    
+            }
 
 
+            a:link { text-decoration: none; }
 
-            /* YAHA SE MIRJAPOR KI GADDI HAMARI */
-          /* @group Base */
-          .chosen-container {
-            position: relative;
-            display: inline-block;
-            font-size: 13px;
-            -webkit-user-select: none;
-              -moz-user-select: none;
-                -ms-user-select: none;
-                    user-select: none;
-          }
+            a:visited { text-decoration: none; }
 
-          .chosen-container * {
-            -webkit-box-sizing: border-box;
-                    box-sizing: border-box;
-          }
+            a:hover { text-decoration: none; }
 
-          .chosen-container .chosen-drop {
-            border: 1px solid #aaa;
-            border-top: 0;
-            background: #fff;
-            -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
-                    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
-            clip: rect(0, 0, 0, 0);
-            -webkit-clip-path: inset(100% 100%);
-                    clip-path: inset(100% 100%);
-          }
-
-          .chosen-container.chosen-with-drop .chosen-drop {
-            clip: auto;
-            -webkit-clip-path: none;
-                    clip-path: none;
-          }
-
-          /* @end */
-          /* @group Results */
-          .chosen-container .chosen-results {
-            color: #444;
-            position: relative;
-            overflow-x: hidden;
-            overflow-y: auto;
-            margin: 0 4px 4px 0;
-            padding: 0 0 0 4px;
-            max-height: 240px;
-            -webkit-overflow-scrolling: touch;
-          }
-
-          .chosen-container .chosen-results li {
-            display: none;
-            margin: 0;
-            list-style: none;
-            word-wrap: break-word;
-            -webkit-touch-callout: none;
-          }
-
-          .chosen-container .chosen-results li.active-result {
-            display: list-item;
-            cursor: pointer;
-          }
-
-
-          .chosen-container .chosen-results li.highlighted {
-            background-color: #3875d7;
-            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(20%, #3875d7), color-stop(90%, #2a62bc));
-            background-image: linear-gradient(#3875d7 20%, #2a62bc 90%);
-            color: #fff;
-          }
-
-
-          /* @end */
-          /* @group Multi Chosen */
-          .chosen-container-multi .chosen-choices {
-            position: relative;
-            overflow: hidden;
-            margin: 0;
-            padding: 0 5px;
-            width: 100%;
-            height: auto;
-            border: 1px solid #aaa;
-            background-color: #fff;
-            cursor: text;
-          }
-
-          .chosen-container-multi .chosen-choices li {
-            float: left;
-            list-style: none;
-          }
-
-          .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
-            outline: 0;
-            border: 0 !important;
-            background: transparent !important;
-            -webkit-box-shadow: none;
-                    box-shadow: none;
-            color: #999;
-            font-size: 100%;
-            font-family: sans-serif;
-            line-height: normal;
-            border-radius: 0;
-            width: 25px;
-          }
-
-          .chosen-container-multi .chosen-choices li.search-choice {
-            position: relative;
-            margin: 3px 5px 3px 0;
-            padding: 3px 20px 3px 5px;
-            border: 1px solid #aaa;
-            max-width: 100%;
-            border-radius: 3px;
-            background-color: #eeeeee;
-            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), to(#eee));
-            background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eee 100%);
-            background-size: 100% 19px;
-            background-repeat: repeat-x;
-            background-clip: padding-box;
-            -webkit-box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
-                    box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
-            color: #333;
-            line-height: 13px;
-            cursor: default;
-          }
-
-
-          .chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
-            position: absolute;
-            top: 4px;
-            right: 3px;
-            display: block;
-            width: 12px;
-            height: 12px;
-            background: url("chosen-sprite.png") -42px 1px no-repeat;
-            font-size: 1px;
-          }
-
-          /* @end */
-
+            a:active { text-decoration: none; }
         </style>
 
-<script>
-
-  function foselector()
-  {
-    select = document.getElementById("tickerSelecter");
-    option = select.options[select.selectedIndex];
-  
-    if (option.text == "Scrolling Ticker")
-    {
-      document.getElementById("scrolling").hidden = false;
-      document.getElementById("media").hidden = true;
-      document.getElementById("emergency").hidden = true;
-      document.getElementById("scheduleEnabler").checked = false;
-      document.getElementById("scheduleEnabler").disabled = false;
-      document.getElementById("scrollingTickerPriority").value = "Medium";
-      foenabler("scheduleEnabler");
-    }
-    else if (option.text == "Media Ticker")
-    {
-      document.getElementById("scrolling").hidden = true;
-      document.getElementById("media").hidden = false;
-      document.getElementById("emergency").hidden = true;
-      document.getElementById("scheduleEnabler").checked = false;
-      document.getElementById("scheduleEnabler").disabled = false;
-      document.getElementById("mediaTickerPriority").value = "Medium";
-      foenabler("scheduleEnabler");
-    }
-    else if (option.text == "Emergency Ticker")
-    {
-      document.getElementById("scrolling").hidden = true;
-      document.getElementById("media").hidden = true;
-      document.getElementById("emergency").hidden = false;
-      document.getElementById("scheduleEnabler").disabled = true;
-      document.getElementById("scheduleEnabler").checked = true;
-      foenabler("scheduleEnabler");
-    }
-    else
-    {
-      document.getElementById("scrolling").hidden = true;
-      document.getElementById("media").hidden = true;
-      document.getElementById("emergency").hidden = true;
-      document.getElementById("scheduleEnabler").checked = false;
-      document.getElementById("scheduleEnabler").disabled = false;
-      foenabler("scheduleEnabler");
-    }
-  }
-  
-  function foenabler(id)
-  {
-    var b;
-    var e;
-    if (id == "primaryEnable")
-    {
-      b= document.getElementById("primaryEnable");
-      if (b.checked)
-      {
-        document.getElementById("primary").hidden = false;
-      }
-      else
-      {
-        document.getElementById("primary").hidden = true;
-      }
-    }
-  
-    if (id == "secondaryEnable")
-    {
-      b= document.getElementById("secondaryEnable");
-      if (b.checked)
-      {
-        document.getElementById("secondary").hidden = false;
-      }
-      else
-      {
-        document.getElementById("secondary").hidden = true;
-      }
-    }
-  
-    if (id == "staticEnable")
-    {
-      b= document.getElementById("staticEnable");
-      if (b.checked)
-      {
-        document.getElementById("dynamicEnable").checked = false;
-        document.getElementById("dynamic").hidden = true;
-        document.getElementById("static").hidden = false;
-      }
-      else
-      {
-        document.getElementById("static").hidden = true;
-      }
-    }
-  
-    if (id == "dynamicEnable")
-    {
-      b= document.getElementById("dynamicEnable");
-      if (b.checked)
-      {
-        document.getElementById("staticEnable").checked = false;
-        document.getElementById("static").hidden = true;
-        document.getElementById("dynamic").hidden = false;
-      }
-      else
-      {
-        document.getElementById("dynamic").hidden = true;
-      }
-    }
-  
-    if (id == "emergencySelecter") {
-          select = document.getElementById("emergencySelecter");
-          option = select.options[select.selectedIndex];
-          if (option.text == "Custom") {
-              document.getElementById("custom").hidden = false;
-          } else {
-              document.getElementById("custom").hidden = true;
-          }
-    }
-  
-    if (id == "scheduleEnabler")
-    {
-      b=document.getElementById("scheduleEnabler");
-      if (b.checked)
-      {
-        document.getElementById("occurancySection").hidden = true;
-        document.getElementById("dateTimeSection").hidden = true;
-     }
-      else
-      {
-        document.getElementById("occurancySection").hidden = false;
-        document.getElementById("dateTimeSection").hidden = false;
-      }
-    }
-  
-    if (id == "onetime")
-    {
-      b=document.getElementById("onetime");
-      if (b.checked)
-      {
-        document.getElementById("endDate").hidden = true;
-        document.getElementById("frequency").hidden = true;
-        document.getElementById("days").hidden = true;
-      }
-      else
-      {
-        document.getElementById("endDate").hidden = false;
-        document.getElementById("frequency").hidden = false;
-        document.getElementById("days").hidden = false;
-      }
-    }
-  
-    if (id == "recurring")
-    {
-      b=document.getElementById("recurring");
-      if (b.checked)
-      {
-        document.getElementById("endDate").hidden = false;
-        document.getElementById("frequency").hidden = false;
-        document.getElementById("days").hidden = false;
-      }
-      else
-      {
-        document.getElementById("endDate").hidden = true;
-        document.getElementById("frequency").hidden = true;
-        document.getElementById("days").hidden = true;
-      }
-    }
-    
-  }
-  
-  function foLoader()
-  {
-    document.getElementById("scrolling").hidden = true;
-    document.getElementById("media").hidden = true;
-    document.getElementById("emergency").hidden = true;
-    document.getElementById("primary").hidden = true;
-    document.getElementById("secondary").hidden = true;
-    document.getElementById("static").hidden = true;
-    document.getElementById("dynamic").hidden = true;
-    document.getElementById("emergency").hidden = true;
-    document.getElementById("custom").hidden = true;
-    document.getElementById("endDate").hidden = true;
-    document.getElementById("frequency").hidden = true;
-    document.getElementById("days").hidden = true;
-    document.getElementById("primaryLogo").hidden = true;
-    document.getElementById("primaryLogoPosition").hidden = true;
-    document.getElementById("staticTickerLogo").hidden = true;
-    document.getElementById("dynamicTickerMotion").hidden = true;
-  }
-
-  function fologoenabler(id)
-  {
-    var b;
-    if (id== "primaryLogoEnabler")
-    {
-      b=document.getElementById("primaryLogoEnabler");
-      if(b.checked)
-      {
-        document.getElementById("primaryLogo").hidden = false;
-        document.getElementById("primaryLogoPosition").hidden = false;
-      }
-      else
-      {
-        document.getElementById("primaryLogo").hidden = true;
-        document.getElementById("primaryLogoPosition").hidden = true;
-      }
-    }
-    if (id=="staticTickerLogoEnabler")
-    {
-      b=document.getElementById("staticTickerLogoEnabler")
-      if(b.checked)
-      {
-        document.getElementById("staticTickerLogo").hidden = false;
-      }
-      else
-      {
-        document.getElementById("staticTickerLogo").hidden = true;
-      }
-    }
-  }
-  
-  function profile(id) {
-    var x = document.getElementById("profileContent");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-      document.getElementById("arrowDown").style.transform = 'rotate(90deg)';
-    } else {
-      x.style.display = "none";
-      document.getElementById("arrowDown").style.transform = 'rotate(-90deg)';
-    }
-  }
-  
-function Filevalidation(id)
-{
-    FileTypeChecker(id);
-    var fi;
-    if (id=="staticTickerLogo")
-    {fi = document.getElementById("staticTickerLogo");}
-
-    if (id=="primaryLogo")
-    {fi = document.getElementById("primaryLogo");}
-    
-    if (id=="dynamicTickerVideo")
-    {fi = document.getElementById("dynamicTickerVideo");}
-    
-    if (fi.files.length > 0)
-    {
-        for (const i = 0; i <= fi.files.length - 1; i++)
-        { 
-            const fSize = fi.files.item(i).size;
-            const file = Math.round((fSize / 1024));
-            // The size of the file.
-            if (file >= 5120)
-            {
-                alert("File too Big, please select a file less than 5MB");
-                if (id=="staticTickerLogo")
-                {
-                    document.getElementById("staticTickerLogo").value='';
-                }
-                if (id=="primaryLogo")
-                {
-                    document.getElementById("primaryLogo").value='';
-                }
-                if (id=="dynamicTickerVideo")
-                {
-                    document.getElementById("dynamicTickerVideo").value='';
-                }
-            }
-        }
-    }
-}
-
-function FileTypeChecker(id)
-{
-    if (id=="staticTickerLogo" || id=="primaryLogo")
-    {
-        var fileInput;
-
-        if (id=="staticTickerLogo")
-        {fileInput = document.getElementById("staticTickerLogo").files[0];}
-
-        if(id=="primaryLogo")
-        {fileInput = document.getElementById("primaryLogo").files[0];}
-
-        var allowed = ["png"];
-        var found = false;
-
-        allowed.forEach(function(extension) {
-        if (fileInput.type.match('.'+extension)) {
-            found = true;
-        }
-        })
-
-        if(found) {
-        }
-        else{
-        alert("Allowed file type is PNG");
-
-        if (id=="staticTickerLogo")
-        {document.getElementById("staticTickerLogo").value='';}
-
-        if(id=="primaryLogo")
-        {document.getElementById("primaryLogo").value='';}        
-        }
-    }
-
-    if (id=="dynamicTickerVideo")
-    {
-        var fileInput = document.getElementById("dynamicTickerVideo").files[0];
-        var allowed = ["mp4"];
-        var found = false;
-
-        allowed.forEach(function(extension) {
-        if (fileInput.type.match('.'+extension)) {
-            found = true;
-        }
-        })
-
-        if(found){
-        }
-        else{
-        alert("Allowed file type is MP4");
-        document.getElementById("dynamicTickerVideo").value='';
-        }
-    }
-
-}
-
-function fopositionbox(id)
-{
-  var select;
-  if (id=="staticPositionBox")
-  {
-    select = document.getElementById("staticPositionBox");
-    option = select.options[select.selectedIndex];
-
-    if(option.text == "center")
-    {
-      document.getElementById("staticTickerLogoEnabler").checked = true;
-      fologoenabler("staticTickerLogoEnabler");
-      document.getElementById("staticTickerLogoEnabler").disabled = true;
-    }
-    else
-    {
-      document.getElementById("staticTickerLogoEnabler").checked = false;
-      fologoenabler("staticTickerLogoEnabler");
-      document.getElementById("staticTickerLogoEnabler").disabled = false;
-    }
-
-  }
-
-  if (id=="dynamicTickerPosition")
-  {
-    select = document.getElementById("dynamicTickerPosition");
-    option = select.options[select.selectedIndex];
-
-    if(option.text == "center")
-    {
-      document.getElementById("dynamicTickerLocation").hidden = false;
-    }
-    else
-    {
-      document.getElementById("dynamicTickerLocation").hidden = true;
-    }
-
-  }
-}
-</script>
     </head>
     <!-- <body class="sb-nav-fixed" style="background-color: #F4ECF7;" onload="foLoader();"> -->
       <body class="sb-nav-fixed" onload="foLoader();"></body>
@@ -612,19 +145,18 @@ function fopositionbox(id)
                                 Scheduled
                             </a>
                             <a class="nav-link mx-2 my-1 {% if request.path == '/history/'%} active rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'history'%}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-clock-rotate-left fs-5"></i></div>
-                                History
+                              <div class="sb-nav-link-icon"><i class="fa-solid fa-clock-rotate-left fs-5"></i></div>
+                              History
                             </a>
-                            <a class="nav-link collapsed mx-2 my-1 text-color" id="profileOpen" onclick="profile(this.id);">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user fa-fw fs-5"></i></div>
-                                {{user}}
-                                <div  id="arrowDown" class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-left"></i></div>
+                            <a class="nav-link mx-2 rounded-border text-color collapsed" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                              <div class="sb-nav-link-icon"><i class="fas fa-user fa-fw fs-5"></i></div>
+                              {{user}}
+                              <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="profileContent">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link text-color text-size-nav" href="#"><i class="fa-solid fa-lock me-1 fs-6"></i> Change Password</a> 
-                                    <a class="nav-link text-color text-size-nav" href="/admin"><i class="fa fa-cog me-1 fs-6"></i> Settings</a>
-                                    <a class="nav-link text-color text-size-nav" href="/accounts/logout/"><i class="fa fa-sign-out me-1 fs-6"></i> Logout</a>
+                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="">
+                                  <li><a class="nav-link text-color mx-2 my-1" href="/admin"><i class="fa fa-cog me-1 fs-5"></i>&nbsp&nbspSettings</a></li>
+                                  <li><a class="nav-link text-color mx-2 my-1" href="/accounts/logout/"><i class="fa fa-sign-out me-1 fs-5"></i>&nbsp&nbspLogout</a></li>
                                 </nav>
                             </div>
                         </div>

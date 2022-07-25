@@ -3,7 +3,7 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4 mt-5">
-          <div class="path my-4 text-muted fs-5 bg-white p-2 col-md-2 col-sm-3">  
+          <div class="path my-4 text-muted fs-5 bg-white p-2 col-xl-2 col-md-3 col-sm-3">  
               <div class="mx-1"><i class="fas fa-tachometer-alt fs-5"></i> Dashboard</div>
           </div>
             <div class="row">
@@ -13,7 +13,7 @@
                           <div>
                             <div class="fw-bold text-muted">Active Ticker</div>
                             <div class="text-dark fw-bold fs-5 mb-3">{{active}}</div>
-                            <a class="small text-muted" href="#">more</a>
+                            <a class="small text-muted" href="{% url 'active'%}">more</a>
                           </div>
                           <div class="text-white tickernav-color p-2 rounded"><i class="fa-solid fa-bolt fs-3"></i></div>
                         </div>
@@ -25,7 +25,7 @@
                         <div>
                           <div class="fw-bold text-muted">History</div>
                           <div class="text-dark fw-bold fs-5 mb-3">{{history}}</div>
-                          <a class="small text-muted" href="#">more</a>
+                          <a class="small text-muted" href="{% url 'history'%}">more</a>
                         </div>
                         <div class="text-white tickernav-color p-2 rounded"><i class="fa-solid fa-clock-rotate-left fs-3"></i></div>
                       </div>
@@ -37,7 +37,7 @@
                         <div>
                           <div class="fw-bold text-muted">Total Ticker</div>
                           <div class="text-dark fw-bold fs-5 mb-3">{{total}}</div>
-                          <a class="small text-muted" href="#">more</a>
+                          <div class="small text-muted disabled" href="#">&nbsp</div>
                         </div>
                         <div class="text-white tickernav-color p-2 rounded"><i class="fa-solid fa-square-check fs-3"></i></div>
                       </div>
@@ -49,7 +49,7 @@
                         <div>
                           <div class="fw-bold text-muted">Today's Event</div>
                           <div class="text-dark fw-bold fs-5 mb-3">{{events}}</div>
-                          <a class="small text-muted" href="#">more</a>
+                          <a class="small text-muted" href="{% url 'scheduled'%}">more</a>
                         </div>
                         <div class="text-white tickernav-color p-2 rounded"><i class="fa-solid fa-calendar-days fs-3"></i></div>
                       </div>
@@ -69,10 +69,10 @@
                           <thead class="bg-white text-dark">
                               <tr>
                                 <th>#</th>
-                                <th>Ticker_Title</th>
+                                <th>Ticker&nbspTitle</th>
                                 <th>Date</th>
-                                <th>T_ID</th>
-                                <th>Ticker_Type</th>
+                                <th>T&nbspID</th>
+                                <th>Ticker&nbspType</th>
                                 <th>Priority</th>
                               </tr>
                           </thead>
@@ -105,55 +105,27 @@
                           <thead class="bg-white text-dark">
                               <tr>
                                 <th>#</th>
-                                <th>Ticker_Title</th>
+                                <th>Ticker&nbspTitle</th>
                                 <th>Date</th>
-                                <th>T_ID</th>
-                                <th>Ticker_Type</th>
+                                <th>T&nbspID</th>
+                                <th>Ticker&nbspType</th>
                                 <th>Priority</th>
                               </tr>
                           </thead>
+
                           <tbody>
+                            {% for tickerData in history_ticker_data %}
                               <tr>
-                                <th>1</th>
-                                <td>This is my Ticker</td>
-                                <td>Sat 07/04/2022 10:35</td>
-                                <td>501</td>
-                                <td>Scrolling Ticker</td>
-                                <td>Medium</td>
+                                  <td>{{forloop.counter}}</td>
+                                  <td>{{tickerData.ticker_title}}</td>
+                                  <td>{{tickerData.ticker_start_time}}</td>
+                                  <td>{{tickerData.ticker_id}}</td>
+                                  <td>{{tickerData.ticker_type}}</td>
+                                  <td>{{tickerData.ticker_priority}}</td>
                               </tr>
-                              <tr>
-                                <th>2</th>
-                                <td>This is my Ticker</td>
-                                <td>Sat 07/04/2022 10:35</td>
-                                <td>501</td>
-                                <td>Scrolling Ticker</td>
-                                <td>Medium</td>
-                              </tr>
-                              <tr>
-                                <th>3</th>
-                                <td>This is my Ticker</td>
-                                <td>Sat 07/04/2022 10:35</td>
-                                <td>501</td>
-                                <td>Scrolling Ticker</td>
-                                <td>Medium</td>
-                              </tr>
-                              <tr>
-                                <th>4</th>
-                                <td>This is my Ticker</td>
-                                <td>Sat 07/04/2022 10:35</td>
-                                <td>501</td>
-                                <td>Scrolling Ticker</td>
-                                <td>Medium</td>
-                              </tr>
-                              <tr>
-                                <th>5</th>
-                                <td>This is my Ticker</td>
-                                <td>Sat 07/04/2022 10:35</td>
-                                <td>501</td>
-                                <td>Scrolling Ticker</td>
-                                <td>Medium</td>
-                              </tr>
-                          </tbody>
+                            {% endfor %}
+                            </tbody>
+
                       </table>  
                   </div>
                 </div>

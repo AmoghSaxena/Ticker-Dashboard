@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'directory',
     'ticker_management',
     'django_celery_results',
     'django_celery_beat'
@@ -94,7 +94,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ticker_dashboard.wsgi.application'
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.axolites.com'
+EMAIL_HOST_USER = 'ticker@axolites.com'
+EMAIL_HOST_PASSWORD = '92b9a3b730#123'
+DEFAULT_FROM_EMAIL = 'ticker@axolites.com'
+SERVER_EMAIL = 'ticker@axolites.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -141,7 +148,9 @@ TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_L10N = True
+
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -170,6 +179,8 @@ CELERY_RESULT_SERIALIZER='json'
 CELERY_TASK_SERIALIZER='json'
 CELERY_TIMEZONE='Asia/Kolkata'
 
+DJANGO_CELERY_BEAT_TZ_AWARE = False
+
 CELERY_RESULT_BACKEND = 'django-db'
 
 #CELERY BEAT SETTINGS
@@ -188,3 +199,5 @@ REST_FRAMEWORK = {
         #'knox.auth.TokenAuthentication',
     ]
 }
+
+DIRECTORY_DIRECTORY = '/home/guest/Desktop/Ticker-Dashboard/media'

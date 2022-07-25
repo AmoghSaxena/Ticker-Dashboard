@@ -3,7 +3,7 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4 mt-5">
-            <div class="path my-4 text-muted fs-5 bg-white p-2 col-md-2 col-sm-3">  
+            <div class="path my-4 text-muted fs-5 bg-white p-2 col-xl-2 col-md-3 col-sm-3">  
                 <div class="mx-1"><i class="fa-solid fa-clock-rotate-left fs-5"></i> History</div>
             </div>
             <div class="mb-4 bg-white rounded-border">
@@ -16,27 +16,27 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Ticker Title</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>T ID</th>
-                                <th>Ticker Type</th>
+                                <th>Ticker&nbspTitle</th>
+                                <th>Start&nbspDate</th>
+                                <th>End&nbspDate</th>
+                                <th>T&nbspID</th>
+                                <th>Ticker&nbspType</th>
                                 <th>Recurring</th>
                                 <th>Priority</th>
-                                <th>Action</th>
+                                <th>Action&nbsp&nbsp&nbsp&nbsp</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>#</th>
-                                <th>Ticker Title</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>T ID</th>
-                                <th>Ticker Type</th>
+                                <th>Ticker&nbspTitle</th>
+                                <th>Start&nbspDate</th>
+                                <th>End&nbspDate</th>
+                                <th>T&nbspID</th>
+                                <th>Ticker&nbspType</th>
                                 <th>Recurring</th>
                                 <th>Priority</th>
-                                <th>Action</th>
+                                <th>Action&nbsp&nbsp&nbsp&nbsp</th>
                             </tr>
                         </tfoot>
 
@@ -53,7 +53,7 @@
                             <td>{{tickerData.ticker_priority}}</td>
                             <td>
                                 <a class="text-color mx-1" href="{% url 'createticker'%}"><i class="fa-solid fa-arrow-rotate-left"></i> Restore</a></br>
-                                <a class="text-danger mx-1" href="#"><i class="fas fa-trash"></i> Delete</a>
+                                <a class="text-danger mx-1" href={% url 'delete' tickerData.ticker_id %} id="deleteTickers"><i class="fas fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -63,4 +63,65 @@
             </div>
         </div>
     </main>
+
+
+
+    <style>
+        
+        .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Sit on top */
+          padding-top: 100px; /* Location of the box */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgba(0, 0, 0, 0.712); /* Black w/ opacity */
+        }
+        
+        /* Modal Content */
+        .modal-content {
+          position: relative;
+          margin: auto;
+          width: 30%;
+        }
+   
+        </style>
+        
+        
+        <!-- Trigger/Open The Modal -->
+        <a id="deleteTicker">Open</a>
+        
+        <div id="deleteModal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header fw-bold">
+                Delete Confirmation
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete? <strong>Ticker</strong>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id = "closePopup" type="submit">Close</button>
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </div>
+          </div>
+        </div>
+        
+        
+        <script>
+        var modal = document.getElementById("deleteModal");
+        var deleteTicker = document.getElementById("deleteTicker");
+        var closePopup = document.getElementById("closePopup");
+        
+        deleteTicker.onclick = function() {
+          modal.style.display = "block";
+        }
+        closePopup.onclick = function() {
+          modal.style.display = "none";
+        }
+        
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+        </script>
 {% endblock %}
