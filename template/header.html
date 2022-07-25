@@ -99,6 +99,14 @@
     
             }
 
+
+            a:link { text-decoration: none; }
+
+            a:visited { text-decoration: none; }
+
+            a:hover { text-decoration: none; }
+
+            a:active { text-decoration: none; }
         </style>
 
     </head>
@@ -137,17 +145,20 @@
                                 Scheduled
                             </a>
                             <a class="nav-link mx-2 my-1 {% if request.path == '/history/'%} active rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'history'%}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-clock-rotate-left fs-5"></i></div>
-                                History
+                              <div class="sb-nav-link-icon"><i class="fa-solid fa-clock-rotate-left fs-5"></i></div>
+                              History
                             </a>
-                            <a class="nav-link mx-2 my-1 border-0 bg-white rounded-border text-color dropdown-toggle" data-bs-toggle="dropdown">
+                            <a class="nav-link mx-2 rounded-border text-color collapsed" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
                               <div class="sb-nav-link-icon"><i class="fas fa-user fa-fw fs-5"></i></div>
                               {{user}}
+                              <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <ul class="dropdown-menu border-0 fad-in-down">
-                              <li><a class="dropdown-item nav-link text-color my-1 " href="/admin"><i class="fa fa-cog me-1 fs-5"></i> Settings</a></li>
-                              <li><a class="dropdown-item nav-link text-color my-1 " href="/accounts/logout/"><i class="fa fa-sign-out me-1 fs-5"></i> Logout</a></li>
-                            </ul>
+                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="">
+                                  <li><a class="nav-link text-color mx-2 my-1" href="/admin"><i class="fa fa-cog me-1 fs-5"></i>&nbsp&nbspSettings</a></li>
+                                  <li><a class="nav-link text-color mx-2 my-1" href="/accounts/logout/"><i class="fa fa-sign-out me-1 fs-5"></i>&nbsp&nbspLogout</a></li>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </nav>

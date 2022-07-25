@@ -1,18 +1,6 @@
 {
    "events": [
       {
-         "groupId": 35,
-         "title": " Emergency Ticker ha",
-         "start": "2022-07-06T10:24:40",
-         "end": "2022-07-06T10:24:40"
-      },
-      {
-         "groupId": 36,
-         "title": " Emergency Ticker ha",
-         "start": "2022-07-06T10:37:34",
-         "end": "2022-07-06T10:37:34"
-      },
-      {
          "groupId": 37,
          "title": "WHY SO GOOD ",
          "start": "2022-07-06T10:40:55",
@@ -517,12 +505,6 @@
          "end": "2022-07-14T19:57:00"
       },
       {
-         "groupId": 144,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-14T19:00:00",
-         "end": "2022-07-14T19:30:00"
-      },
-      {
          "groupId": 145,
          "title": "Scrolling Ticker",
          "start": "2022-07-14T19:02:00",
@@ -649,12 +631,6 @@
          "end": "2022-07-15T13:23:00"
       },
       {
-         "groupId": 170,
-         "title": "hello rexter",
-         "start": "2022-07-15T17:44:10",
-         "end": "2022-07-15T17:44:10"
-      },
-      {
          "groupId": 171,
          "title": "hello Ticker",
          "start": "2022-07-15T17:45:55",
@@ -679,244 +655,10 @@
          "end": "2022-07-16T19:19:00"
       },
       {
-         "groupId": 206,
-         "title": "RexterDemo#13",
-         "start": "2022-07-18T11:15:06",
-         "end": "2022-07-18T11:15:06"
-      },
-      {
-         "groupId": 207,
-         "title": "IUGDFIKJVUVBFE",
-         "start": "2022-07-18T11:23:00",
-         "end": "2022-07-18T11:23:00"
-      },
-      {
-         "groupId": 208,
-         "title": "Ticker#21",
-         "start": "2022-07-18T11:28:42",
-         "end": "2022-07-18T11:28:42"
-      },
-      {
-         "groupId": 209,
-         "title": "EBH Fireworks",
-         "start": "2022-07-18T11:29:46",
-         "end": "2022-07-18T11:29:46"
-      },
-      {
-         "groupId": 210,
-         "title": "EBH Forbes",
-         "start": "2022-07-18T11:31:03",
-         "end": "2022-07-18T11:31:03"
-      },
-      {
-         "groupId": 211,
-         "title": "Rexter#13",
-         "start": "2022-07-18T11:31:47",
-         "end": "2022-07-18T11:31:47"
-      },
-      {
          "groupId": 212,
          "title": "EBH Fireworks",
          "start": "2022-07-18T11:31:52",
          "end": "2022-07-18T11:31:52"
-      },
-      {
-         "groupId": 213,
-         "title": "EBH Fireworks 1",
-         "start": "2022-07-18T11:33:32",
-         "end": "2022-07-18T11:33:32"
-      },
-      {
-         "groupId": 214,
-         "title": "EBH Sports Bar",
-         "start": "2022-07-18T11:34:42",
-         "end": "2022-07-18T11:34:42"
-      },
-      {
-         "groupId": 215,
-         "title": "OKADA Fountain",
-         "start": "2022-07-18T11:35:56",
-         "end": "2022-07-18T11:35:56"
-      },
-      {
-         "groupId": 216,
-         "title": "Rexter#14",
-         "start": "2022-07-18T11:36:37",
-         "end": "2022-07-18T11:36:37"
-      },
-      {
-         "groupId": 217,
-         "title": "OKADA Online Casino",
-         "start": "2022-07-18T11:36:54",
-         "end": "2022-07-18T11:36:54"
-      },
-      {
-         "groupId": 218,
-         "title": "EBH Celtics Ride",
-         "start": "2022-07-18T11:37:22",
-         "end": "2022-07-18T11:37:22"
-      },
-      {
-         "groupId": 219,
-         "title": "EBH Freeplay",
-         "start": "2022-07-18T11:39:27",
-         "end": "2022-07-18T11:39:27"
-      },
-      {
-         "groupId": 220,
-         "title": "EBH Grooming 1",
-         "start": "2022-07-18T11:42:15",
-         "end": "2022-07-18T11:42:15"
-      },
-      {
-         "groupId": 221,
-         "title": "EBH Steakhouse",
-         "start": "2022-07-18T11:44:05",
-         "end": "2022-07-18T11:44:05"
-      },
-      {
-         "groupId": 222,
-         "title": "TickerDEMO#1",
-         "start": "2022-07-18T11:44:45",
-         "end": "2022-07-18T11:44:45"
-      },
-      {
-         "groupId": 224,
-         "title": "Okada Birthday",
-         "start": "2022-07-18T11:48:08",
-         "end": "2022-07-18T11:48:08"
-      },
-      {
-         "groupId": 225,
-         "title": "Cleaner#231",
-         "start": "2022-07-18T11:48:58",
-         "end": "2022-07-18T11:48:58"
-      },
-      {
-         "groupId": 226,
-         "title": "Okada Resort Tour",
-         "start": "2022-07-18T11:49:37",
-         "end": "2022-07-18T11:49:37"
-      },
-      {
-         "groupId": 227,
-         "title": "Rexter#DEMO#12",
-         "start": "2022-07-18T11:51:38",
-         "end": "2022-07-18T11:51:38"
-      },
-      {
-         "groupId": 228,
-         "title": "fgesgwa",
-         "start": "2022-07-18T12:09:52",
-         "end": "2022-07-18T12:09:52"
-      },
-      {
-         "groupId": 231,
-         "title": "Grooming",
-         "start": "2022-07-18T13:07:04",
-         "end": "2022-07-18T13:07:04"
-      },
-      {
-         "groupId": 232,
-         "title": "EBH SteakHouse",
-         "start": "2022-07-18T13:14:03",
-         "end": "2022-07-18T13:14:03"
-      },
-      {
-         "groupId": 233,
-         "title": "Free Play",
-         "start": "2022-07-18T13:19:21",
-         "end": "2022-07-18T13:19:21"
-      },
-      {
-         "groupId": 234,
-         "title": "EBH Celtic",
-         "start": "2022-07-18T13:22:33",
-         "end": "2022-07-18T13:22:33"
-      },
-      {
-         "groupId": 235,
-         "title": "HappyBirthday",
-         "start": "2022-07-18T13:46:05",
-         "end": "2022-07-18T13:46:05"
-      },
-      {
-         "groupId": 236,
-         "title": "dhasdhde",
-         "start": "2022-07-18T13:48:01",
-         "end": "2022-07-18T13:48:01"
-      },
-      {
-         "groupId": 237,
-         "title": "EBH Fireworks 2",
-         "start": "2022-07-18T14:13:38",
-         "end": "2022-07-18T14:13:38"
-      },
-      {
-         "groupId": 238,
-         "title": "HELLO TICKER",
-         "start": "2022-07-18T15:45:05",
-         "end": "2022-07-18T15:45:05"
-      },
-      {
-         "groupId": 239,
-         "title": "hello",
-         "start": "2022-07-18T15:46:29",
-         "end": "2022-07-18T15:46:29"
-      },
-      {
-         "groupId": 240,
-         "title": "Hello Ticker",
-         "start": "2022-07-18T15:55:25",
-         "end": "2022-07-18T15:55:25"
-      },
-      {
-         "groupId": 241,
-         "title": "6ygt56h54",
-         "start": "2022-07-18T16:33:18",
-         "end": "2022-07-18T16:33:18"
-      },
-      {
-         "groupId": 242,
-         "title": "Multi-Media Ticker",
-         "start": "2022-07-18T16:51:06",
-         "end": "2022-07-18T16:51:06"
-      },
-      {
-         "groupId": 243,
-         "title": "Multi-Media Ticker",
-         "start": "2022-07-18T16:54:21",
-         "end": "2022-07-18T16:54:21"
-      },
-      {
-         "groupId": 244,
-         "title": "Multi-Media Ticker",
-         "start": "2022-07-18T17:19:05",
-         "end": "2022-07-18T17:19:05"
-      },
-      {
-         "groupId": 245,
-         "title": "PrimaryTicker",
-         "start": "2022-07-18T17:59:23",
-         "end": "2022-07-18T17:59:23"
-      },
-      {
-         "groupId": 246,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-18T19:11:00",
-         "end": "2022-07-18T20:12:00"
-      },
-      {
-         "groupId": 247,
-         "title": "hello",
-         "start": "2022-07-19T10:45:44",
-         "end": "2022-07-19T10:45:44"
-      },
-      {
-         "groupId": 248,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-19T10:51:31",
-         "end": "2022-07-19T10:51:31"
       },
       {
          "groupId": 249,
@@ -925,28 +667,10 @@
          "end": "2022-07-19T12:10:00"
       },
       {
-         "groupId": 250,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-19T11:45:00",
-         "end": "2022-07-19T11:45:00"
-      },
-      {
          "groupId": 251,
          "title": "Multi-Media Ticker",
          "start": "2022-07-19T11:51:00",
          "end": "2022-07-19T12:51:00"
-      },
-      {
-         "groupId": 252,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-19T12:07:00",
-         "end": "2022-07-19T13:06:00"
-      },
-      {
-         "groupId": 253,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-19T15:36:00",
-         "end": "2022-07-19T16:36:00"
       },
       {
          "groupId": 254,
@@ -959,12 +683,6 @@
          "title": "TIME PASS",
          "start": "2022-07-19T15:43:00",
          "end": "2022-07-19T16:43:00"
-      },
-      {
-         "groupId": 256,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-19T15:46:00",
-         "end": "2022-07-19T15:46:00"
       },
       {
          "groupId": 257,
@@ -983,54 +701,6 @@
          "title": "Scrolling Ticker",
          "start": "2022-07-19T16:44:00",
          "end": "2022-07-19T17:44:00"
-      },
-      {
-         "groupId": 260,
-         "title": "hello",
-         "start": "2022-07-19T16:47:39",
-         "end": "2022-07-19T16:47:39"
-      },
-      {
-         "groupId": 261,
-         "title": "m",
-         "start": "2022-07-19T17:16:07",
-         "end": "2022-07-19T17:16:07"
-      },
-      {
-         "groupId": 262,
-         "title": "new",
-         "start": "2022-07-19T17:45:40",
-         "end": "2022-07-19T17:45:40"
-      },
-      {
-         "groupId": 263,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-19T18:29:26",
-         "end": "2022-07-19T18:29:26"
-      },
-      {
-         "groupId": 264,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-19T18:36:00",
-         "end": "2022-07-19T18:36:00"
-      },
-      {
-         "groupId": 265,
-         "title": "hello",
-         "start": "2022-07-19T18:42:00",
-         "end": "2022-07-19T18:42:00"
-      },
-      {
-         "groupId": 266,
-         "title": "ASQDFG",
-         "start": "2022-07-19T18:44:20",
-         "end": "2022-07-19T18:44:20"
-      },
-      {
-         "groupId": 267,
-         "title": "DERTH",
-         "start": "2022-07-19T18:50:30",
-         "end": "2022-07-19T18:50:30"
       },
       {
          "groupId": 268,
@@ -1087,274 +757,10 @@
          "end": "2022-07-19T21:11:00"
       },
       {
-         "groupId": 277,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-19T20:20:00",
-         "end": "2022-07-19T21:20:00"
-      },
-      {
-         "groupId": 278,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-19T20:22:00",
-         "end": "2022-07-19T21:22:00"
-      },
-      {
-         "groupId": 279,
-         "title": "hello this in Ticker",
-         "start": "2022-07-20T10:17:00",
-         "end": "2022-07-20T10:45:00"
-      },
-      {
-         "groupId": 280,
-         "title": "Ronaldo Story",
-         "start": "2022-07-20T11:06:00",
-         "end": "2022-07-20T11:32:00"
-      },
-      {
-         "groupId": 281,
-         "title": "dAFSDVB",
-         "start": "2022-07-20T11:25:44",
-         "end": "2022-07-20T11:25:44"
-      },
-      {
-         "groupId": 282,
-         "title": "AWERT",
-         "start": "2022-07-20T11:39:58",
-         "end": "2022-07-20T11:39:58"
-      },
-      {
-         "groupId": 283,
-         "title": "media ticker",
-         "start": "2022-07-20T11:41:14",
-         "end": "2022-07-20T11:41:14"
-      },
-      {
-         "groupId": 284,
-         "title": "media",
-         "start": "2022-07-20T11:43:38",
-         "end": "2022-07-20T11:43:38"
-      },
-      {
-         "groupId": 285,
-         "title": "qwrtey",
-         "start": "2022-07-20T12:10:30",
-         "end": "2022-07-20T12:10:30"
-      },
-      {
-         "groupId": 286,
-         "title": "qwerty",
-         "start": "2022-07-20T12:14:29",
-         "end": "2022-07-20T12:14:29"
-      },
-      {
-         "groupId": 287,
-         "title": "test",
-         "start": "2022-07-20T12:15:30",
-         "end": "2022-07-20T12:15:30"
-      },
-      {
-         "groupId": 288,
-         "title": "SCOTUS will take sec",
-         "start": "2022-07-20T12:16:38",
-         "end": "2022-07-20T12:16:38"
-      },
-      {
-         "groupId": 289,
-         "title": "bana ki nahi",
-         "start": "2022-07-20T12:25:50",
-         "end": "2022-07-20T12:25:50"
-      },
-      {
-         "groupId": 290,
-         "title": "Multi-Media Ticker",
-         "start": "2022-07-20T12:30:13",
-         "end": "2022-07-20T12:30:13"
-      },
-      {
-         "groupId": 291,
-         "title": "Media Ticker",
-         "start": "2022-07-20T12:45:27",
-         "end": "2022-07-20T12:45:27"
-      },
-      {
-         "groupId": 292,
-         "title": "EBH Fireworks",
-         "start": "2022-07-20T12:48:04",
-         "end": "2022-07-20T12:48:04"
-      },
-      {
-         "groupId": 293,
-         "title": "I AM INEVITABLE",
-         "start": "2022-07-20T12:49:36",
-         "end": "2022-07-20T12:49:36"
-      },
-      {
-         "groupId": 294,
-         "title": "EBH Fireworks",
-         "start": "2022-07-20T13:00:10",
-         "end": "2022-07-20T13:00:10"
-      },
-      {
-         "groupId": 295,
-         "title": "Fgxf",
-         "start": "2022-07-20T13:11:37",
-         "end": "2022-07-20T13:11:37"
-      },
-      {
-         "groupId": 296,
-         "title": "hello ticker",
-         "start": "2022-07-20T15:12:19",
-         "end": "2022-07-20T15:12:19"
-      },
-      {
-         "groupId": 297,
-         "title": "Hello Ticker",
-         "start": "2022-07-20T15:21:52",
-         "end": "2022-07-20T15:21:52"
-      },
-      {
-         "groupId": 298,
-         "title": "Hello buddy",
-         "start": "2022-07-20T15:26:16",
-         "end": "2022-07-20T15:26:16"
-      },
-      {
-         "groupId": 299,
-         "title": "hhhhh",
-         "start": "2022-07-20T15:29:37",
-         "end": "2022-07-20T15:29:37"
-      },
-      {
-         "groupId": 300,
-         "title": "ffff",
-         "start": "2022-07-20T15:36:25",
-         "end": "2022-07-20T15:36:25"
-      },
-      {
-         "groupId": 301,
-         "title": "video",
-         "start": "2022-07-20T15:46:52",
-         "end": "2022-07-20T15:46:52"
-      },
-      {
-         "groupId": 302,
-         "title": "deswgsd",
-         "start": "2022-07-20T15:54:10",
-         "end": "2022-07-20T15:54:10"
-      },
-      {
-         "groupId": 303,
-         "title": "ewr",
-         "start": "2022-07-20T16:08:08",
-         "end": "2022-07-20T16:08:08"
-      },
-      {
          "groupId": 304,
          "title": "video ticker",
          "start": "2022-07-20T16:38:00",
          "end": "2022-07-20T17:37:00"
-      },
-      {
-         "groupId": 305,
-         "title": "Video Ticker",
-         "start": "2022-07-20T16:40:13",
-         "end": "2022-07-20T16:40:13"
-      },
-      {
-         "groupId": 306,
-         "title": "gersg",
-         "start": "2022-07-20T17:14:23",
-         "end": "2022-07-20T17:14:23"
-      },
-      {
-         "groupId": 307,
-         "title": "fas",
-         "start": "2022-07-20T17:15:11",
-         "end": "2022-07-20T17:15:11"
-      },
-      {
-         "groupId": 308,
-         "title": "gfdsg",
-         "start": "2022-07-20T17:15:49",
-         "end": "2022-07-20T17:15:49"
-      },
-      {
-         "groupId": 309,
-         "title": "WERT",
-         "start": "2022-07-20T18:08:18",
-         "end": "2022-07-20T18:08:18"
-      },
-      {
-         "groupId": 310,
-         "title": "asfgh",
-         "start": "2022-07-20T18:14:08",
-         "end": "2022-07-20T18:14:08"
-      },
-      {
-         "groupId": 311,
-         "title": "asdfgh",
-         "start": "2022-07-20T18:16:29",
-         "end": "2022-07-20T18:16:29"
-      },
-      {
-         "groupId": 312,
-         "title": "hbgfjhsb",
-         "start": "2022-07-20T19:14:11",
-         "end": "2022-07-20T19:14:11"
-      },
-      {
-         "groupId": 313,
-         "title": "SCOTUS will take sec",
-         "start": "2022-07-20T19:19:02",
-         "end": "2022-07-20T19:19:02"
-      },
-      {
-         "groupId": 314,
-         "title": "Asdfg",
-         "start": "2022-07-20T19:23:21",
-         "end": "2022-07-20T19:23:21"
-      },
-      {
-         "groupId": 315,
-         "title": "ADSFGH",
-         "start": "2022-07-20T19:27:19",
-         "end": "2022-07-20T19:27:19"
-      },
-      {
-         "groupId": 316,
-         "title": "erdftyghjk",
-         "start": "2022-07-20T19:38:40",
-         "end": "2022-07-20T19:38:40"
-      },
-      {
-         "groupId": 317,
-         "title": "werftgyhju",
-         "start": "2022-07-20T19:40:08",
-         "end": "2022-07-20T19:40:08"
-      },
-      {
-         "groupId": 318,
-         "title": "sqwderty",
-         "start": "2022-07-20T19:47:46",
-         "end": "2022-07-20T19:47:46"
-      },
-      {
-         "groupId": 319,
-         "title": "Test",
-         "start": "2022-07-20T19:50:17",
-         "end": "2022-07-20T19:50:17"
-      },
-      {
-         "groupId": 320,
-         "title": "sQSAWDEGHJK",
-         "start": "2022-07-20T20:02:16",
-         "end": "2022-07-20T20:02:16"
-      },
-      {
-         "groupId": 321,
-         "title": "hello this is Ticker",
-         "start": "2022-07-20T20:19:07",
-         "end": "2022-07-20T20:19:07"
       },
       {
          "groupId": 322,
@@ -1363,40 +769,16 @@
          "end": "2022-07-20T21:25:00"
       },
       {
-         "groupId": 323,
-         "title": "dsf",
-         "start": "2022-07-21T10:24:58",
-         "end": "2022-07-21T10:24:58"
-      },
-      {
-         "groupId": 324,
-         "title": "TESTING",
-         "start": "2022-07-21T10:36:32",
-         "end": "2022-07-21T10:36:32"
-      },
-      {
          "groupId": 325,
          "title": "Multi-Media Ticker",
          "start": "2022-07-21T10:53:00",
          "end": "2022-07-21T10:53:00"
       },
       {
-         "groupId": 326,
-         "title": "I AM INEVITABLE",
-         "start": "2022-07-21T10:54:23",
-         "end": "2022-07-21T10:54:23"
-      },
-      {
          "groupId": 327,
          "title": "RONALDO Story",
          "start": "2022-07-21T11:07:38",
          "end": "2022-07-21T11:07:38"
-      },
-      {
-         "groupId": 328,
-         "title": "RONALDO Story",
-         "start": "2022-07-21T11:09:06",
-         "end": "2022-07-21T11:09:06"
       },
       {
          "groupId": 329,
@@ -1411,34 +793,10 @@
          "end": "2022-07-21T11:51:00"
       },
       {
-         "groupId": 331,
-         "title": "Welcome",
-         "start": "2022-07-21T11:37:41",
-         "end": "2022-07-21T11:37:41"
-      },
-      {
-         "groupId": 332,
-         "title": "Welcome",
-         "start": "2022-07-21T11:43:33",
-         "end": "2022-07-21T11:43:33"
-      },
-      {
-         "groupId": 333,
-         "title": "Welcome",
-         "start": "2022-07-21T11:50:31",
-         "end": "2022-07-21T11:50:31"
-      },
-      {
          "groupId": 334,
          "title": "Scrolling Ticker",
          "start": "2022-07-21T12:12:00",
          "end": "2022-07-21T12:50:00"
-      },
-      {
-         "groupId": 335,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-21T12:16:00",
-         "end": "2022-07-21T12:30:00"
       },
       {
          "groupId": 336,
@@ -1477,64 +835,148 @@
          "end": "2022-07-21T13:15:00"
       },
       {
-         "groupId": 348,
-         "title": "Welcome",
-         "start": "2022-07-21T15:16:13",
-         "end": "2022-07-21T15:16:13"
-      },
-      {
          "groupId": 349,
          "title": "Scrolling Ticker",
          "start": "2022-07-21T16:39:00",
          "end": "2022-07-21T16:00:00"
       },
       {
-         "groupId": 350,
+         "groupId": 359,
+         "title": "RexterUncleKaTicker",
+         "start": "2022-07-22T11:44:36",
+         "end": "2022-07-22T11:44:36"
+      },
+      {
+         "groupId": 360,
+         "title": "ChefNiko#1",
+         "start": "2022-07-22T12:30:07",
+         "end": "2022-07-22T12:30:07"
+      },
+      {
+         "groupId": 361,
+         "title": "fsa",
+         "start": "2022-07-22T12:32:54",
+         "end": "2022-07-22T12:32:54"
+      },
+      {
+         "groupId": 362,
          "title": "Scrolling Ticker",
-         "start": "2022-07-21T16:41:24",
-         "end": "2022-07-21T16:41:24"
+         "start": "2022-07-22T13:01:14",
+         "end": "2022-07-22T13:01:14"
       },
       {
-         "groupId": 351,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-21T16:44:00",
-         "end": "2022-07-21T17:10:00"
+         "groupId": 363,
+         "title": "Okada Fountain",
+         "start": "2022-07-22T15:12:59",
+         "end": "2022-07-22T15:12:59"
       },
       {
-         "groupId": 353,
-         "title": "adsfgh",
-         "start": "2022-07-21T18:38:06",
-         "end": "2022-07-21T18:38:06"
+         "groupId": 364,
+         "title": "gfsdga",
+         "start": "2022-07-22T15:24:12",
+         "end": "2022-07-22T15:24:12"
       },
       {
-         "groupId": 354,
-         "title": "hello Ticker",
-         "start": "2022-07-21T19:09:48",
-         "end": "2022-07-21T19:09:48"
+         "groupId": 365,
+         "title": "stst",
+         "start": "2022-07-22T15:27:16",
+         "end": "2022-07-22T15:27:16"
       },
       {
-         "groupId": 355,
-         "title": "hello Ticker",
-         "start": "2022-07-21T19:12:48",
-         "end": "2022-07-21T19:12:48"
+         "groupId": 366,
+         "title": "stst",
+         "start": "2022-07-22T15:27:29",
+         "end": "2022-07-22T15:27:29"
       },
       {
-         "groupId": 356,
-         "title": "Okada Birthday",
-         "start": "2022-07-21T19:14:24",
-         "end": "2022-07-21T19:14:24"
+         "groupId": 367,
+         "title": "Casino",
+         "start": "2022-07-22T15:33:37",
+         "end": "2022-07-22T15:33:37"
       },
       {
-         "groupId": 357,
+         "groupId": 368,
+         "title": "gfdhfh",
+         "start": "2022-07-22T16:06:39",
+         "end": "2022-07-22T16:06:39"
+      },
+      {
+         "groupId": 369,
          "title": "Multi-Media Ticker",
-         "start": "2022-07-21T19:17:46",
-         "end": "2022-07-21T19:17:46"
+         "start": "2022-07-22T17:51:15",
+         "end": "2022-07-22T17:51:15"
       },
       {
-         "groupId": 358,
-         "title": "hello Ticker",
-         "start": "2022-07-21T19:22:44",
-         "end": "2022-07-21T19:22:44"
+         "groupId": 370,
+         "title": "Multi-Media Ticker",
+         "start": "2022-07-22T17:53:12",
+         "end": "2022-07-22T17:53:12"
+      },
+      {
+         "groupId": 371,
+         "title": "FCIUGEFWUIV",
+         "start": "2022-07-22T18:06:46",
+         "end": "2022-07-22T18:06:46"
+      },
+      {
+         "groupId": 372,
+         "title": "FWOUIHFWOPIB",
+         "start": "2022-07-22T18:40:58",
+         "end": "2022-07-22T18:40:58"
+      },
+      {
+         "groupId": 373,
+         "title": "IKHJFWBFWBK",
+         "start": "2022-07-22T18:42:17",
+         "end": "2022-07-22T18:42:17"
+      },
+      {
+         "groupId": 374,
+         "title": "FWIGFEWIU",
+         "start": "2022-07-22T18:46:27",
+         "end": "2022-07-22T18:46:27"
+      },
+      {
+         "groupId": 375,
+         "title": "Test",
+         "start": "2022-07-22T19:05:28",
+         "end": "2022-07-22T19:05:28"
+      },
+      {
+         "groupId": 376,
+         "title": "FSAD",
+         "start": "2022-07-22T19:35:23",
+         "end": "2022-07-22T19:35:23"
+      },
+      {
+         "groupId": 377,
+         "title": "asedrftyg",
+         "start": "2022-07-22T19:36:11",
+         "end": "2022-07-22T19:36:11"
+      },
+      {
+         "groupId": 378,
+         "title": "hello ticker",
+         "start": "2022-07-22T19:37:39",
+         "end": "2022-07-22T19:37:39"
+      },
+      {
+         "groupId": 379,
+         "title": "video",
+         "start": "2022-07-22T19:42:37",
+         "end": "2022-07-22T19:42:37"
+      },
+      {
+         "groupId": 380,
+         "title": "fghj",
+         "start": "2022-07-22T20:00:11",
+         "end": "2022-07-22T20:00:11"
+      },
+      {
+         "groupId": 381,
+         "title": "jhtjrftjrye",
+         "start": "2022-07-22T20:11:24",
+         "end": "2022-07-22T20:11:24"
       }
    ]
 }

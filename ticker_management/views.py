@@ -26,6 +26,7 @@ from ticker_management.rundecklog import rundeck_update, abortTicker
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage
+from django.db.models import Q
 #Api
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -48,12 +49,13 @@ def login(request):
 
 @login_required
 def index(request):
-    active_ticker_length=TickerDetails.objects.all().filter()
-    active_ticker=TickerDetails.objects.all().filter().order_by('modified_on').reverse()[:5]
-    history_ticker_length=TickerHistory.objects.all()
-    history_ticker=TickerHistory.objects.all().filter().order_by('modified_on').reverse()[:5]
-    today_event=TickerDetails.objects.filter(ticker_start_time__lte=str(date.today())+str(" 23:59:59"),ticker_start_time__gt=str(date.today())+str(" 00:00:00"))
-
+    active_ticker_length=TickerDetails.objects.all().filter(is_active=1)
+    active_ticker=TickerDetails.objects.all().filter(is_active=1).order_by('modified_on').reverse()[:5]
+    history_ticker_length=TickerHistory.objects.all().filter(is_active=0,is_deleted=1)
+    history_ticker=TickerHistory.objects.all().filter(is_active=0,is_deleted=1).order_by('modified_on').reverse()[:5]
+    today_event=TickerDetails.objects.filter(Q(ticker_start_time__range=[str(date.today())+str(" 00:00:00"),str(date.today())+str(" 23:59:59")])
+                                            | Q(ticker_end_time__range=[str(date.today())+str(" 00:00:00"),str(date.today())+str(" 23:59:59")])
+                                            )
     ticker_count={
         'active':len(active_ticker_length),
         'history':len(history_ticker_length),
@@ -64,7 +66,6 @@ def index(request):
         'user':request.user.username
     }
     return render(request, 'index.html',ticker_count)
-
 
 @login_required
 def createTicker(request):
@@ -141,7 +142,14 @@ def createTicker(request):
                 'Medium',
                 'Low',
                 'Emergency'
-            ],
+                ],
+
+            'mediaPriority':[
+                'High',
+                'Medium',
+                'Low'
+                ],
+
             'user':request.user.username,
             'frequency' :[
                 '5 minutes',
@@ -163,6 +171,7 @@ def createTicker(request):
                 '12 hour',
                 '24 hour'  
             ],
+
             'days' :['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
         }
     data['scheduleData']=filterData(request)
@@ -267,13 +276,10 @@ def isRestore(request):
 
 @login_required
 def isDelete(request, id):
+
     try:
-        tickerDataDelete = TickerDetails.objects.filter(ticker_id=id).values().get()
-
-        ticker_json=json.loads(tickerDataDelete.get('ticker_json'))
-
-
-        # print(tickerDataDelete,type(tickerDataDelete))
+        tickerDataDelete = TickerDetails.objects.filter(ticker_id=id)
+        ticker_json=json.loads(tickerDataDelete.values().get().get('ticker_json'))
         if ticker_json.get('main_ticker_condition','not found')==True and ticker_json.get('main_ticker_logo','not found')==True:
             image_name=ticker_json.get('main_ticker_logo_name')
         elif ticker_json.get('static_ticker_condition','not found')==True and ticker_json.get('static_ticker_logo','not found')==True:
@@ -284,8 +290,8 @@ def isDelete(request, id):
             image_name=ticker_json.get('emergency_ticker_logo_name')
     except TickerDetails.DoesNotExist  as e:
         try:
-            tickerDataDelete = TickerHistory.objects.filter(ticker_id=id).values().get()
-            ticker_json=json.loads(tickerDataDelete.get('ticker_json'))
+            tickerDataDelete = TickerHistory.objects.filter(ticker_id=id)
+            ticker_json=json.loads(tickerDataDelete.values().get().get('ticker_json'))
             if ticker_json.get('main_ticker_condition','not found')==True and ticker_json.get('main_ticker_logo','not found')==True:
                 image_name=ticker_json.get('main_ticker_logo_name')
             elif ticker_json.get('static_ticker_condition','not found')==True and ticker_json.get('static_ticker_logo','not found')==True:
@@ -298,11 +304,11 @@ def isDelete(request, id):
             messages.info(request, 'Specificied ID not found')
             return redirect(active)
     try:
-        os.remove(FileSystemStorage().base_location+image_name.split('/')[-1])
+        os.remove(FileSystemStorage().base_location+str('/')+image_name.split('/')[-1])
     except Exception as e:
         print("No image found!",e)
     try:
-        tickerDataDelete.delete()  
+        tickerDataDelete.delete()
         return redirect(active)
     except Exception as e:
         messages.info(request, 'Unable to delete specificied ID')

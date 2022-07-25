@@ -84,6 +84,19 @@ function foselector()
         document.getElementById("static").hidden = true;
       }
     }
+
+    if (id == "StaticScrollingEnable")
+    {
+      b=document.getElementById("StaticScrollingEnable");
+      if (b.checked)
+      {
+        document.getElementById("StaticScrolling").hidden = false;
+      }
+      else
+      {
+        document.getElementById("StaticScrolling").hidden = true;
+      }
+    }
   
     if (id == "dynamicEnable")
     {
@@ -197,7 +210,10 @@ function foselector()
     document.getElementById("days").hidden = true;
     document.getElementById("primaryLogo").hidden = true;
     document.getElementById("primaryLogoPosition").hidden = true;
-    document.getElementById("staticTickerLogo").hidden = true;
+    document.getElementById("positionCenter").hidden = true;
+    document.getElementById("positionNotCenter").hidden = false;
+    document.getElementById("StaticScrolling").hidden = true;
+    // document.getElementById("staticTickerLogo").hidden = true;
     getdata();
   }
 
@@ -250,18 +266,8 @@ function foselector()
       x.style.display = "none";
     }
   }
-  
-// document.addEventListener("DOMContentLoaded", function(){
-//     var btn = document.getElementById("myBtn");
-//     var element = document.getElementById("myCollapse");
 
-//     // Create a collapse instance, toggles the collapse element on invocation
-//     var myCollapse = new bootstrap.Collapse(element);
 
-//     btn.addEventListener("click", function(){
-//         myCollapse.toggle();
-//     });
-// });
 function Filevalidation(id)
 {
     FileTypeChecker(id);
@@ -368,15 +374,27 @@ function fopositionbox(id)
 
     if(option.text == "center")
     {
-      document.getElementById("staticTickerLogoEnabler").checked = true;
-      fologoenabler("staticTickerLogoEnabler");
-      document.getElementById("staticTickerLogoEnabler").disabled = true;
+      document.getElementById("positionCenter").hidden = false;
+      document.getElementById("positionNotCenter").hidden = true;
+      document.getElementById("staticFontSize").hidden = false;
+      // document.getElementById("staticTickerLogoEnabler").checked = true;
+      // fologoenabler("staticTickerLogoEnabler");
+      // document.getElementById("staticTickerLogoEnabler").disabled = true;
+    }
+    else if(option.text=="fullscreen")
+    {
+        document.getElementById("positionCenter").hidden = true;
+        document.getElementById("positionNotCenter").hidden = true;
+        document.getElementById("staticFontSize").hidden = true;
+      // document.getElementById("staticTickerLogoEnabler").checked = false;
+      // fologoenabler("staticTickerLogoEnabler");
+      // document.getElementById("staticTickerLogoEnabler").disabled = false;
     }
     else
     {
-      document.getElementById("staticTickerLogoEnabler").checked = false;
-      fologoenabler("staticTickerLogoEnabler");
-      document.getElementById("staticTickerLogoEnabler").disabled = false;
+      document.getElementById("positionCenter").hidden = true;
+      document.getElementById("positionNotCenter").hidden = false;
+      document.getElementById("staticFontSize").hidden = false;
     }
 
   }
@@ -397,7 +415,6 @@ function fopositionbox(id)
 
   }
 }
-
 
 function getdata() {
   var xhttp = new XMLHttpRequest();
@@ -441,7 +458,6 @@ function getdata() {
   xhttp.open("GET", "/static/resources/resource.json", true);
   xhttp.send();
 }
-
 
 function schedulebuttonenabler(id)
 {

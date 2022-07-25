@@ -104,7 +104,6 @@ var currentTab = 0;
                     {return true;}
                 }
             }
-
         }
         else if (option.text == "Media Ticker")
         {
@@ -114,44 +113,43 @@ var currentTab = 0;
             {
                 var staticEnable = document.getElementById("staticEnable");
                 var dynamicEnable = document.getElementById("dynamicEnable");
-                
                 if (staticEnable.checked == false && dynamicEnable.checked == false)
                 {return false;}
                 else
                 {
                     if (staticEnable.checked)
                     {
-                        var staticTickerLogoEnabler=document.getElementById("staticTickerLogoEnabler");
                         tmp=document.getElementById("staticTickerLogo");
-
-                        if (document.getElementById("staticTickerMessage").value == "")
-                        {
-                            if (staticTickerLogoEnabler.checked)
-                            {
-                                if(tmp.files.length==0){return false;}
-                                else{return true;}
-                            }
-                            else{return false;}
-                        }
+                        if (tmp.files.length==0){return false;}
                         else
                         {
-                            if (staticTickerLogoEnabler.checked)
+                            var posbox=document.getElementById("staticPositionBox");
+                            option = posbox.options[posbox.selectedIndex];
+
+                            if(option.text=="center")
                             {
-                                if(tmp.files.length==0){return false;}
+                                if(document.getElementById("staticTickerMessage").value=="")
+                                {return false;}
                                 else{return true;}
                             }
-                            else{return true;}
-                            // {% comment %} alert("1");
-                            // if ((document.getElementById("staticTickerLogoEnabler").checked==true) && (document.getElementById("staticTickerLogo").value == undefined))
-                            // {alert(2);return false;}
-                            // else{alert(3);return true;} {% endcomment %}
+                            else if(option.text=="fullscreen")
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                if (document.getElementById("StaticScrollingEnable").checked)
+                                {
+                                    if(document.getElementById("staticScrollingTickerMessage").value==""){return false;}
+                                    else{return true;}
+                                }
+                                else{return true;}
+                            }
                         }
                     }
                     else
                     {
-                        
                         tmp=document.getElementById("dynamicTickerVideo");
-
                         if (tmp.files.length==0){return false;}
                         else{return true;}
 
@@ -200,7 +198,6 @@ var currentTab = 0;
     }
     return valid;
     }
-    
     function fixStepIndicator(n) {
     var i, x = document.getElementsByClassName("step");
     for (i = 0; i < x.length; i++) {

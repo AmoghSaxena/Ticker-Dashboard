@@ -123,7 +123,7 @@
                                                 </div>
                                                 <div class="col-xl-3 col-md-6 col-sm-6" id="primaryLogo">
                                                     <div class="form-group">
-                                                        <strong class="text-color" for="exampleFormControlFile1">upload image logo</strong>
+                                                        <strong class="text-color" for="exampleFormControlFile1">Upload Image Logo</strong>
                                                         <input name="primaryTickerLogo" type="file" accept=".png" id="primaryTickerLogo" class="form-control-file" onchange=Filevalidation(this.id)>
                                                     </div>
                                                 </div>
@@ -221,41 +221,50 @@
                                 </div>
                 
                                 <div id="media">
-                                        <strong class="text-color">Ticker Title</strong>
-                                        <div class="form-group form-floating mb-3">
-                                            <input class="form-control" id="mediaTickerTitle" rows="4" placeholder="Enter Ticker Title"  type = "text" name="mediaTickerTitle" value="" maxlength = "20" />
-                                            <label for="mediaTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label>
+                                    <strong class="text-color">Ticker Title</strong>
+                                    <div class="form-group form-floating mb-3">
+                                        <input class="form-control" id="mediaTickerTitle" rows="4" placeholder="Enter Ticker Title"  type = "text" name="mediaTickerTitle" value="" maxlength = "20" />
+                                        <label for="mediaTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label>
+                                    </div>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" name="staticTickerEnabler" type="checkbox" value="enabled" id="staticEnable" onclick="foenabler(this.id);">
+                                        <strong class="form-check-label text-color" for="flexCheckDefault">
+                                        Static Ticker
+                                        </strong>
+                                    </div>
+                                    <div id="static">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <strong class="text-color" for="exampleFormControlFile1">Upload Image Logo</strong>
+                                                    <input name="staticTickerLogo" type="file" accept=".png" id="staticTickerLogo" class="form-control-file" value="1" onchange=Filevalidation(this.id)>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <strong class="text-color">Position BOX</strong>
+                                                <select name="staticPositionBox" id="staticPositionBox" onchange=fopositionbox(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                    {% for items in pos_box %}
+                                                    <option>{{items}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4" id="staticFontSize">
+                                                <strong class="text-color">Size</strong>
+                                                <select name="staticFontSize" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                    {% for items in font_size %}
+                                                    <option>{{items}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input" name="staticTickerEnabler" type="checkbox" value="enabled" id="staticEnable" onclick="foenabler(this.id);">
-                                            <strong class="form-check-label text-color" for="flexCheckDefault">
-                                            Static Ticker
-                                            </strong>
-                                        </div>
-                                        <div id="static">
+                                        <div id="positionCenter">
                                             <strong class="text-color">Enter Your Static Ticker Message</strong>
                                             <div class="form-group form-floating mb-3">
-                                                <input class="form-control" id="staticTickerMessage" rows="4" placeholder="Type dMessage for Static Ticker (20 letters)"  type = "text" name = "staticTickerMessage" value="" maxlength = "20" />
-                                                <label for="staricTickerMessage" class="text-muted">Type Message for Static Ticker <small>(20 letters max.)</small></label>
+                                                <input class="form-control" id="staticTickerMessage" rows="4" placeholder="Type dMessage for Static Ticker (15 letters)"  type = "text" name = "staticTickerMessage" value="" maxlength = "15" />
+                                                <label for="staricTickerMessage" class="text-muted">Type Message for Static Ticker <small>(15 letters max.)</small></label>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-4">
-                                                    <div class="form-check mb-3">
-                                                        <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
-                                                        <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                        <input name="staticFontColor" type="color" value="#FDFEFE">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="form-check mb-3">
-                                                        <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
-                                                        <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                        <input name="staticBgColor" type="color" value="#424949">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
                                                     <strong class="text-color">Font Style</strong>
                                                     <select name="staticFontType" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
                                                         {% for items in font_style %}
@@ -263,39 +272,71 @@
                                                         {% endfor %}
                                                     </select>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <strong class="text-color">Font Size</strong>
-                                                    <select name="staticFontSize" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                        {% for items in font_size %}
-                                                        <option>{{items}}</option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <strong class="text-color">Position BOX</strong>
-                                                    <select name="staticPositionBox" id="staticPositionBox" onchange=fopositionbox(this.id) class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
-                                                        {% for items in pos_box %}
-                                                        <option>{{items}}</option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
                                                 <div class="col-md-4">
-                                                    <div class="form-check form-switch mb-3">
-                                                        <input name="staticTickerLogoEnabler" class="form-check-input" type="checkbox" value="enabled" id="staticTickerLogoEnabler" onclick=fologoenabler(this.id)>
-                                                        <strong class="form-check-label text-color" for="flexCheckDefault">
-                                                            Set logo on Static Ticker 
-                                                        </strong>
+                                                    <div class="form-check mb-3">
+                                                        <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
+                                                        <label for="favcolor" class="text-muted">Pick Font Color</label>
+                                                        <input name="staticFontColor" type="color" value="#FDFEFE">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-8" id='staticTickerLogo'>
-                                                    <div class="form-group">
-                                                        <strong class="text-color" for="exampleFormControlFile1">upload image logo</strong>
-                                                        <input name="staticTickerLogo" type="file" accept=".png" id="staticTickerLogo" class="form-control-file" value="1" onchange=Filevalidation(this.id)>
+                                                <div class="col-md-4">
+                                                    <div class="form-check mb-3">
+                                                        <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
+                                                        <label for="favcolor" class="text-muted">Pick Background Color</label>
+                                                        <input name="staticBgColor" type="color" value="#57EAEA">
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div id="positionNotCenter">
+                                            <div class="col-md-4">
+                                                <div class="form-check form-switch mb-3">
+                                                    <input name="StaticScrollingEnable" class="form-check-input" type="checkbox" value="enabled" id="StaticScrollingEnable" onclick=foenabler(this.id)>
+                                                    <strong class="form-check-label text-color" for="flexCheckDefault">
+                                                        Scrolling
+                                                    </strong>
+                                                </div>
+                                            </div>
+                                            <div id="StaticScrolling">
+                                                <strong class="text-color">Enter Your Ticker Message</strong>
+                                                <div class="form-group form-floating mb-3">
+                                                    <textarea name="staticScrollingTickerMessage" class="form-control" id="staticScrollingTickerMessage" rows="4" placeholder="Type Message for Static Ticker" value=" "></textarea>
+                                                    <label for="staticScrollingTickerMessage" class="text-muted">Type Message for Ticker</label>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-3">
+                                                        <div class="form-check mb-3">
+                                                            <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
+                                                            <label for="favcolor" class="text-muted">Pick Font Color</label>
+                                                            <input name="staticScrollingFontColor" type="color" id="staticScrollingFontColor" value="#F7F9F9">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-check mb-3">
+                                                            <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
+                                                            <label for="favcolor" class="text-muted">Pick Background Color</label>
+                                                            <input name="staticScrollingBgColor" type="color" id="staticScrollingBgColor" value="#FF3232">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <strong class="text-color">Font Style</strong>
+                                                        <select name="staticScrollingFontType" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                            {% for items in font_style %}
+                                                            <option>{{items}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <strong class="text-color">Ticker Motion</strong>
+                                                        <select name="staticScrollingTickerMotion" class="form-select mb-3 mb-md-0 p-3" aria-label="Default select example">
+                                                            {% for items in motion %}
+                                                            <option>{{items}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                 
                                     <div class="form-check form-switch mb-3">
@@ -346,7 +387,7 @@
                                         <div class="col-md-6">
                                             <strong class="text-color">Set Priority</strong>
                                             <select name="mediaTickerPriority" class="form-select p-3" id="mediaTickerPriority" onchange=foeventEnabler(this.id) aria-label="Default select example">
-                                                {% for items in priority %}
+                                                {% for items in mediaPriority %}
                                                 <option>{{items}}</option>
                                                 {% endfor %}
                                             </select>
@@ -381,21 +422,84 @@
                             </div>
                                     
                             <div class="tab m-3">
-                                <marquee>hello</marquee>
                                     <div class="col-lg-8 mx-auto">
+
+                                        <!-- <div class="border border-dark border-5 rounded text-white overflow-hidden bg-dark"> -->
+                                            <style style="text/css">
+                                                .bounce {
+                                                    height: 50px;
+                                                    overflow: hidden;
+                                                    position: relative;
+                                                    background: #fefefe;
+                                                    color: #333;
+                                                    border: 1px solid #4a4a4a;
+                                                }
+                                                
+                                                .bounce p {
+                                                    position: absolute;
+                                                    width: 100%;
+                                                    height: 100%;
+                                                    margin: 0;
+                                                    line-height: 50px;
+                                                    text-align: center;
+                                                    -moz-transform: translateX(50%);
+                                                    -webkit-transform: translateX(50%);
+                                                    transform: translateX(50%);
+                                                    -moz-animation: bouncing-text 5s linear infinite alternate;
+                                                    -webkit-animation: bouncing-text 5s linear infinite alternate;
+                                                    animation: bouncing-text 10s linear infinite alternate;
+                                                }
+                                                
+                                                @-moz-keyframes bouncing-text {
+                                                    0% {
+                                                        -moz-transform: translateX(50%);
+                                                    }
+                                                    100% {
+                                                        -moz-transform: translateX(-50%);
+                                                    }
+                                                }
+                                                
+                                                @-webkit-keyframes bouncing-text {
+                                                    0% {
+                                                        -webkit-transform: translateX(50%);
+                                                    }
+                                                    100% {
+                                                        -webkit-transform: translateX(-50%);
+                                                    }
+                                                }
+                                                
+                                                @keyframes bouncing-text {
+                                                    0% {
+                                                        -moz-transform: translateX(50%);
+                                                        -webkit-transform: translateX(50%);
+                                                        transform: translateX(50%);
+                                                    }
+                                                    100% {
+                                                        -moz-transform: translateX(-50%);
+                                                        -webkit-transform: translateX(-50%);
+                                                        transform: translateX(-50%);
+                                                    }
+                                                }
+                                            </style>
+                                        
+                                            <div class="bounce">
+                                                <p> Bouncy Marquee </p>
+                                            </div>
                                         <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
                                             <video autoplay loop muted>
                                                 <source src="/static/RCB.mp4" type="video/mp4">
                                                 <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
                                             </video>
-                                            <div class="setting-one">
+                                            <!-- <div class="setting-one">
                                                 <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#ffffff" class="text-dark p-2 font-weight-bold;" style="font-size: 15px;">
                                                     Royal Challengers Bangalore (RCB) has always been one of the most popular franchises since the inception of the Indian Premier League (IPL) in the year 2008. Some of the greatest players like Rahul Dravid, Jacques Kallis, Anil Kumble, Muttiah Muralitharan, Chris Gayle, and AB de Villiers have all been part of this team in the past. Their star player and former captain, Virat Kohli, is the only cricketer to represent a single franchise since the first season, which is RCB.
                                                 </marquee>
+                                            </div> -->
+
+                                            <div class="setting-two bounce">
+                                                <p>Royal Challengers Bangalore (RCB) has always been one of the most popular franchises since the inception of the Indian Premier League (IPL) in the year 2008. Some of the greatest players like Rahul Dravid, Jacques Kallis, Anil Kumble, Muttiah Muralitharan, Chris Gayle, and AB de Villiers have all been part of this team in the past. Their star player and former captain, Virat Kohli, is the only cricketer to represent a single franchise since the first season, which is RCB.</p>
                                             </div>
                                             
-                                            <div class="setting-two">
-                                            </div>
                                             <div class="setting-three">
                                                 <img class="img-responsive m-1" width="60" src="/static/image/rcb-logo.png" alt="Logo" scale="0" style="background-color:#0000FF;">
                                             </div>

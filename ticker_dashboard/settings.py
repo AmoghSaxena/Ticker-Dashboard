@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'directory',
     'ticker_management',
     'django_celery_results',
     'django_celery_beat'
@@ -199,3 +199,5 @@ REST_FRAMEWORK = {
         #'knox.auth.TokenAuthentication',
     ]
 }
+
+DIRECTORY_DIRECTORY = '/home/guest/Desktop/Ticker-Dashboard/media'

@@ -82,6 +82,8 @@ class TickerHistory(models.Model):
     is_deleted = models.PositiveIntegerField()
     deleted_on = models.DateTimeField(blank=True, null=True)
     rundeckid = models.PositiveIntegerField(null=True)
+    def __str__(self):
+        return " Ticker Title : "+self.ticker_title+ "  ,     Id : (" + str(self.ticker_id)+")"
     
     # reason_for_delete = models.CharField(max_length=300, blank=True, null=True)
 

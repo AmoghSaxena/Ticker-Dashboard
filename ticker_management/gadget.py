@@ -1,5 +1,6 @@
 import json
 from datetime import datetime,timedelta
+from multiprocessing import parent_process
 import time
 import os
 from .models import TickerDetails,SetUp
@@ -235,31 +236,80 @@ def datagetter(request):
             tickerPriority=request.POST.get('mediaTickerPriority')
             CONFIG_DATA['time_interval']= int(request.POST.get('mediaTickerTimeInterval')) * 60
 
-
             static_ticker_condition = request.POST.get('staticTickerEnabler')
-
 
             if  static_ticker_condition=='enabled':
 
-                try:
-                    position_static_ticker = request.POST.get('staticPositionBox')
-                    static_ticker_bgcolor = request.POST.get('staticBgColor')
-                    static_ticker_logo = request.POST.get('staticTickerLogoEnabler')
-                    static_ticker_message = request.POST.get('staticTickerMessage')
-                    static_ticker_font_color = request.POST.get('staticFontColor')
-                    static_ticker_font_size = request.POST.get('staticFontSize')
-                    static_ticker_font_type = request.POST.get('staticFontType')
+                try:  
 
-                                        
                     CONFIG_DATA['static_ticker_condition']=True
+                    CONFIG_DATA['static_ticker_logo']=True
+                    position_static_ticker = request.POST.get('staticPositionBox')
                     CONFIG_DATA['position_static_ticker']=position_static_ticker
-                    CONFIG_DATA['static_ticker_bgcolor']=hex_to_rgb(static_ticker_bgcolor)
-                    CONFIG_DATA['static_ticker_font_color']=hex_to_rgb(static_ticker_font_color)
-                    if static_ticker_logo== 'enabled' or CONFIG_DATA['position_static_ticker']=='center':
-                        CONFIG_DATA['static_ticker_logo']=True
+
+                    if position_static_ticker=="center":
+                        static_ticker_font_color = request.POST.get('staticFontColor')
+                        static_ticker_bgcolor = request.POST.get('staticBgColor')
+                        static_ticker_message = request.POST.get('staticTickerMessage')
+                        static_ticker_font_type = request.POST.get('staticFontType')
+                        static_ticker_font_size = request.POST.get('staticFontSize')
+                    elif position_static_ticker=="fullscreen":
+                        static_ticker_font_color = '#FFFFFF'
+                        static_ticker_bgcolor = '#FFFFFF'
+                        static_ticker_message = ""
+                        static_ticker_font_type = 'TimesNewRoman'
+                        static_ticker_font_size = 'x-large'
                     else:
-                        CONFIG_DATA['static_ticker_logo']=False
-                        # ImageUploader(ticker_logo)
+                        static_ticker_font_color = '#FFFFFF'
+                        static_ticker_bgcolor = '#FFFFFF'
+                        static_ticker_message = ""
+                        static_ticker_font_type = 'TimesNewRoman'
+                        static_ticker_font_size = 'x-large'
+
+                        main_ticker_enabler=request.POST.get('StaticScrollingEnable')
+
+                        if main_ticker_enabler=='enabled':
+
+                            main_ticker_message    = request.POST.get('staticScrollingTickerMessage')
+                            main_ticker_font    = request.POST.get('staticScrollingFontType')
+                            # main_ticker_font_size    = request.POST.get('primaryFontSize')
+                            main_ticker_bgcolor    = request.POST.get('staticScrollingBgColor') 
+                            main_ticker_font_color    = request.POST.get('staticScrollingFontColor')
+                            # main_ticker_speed    = request.POST.get('primaryTickerSpeed')
+                            main_ticker_motion    = request.POST.get('staticScrollingTickerMotion')
+
+                            CONFIG_DATA['main_ticker_condition']=True
+                            CONFIG_DATA['main_ticker_logo'] = False
+                            CONFIG_DATA['main_ticker_font_size'] = "x-large"
+                            CONFIG_DATA['main_ticker_bgcolor'] = hex_to_rgb(main_ticker_bgcolor)
+                            CONFIG_DATA['main_ticker_font_color'] = hex_to_rgb(main_ticker_font_color)
+                            CONFIG_DATA['main_ticker_speed'] = "normal"
+                            CONFIG_DATA['main_ticker_motion'] = main_ticker_motion 
+
+                            CONFIG_DATA['main_ticker_message'] = main_ticker_message
+                                                        
+                            if main_ticker_font == 'TimesNewRoman' or main_ticker_font == 'MyriadProFont' or main_ticker_font == 'Ubuntu':
+                                CONFIG_DATA['main_ticker_font'] = main_ticker_font
+                            elif main_ticker_font == 'Chinese':
+                                CONFIG_DATA['main_ticker_font'] = 'ZCOOLQingKeHuangYou'
+                            elif main_ticker_font == 'Japanese':
+                                CONFIG_DATA['main_ticker_font'] = 'NotoSansJP'
+                            elif main_ticker_font == 'Arabic':
+                                CONFIG_DATA['main_ticker_font'] = 'NotoSansArabic'
+                            elif main_ticker_font == 'Russian' or main_ticker_font == 'Turkish' or main_ticker_font == 'Spanish' or main_ticker_font == 'Hindi' or main_ticker_font == 'French' or main_ticker_font == 'Italian':
+                                CONFIG_DATA['main_ticker_font'] = 'FreeSans'
+                            
+                            if 'top' in position_static_ticker:
+                                CONFIG_DATA['main_ticker_position'] = 'down'
+                            else:
+                                CONFIG_DATA['main_ticker_position'] = 'up'   
+                        else:
+                            CONFIG_DATA['main_ticker_condition']=False                   
+                    
+                    CONFIG_DATA['static_ticker_bgcolor'] = hex_to_rgb(static_ticker_bgcolor)
+                    CONFIG_DATA['static_ticker_font_color'] = hex_to_rgb(static_ticker_font_color)
+                    CONFIG_DATA['static_ticker_message'] = static_ticker_message
+
                     if static_ticker_font_size == 'x-large':
                         CONFIG_DATA['static_ticker_font_size'] = 120
                         #CONFIG_DATA['static_ticker_image_size'] = 13.45
@@ -272,7 +322,7 @@ def datagetter(request):
                     elif static_ticker_font_size == 'small':
                         CONFIG_DATA['static_ticker_font_size'] = 40
                         #CONFIG_DATA['static_ticker_image_size'] = 19.45
-                            
+                    
                     if static_ticker_font_type == 'TimesNewRoman' or static_ticker_font_type == 'MyriadProFont' or static_ticker_font_type == 'Ubuntu':
                         CONFIG_DATA['static_ticker_font'] = static_ticker_font_type
                     elif static_ticker_font_type == 'Chinese':
@@ -283,8 +333,7 @@ def datagetter(request):
                         CONFIG_DATA['static_ticker_font'] = 'NotoSansArabic'
                     elif static_ticker_font_type == 'Russian' or static_ticker_font_type == 'Turkish' or static_ticker_font_type == 'Spanish' or static_ticker_font_type == 'Hindi' or static_ticker_font_type == 'French' or static_ticker_font == 'Italian':
                         CONFIG_DATA['font_type'] = 'FreeSans'
-
-                    CONFIG_DATA['static_ticker_message']=static_ticker_message
+                                        
 
                 except Exception as staticscroll:
                     print('Exception raised during staticscroll',staticscroll)
