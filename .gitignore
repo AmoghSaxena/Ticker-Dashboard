@@ -3,7 +3,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+ticker_management/migrations/
 # C extensions
 *.so
 
