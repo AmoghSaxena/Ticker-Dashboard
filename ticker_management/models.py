@@ -6,6 +6,8 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+# class check(models.Model):
+#     ip = models.CharField(max_length=200)
 
 class SetUp(models.Model):
     FQDN=models.CharField(max_length=60)
@@ -85,21 +87,12 @@ class TickerHistory(models.Model):
     def __str__(self):
         return " Ticker Title : "+self.ticker_title+ "  ,     Id : (" + str(self.ticker_id)+")"
     
-    # reason_for_delete = models.CharField(max_length=300, blank=True, null=True)
-
-
 class Task(models.Model):
-    tv_condition_before = models.CharField(max_length=200)
-    tv_condition_after = models.CharField(max_length=200)
-    room_no = models.CharField(max_length=200)
-    key = models.CharField(max_length=200)
-    ipad_condition_before = models.CharField(max_length=200)
-    ipad_condition_after = models.CharField(max_length=200)
+    ticker_id=models.CharField(max_length=50, null=True)
+    tv_status = models.BooleanField(default=False)
+    ipad_status = models.BooleanField(default=False)
     completed = models.BooleanField(default=False, blank=True, null=True)
     ip = models.CharField(max_length=200)
-            
-   
-
 
 class PublishedManager(models.Manager):
 

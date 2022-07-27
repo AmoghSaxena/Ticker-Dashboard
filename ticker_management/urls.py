@@ -16,5 +16,6 @@ urlpatterns = [
     path('accounts/changepassword/', views.changePassword, name = 'changepassword'),
     path('abort/<str:id>', views.abort, name = 'abort'),
 	path('ticker-post/', views.taskPost),
-    path('ticker-config-api/', views.configApi)
+    path('ticker-config-api/', views.configApi),
+    # path('tickerStatusReboot/',views.tickerStatusReboot),
 ]

@@ -27,10 +27,13 @@
 
                             <div class="tab m-3">
                                 <strong class="text-color">Select Ticker Type</strong>
-                                <select name="tickerSelecter" class="form-select mb-3 p-3" aria-label="Default select example" onchange="foselector();" id="tickerSelecter">
-                                    <option class="text-color" selected value="">Select Ticker</option>
+                                <select name="tickerSelecter" class="form-select mb-3 p-3" aria-label="Default select example" onchange="foselector(id);" id="tickerSelecter">
+                                    <option class="text-color" value="">Select Ticker</option>
                                     <option class="text-color" value="scrolling">Scrolling Ticker</option>
                                     <option class="text-color" value="media">Media Ticker</option>
+                                    {% if tickerObj.ticker_type == 'Media Ticker' %}
+                                        <option class="text-color" selected value="{{tickerObj.ticker_type}}">{{tickerObj.ticker_type}}</option>
+                                    {% endif %}
                                     <option class="text-color" value="emergency">Emergency Ticker</option>
                                 </select>
 
@@ -137,7 +140,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                
                                         <div class="form-check form-switch mb-3">
                                             <input class="form-check-input" name="secondaryScrollingEnable" type="checkbox" value="enabled" id="secondaryEnable" onclick="foenabler(this.id);">
                                             <strong class="form-check-label text-color" for="flexCheckDefault">
@@ -211,7 +213,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <strong class="text-color">Set Priority</strong>
-                                                <select name="scrollingTickerPriority" class="form-select p-3" id="scrollingTickerPriority" aria-label="Default select example">
+                                                <select name="scrollingTickerPriority" class="form-select p-3" onchange="foselector(id)" id="scrollingTickerPriority" aria-label="Default select example">
                                                     {% for items in priority %}
                                                     <option>{{items}}</option>
                                                     {% endfor %}
@@ -338,7 +340,6 @@
                                             </div>
                                         </div>
                                     </div>
-                
                                     <div class="form-check form-switch mb-3">
                                         <input class="form-check-input" name="dynamicTickerEnabler" type="checkbox" value="enabled" id="dynamicEnable" onclick="foenabler(this.id);">
                                         <strong class="form-check-label text-color" for="flexCheckDefault">
@@ -394,7 +395,7 @@
                                         </div>
                                     </div>
                                 </div>
-                
+
                                 <div id="emergency">
                                     <strong class="text-color">Ticker Title</strong>
                                     <div class="form-group form-floating mb-3">
@@ -420,103 +421,38 @@
                                     </div>
                                 </div>
                             </div>
+                            
                                     
                             <div class="tab m-3">
-                                    <div class="col-lg-8 mx-auto">
-
-                                        <!-- <div class="border border-dark border-5 rounded text-white overflow-hidden bg-dark"> -->
-                                            <style style="text/css">
-                                                .bounce {
-                                                    height: 50px;
-                                                    overflow: hidden;
-                                                    position: relative;
-                                                    background: #fefefe;
-                                                    color: #333;
-                                                    border: 1px solid #4a4a4a;
-                                                }
-                                                
-                                                .bounce p {
-                                                    position: absolute;
-                                                    width: 100%;
-                                                    height: 100%;
-                                                    margin: 0;
-                                                    line-height: 50px;
-                                                    text-align: center;
-                                                    -moz-transform: translateX(50%);
-                                                    -webkit-transform: translateX(50%);
-                                                    transform: translateX(50%);
-                                                    -moz-animation: bouncing-text 5s linear infinite alternate;
-                                                    -webkit-animation: bouncing-text 5s linear infinite alternate;
-                                                    animation: bouncing-text 10s linear infinite alternate;
-                                                }
-                                                
-                                                @-moz-keyframes bouncing-text {
-                                                    0% {
-                                                        -moz-transform: translateX(50%);
-                                                    }
-                                                    100% {
-                                                        -moz-transform: translateX(-50%);
-                                                    }
-                                                }
-                                                
-                                                @-webkit-keyframes bouncing-text {
-                                                    0% {
-                                                        -webkit-transform: translateX(50%);
-                                                    }
-                                                    100% {
-                                                        -webkit-transform: translateX(-50%);
-                                                    }
-                                                }
-                                                
-                                                @keyframes bouncing-text {
-                                                    0% {
-                                                        -moz-transform: translateX(50%);
-                                                        -webkit-transform: translateX(50%);
-                                                        transform: translateX(50%);
-                                                    }
-                                                    100% {
-                                                        -moz-transform: translateX(-50%);
-                                                        -webkit-transform: translateX(-50%);
-                                                        transform: translateX(-50%);
-                                                    }
-                                                }
-                                            </style>
-                                        
-                                            <div class="bounce">
-                                                <p> Bouncy Marquee </p>
-                                            </div>
-                                        <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
-                                            <video autoplay loop muted>
-                                                <source src="/static/RCB.mp4" type="video/mp4">
-                                                <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
-                                            </video>
-                                            <!-- <div class="setting-one">
-                                                <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#ffffff" class="text-dark p-2 font-weight-bold;" style="font-size: 15px;">
-                                                    Royal Challengers Bangalore (RCB) has always been one of the most popular franchises since the inception of the Indian Premier League (IPL) in the year 2008. Some of the greatest players like Rahul Dravid, Jacques Kallis, Anil Kumble, Muttiah Muralitharan, Chris Gayle, and AB de Villiers have all been part of this team in the past. Their star player and former captain, Virat Kohli, is the only cricketer to represent a single franchise since the first season, which is RCB.
-                                                </marquee>
-                                            </div> -->
-
-                                            <div class="setting-two bounce">
-                                                <p>Royal Challengers Bangalore (RCB) has always been one of the most popular franchises since the inception of the Indian Premier League (IPL) in the year 2008. Some of the greatest players like Rahul Dravid, Jacques Kallis, Anil Kumble, Muttiah Muralitharan, Chris Gayle, and AB de Villiers have all been part of this team in the past. Their star player and former captain, Virat Kohli, is the only cricketer to represent a single franchise since the first season, which is RCB.</p>
-                                            </div>
-                                            
-                                            <div class="setting-three">
-                                                <img class="img-responsive m-1" width="60" src="/static/image/rcb-logo.png" alt="Logo" scale="0" style="background-color:#0000FF;">
-                                            </div>
+                                <div class="col-lg-8 mx-auto">
+                                    <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
+                                        <video autoplay loop muted>
+                                            <source src="/static/RCB.mp4" type="video/mp4">
+                                            <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
+                                        </video>
+                                        <div class="setting-one">
+                                            <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#ffffff" class="text-dark p-2 font-weight-bold;" style="font-size: 15px;">
+                                                Royal Challengers Bangalore (RCB) has always been one of the most popular franchises since the inception of the Indian Premier League (IPL) in the year 2008. Some of the greatest players like Rahul Dravid, Jacques Kallis, Anil Kumble, Muttiah Muralitharan, Chris Gayle, and AB de Villiers have all been part of this team in the past. Their star player and former captain, Virat Kohli, is the only cricketer to represent a single franchise since the first season, which is RCB.
+                                            </marquee>
                                         </div>
-                                        
-                                        <center>
-                                            <div class="border border-dark border-5" style="width: 80px;"></div>
-                                            <div class="border border-dark border-5" style="width: 300px;"></div>
-                                        </center>
+                                        <div class="setting-two">
+                                        </div>
+                                        <div class="setting-three">
+                                            <img class="img-responsive m-1" width="60" src="/static/image/rcb-logo.png" alt="Logo" scale="0" style="background-color:#0000FF;">
+                                        </div>
                                     </div>
+                                    <center>
+                                        <div class="border border-dark border-5" style="width: 80px;"></div>
+                                        <div class="border border-dark border-5" style="width: 300px;"></div>
+                                    </center>
+                                </div>
                             </div>
                 
                             <div class="tab m-3">
+                                <marquee>hello</marquee>
                                 <div class="m-1" id="">
                                     <div id="">
                                         <div class="row mb-3">
-                                            
                                             <div class="col-md-3">
                                                 <strong class="text-color">Room Type</strong>
                                                 <select name="roomTypeSelection" multiple id="roomTypeSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
@@ -554,7 +490,6 @@
                                                 </select>
                                             </div>
                                         </div>
-                
                                         <div class="row mb-3">
                                             <div class="col-md-3">
                                                 <div class="form-check form-switch mb-3">
@@ -573,7 +508,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
                                         <div class="row mb-3" id="occurancySection">
                                             <div class="col-md-2"> 
                                                 <div class="form-check">
@@ -592,7 +526,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
                                         <div class="row" id="dateTimeSection">
                                             <div class="col-md-4 mb-3" id="startDate">
                                                 <strong class="text-color">Start Date | Time</strong>
@@ -627,7 +560,6 @@
                             </div>
                             
                             <!-- <div class="tab">
-                                <h1>Pinky Promise you want to Schedule?</h1>
                             </div> -->
 
                             <div style="overflow:auto;" class="m-3">

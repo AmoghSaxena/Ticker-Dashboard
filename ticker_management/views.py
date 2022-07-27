@@ -13,7 +13,7 @@ from django.contrib import messages
 from ticker_management.gadget import datagetter,filterData
 from django.http import HttpResponse
 # from django_celery_beat.models import PeriodicTask,CrontabSchedule
-from datetime import date
+from datetime import date,datetime
 from ticker_management.models import TickerDetails,TickerHistory,SetUp,RundeckLog
 from pathlib import Path
 from .forms import LoginForm, ChangePassword
@@ -21,14 +21,20 @@ from rest_framework.decorators import api_view
 from django.http import QueryDict
 from .serializers import TaskSerializer, TaskSerializerConfig,TaskSerializerConfigHistory
 from rest_framework.response import Response
+from rest_framework import status
 from .models import Task
 from ticker_management.rundecklog import rundeck_update, abortTicker
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage
 from django.db.models import Q
+
 #Api
 BASE_DIR = Path(__file__).resolve().parent
+
+#Loggers
+import logging
+logger=logging.getLogger('dashboardLogs')
 
 def login(request):
     form = LoginForm(request.POST or None)
@@ -49,13 +55,22 @@ def login(request):
 
 @login_required
 def index(request):
-    active_ticker_length=TickerDetails.objects.all().filter(is_active=1)
-    active_ticker=TickerDetails.objects.all().filter(is_active=1).order_by('modified_on').reverse()[:5]
+    active_ticker_length=TickerDetails.objects.all()
+    active_ticker=TickerDetails.objects.all().order_by('modified_on').reverse()[:5]
+
+    tmp=active_ticker_length.values_list('ticker_id')
+    
+    excludedID=[i[0] for i in tmp]
+
+    # for i in tmp:
+    #     excludedID.append(i[0])
+
     history_ticker_length=TickerHistory.objects.all().filter(is_active=0,is_deleted=1)
-    history_ticker=TickerHistory.objects.all().filter(is_active=0,is_deleted=1).order_by('modified_on').reverse()[:5]
+    history_ticker=TickerHistory.objects.all().exclude(ticker_id__in=excludedID).filter(is_active=0,is_deleted=1).order_by('modified_on').reverse()[:5]
     today_event=TickerDetails.objects.filter(Q(ticker_start_time__range=[str(date.today())+str(" 00:00:00"),str(date.today())+str(" 23:59:59")])
                                             | Q(ticker_end_time__range=[str(date.today())+str(" 00:00:00"),str(date.today())+str(" 23:59:59")])
                                             )
+
     ticker_count={
         'active':len(active_ticker_length),
         'history':len(history_ticker_length),
@@ -69,7 +84,6 @@ def index(request):
 
 @login_required
 def createTicker(request):
-    syncDVSData(request)
     data = {
             'pos_box':[
                 'top-right',
@@ -174,18 +188,16 @@ def createTicker(request):
 
             'days' :['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
         }
-    data['scheduleData']=filterData(request)
+    data['scheduleData']=filterData()
     if request.method == 'POST':
         datagetter(request)
         return redirect(index)
     else:
         return render(request, 'createticker.html', data)
 
-
 @login_required
 def updateTicker(request,ticker_id):
     pass
-
 
 @login_required
 def active(request):
@@ -214,15 +226,19 @@ def scheduled(request):
 
 @login_required
 def history(request):
-    data=TickerHistory.objects.all().values()
+    active_ticker_length=TickerDetails.objects.all()
+    tmp=active_ticker_length.values_list('ticker_id')
+    excludedID=list()
+
+    for i in tmp:
+        excludedID.append(i[0])
+    data=TickerHistory.objects.all().values().exclude(ticker_id__in=excludedID)
     tickerDataList=list()
     for item in data:
         tickerDataList.append(item)
     tickerDataList=sorted(tickerDataList,key=lambda item: item['ticker_id'],reverse=True)
     data={'tickerDataList':tickerDataList,'user':request.user.username}
-    return render(request, 'history.html',data) 
-        
-
+    return render(request, 'history.html',data)
 
 @login_required
 def detail(request, id):
@@ -245,8 +261,8 @@ def detail(request, id):
             rundeckLog.append(dictwithoutrundeckid)
         return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog, 'logObject':list()})
     except Exception as e:
-        return HttpResponse('Error: '+str(e))
-
+        logger.error('Error: '+str(e))
+        return active(request)
 
 @login_required
 def abort(request, id):
@@ -267,8 +283,113 @@ def abort(request, id):
         return HttpResponse('Error: '+str(e))
 
 @login_required
-def isEdit(request):
-    pass
+def isEdit(request, id):
+    data = {
+        'pos_box':[
+            'top-right',
+            'top-left',
+            'bottom-right',
+            'bottom-left',
+            'center',
+            'fullscreen'
+            ],
+        
+        'font_style':[
+            'TimesNewRoman',
+            'MyriadProFont',
+            'Ubuntu',
+            'Russian',
+            'Chinese',
+            'Japanese',
+            'Arabic',
+            'Turkish',
+            'Spanish',
+            'French',
+            'Hindi'
+            ],
+
+        'font_size':[
+            'x-large',
+            'large',
+            'normal',
+            'small'
+            ],
+
+        'position':[
+            'down',
+            'up'
+            ],
+
+        'logo_position':[
+            'left',
+            'right'
+            ],
+
+        'speed':[
+            'normal',
+            'fast',
+            'slow',
+            'very-slow'
+            ],
+        
+        'motion':[
+            'right-left',
+            'left-right'
+            ],
+
+        'location':[
+            'small',
+            'normal',
+            'large'
+            ],
+            
+        'emergency_ticker_list':[
+            'Earthquake',
+            'Fire',
+            'Active Shooting',
+            'General Evacuation',
+            'Custom'
+            ],
+
+        'priority':[
+            'High',
+            'Medium',
+            'Low',
+            'Emergency'
+            ],
+
+        'mediaPriority':[
+            'High',
+            'Medium',
+            'Low'
+            ],
+
+        'user':request.user.username,
+        'frequency' :[
+            '5 minutes',
+            '10 minutes',
+            '15 minutes', 
+            '30 minutes', 
+            '45 minutes', 
+            '1 hour',
+            '75 minutes',
+            '90 minutes'
+            '105 minutes'
+            '2 hour', 
+            '3 hour',
+            '4 hour',  
+            '5 hour',  
+            '6 hour',  
+            '7 hour',  
+            '8 hour',
+            '12 hour',
+            '24 hour'  
+        ],
+        'days' :['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+    }
+    tickerObj=TickerDetails.objects.filter(ticker_id=int(id)).values()
+    data['tickerObj'] = tickerObj.get()
+    return render(request, 'createticker.html',data)
 
 @login_required
 def isRestore(request):
@@ -301,16 +422,18 @@ def isDelete(request, id):
             elif  ticker_json.get('emergency_ticker_condition','not found')==True:
                 image_name=ticker_json.get('emergency_ticker_logo_name')
         except TickerHistory.DoesNotExist  as e:
+            logger.error(f'ID {id} not found')
             messages.info(request, 'Specificied ID not found')
             return redirect(active)
     try:
         os.remove(FileSystemStorage().base_location+str('/')+image_name.split('/')[-1])
     except Exception as e:
-        print("No image found!",e)
+        logger.info(f'No image found for {id} ticker id')
     try:
         tickerDataDelete.delete()
         return redirect(active)
     except Exception as e:
+        logger.error(f'Unable to delete {id} ID')
         messages.info(request, 'Unable to delete specificied ID')
         return redirect(active)
 
@@ -337,19 +460,17 @@ def changePassword(request):
     except Exception as e:
         return HttpResponse(e)
 
-
-
-@login_required
-def syncDVSData(request):
+def syncDVSData():
     dvs_data=SetUp.objects.filter(id=1).values()
     # print(dvs_data.get())
     FQDN=dvs_data.get().get('FQDN')
     Dvs_Token=dvs_data.get().get('Dvs_Token')
     dvs_data="curl -s --location --request POST 'https://{2}/dvs/api/key/selectR' --header 'Content-Type: application/vnd.digivalet.v1+json' --header 'Access-Token: {3}' --data-raw '{0}' | jq  > {1}/../static/resources/resource.json".format('{}',BASE_DIR,FQDN,Dvs_Token)
+
+    # requests.post(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/job/{Rundeck_Stop_Job}/run/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"}, json={ "argString": f"-whichnode \"{nodes}\""})
     os.system(dvs_data)
 
-@login_required
-def filterData(request):
+def filterData():
     DVSDATA = dict()
     roomTypeData = set()
     wingData = set()
@@ -373,16 +494,11 @@ def filterData(request):
     return DVSDATA
 
 @api_view(['GET', 'POST', 'DELETE'])
-def taskPost(request,pk="0"):
+def taskPost(request,id="0"):
     if request.method == 'POST':
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-        d={}
-        d['ip']=ip
+        d=dict()
         d.update(request.POST)
+        print(request.POST)
         for i,j in d.items():
             if type(j) == list:
                 d[i] = j[0]
@@ -392,11 +508,18 @@ def taskPost(request,pk="0"):
         if serializer.is_valid():
             serializer.save()
         return Response(serializer.data)
+
     elif request.method == 'GET':
-        tasks = Task.objects.all().order_by('-id')
-        serializer = TaskSerializer(tasks, many=True)
-        # print(serializer)
-        return Response(serializer.data)
+        serializer = TaskSerializerConfig(data=request.data)
+        p=serializer.initial_data
+        q=int(p.get('ticker_id'))
+        ticker_obj = TickerDetails.objects.filter(ticker_id=q).values()
+        if (ticker_obj.get().get('ticker_end_time'))<datetime.now() and (ticker_obj.get().get('ticker_type')=="Emergency Ticker"):
+            Content={"Completed":True}
+        else:
+            Content={"Completed:":False}
+        return Response(Content)
+
     elif request.method == 'DELETE':
         serializer = TaskSerializer(data=request.data)
         p=serializer.initial_data
@@ -432,3 +555,7 @@ def setupMail():
         email.send()
     except Exception as e:
         print(e)
+
+
+# @api_view(['GET'])
+# def tickerStatusReboot(request,id=0,ip=0):

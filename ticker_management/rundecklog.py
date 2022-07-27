@@ -8,6 +8,10 @@ Rundeck_Token=setupData.get().get('Rundeck_Token')
 Rundeck_Stop_Job=setupData.get().get('Rundeck_Stop_Job')
 Rundeck_Api_Version=setupData.get().get('Rundeck_Api_Version')
 
+#Loggers
+import logging
+logger=logging.getLogger('dashboardLogs')
+
 def initial_data(ticker_obj):
     try:
         rundeckid=ticker_obj.get().get('rundeckid')
@@ -32,9 +36,9 @@ def initial_data(ticker_obj):
                 errorLog = errorLogOutput['entries'][-1]['log']
                 return errorLog
         else:
-            print("Response status code is not 200")
+            logger.warning('Response status code is not 200')
     except Exception as e:
-        print(e)
+        logger.error(e)
 
 def rundeck_update(rundeckid):
     try:
@@ -60,9 +64,9 @@ def rundeck_update(rundeckid):
                 errorLog = errorLogOutput['entries'][-1]['log']
                 return errorLog
         else:
-            print("Response status code is not 200")
+            logger.warning('Response status code is not 200')
     except Exception as e:
-        print(e)
+        logger.error(e)
 
 
 
@@ -99,6 +103,6 @@ def abortTicker(ticker_obj):
             elif status == 'running':
                 requests.get(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/execution/{rundeckid}/abort/", headers={"X-Rundeck-Auth-Token": Rundeck_Token})
         else:
-            print("Response status code is not 200")
+            logger.warning('Response status code is not 200')
     except Exception as e:
-        print(e)
+        logger.error(e)

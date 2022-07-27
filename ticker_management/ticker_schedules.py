@@ -6,9 +6,7 @@ from ticker_management.tasks import callticker
 from .models import TickerDetails
 from pathlib import Path
 from django_celery_beat.models import PeriodicTask,CrontabSchedule
-
-BASE_DIR = Path(__file__).resolve().parent
-
+from ticker_dashboard.settings import BASE_DIR
 
 def replacer(s):
     return str(s).replace('{','').replace('}','').replace(' ','')
@@ -61,12 +59,12 @@ def roomConfigurations(request):
 
     idList = list()
 
-    file=open(f"{BASE_DIR}/resources/resource.json")
+    file=open(f"{BASE_DIR}/static/resources/resource.json")
 
     datafromdvs=json.load(file)
 
 
-    tree = ET.parse(f"{BASE_DIR}/resources/res.xml")
+    tree = ET.parse(f"{BASE_DIR}/static/resources/res.xml")
     root = tree.getroot()
 
     tagList=list()
@@ -128,7 +126,7 @@ def schedule_tasks(ticker_id,command):
 
     ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
 
-    print(ticker_id,ticker_obj.get())
+    # print(ticker_id,ticker_obj.get())
     
     start_dateobj=datetime.strftime(ticker_obj.get().get('ticker_start_time'), '%Y-%m-%d %H:%M:%S')
     end_dateobj=datetime.strftime(ticker_obj.get().get('ticker_end_time'), '%Y-%m-%d %H:%M:%S')

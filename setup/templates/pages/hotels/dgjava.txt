@@ -1,4 +1,0 @@
-{% for variable in variables%}
-{{variable.key}}={{variable.value}}
-{% endfor%}
-

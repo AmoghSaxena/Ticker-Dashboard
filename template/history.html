@@ -52,10 +52,71 @@
                             <td>{{tickerData.frequency}}</td>
                             <td>{{tickerData.ticker_priority}}</td>
                             <td>
-                                <a class="text-color mx-1" href="{% url 'createticker'%}"><i class="fa-solid fa-arrow-rotate-left"></i> Restore</a></br>
-                                <a class="text-danger mx-1" href={% url 'delete' tickerData.ticker_id %} id="deleteTickers"><i class="fas fa-trash"></i> Delete</a>
+                                <!-- <a class="text-color mx-1" href="{% url 'createticker'%}"><i class="fa-solid fa-arrow-rotate-left"></i> Restore</a></br> -->
+                                <a class="text-danger mx-1 deleteTicker" href="#" id="deleteTicker{{forloop.counter}}" ><i class="fas fa-trash"></i> Delete</a>
                             </td>
                         </tr>
+                        <style>
+        
+                            .modal {
+                              display: none; /* Hidden by default */
+                              position: fixed; /* Stay in place */
+                              z-index: 1; /* Sit on top */
+                              padding-top: 100px; /* Location of the box */
+                              overflow: auto; /* Enable scroll if needed */
+                              background-color: rgba(0, 0, 0, 0.712); /* Black w/ opacity */
+                            }
+                            
+                            /* Modal Content */
+                            .modal-content {
+                              position: relative;
+                              margin: auto;
+                              width: 30%;
+                            }
+                       
+                            </style>
+                            
+                            
+                            <!-- Trigger/Open The Modal -->
+                            <!-- <a id="deleteTicker">Open</a> -->
+                            
+                            <div id="deleteModal" class="modal">
+                              <div class="modal-content">
+                                <div class="modal-header fw-bold">
+                                    Delete Confirmation
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete? <strong>Ticker</strong>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" id = "closePopup" type="submit">Close</button>
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            
+                            <script>
+                            var delticker = document.getElementsByClassName("deleteTicker")
+                            console.log("del :",delticker)
+
+                            var modal = document.getElementById("deleteModal");
+                            var deleteTicker = document.getElementById("deleteTicker");
+                            var closePopup = document.getElementById("closePopup");
+                            
+                            deleteTicker.onclick = function() {
+                              modal.style.display = "block";
+                            }
+                            closePopup.onclick = function() {
+                              modal.style.display = "none";
+                            }
+                            
+                            window.onclick = function(event) {
+                              if (event.target == modal) {
+                                modal.style.display = "none";
+                              }
+                            }
+                            </script>
                         {% endfor %}
                         </tbody>
                     </table>
@@ -66,62 +127,5 @@
 
 
 
-    <style>
-        
-        .modal {
-          display: none; /* Hidden by default */
-          position: fixed; /* Stay in place */
-          z-index: 1; /* Sit on top */
-          padding-top: 100px; /* Location of the box */
-          overflow: auto; /* Enable scroll if needed */
-          background-color: rgba(0, 0, 0, 0.712); /* Black w/ opacity */
-        }
-        
-        /* Modal Content */
-        .modal-content {
-          position: relative;
-          margin: auto;
-          width: 30%;
-        }
-   
-        </style>
-        
-        
-        <!-- Trigger/Open The Modal -->
-        <a id="deleteTicker">Open</a>
-        
-        <div id="deleteModal" class="modal">
-          <div class="modal-content">
-            <div class="modal-header fw-bold">
-                Delete Confirmation
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete? <strong>Ticker</strong>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" id = "closePopup" type="submit">Close</button>
-                <button class="btn btn-danger" type="submit">Delete</button>
-            </div>
-          </div>
-        </div>
-        
-        
-        <script>
-        var modal = document.getElementById("deleteModal");
-        var deleteTicker = document.getElementById("deleteTicker");
-        var closePopup = document.getElementById("closePopup");
-        
-        deleteTicker.onclick = function() {
-          modal.style.display = "block";
-        }
-        closePopup.onclick = function() {
-          modal.style.display = "none";
-        }
-        
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
-        }
-        </script>
+
 {% endblock %}

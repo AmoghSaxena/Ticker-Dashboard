@@ -5,9 +5,14 @@ import json
 import subprocess
 from ticker_management.rundecklog import initial_data
 
-@shared_task(bind=True)
-def makeMeAlive(self):
-    print("Make System Alive")
+#Loggers
+import logging
+logger=logging.getLogger('dashboardLogs')
+
+
+# @shared_task(bind=True)
+# def makeMeAlive(self):
+#     print("Make System Alive")
 
 @shared_task(bind=True)
 def callticker(self,command,ticker_id):
@@ -31,19 +36,17 @@ def callticker(self,command,ticker_id):
             deleted=True
         
         if deleted:
-            ticker_obj.deleted_on = now.strftime("%Y-%m-%d %H:%M:%S")
-            ticker_obj.update(rundeckid=rundeckid,is_deleted=1,is_active=0) 
+            ticker_obj.update(rundeckid=rundeckid,is_deleted=1,is_active=0,deleted_on=now.strftime("%Y-%m-%d %H:%M:%S")) 
         else:
             if ticker_obj.get().get('ticker_end_time')<=now:
-                ticker_obj.deleted_on = now.strftime("%Y-%m-%d %H:%M:%S")
-                ticker_obj.update(rundeckid=rundeckid,is_deleted=1,is_active=0)
+                ticker_obj.update(rundeckid=rundeckid,is_deleted=1,is_active=0,deleted_on=now.strftime("%Y-%m-%d %H:%M:%S")) 
             else:
                 ticker_obj.update(rundeckid=rundeckid)
         
         ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
         initial_data(ticker_obj)
     except TickerDetails.DoesNotExist as e:
-        print('No such id found :',e)
+        logger.error(f"{ticker_id} doesn't exists")
 
 # @shared_task(bind=True)
 # def celery_beat_name(self):

@@ -2,7 +2,6 @@ from unittest.util import _MAX_LENGTH
 from rest_framework import serializers
 from .models import Task, TickerDetails,TickerHistory
 
-
 class TaskSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Task
@@ -19,3 +18,8 @@ class TaskSerializerConfigHistory(serializers.ModelSerializer):
 	class Meta:
 		model = TickerHistory
 		fields = ('ticker_json',)
+
+# class TickerCheckSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model=Task
+#         fields=['ticker_id','ip']

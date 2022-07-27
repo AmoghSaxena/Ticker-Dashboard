@@ -8,19 +8,20 @@ from ticker_management.ticker_schedules import schedulingticker
 from django.core.files.storage import FileSystemStorage
 import xml.etree.ElementTree
 
-def dateformatter(dateobj,timeorday):
-    dateobj=datetime.strptime(dateobj,"%Y-%m-%dT%H:%M")
-    print(dateobj)
+
+import logging
+logger=logging.getLogger('dashboardLogs')
+
+def dateformatter(dateObj,timeorday):
+    dateObj=datetime.strptime(dateObj,"%Y-%m-%dT%H:%M")
     if timeorday=='time':
-        print(dateobj.strftime('%Y-%m-%d %H:%M:%S'))
-        return dateobj.strftime('%Y-%m-%d %H:%M:%S')
+        # print(dateObj.strftime('%Y-%m-%d %H:%M:%S'))
+        return dateObj.strftime('%Y-%m-%d %H:%M:%S')
     else:
-        return dateobj.strftime('%A')
+        return dateObj.strftime('%A')
 
 def FileUploader(request,ticker_db_data):
-    
     dvs_data=SetUp.objects.filter(id=1).values()
-
     apache_server_url=str(dvs_data.get().get('Apache_server_url'))
 
     ticker_id=ticker_db_data.get('ticker_id',-1)
@@ -105,7 +106,7 @@ def FileUploader(request,ticker_db_data):
         ticker_json['emergency_ticker_logo_name']=apache_server_url+'/'+filename
     
     else:
-        print("No Image for upload")
+        logger.info('No Image for upload')
     
     ticker_json['ticker_id'] = ticker_id
     
@@ -135,8 +136,6 @@ def datagetter(request):
 
         if tickerSelection == 'scrolling':
 
-            print('Scrolling')
-
             tickertype='Scrolling Ticker'
             tickerTitle=request.POST.get('scrollingTickerTitle')
             tickerPriority=request.POST.get('scrollingTickerPriority')
@@ -148,7 +147,6 @@ def datagetter(request):
             if main_ticker_condition == 'enabled':
         
                 try:
-                    print('Scrolling')
                     '''Primary Ticker'''
                     main_ticker_position    = request.POST.get('primaryPositionBox')
                     main_ticker_message    = request.POST.get('primaryTickerMessage')
@@ -188,7 +186,7 @@ def datagetter(request):
                     CONFIG_DATA['main_ticker_motion'] = main_ticker_motion 
 
                 except Exception as primaryscroll:
-                    print('Exception raised during primaryscroll',primaryscroll)
+                    logger.warning('Exception raised during primaryscroll'+primaryscroll)
             
             optional_ticker_condition= request.POST.get('secondaryScrollingEnable')
 
@@ -227,7 +225,7 @@ def datagetter(request):
                     CONFIG_DATA['optional_ticker_motion'] = optional_ticker_motion       
 
                 except Exception as secondaryscroll:
-                    print('Exception raised during secondaryscroll',secondaryscroll)
+                    logger.warning('Exception raised during secondaryscroll'+secondaryscroll)
             
         elif tickerSelection == 'media':
             
@@ -336,7 +334,7 @@ def datagetter(request):
                                         
 
                 except Exception as staticscroll:
-                    print('Exception raised during staticscroll',staticscroll)
+                    logger.warning('Exception raised during staticscroll'+staticscroll)
             else:
                 try:
                     # moving_video= request.POST.get('animation_video')
@@ -356,7 +354,7 @@ def datagetter(request):
                         CONFIG_DATA['moving_ticker_center_size'] = "full"
 
                 except Exception as animationscroll:
-                    print('Exception raised during animationscroll',animationscroll)
+                    logger.warning('Exception raised during animationscroll'+animationscroll)
             
         elif tickerSelection == 'emergency':
 
@@ -366,7 +364,7 @@ def datagetter(request):
             try:
                 CONFIG_DATA['emergency_ticker_condition']= True
             except Exception as emergencyscroll:
-                print('Exception raised during emergencyscroll',emergencyscroll)
+                logger.warning('Exception raised during emergencyscroll'+emergencyscroll)
 
         else:
             print('No ticker selected')
@@ -379,33 +377,31 @@ def datagetter(request):
         try:
             data_saver(request,tickertype,CONFIG_DATA,tickerTitle,tickerPriority)
         except Exception as e:
-            print("Exception while insertion: ",e)
+            logger.error("Exception while insertion: "+e)
 
         try:
             t=TickerDetails.objects.filter(ticker_title=tickerTitle,ticker_priority=tickerPriority,ticker_type=tickertype,ticker_json=CONFIG_DATA,created_on__gte=str(datetime.now()-timedelta(minutes=1))).values()
         except Exception as e:
-            print("Exception when fetching for update: ",e)
+            logger.error("Exception when fetching for update: "+e)
             t=None
         
         if t!=None:
             
             ticker_id_for_schedule=t.get().get('ticker_id',-1)
-
             CONFIG_DATA=FileUploader(request,t.get())
-
             try:
                 t.update(ticker_json=CONFIG_DATA)
             except TickerDetails.DoesNotExist  as e:
-                print('Unable to update: ',e)
+                logger.error('Unable to update: '+e)
 
             try:
                 schedulingticker(request,ticker_id_for_schedule)
             except Exception as e:
-                print('Error While schedule: ',e)
+                logger.error('Error While schedule: '+e)
         
 
     except Exception as e:
-        print(e)
+        logger.error(e)
 
 
 def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
@@ -418,18 +414,23 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
 
     tickerobj.ticker_json=CONFIG_DATA1
     
-    if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scheduleEnabler') == 'enabled':
+    if request.POST.get('tickerSelecter')== 'emergency' or tickerPriority == 'Emergency':
+        tickerobj.ticker_start_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        tickerobj.frequency = str(1)
+        tickerobj.occuring_days = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        tickerobj.ticker_end_time=(datetime.now()+timedelta(days=90)).strftime("%Y-%m-%d %H:%M:%S")
+    
+    elif request.POST.get('scheduleEnabler') == 'enabled':
         tickerobj.ticker_start_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         tickerobj.frequency = str(1)
         tickerobj.occuring_days = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         tickerobj.ticker_end_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
     else:
         if request.POST.get('recurring')=='enabled':
             
             tickerobj.ticker_start_time=dateformatter(request.POST.get('startDate'),'time')
             tickerobj.ticker_end_time=dateformatter(request.POST.get('endDate'),'time')
-
-            print(tickerobj.ticker_start_time,tickerobj.ticker_end_time)
 
             tickerobj.frequency = request.POST.get('delay')
 
@@ -514,177 +515,3 @@ def filterData(file):
     wings.append('All')
 
     return {'wings':wings,'roomtype':a,'floor':b,'keys':c}
-
-
-    #Rundeck data
-
-
-
-#     floordict=Floors.objects.values_list('name')
-#     wingdict=Wings.objects.values_list('name')
-#     roomdict=Keys.objects.values_list('number')
-
-#     floor=list()
-#     wings=list()
-#     rooms=list()
-#     frequency = [
-#        '15 minutes', 
-#        '30 minutes', 
-#        '45 minutes', 
-#        '1 hour', 
-#        '75 minutes', 
-#        '90 minutes', 
-#        '105 minutes', 
-#        '2 hour', 
-#        '3 hour',
-#        '4 hour',  
-#        '5 hour',  
-#        '6 hour',  
-#        '7 hour',  
-#        '8 hour',
-#        '12 hour',
-#        '24 hour'  
-#     ]
-
-#     days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
-
-#     for i in floordict:
-#         floor.append(i[0])  
-
-#     for i in wingdict:
-#         wings.append(i[0])
-
-#     for i in roomdict:
-#         rooms.append(i[0])
-
-#     scheduledata={
-#         "floor":floor,
-#         "wings":wings,
-#         "rooms":rooms,
-#         "frequency":frequency,
-#         "days":days
-#     }
-
-#     # print(scheduledata)
-#     return scheduledata
-
-
-
-    # try:
-    #     tickertype=str()
-
-        
-        
-    #     '''Emergency Ticker'''
-
-
-    #     #Static Ticker
-        
-    #     else:
-    #         print('Static condition false')
-
-    #     #Primary Ticker
-           
-    #     else:
-    #         print('Primary Ticker False')
-        
-    #     #Secondary Ticker Conditions
-        
-    #     else:
-    #         print('Secondary ticker False')
-        
-    #     #Animation Ticker
-
-    #     else:
-    #         print('Animation Ticker False')
-        
-    #     #Emergency Ticker
-
-    #     if emergency_ticker_condition == '':
-    #             if len(tickertype)==0:
-    #                 tickertype='Emergency '
-    #             else:
-    #                 tickertype+=', Emergency'
-    #             CONFIG_DATA['emergency_ticker_condition']=True
-    #     else:
-    #             CONFIG_DATA['emergency_ticker_condition']=False
-
- 
-    #     xyz=json.dumps(CONFIG_DATA, indent=3)
-
-    #     data_saver(tickertype,xyz)
-
-
-    #     return t.get()
-    # except Exception as e:
-    #     print(e)
-
-
-
-
-
-    # if request.POST.get('static_ticker_logo')!=None:
-
-    #     a=request.FILES['static_logo']
-
-    #     fss=FileSystemStorage()
-    #     fss.save(a.name,a)
-
-    #     ext=a.name.split('.')[-1]
-    #     filename="%s_%s_%s.%s"%('image',ticker_id,1,ext)
-
-    #     old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
-    #     new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
-
-    #     os.rename(old_name,new_name)
-
-    #     ticker_json['static_ticker_logo_name']=filename
-    
-    # if request.POST.get('primary_ticker_logo')!=None:
-
-    #     a=request.FILES['primary_logo']
-
-    #     fss=FileSystemStorage()
-    #     fss.save(a.name,a)
-
-    #     ext=a.name.split('.')[-1]
-    #     filename="%s_%s_%s.%s"%('image',ticker_id,2,ext)
-
-    #     old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
-    #     new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
-
-    #     os.rename(old_name,new_name)
-
-    #     ticker_json['main_ticker_logo_name']=filename
-    
-    # if request.POST.get('animation_ticker_enabler')!=None:
-
-    #     a=request.FILES['animation_video']
-
-    #     fss=FileSystemStorage()
-    #     fss.save(a.name,a)
-
-    #     ext=a.name.split('.')[-1]
-    #     filename="%s_%s_%s.%s"%('video',ticker_id,4,ext)
-
-    #     old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
-    #     new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
-
-    #     os.rename(old_name,new_name)
-
-    #     ticker_json['moving_ticker_logo_name']=filename
-    
-    # t=TickerDetails.objects.filter(ticker_id=int(ticker_id))
-
-    # print(t)
-
-    # t.update(ticker_json=xyz)
-
-    # t.ticker_json=xyz
-
-    # print(type(t))
-
-    # t.save()
-
-    
-    # t.update(ticker_json=xyz)

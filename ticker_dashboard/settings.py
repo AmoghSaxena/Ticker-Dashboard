@@ -200,4 +200,46 @@ REST_FRAMEWORK = {
     ]
 }
 
-DIRECTORY_DIRECTORY = '/home/guest/Desktop/Ticker-Dashboard/media'
+# DIRECTORY_DIRECTORY = '/home/guest/Desktop/Ticker-Dashboard/media'
+
+LOGGING = {
+    'version': 1,
+    'loggers':{
+        'dashboardLogs':{
+            'handlers':['infoLogs','warningLogs','errorLogs','criticalLogs'],
+            'level':DEBUG
+        }
+    },
+    'handlers':{
+        'infoLogs':{
+            'level':'INFO',
+            'class':'logging.FileHandler',
+            'filename':BASE_DIR+'/logs/info.log',
+            'formatter':'simple',
+        },
+        'warningLogs':{
+            'level':'WARNING',
+            'class':'logging.FileHandler',
+            'filename':BASE_DIR+'/logs/warning.log',
+            'formatter':'simple',
+        },
+        'errorLogs':{
+            'level':'ERROR',
+            'class':'logging.FileHandler',
+            'filename':BASE_DIR+'/logs/error.log',
+            'formatter':'simple',
+        },
+        'criticalLogs':{
+            'level':'CRITICAL',
+            'class':'logging.FileHandler',
+            'filename':BASE_DIR+'/logs/critical.log',
+            'formatter':'simple',
+        }
+    },
+    'formatters':{
+        'simple':{
+            'format':'{levelname} {asctime} :  {module} {process:d} {message} from function {funcName} in line no. {lineno}',
+            'style':'{',
+        }
+    }
+}

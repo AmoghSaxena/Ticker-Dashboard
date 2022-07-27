@@ -643,12 +643,6 @@
          "end": "2022-07-16T14:55:25"
       },
       {
-         "groupId": 174,
-         "title": "RexterDemo#1",
-         "start": "2022-07-16T14:56:58",
-         "end": "2022-07-16T14:56:58"
-      },
-      {
          "groupId": 199,
          "title": "SCOTUS will take sec",
          "start": "2022-07-16T19:19:00",
@@ -659,12 +653,6 @@
          "title": "EBH Fireworks",
          "start": "2022-07-18T11:31:52",
          "end": "2022-07-18T11:31:52"
-      },
-      {
-         "groupId": 249,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-19T11:10:00",
-         "end": "2022-07-19T12:10:00"
       },
       {
          "groupId": 251,
@@ -841,36 +829,6 @@
          "end": "2022-07-21T16:00:00"
       },
       {
-         "groupId": 359,
-         "title": "RexterUncleKaTicker",
-         "start": "2022-07-22T11:44:36",
-         "end": "2022-07-22T11:44:36"
-      },
-      {
-         "groupId": 360,
-         "title": "ChefNiko#1",
-         "start": "2022-07-22T12:30:07",
-         "end": "2022-07-22T12:30:07"
-      },
-      {
-         "groupId": 361,
-         "title": "fsa",
-         "start": "2022-07-22T12:32:54",
-         "end": "2022-07-22T12:32:54"
-      },
-      {
-         "groupId": 362,
-         "title": "Scrolling Ticker",
-         "start": "2022-07-22T13:01:14",
-         "end": "2022-07-22T13:01:14"
-      },
-      {
-         "groupId": 363,
-         "title": "Okada Fountain",
-         "start": "2022-07-22T15:12:59",
-         "end": "2022-07-22T15:12:59"
-      },
-      {
          "groupId": 364,
          "title": "gfsdga",
          "start": "2022-07-22T15:24:12",
@@ -943,40 +901,262 @@
          "end": "2022-07-22T19:05:28"
       },
       {
-         "groupId": 376,
-         "title": "FSAD",
-         "start": "2022-07-22T19:35:23",
-         "end": "2022-07-22T19:35:23"
-      },
-      {
-         "groupId": 377,
-         "title": "asedrftyg",
-         "start": "2022-07-22T19:36:11",
-         "end": "2022-07-22T19:36:11"
-      },
-      {
          "groupId": 378,
          "title": "hello ticker",
          "start": "2022-07-22T19:37:39",
          "end": "2022-07-22T19:37:39"
       },
       {
-         "groupId": 379,
-         "title": "video",
-         "start": "2022-07-22T19:42:37",
-         "end": "2022-07-22T19:42:37"
+         "groupId": 382,
+         "title": "HELLO THERE",
+         "start": "2022-07-25T11:08:00",
+         "end": "2022-07-25T12:10:00"
       },
       {
-         "groupId": 380,
-         "title": "fghj",
-         "start": "2022-07-22T20:00:11",
-         "end": "2022-07-22T20:00:11"
+         "groupId": 383,
+         "title": "tfgergsdg",
+         "start": "2022-07-25T11:42:51",
+         "end": "2022-07-25T11:42:51"
       },
       {
-         "groupId": 381,
-         "title": "jhtjrftjrye",
-         "start": "2022-07-22T20:11:24",
-         "end": "2022-07-22T20:11:24"
+         "groupId": 384,
+         "title": " TickerVideo#1",
+         "start": "2022-07-25T11:56:58",
+         "end": "2022-07-25T11:56:58"
+      },
+      {
+         "groupId": 385,
+         "title": "RexterDemo#121",
+         "start": "2022-07-25T12:15:54",
+         "end": "2022-07-25T12:15:54"
+      },
+      {
+         "groupId": 386,
+         "title": "RexterDemo#11",
+         "start": "2022-07-25T12:20:41",
+         "end": "2022-07-25T12:20:41"
+      },
+      {
+         "groupId": 387,
+         "title": "RexterDemo#112",
+         "start": "2022-07-25T12:24:31",
+         "end": "2022-07-25T12:24:31"
+      },
+      {
+         "groupId": 388,
+         "title": "RexterDemo#115",
+         "start": "2022-07-25T12:34:58",
+         "end": "2022-07-25T12:34:58"
+      },
+      {
+         "groupId": 389,
+         "title": "RexterDemo#116",
+         "start": "2022-07-25T12:46:14",
+         "end": "2022-07-25T12:46:14"
+      },
+      {
+         "groupId": 390,
+         "title": "EBH Steakhouse",
+         "start": "2022-07-25T12:50:58",
+         "end": "2022-07-25T12:50:58"
+      },
+      {
+         "groupId": 392,
+         "title": "EBH Celtics Ride",
+         "start": "2022-07-25T13:06:17",
+         "end": "2022-07-25T13:06:17"
+      },
+      {
+         "groupId": 396,
+         "title": "OkadaTour",
+         "start": "2022-07-25T14:05:20",
+         "end": "2022-07-25T14:05:20"
+      },
+      {
+         "groupId": 397,
+         "title": "ghvghfdsv",
+         "start": "2022-07-25T14:33:21",
+         "end": "2022-07-25T14:33:21"
+      },
+      {
+         "groupId": 400,
+         "title": "Casino",
+         "start": "2022-07-25T15:25:30",
+         "end": "2022-07-25T15:25:30"
+      },
+      {
+         "groupId": 401,
+         "title": "casino",
+         "start": "2022-07-25T15:30:30",
+         "end": "2022-07-25T15:30:30"
+      },
+      {
+         "groupId": 402,
+         "title": "Formula 1 race",
+         "start": "2022-07-25T15:41:19",
+         "end": "2022-07-25T15:41:19"
+      },
+      {
+         "groupId": 403,
+         "title": "gdsfgdsgds",
+         "start": "2022-07-25T15:48:05",
+         "end": "2022-07-25T15:48:05"
+      },
+      {
+         "groupId": 405,
+         "title": "ghgfdndfsn",
+         "start": "2022-07-25T17:42:40",
+         "end": "2022-07-25T17:42:40"
+      },
+      {
+         "groupId": 406,
+         "title": "sgsa",
+         "start": "2022-07-25T17:47:57",
+         "end": "2022-07-25T17:47:57"
+      },
+      {
+         "groupId": 407,
+         "title": "gfhrs",
+         "start": "2022-07-25T17:53:18",
+         "end": "2022-07-25T17:53:18"
+      },
+      {
+         "groupId": 408,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-25T18:53:25",
+         "end": "2022-07-25T18:53:25"
+      },
+      {
+         "groupId": 409,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-25T19:34:00",
+         "end": "2022-07-25T19:34:00"
+      },
+      {
+         "groupId": 410,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-26T13:13:13",
+         "end": "2022-10-24T13:13:13"
+      },
+      {
+         "groupId": 411,
+         "title": "SZdfgh",
+         "start": "2022-07-26T15:54:06",
+         "end": "2022-07-26T15:54:06"
+      },
+      {
+         "groupId": 412,
+         "title": "asdvcb",
+         "start": "2022-07-26T15:58:57",
+         "end": "2022-10-24T15:58:57"
+      },
+      {
+         "groupId": 413,
+         "title": "htmkdgygvudmmvghjysd",
+         "start": "2022-07-26T16:03:55",
+         "end": "2022-07-26T16:03:55"
+      },
+      {
+         "groupId": 414,
+         "title": "htmkdgygvudmmvghjysd",
+         "start": "2022-07-26T16:06:02",
+         "end": "2022-07-26T16:06:02"
+      },
+      {
+         "groupId": 415,
+         "title": "fgfgff",
+         "start": "2022-07-26T16:06:23",
+         "end": "2022-07-26T16:06:23"
+      },
+      {
+         "groupId": 416,
+         "title": "adsfg",
+         "start": "2022-07-26T16:08:16",
+         "end": "2022-07-26T16:08:16"
+      },
+      {
+         "groupId": 417,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-26T16:10:01",
+         "end": "2022-07-26T16:10:01"
+      },
+      {
+         "groupId": 418,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-26T16:12:47",
+         "end": "2022-07-26T16:12:47"
+      },
+      {
+         "groupId": 419,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-26T16:14:16",
+         "end": "2022-07-26T16:14:16"
+      },
+      {
+         "groupId": 420,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-26T16:17:15",
+         "end": "2022-07-26T16:17:15"
+      },
+      {
+         "groupId": 421,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-26T16:19:48",
+         "end": "2022-07-26T16:19:48"
+      },
+      {
+         "groupId": 422,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-26T16:20:36",
+         "end": "2022-07-26T16:20:36"
+      },
+      {
+         "groupId": 423,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-26T16:25:11",
+         "end": "2022-07-26T16:25:11"
+      },
+      {
+         "groupId": 424,
+         "title": "fghnmdohjg",
+         "start": "2022-07-26T16:30:12",
+         "end": "2022-07-26T16:30:12"
+      },
+      {
+         "groupId": 425,
+         "title": "Scrolling Ticker",
+         "start": "2022-07-26T18:58:04",
+         "end": "2022-07-26T18:58:04"
+      },
+      {
+         "groupId": 426,
+         "title": "Multi-Media Ticker",
+         "start": "2022-07-26T19:05:00",
+         "end": "2022-07-26T19:05:00"
+      },
+      {
+         "groupId": 427,
+         "title": "Multi-Media Ticker",
+         "start": "2022-07-26T19:06:21",
+         "end": "2022-07-26T19:06:21"
+      },
+      {
+         "groupId": 428,
+         "title": "TheNewlaunching APP",
+         "start": "2022-07-26T19:12:50",
+         "end": "2022-07-26T19:12:50"
+      },
+      {
+         "groupId": 429,
+         "title": "new registration",
+         "start": "2022-07-26T19:21:16",
+         "end": "2022-07-26T19:21:16"
+      },
+      {
+         "groupId": 430,
+         "title": "Emgency",
+         "start": "2022-07-26T19:26:49",
+         "end": "2022-10-24T19:26:49"
       }
    ]
 }

@@ -17,9 +17,15 @@ app.config_from_object(settings,namespace='CELERY')
 #Celery Beat
 
 app.conf.beat_schedule = {
-    'default': {
-        'task':'Task_Performer.tasks.makeMeAlive',
-        'schedule': crontab(hour=22,minute=22)
+    'filereader': {
+        #for removing logs which are more than 90 days
+        'task':'ticker_management.maintainLogs.filereader',
+        'schedule': crontab(hour=00,minute=00)
+    },
+    'syncDVSData': {
+        #to sync dvs data
+        'task':'ticker_management.views.syncDVSData',
+        'schedule': crontab(hour=00,minute=00)
     },
 }
 

@@ -1,42 +1,63 @@
-function foselector()
+function foselector(id)
   {
-    select = document.getElementById("tickerSelecter");
-    option = select.options[select.selectedIndex];
-  
-    if (option.text == "Scrolling Ticker")
+    if(id=="tickerSelecter")
     {
-      document.getElementById("scrolling").hidden = false;
-      document.getElementById("media").hidden = true;
-      document.getElementById("emergency").hidden = true;
-      document.getElementById("scheduleEnabler").checked = false;
-      document.getElementById("scheduleEnabler").disabled = false;
-      document.getElementById("scrollingTickerPriority").value = "Medium";
-      document.getElementById("scheduleLaterDiv").hidden = false;
-      foenabler("scheduleEnabler");
+      select = document.getElementById("tickerSelecter");
+      option = select.options[select.selectedIndex];
+    
+      if (option.text == "Scrolling Ticker")
+      {
+        document.getElementById("scrolling").hidden = false;
+        document.getElementById("media").hidden = true;
+        document.getElementById("emergency").hidden = true;
+        document.getElementById("scheduleEnabler").checked = false;
+        document.getElementById("scheduleEnabler").disabled = false;
+        document.getElementById("scrollingTickerPriority").value = "Medium";
+        document.getElementById("scheduleLaterDiv").hidden = false;
+        foenabler("scheduleEnabler");
+      }
+      else if (option.text == "Media Ticker")
+      {
+        document.getElementById("scrolling").hidden = true;
+        document.getElementById("media").hidden = false;
+        document.getElementById("emergency").hidden = true;
+        document.getElementById("scheduleEnabler").checked = false;
+        document.getElementById("scheduleEnabler").disabled = false;
+        document.getElementById("mediaTickerPriority").value = "Medium";
+        document.getElementById("scheduleLaterDiv").hidden = false;
+        foenabler("scheduleEnabler");
+      }
+      else if (option.text == "Emergency Ticker")
+      {
+        document.getElementById("scrolling").hidden = true;
+        document.getElementById("media").hidden = true;
+        document.getElementById("emergency").hidden = false;
+        document.getElementById("scheduleEnabler").disabled = true;
+        document.getElementById("scheduleEnabler").checked = true;
+        document.getElementById("scheduleLaterDiv").hidden = true;
+        foenabler("scheduleEnabler");
+      }
+      else
+      {
+      }
     }
-    else if (option.text == "Media Ticker")
+    if (id=="scrollingTickerPriority")
     {
-      document.getElementById("scrolling").hidden = true;
-      document.getElementById("media").hidden = false;
-      document.getElementById("emergency").hidden = true;
-      document.getElementById("scheduleEnabler").checked = false;
-      document.getElementById("scheduleEnabler").disabled = false;
-      document.getElementById("mediaTickerPriority").value = "Medium";
-      document.getElementById("scheduleLaterDiv").hidden = false;
+      select = document.getElementById("scrollingTickerPriority");
+      option = select.options[select.selectedIndex];
+      if (option.text == "Emergency")
+      {
+        document.getElementById("scheduleEnabler").disabled = true;
+        document.getElementById("scheduleEnabler").checked = true;
+        document.getElementById("scheduleLaterDiv").hidden = true;
+      }
+      else
+      {
+        document.getElementById("scheduleEnabler").disabled = false;
+        document.getElementById("scheduleEnabler").checked = false;
+        document.getElementById("scheduleLaterDiv").hidden = false;
+      }
       foenabler("scheduleEnabler");
-    }
-    else if (option.text == "Emergency Ticker")
-    {
-      document.getElementById("scrolling").hidden = true;
-      document.getElementById("media").hidden = true;
-      document.getElementById("emergency").hidden = false;
-      document.getElementById("scheduleEnabler").disabled = true;
-      document.getElementById("scheduleEnabler").checked = true;
-      document.getElementById("scheduleLaterDiv").hidden = true;
-      foenabler("scheduleEnabler");
-    }
-    else
-    {
     }
   }
   
@@ -215,6 +236,7 @@ function foselector()
     document.getElementById("StaticScrolling").hidden = true;
     // document.getElementById("staticTickerLogo").hidden = true;
     getdata();
+    foselector();
   }
 
   function fologoenabler(id)
