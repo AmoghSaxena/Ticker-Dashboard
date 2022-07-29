@@ -19,7 +19,7 @@ from .forms import LoginForm, ChangePassword
 from rest_framework.decorators import api_view
 from django.http import QueryDict
 from .serializers import TaskSerializer, TaskSerializerConfig,TaskSerializerConfigHistory
-from rest_framework.response import Responsehttp://172.17.44.41:30080/createticker/
+from rest_framework.response import Response
 from rest_framework import status
 from .models import Task
 from ticker_management.rundecklog import rundeck_update, abortTicker
