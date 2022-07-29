@@ -111,7 +111,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Ticker',
         'USER': 'Ticker',
-        'PASSWORD': '1',
+        'PASSWORD': '92b9a3b730',
         'HOST': 'mariadb',
         'PORT': '3306',
         'OPTIONS': {
