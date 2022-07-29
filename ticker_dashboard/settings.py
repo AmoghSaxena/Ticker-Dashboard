@@ -111,7 +111,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Ticker',
         'USER': 'Ticker',
-        'PASSWORD': '92b9a3b730',
+        'PASSWORD': '1',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
@@ -161,10 +161,15 @@ LOGOUT_REDIRECT_URL = "/"
 SESSION_EXPIRE_SECONDS = 12
 
 # Static files (CSS, JavaScript, Images)
-STATICFILES_DIRS = [
+
+if DEBUG:
+    STATICFILES_DIRS = [
     BASE_DIR,"static"
-]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 # Media 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -173,7 +178,7 @@ MEDIA_URL = '/media/'
 
 #CELERY SETTINGS
 
-CELERY_BROKER_URL = "redis://127.0.0.1:6379"
+CELERY_BROKER_URL = "redis://redis:6379"
 CELERY_ACCEPT_CONTEXT = ['application/json']
 CELERY_RESULT_SERIALIZER='json'
 CELERY_TASK_SERIALIZER='json'
