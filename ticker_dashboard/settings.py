@@ -163,11 +163,15 @@ SESSION_EXPIRE_SECONDS = 12
 # Static files (CSS, JavaScript, Images)
 
 if DEBUG:
+    # STATICFILES_DIRS = [
+    # BASE_DIR,"static"
+    # ]
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+else:
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     STATICFILES_DIRS = [
     BASE_DIR,"static"
     ]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Media 
