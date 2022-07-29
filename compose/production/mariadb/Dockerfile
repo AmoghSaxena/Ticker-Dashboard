@@ -4,7 +4,7 @@ FROM mariadb:10.7
 # COPY ./compose/production/postgres/maintenance/* /usr/local/bin/maintenance/
 # RUN chmod -R 777 /usr/local/bin/maintenance
 # RUN mv /usr/local/bin/maintenance/* /usr/local/bin
-
+RUN service mariadb start
 RUN mysql -e "CREATE DATABASE Ticker;"
 RUN mysql -e "CREATE USER Ticker@% identified by 92b9a3b730;"
 RUN mysql -e "CREATE USER rohit@'192.168.%' identified by admin1234;"
