@@ -47,7 +47,6 @@
               do { curDate = new Date(); }
               while(curDate-date < millis);
           }
-
           function createEvent() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
@@ -75,7 +74,6 @@
                 mapObject.end = opt.innerHTML;
                 event.push(mapObject);
             }
-            console.log(event)
           }
         </script>
     </div>

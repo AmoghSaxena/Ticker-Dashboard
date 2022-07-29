@@ -59,12 +59,12 @@ def roomConfigurations(request):
 
     idList = list()
 
-    file=open(f"{BASE_DIR}/static/resources/resource.json")
+    file=open(f"{str(BASE_DIR)}/static/resources/resource.json")
 
     datafromdvs=json.load(file)
 
 
-    tree = ET.parse(f"{BASE_DIR}/static/resources/res.xml")
+    tree = ET.parse(f"{str(BASE_DIR)}/static/resources/res.xml")
     root = tree.getroot()
 
     tagList=list()
@@ -208,7 +208,7 @@ def schedulingticker(request,ticker_id):
     part_b=str()
 
     configuration=roomConfigurations(request)
-    
+        
     part_a="curl --location --request POST 'https://"+str(FQDN)+"/r/api/"+str(Rundeck_Api_Version)+"/job/0d0c3cfe-adcd-4f86-8c03-adaa1cd2c0e0/run' --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-Rundeck-Auth-Token: "+str(Rundeck_Token)+"""' --header 'Cookie: JSESSIONID=56pr1s6s16yt1fsckqzcyjwfc' --data-raw '{ "argString": "-whichnode \\"""+'"'+str(configuration)+'''\\" -FQDN \\'''
     part_b='"'+str(Ticker_FQDN)+'\\" -jsonFile \\"'+str(ticker_id)+"""\\" -BasicAuth \\"YWRtaW46YWRtaW4xMjM0\\""}'"""
     

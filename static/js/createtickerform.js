@@ -32,8 +32,8 @@ function foselector(id)
         document.getElementById("scrolling").hidden = true;
         document.getElementById("media").hidden = true;
         document.getElementById("emergency").hidden = false;
-        document.getElementById("scheduleEnabler").disabled = true;
         document.getElementById("scheduleEnabler").checked = true;
+        document.getElementById("scheduleEnabler").disabled = true;
         document.getElementById("scheduleLaterDiv").hidden = true;
         foenabler("scheduleEnabler");
       }
@@ -47,14 +47,14 @@ function foselector(id)
       option = select.options[select.selectedIndex];
       if (option.text == "Emergency")
       {
-        document.getElementById("scheduleEnabler").disabled = true;
         document.getElementById("scheduleEnabler").checked = true;
+        document.getElementById("scheduleEnabler").disabled = true;
         document.getElementById("scheduleLaterDiv").hidden = true;
       }
       else
       {
-        document.getElementById("scheduleEnabler").disabled = false;
         document.getElementById("scheduleEnabler").checked = false;
+        document.getElementById("scheduleEnabler").disabled = false;
         document.getElementById("scheduleLaterDiv").hidden = false;
       }
       foenabler("scheduleEnabler");

@@ -5,4 +5,4 @@ set -o nounset
 
 
 rm -f './celerybeat.pid'
-celery -A config.celery_app beat -l INFO
+celery -A ticker_dashboard.celery beat -l INFO -f /app/logs/celery_beat_info.log

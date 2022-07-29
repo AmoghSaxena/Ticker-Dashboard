@@ -9,23 +9,12 @@ from ticker_management.rundecklog import initial_data
 import logging
 logger=logging.getLogger('dashboardLogs')
 
-
-# @shared_task(bind=True)
-# def makeMeAlive(self):
-#     print("Make System Alive")
-
 @shared_task(bind=True)
 def callticker(self,command,ticker_id):
-    try:    
+    try:
         ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
         process_output=subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        # rundeck_id=0
         (output, err) = process_output.communicate()
-
-        # p_status = output.wait()
-        # print("Command output : ", output.decode())
-        # print("Command exit status/return code : ", p_status)
-
 
         rundeck_obj=json.loads(output.decode())
         rundeckid=int(rundeck_obj.get('id'))
@@ -47,8 +36,3 @@ def callticker(self,command,ticker_id):
         initial_data(ticker_obj)
     except TickerDetails.DoesNotExist as e:
         logger.error(f"{ticker_id} doesn't exists")
-
-# @shared_task(bind=True)
-# def celery_beat_name(self):
-#     command = ['sshpass -p 1 ssh -p7010 -X -o StrictHostKeyChecking=no guest@172.22.12.62 ticker-birthday']
-#     subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

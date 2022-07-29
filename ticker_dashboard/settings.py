@@ -14,7 +14,7 @@ import pymysql
 
 pymysql.install_as_MySQLdb()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Build paths inside the project like this: BASE_DIR / 'subdir'. 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -102,6 +102,7 @@ DEFAULT_FROM_EMAIL = 'ticker@axolites.com'
 SERVER_EMAIL = 'ticker@axolites.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -110,7 +111,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Ticker',
         'USER': 'Ticker',
-        'PASSWORD': '1',
+        'PASSWORD': '92b9a3b730',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
@@ -137,7 +138,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

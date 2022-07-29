@@ -4,4 +4,4 @@ set -o errexit
 set -o nounset
 
 
-celery -A config.celery_app worker -l INFO
+celery -A ticker_dashboard.celery worker -l INFO -f logs/celery_worker_info.log

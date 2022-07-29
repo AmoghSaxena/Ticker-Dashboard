@@ -1,82 +1,84 @@
 version: '3'
 
-volumes:
-  production_postgres_data: {}
-  production_postgres_data_backups: {}
-  production_media: {}
-  production_tmp: {}
-  production_staticfiles: {}
-
-
+# volumes:
+#   production_postgres_data: {}
+#   production_postgres_data_backups: {}
+#   production_media: {}
+#   production_tmp: {}
+#   production_staticfiles: {}
 services:
   django: &django
     build:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
-    image: setup_production_django
+    image: ticker_production_django
     links:
-      - postgres
+#      - postgres
+      - mariadb
       - redis
     depends_on:
-      - postgres
+      - mariadb
+#      - postgres
       - redis
     network_mode: bridge
     volumes:
-      - production_staticfiles:/app/staticfiles
-      - production_media:/app/setup/dv5
-      - production_tmp:/tmp
-    env_file:
-      - ./.envs/.production/.django
-      - ./.envs/.production/.postgres
+      - ./static:/app/static
+      - ./template:/app/template
+      - ./media:/app/media
+      - ./ticker_django:/tmp
+    # env_file:
+    #   - ./.envs/.production/.django
+    #   - ./.envs/.production/.postgres
     command: /start
 
-  postgres:
+  mariadb:
     build:
       context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    image: setup_production_postgres
+      dockerfile: ./compose/production/mariadb/Dockerfile
+    image: ticker_production_mariadb
     network_mode: bridge
     volumes:
-      - ./db_data:/var/lib/postgresql/data
-      - ./db_data_backup:/backups
-    env_file:
-      - ./.envs/.production/.postgres
+      - ./ticker_db:/var/lib/mysql
+#      - ./db_data:/var/lib/postgresql/data
+#      - ./db_data_backup:/backups
+#    env_file:
+#      - ./.envs/.production/.postgres
     ports:
-      - "5432:5432"
-    command: postgres -c 'max_connections=1000'
+      - "33306:3306"
+    # command: postgres -c 'max_connections=1000'
 
   redis:
-    image: redis:6.0.9-alpine
+    image: redis:7.0-alpine
     network_mode: bridge
 
 
-  nginx:
-    build:
-      context: .
-      dockerfile: ./compose/production/nginx/Dockerfile
-    network_mode: bridge
-    links:
-      - django
-    depends_on:
-      - django
-    volumes:
-      - production_staticfiles:/staticfiles
-      - production_media:/dv5
-    ports:
-      - "15000:443"
+#  nginx:
+#    build:
+#      context: .
+#      dockerfile: ./compose/production/nginx/Dockerfile
+#    network_mode: bridge
+#    links:
+#      - django
+#    depends_on:
+#      - django
+#    volumes:
+#      - production_staticfiles:/staticfiles
+#      - production_media:/dv5
+#    ports:
+#      - "15000:443"
 
 
   celeryworker:
     <<: *django
-    image: local_celeryworker
+    image: ticker_celeryworker
     container_name: celeryworker
     network_mode: bridge
     depends_on:
       - redis
-      - postgres
+      - mariadb
     volumes:
-      - production_tmp:/tmp
-      - production_media:/app/setup/dv5
+      - ./ticker_worker:/tmp
+#      - production_media:/app/setup/dv5
     ports: []
     command: /start-celeryworker
 
@@ -87,19 +89,19 @@ services:
     network_mode: bridge
     depends_on:
       - redis
-      - postgres
+      - mariadb
     ports: []
     command: /start-celerybeat
     network_mode: bridge
     volumes:
-      - production_tmp:/tmp
+      - ./ticker_beat:/tmp
 
 
-  flower:
-    <<: *django
-    image: local_flower
-    container_name: flower
-    network_mode: bridge
-    ports:
-      - "5555:5555"
-    command: /start-flower
+ # flower:
+ #   <<: *django
+ #   image: local_flower
+ #   container_name: flower
+ #   network_mode: bridge
+ #   ports:
+ #     - "5555:5555"
+ #   command: /start-flower

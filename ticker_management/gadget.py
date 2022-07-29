@@ -1,7 +1,5 @@
 import json
 from datetime import datetime,timedelta
-from multiprocessing import parent_process
-import time
 import os
 from .models import TickerDetails,SetUp
 from ticker_management.ticker_schedules import schedulingticker
@@ -139,9 +137,12 @@ def datagetter(request):
             tickertype='Scrolling Ticker'
             tickerTitle=request.POST.get('scrollingTickerTitle')
             tickerPriority=request.POST.get('scrollingTickerPriority')
-            CONFIG_DATA['time_interval']= int(request.POST.get('scrollingTickerTimeInterval')) * 60
-            
 
+            if request.POST.get('scrollingTickerPriority')=="Emergency":
+                CONFIG_DATA['time_interval']= int(864000)
+            else:
+                CONFIG_DATA['time_interval']= int(request.POST.get('scrollingTickerTimeInterval')) * 60
+            
             main_ticker_condition = request.POST.get('primaryScrollingTicker')
 
             if main_ticker_condition == 'enabled':
@@ -360,9 +361,10 @@ def datagetter(request):
 
             tickertype='Emergency Ticker'
             tickerTitle=request.POST.get('emergencyTickerTitle')
-            tickerPriority='High'
+            tickerPriority='Emergency'
             try:
                 CONFIG_DATA['emergency_ticker_condition']= True
+                CONFIG_DATA['time_interval']= 864000
             except Exception as emergencyscroll:
                 logger.warning('Exception raised during emergencyscroll'+emergencyscroll)
 
@@ -371,8 +373,6 @@ def datagetter(request):
         
         CONFIG_DATA['ticker_type']=tickertype
         CONFIG_DATA=json.dumps(CONFIG_DATA, indent=3)
-
-        # print(CONFIG_DATA)
 
         try:
             data_saver(request,tickertype,CONFIG_DATA,tickerTitle,tickerPriority)
@@ -393,13 +393,12 @@ def datagetter(request):
                 t.update(ticker_json=CONFIG_DATA)
             except TickerDetails.DoesNotExist  as e:
                 logger.error('Unable to update: '+e)
-
+            
             try:
                 schedulingticker(request,ticker_id_for_schedule)
             except Exception as e:
                 logger.error('Error While schedule: '+e)
         
-
     except Exception as e:
         logger.error(e)
 
@@ -414,7 +413,7 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
 
     tickerobj.ticker_json=CONFIG_DATA1
     
-    if request.POST.get('tickerSelecter')== 'emergency' or tickerPriority == 'Emergency':
+    if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scrollingTickerPriority') == 'Emergency':
         tickerobj.ticker_start_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         tickerobj.frequency = str(1)
         tickerobj.occuring_days = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -483,7 +482,6 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
     tickerobj.is_deleted=0
 
     tickerobj.save()
-
 
 def filterData(file):
 
