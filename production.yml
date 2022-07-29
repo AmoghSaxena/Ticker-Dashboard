@@ -43,6 +43,9 @@ services:
       - ./ticker_db:/var/lib/mysql
 #      - ./db_data:/var/lib/postgresql/data
 #      - ./db_data_backup:/backups
+    environment:
+      MYSQL_DATABASE: 'Ticker'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
 #    env_file:
 #      - ./.envs/.production/.postgres
     ports:
