@@ -34,23 +34,34 @@ services:
     command: /start
 
   mariadb:
-    build:
-      context: .
-      dockerfile: ./compose/production/mariadb/Dockerfile
-    image: ticker_production_mariadb
+    # build:
+      # context: .
+      # dockerfile: ./compose/production/mariadb/Dockerfile
+    image: mariadb:10.3
+    container_name: ticker_production_mariadb
     network_mode: bridge
     volumes:
       - ./ticker_db:/var/lib/mysql
 #      - ./db_data:/var/lib/postgresql/data
 #      - ./db_data_backup:/backups
     environment:
+    environment:
       MYSQL_DATABASE: 'Ticker'
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'Ticker'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: '92b9a3b730'
+      # Password for root access
+      # MYSQL_ROOT_PASSWORD: ''
 #    env_file:
 #      - ./.envs/.production/.postgres
     ports:
       - "33306:3306"
     # command: postgres -c 'max_connections=1000'
+    command: mysql -e "CREATE DATABASE IF NOT EXISTS Ticker;"
+    command: mysql -e "CREATE USER IF NOT EXISTS 'Ticker'@'%' identified by '92b9a3b730';"
+    command: mysql -e "CREATE USER IF NOT EXISTS 'rohit'@'192.168.%' identified by 'admin1234';" 
+    command: mysql -e "GRANT ALL PRIVILEGES ON *.* TO rohit@'192.168.%';"
 
   redis:
     image: redis:7.0-alpine
