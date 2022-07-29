@@ -112,7 +112,6 @@ DATABASES = {
         'NAME': 'Ticker',
         'USER': 'Ticker',
         'PASSWORD': '92b9a3b730',
-        'HOST': 'mariadb',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
