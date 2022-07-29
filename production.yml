@@ -21,6 +21,8 @@ services:
 #      - postgres
       - redis
     network_mode: bridge
+    ports:
+      - "38000:8000"
     volumes:
       - ./static:/app/static
       - ./template:/app/template
