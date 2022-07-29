@@ -34,11 +34,11 @@ services:
     command: /start
 
   mariadb:
-    # build:
-      # context: .
-      # dockerfile: ./compose/production/mariadb/Dockerfile
-    image: mariadb:10.3
-    container_name: ticker_production_mariadb
+    build:
+      context: .
+      dockerfile: ./compose/production/mariadb/Dockerfile
+    image: ticker_production_mariadb
+    # container_name: ticker_production_mariadb
     network_mode: bridge
     volumes:
       - ./ticker_db:/var/lib/mysql
@@ -58,10 +58,10 @@ services:
     ports:
       - "33306:3306"
     # command: postgres -c 'max_connections=1000'
-    command: mysql -e "CREATE DATABASE IF NOT EXISTS Ticker;"
-    command: mysql -e "CREATE USER IF NOT EXISTS 'Ticker'@'%' identified by '92b9a3b730';"
-    command: mysql -e "CREATE USER IF NOT EXISTS 'rohit'@'192.168.%' identified by 'admin1234';" 
-    command: mysql -e "GRANT ALL PRIVILEGES ON *.* TO rohit@'192.168.%';"
+    # command: mysql -e "CREATE DATABASE IF NOT EXISTS Ticker;"
+    # command: mysql -e "CREATE USER IF NOT EXISTS 'Ticker'@'%' identified by '92b9a3b730';"
+    # command: mysql -e "CREATE USER IF NOT EXISTS 'rohit'@'192.168.%' identified by 'admin1234';" 
+    # command: mysql -e "GRANT ALL PRIVILEGES ON *.* TO rohit@'192.168.%';"
 
   redis:
     image: redis:7.0-alpine
