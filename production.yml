@@ -34,7 +34,7 @@ services:
     command: /start
 
   mariadb:
-    image: mariadb:10.7
+    image: mariadb
     container_name: ticker_production_mariadb
     environment:
       MARIADB_ROOT_PASSWORD: 92b9a3b730
