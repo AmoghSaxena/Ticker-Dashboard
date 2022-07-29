@@ -34,29 +34,43 @@ services:
     command: /start
 
   mariadb:
-    build:
-      context: .
-      dockerfile: ./compose/production/mariadb/Dockerfile
-    image: ticker_production_mariadb
-    # container_name: ticker_production_mariadb
-    network_mode: bridge
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: 92b9a3b730
+      MARIADB_DATABASE: Ticker
+      MARIADB_USER: Ticker
+      MARIADB_PASSWORD: 92b9a3b730
     volumes:
-      - ./ticker_db:/var/lib/mysql
-#      - ./db_data:/var/lib/postgresql/data
-#      - ./db_data_backup:/backups
-    environment:
-    environment:
-      MYSQL_DATABASE: 'Ticker'
-      # So you don't have to use root, but you can if you like
-      MYSQL_USER: 'Ticker'
-      # You can use whatever password you like
-      MYSQL_PASSWORD: '92b9a3b730'
-      # Password for root access
-      # MYSQL_ROOT_PASSWORD: ''
-#    env_file:
-#      - ./.envs/.production/.postgres
+      # persist data files into `datadir` volume managed by docker
+      - ./ticker_mysql:/var/lib/mysql
+      # bind-mount any sql files that should be run while initializing
+      - ./compose/production/mariadb/setup.sql:/docker-entrypoint-initdb.d/schema.sql
+    network_mode: bridge
     ports:
       - "33306:3306"
+#     build:
+#       context: .
+#       dockerfile: ./compose/production/mariadb/Dockerfile
+#     image: ticker_production_mariadb
+#     # container_name: ticker_production_mariadb
+#     network_mode: bridge
+#     volumes:
+#       - ./ticker_db:/var/lib/mysql
+# #      - ./db_data:/var/lib/postgresql/data
+# #      - ./db_data_backup:/backups
+#     environment:
+#     environment:
+#       MYSQL_DATABASE: 'Ticker'
+#       # So you don't have to use root, but you can if you like
+#       MYSQL_USER: 'Ticker'
+#       # You can use whatever password you like
+#       MYSQL_PASSWORD: '92b9a3b730'
+#       # Password for root access
+#       # MYSQL_ROOT_PASSWORD: ''
+# #    env_file:
+# #      - ./.envs/.production/.postgres
+#     ports:
+#       - "33306:3306"
     # command: postgres -c 'max_connections=1000'
     # command: mysql -e "CREATE DATABASE IF NOT EXISTS Ticker;"
     # command: mysql -e "CREATE USER IF NOT EXISTS 'Ticker'@'%' identified by '92b9a3b730';"
