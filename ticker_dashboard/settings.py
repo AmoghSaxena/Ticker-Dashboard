@@ -112,7 +112,7 @@ DATABASES = {
         'NAME': 'Ticker',
         'USER': 'Ticker',
         # 'HOST': 'mariadb',
-        'PASSWORD': '92b9a3b730',
+        'PASSWORD': '1',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
@@ -163,15 +163,15 @@ SESSION_EXPIRE_SECONDS = 12
 # Static files (CSS, JavaScript, Images)
 
 if DEBUG:
-    # STATICFILES_DIRS = [
-    # BASE_DIR,"static"
-    # ]
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-else:
-    # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     STATICFILES_DIRS = [
     BASE_DIR,"static"
     ]
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    # STATICFILES_DIRS = [
+    # BASE_DIR,"static"
+    # ]
 
 
 # Media 

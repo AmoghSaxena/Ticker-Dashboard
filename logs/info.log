@@ -66,3 +66,4 @@ INFO 2022-07-28 11:29:29,131 :  views 24253 No image found for 352 ticker id fro
 ERROR 2022-07-28 17:09:31,107 :  gadget 6973 can only concatenate str (not "ValueError") to str from function datagetter in line no. 403
 INFO 2022-07-28 17:10:09,897 :  gadget 6973 No Image for upload from function FileUploader in line no. 107
 INFO 2022-07-28 17:15:28,559 :  gadget 6973 No Image for upload from function FileUploader in line no. 107
+INFO 2022-07-30 12:07:18,251 :  gadget 44680 No Image for upload from function FileUploader in line no. 107
