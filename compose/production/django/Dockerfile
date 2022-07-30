@@ -1,22 +1,28 @@
 
-FROM python:3.9-alpine
+FROM ubuntu:20.04
 
 # ENV PYTHONUNBUFFERED 1
 
-RUN apk update \
-  # psycopg2 dependencies
-  && apk add --virtual build-deps gcc python3-dev musl-dev \
-  # && apk add-dev \
-  # Pillow dependencies
-  && apk add jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev \
-  # CFFI dependencies
-  && apk add libffi-dev py-cffi
+# RUN apk update \
+#   # psycopg2 dependencies
+#   && apk add --virtual build-deps gcc python3-dev musl-dev \
+#   # && apk add-dev \
+#   # Pillow dependencies
+#   && apk add jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev \
+#   # CFFI dependencies
+#   && apk add libffi-dev py-cffi
 
-RUN addgroup -S django \
-    && adduser -S -G django django
+# RUN addgroup -S django \
+#     && adduser -S -G django django
+
+
+RUN apt-get  update \
+    && apt-get install net-tools iptoute pyhton3.9 command-not-found python3-pip python-is-python openssh-server mariadb-server
+
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements
+RUN pip install -U pip
 RUN pip install --no-cache-dir -r /requirements/production.txt 
     
 
