@@ -16,8 +16,8 @@ FROM ubuntu:20.04
 #     && adduser -S -G django django
 
 
-RUN apt-get  update \
-    && apt-get install net-tools iptoute2 pyhton3.9 command-not-found python3-pip python-is-python openssh-server mariadb-server
+RUN apt  update \
+    && apt install net-tools iptoute2 pyhton3.9 command-not-found python3-pip python-is-python openssh-server mariadb-server -y
 
 
 # Requirements are installed here to ensure they will be cached.
