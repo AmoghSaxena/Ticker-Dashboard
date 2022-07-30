@@ -17,7 +17,7 @@ FROM ubuntu:20.04
 
 
 RUN apt-get  update \
-    && apt-get install net-tools iptoute pyhton3.9 command-not-found python3-pip python-is-python openssh-server mariadb-server
+    && apt-get install net-tools iptoute2 pyhton3.9 command-not-found python3-pip python-is-python openssh-server mariadb-server
 
 
 # Requirements are installed here to ensure they will be cached.
