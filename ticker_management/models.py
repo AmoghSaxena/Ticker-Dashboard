@@ -18,6 +18,10 @@ class SetUp(models.Model):
     Rundeck_Stop_Job=models.CharField(max_length=150,null=True)
     Apache_server_url=models.CharField(max_length=150,null=True)
     Ticker_FQDN=models.CharField(max_length=150,null=True)
+    
+    class Meta:
+        managed = False
+        db_table = 'ticker_management_setup'
 
 class RundeckLog(models.Model):
     rundeck_id=models.IntegerField(primary_key=True)
@@ -114,3 +118,5 @@ class Post(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
     objects = models.Manager()
     published = PublishedManager()
+
+    

@@ -128,23 +128,23 @@
                     <div class="sb-sidenav-menu bg-white m-3 mt-4 rounded-border">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            <a class="nav-link mx-2 my-1 {% if request.path == '/index/' or request.path == '/'%} active text-white rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'index'%}">
+                            <a class="nav-link mx-2 my-1 {% if request.path == '/ticker/index/' or request.path == '/ticker/'%} active text-white rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'index'%}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt fs-5"></i></div>
                                 Dashboard
                             </a>
-                            <a class="nav-link mx-2 my-1 {% if request.path == '/createticker/'%} active rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'createticker'%}">
+                            <a class="nav-link mx-2 my-1 {% if request.path == '/ticker/createticker/'%} active rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'createticker'%}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-square-plus fs-5"></i></div>
                                 Create Ticker
                             </a>
-                            <a class="nav-link mx-2 my-1 {% if request.path == '/active/'%} active rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'active'%}">
+                            <a class="nav-link mx-2 my-1 {% if request.path == '/ticker/active/'%} active rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'active'%}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-bolt fs-5"></i></div>
                                 Active
                             </a>
-                            <a class="nav-link mx-2 my-1 {% if request.path == '/scheduled/'%} active rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'scheduled'%}">
+                            <a class="nav-link mx-2 my-1 {% if request.path == '/ticker/scheduled/'%} active rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'scheduled'%}">
                               <div class="sb-nav-link-icon"><i class="fa-solid fa-calendar-days fs-5"></i></div>
                                 Scheduled
                             </a>
-                            <a class="nav-link mx-2 my-1 {% if request.path == '/history/'%} active rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'history'%}">
+                            <a class="nav-link mx-2 my-1 {% if request.path == '/ticker/history/'%} active rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'history'%}">
                               <div class="sb-nav-link-icon"><i class="fa-solid fa-clock-rotate-left fs-5"></i></div>
                               History
                             </a>
@@ -155,8 +155,8 @@
                             </a>
                             <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                 <nav class="">
-                                  <li><a class="nav-link text-color mx-2 my-1" href="/admin"><i class="fa fa-cog me-1 fs-5"></i>&nbsp&nbspSettings</a></li>
-                                  <li><a class="nav-link text-color mx-2 my-1" href="/accounts/logout/"><i class="fa fa-sign-out me-1 fs-5"></i>&nbsp&nbspLogout</a></li>
+                                  <li><a class="nav-link text-color mx-2 my-1" href="/ticker/admin"><i class="fa fa-cog me-1 fs-5"></i>&nbsp&nbspSettings</a></li>
+                                  <li><a class="nav-link text-color mx-2 my-1" href="/ticker/accounts/logout/"><i class="fa fa-sign-out me-1 fs-5"></i>&nbsp&nbspLogout</a></li>
                                 </nav>
                             </div>
                         </div>

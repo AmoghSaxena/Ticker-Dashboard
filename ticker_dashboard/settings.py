@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 import pymysql
+# from dotenv import load_dotenv
+
+# load_dotenv()
 
 pymysql.install_as_MySQLdb()
 
@@ -36,11 +39,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 
-CSRF_TRUSTED_ORIGINS = ['https://ticker.dns.army']
+# CSRF_TRUSTED_ORIGINS = ['https://ticker.dns.army']
 
 CORS_REPLACE_HTTPS_REFERER = True
 
-CSRF_COOKIE_DOMAIN = 'ticker.dns.army'
+# CSRF_COOKIE_DOMAIN = 'ticker.dns.army'
 
 # CORS_ORIGIN_WHITELIST = (
 #     'https://front.bluemix.net/',
@@ -58,7 +61,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'directory',
     'ticker_management',
     'django_celery_results',
     'django_celery_beat'
@@ -111,7 +113,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Ticker',
         'USER': 'Ticker',
-        # 'HOST': 'mariadb',
+        'HOST': 'localhost',
         'PASSWORD': '1',
         'PORT': '3306',
         'OPTIONS': {
@@ -119,6 +121,19 @@ DATABASES = {
         }
     }
 }
+
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "postgres",
+#         "USER": "postgres",
+#         "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+#         "HOST": "db",
+#         "PORT": "5432",
+#     }
+# }
+
 
 
 # Password validation
@@ -162,17 +177,22 @@ SESSION_EXPIRE_SECONDS = 12
 
 # Static files (CSS, JavaScript, Images)
 
-if DEBUG:
-    STATICFILES_DIRS = [
-    BASE_DIR,"static"
-    ]
-    # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-    # STATICFILES_DIRS = [
-    # BASE_DIR,"static"
-    # ]
+# if DEBUG:
+#     STATICFILES_DIRS = [
+#     BASE_DIR,"static"
+#     ]
+#     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# else:
+#     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#     STATICFILES_DIRS = [
+#     BASE_DIR,"static"
+#     ]
 
+STATICFILES_DIRS = [
+    (BASE_DIR + "static"),
+    os.path.join(BASE_DIR, 'static')
+
+]
 
 # Media 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
@@ -182,7 +202,7 @@ MEDIA_URL = '/media/'
 
 #CELERY SETTINGS
 
-CELERY_BROKER_URL = "redis://redis:6379"
+CELERY_BROKER_URL = "redis://localhost:6379"
 CELERY_ACCEPT_CONTEXT = ['application/json']
 CELERY_RESULT_SERIALIZER='json'
 CELERY_TASK_SERIALIZER='json'
@@ -199,15 +219,15 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 #127.0.0.1:6379
 
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-         'rest_framework.authentication.BasicAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-         'rest_framework.permissions.IsAuthenticated'
-        #'knox.auth.TokenAuthentication',
-    ]
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#          'rest_framework.authentication.BasicAuthentication',
+#     ],
+#     'DEFAULT_PERMISSION_CLASSES': [
+#          'rest_framework.permissions.IsAuthenticated'
+#         #'knox.auth.TokenAuthentication',
+#     ]
+# }
 
 # DIRECTORY_DIRECTORY = '/home/guest/Desktop/Ticker-Dashboard/media'
 

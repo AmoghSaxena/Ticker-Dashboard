@@ -2,18 +2,19 @@
 from .models import SetUp, RundeckLog
 import requests
 
-setupData=SetUp.objects.filter(id=1).values()
-FQDN=setupData.get().get('FQDN')
-Rundeck_Token=setupData.get().get('Rundeck_Token')
-Rundeck_Stop_Job=setupData.get().get('Rundeck_Stop_Job')
-Rundeck_Api_Version=setupData.get().get('Rundeck_Api_Version')
-
 #Loggers
 import logging
 logger=logging.getLogger('dashboardLogs')
 
 def initial_data(ticker_obj):
     try:
+
+        setupData=SetUp.objects.filter(id=1).values()
+        FQDN=setupData.get().get('FQDN')
+        Rundeck_Token=setupData.get().get('Rundeck_Token')
+        Rundeck_Stop_Job=setupData.get().get('Rundeck_Stop_Job')
+        Rundeck_Api_Version=setupData.get().get('Rundeck_Api_Version')
+
         rundeckid=ticker_obj.get().get('rundeckid')
         
         response = requests.get(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/execution/{rundeckid}/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"})
@@ -42,6 +43,13 @@ def initial_data(ticker_obj):
 
 def rundeck_update(rundeckid):
     try:
+
+        setupData=SetUp.objects.filter(id=1).values()
+        FQDN=setupData.get().get('FQDN')
+        Rundeck_Token=setupData.get().get('Rundeck_Token')
+        Rundeck_Stop_Job=setupData.get().get('Rundeck_Stop_Job')
+        Rundeck_Api_Version=setupData.get().get('Rundeck_Api_Version')
+        
         response = requests.get(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/execution/{rundeckid}/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"})
         rundeckOutput = response.json()
         if response.status_code == 200:
@@ -72,6 +80,15 @@ def rundeck_update(rundeckid):
 
 def abortTicker(ticker_obj):
     try:
+
+        setupData=SetUp.objects.filter(id=1).values()
+        FQDN=setupData.get().get('FQDN')
+        Rundeck_Token=setupData.get().get('Rundeck_Token')
+        Rundeck_Stop_Job=setupData.get().get('Rundeck_Stop_Job')
+        Rundeck_Api_Version=setupData.get().get('Rundeck_Api_Version')
+
+        rundeckid=ticker_obj.get().get('rundeckid')
+        
         rundeckid=ticker_obj.get().get('rundeckid')
         response = requests.get(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/execution/{rundeckid}/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"})
         rundeckOutput = response.json()

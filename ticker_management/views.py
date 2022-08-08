@@ -27,9 +27,13 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage
 from django.db.models import Q
+from ticker_dashboard.settings import BASE_DIR
 
-#Api
-BASE_DIR = Path(__file__).resolve().parent
+# #Api
+# BASE_DIR = Path(__file__).resolve().parent
+
+def base(request):
+    return redirect('/ticker')
 
 #Loggers
 import logging
@@ -52,7 +56,7 @@ def login(request):
             msg = 'Error validating the form'
     return render(request, "login.html", {"form": form, "msg": msg})
 
-@login_required
+@login_required(login_url='/ticker/accounts/login/')
 def index(request):
     active_ticker_length=TickerDetails.objects.all()
     active_ticker=TickerDetails.objects.all().order_by('modified_on').reverse()[:5]
@@ -81,8 +85,14 @@ def index(request):
     }
     return render(request, 'index.html',ticker_count)
 
-@login_required
+@login_required(login_url='/ticker/accounts/login/')
 def createTicker(request):
+
+    try:
+        syncDVSData()
+    except Exception as e:
+        return HttpResponse('SetUp not set : '+e)
+    
     data = {
             'pos_box':[
                 'top-right',
@@ -187,25 +197,25 @@ def createTicker(request):
 
             'days' :['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
         }
-    data['scheduleData']=filterData()
+    # data['scheduleData']=filterData()
     if request.method == 'POST':
         datagetter(request)
         return redirect(index)
     else:
         return render(request, 'createticker.html', data)
 
-@login_required
+@login_required(login_url='/ticker/accounts/login/')
 def updateTicker(request,ticker_id):
     pass
 
-@login_required
+@login_required(login_url='/ticker/accounts/login/')
 def active(request):
     data=TickerDetails.objects.all().filter().values()
     tickerDataList=sorted(data,key=lambda item: item['ticker_id'],reverse=True)
     data={'tickerDataList':tickerDataList,'user':request.user.username}
     return render(request, 'active.html',data)
 
-@login_required
+@login_required(login_url='/ticker/accounts/login/')
 def scheduled(request):
     eventData = dict()
     events = list()
@@ -219,11 +229,11 @@ def scheduled(request):
         events.append(data)
     eventData['events'] = events
     event = json.dumps(eventData,indent = 3)
-    with open('{0}/../static/resources/events.json'.format(BASE_DIR), 'w') as f:
+    with open('{0}/static/resources/events.json'.format(BASE_DIR), 'w') as f:
         f.write(str(event))
     return render(request, 'scheduled.html',{'user':request.user.username})
 
-@login_required
+@login_required(login_url='/ticker/accounts/login/')
 def history(request):
     active_ticker_length=TickerDetails.objects.all()
     tmp=active_ticker_length.values_list('ticker_id')
@@ -239,7 +249,7 @@ def history(request):
     data={'tickerDataList':tickerDataList,'user':request.user.username}
     return render(request, 'history.html',data)
 
-@login_required
+@login_required(login_url='/ticker/accounts/login/')
 def detail(request, id):
     try:
         ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
@@ -263,7 +273,7 @@ def detail(request, id):
         logger.error('Error: '+str(e))
         return active(request)
 
-@login_required
+@login_required(login_url='/ticker/accounts/login/')
 def abort(request, id):
     try:
         ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
@@ -281,7 +291,7 @@ def abort(request, id):
     except Exception as e:
         return HttpResponse('Error: '+str(e))
 
-@login_required
+@login_required(login_url='/ticker/accounts/login/')
 def isEdit(request, id):
     data = {
         'pos_box':[
@@ -390,11 +400,11 @@ def isEdit(request, id):
     data['tickerObj'] = tickerObj.get()
     return render(request, 'createticker.html',data)
 
-@login_required
+@login_required(login_url='/ticker/accounts/login/')
 def isRestore(request):
     pass
 
-@login_required
+@login_required(login_url='/ticker/accounts/login/')
 def isDelete(request, id):
 
     try:
@@ -436,7 +446,7 @@ def isDelete(request, id):
         messages.info(request, 'Unable to delete specificied ID')
         return redirect(active)
 
-@login_required
+@login_required(login_url='/ticker/accounts/login/')
 def changePassword(request):
     # setupMail()
     form = ChangePassword(request.POST or None)
@@ -464,10 +474,29 @@ def syncDVSData():
     # print(dvs_data.get())
     FQDN=dvs_data.get().get('FQDN')
     Dvs_Token=dvs_data.get().get('Dvs_Token')
-    dvs_data="curl -s --location --request POST 'https://{2}/dvs/api/key/selectR' --header 'Content-Type: application/vnd.digivalet.v1+json' --header 'Access-Token: {3}' --data-raw '{0}' | jq  > {1}/../static/resources/resource.json".format('{}',BASE_DIR,FQDN,Dvs_Token)
+    # dvs_data="curl -s --location --request POST 'https://{2}/dvs/api/key/selectR' --header 'Content-Type: application/vnd.digivalet.v1+json' --header 'Access-Token: {3}' --data-raw '{0}' | jq  > {1}/../static/resources/resource.json".format('{}',BASE_DIR,FQDN,Dvs_Token)
 
-    # requests.post(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/job/{Rundeck_Stop_Job}/run/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"}, json={ "argString": f"-whichnode \"{nodes}\""})
-    os.system(dvs_data)
+    # # requests.post(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/job/{Rundeck_Stop_Job}/run/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"}, json={ "argString": f"-whichnode \"{nodes}\""})
+    # os.system(dvs_data)
+
+    headers = {
+        'Content-Type': 'application/vnd.digivalet.v1+json',
+        'Access-Token': Dvs_Token,
+    }
+
+    data = '{}'
+
+    response = requests.post(f'https://{FQDN}/dvs/api/key/selectR', headers=headers, data=data)
+    response=json.dumps(response.json(),indent=3).encode('utf-8')
+    with open((str(BASE_DIR)+'/static/resources/'+'resource.json'),'wb') as f:
+        f.write(response)
+    
+    response = requests.get(f'https://{FQDN}/dvs/core/resourcexml')
+    response=response.text.encode('utf-8')
+
+    with open((str(BASE_DIR)+'/static/resources/'+'resource.xml'),'wb') as f:
+        f.write(response)
+
 
 def filterData():
     DVSDATA = dict()
@@ -475,8 +504,7 @@ def filterData():
     wingData = set()
     floorData = set()
     keyData = set()
-    xmlDocument = xml.etree.ElementTree.parse(f"{BASE_DIR}/resources/res.xml").getroot()
-    jsonDocument = json.load(open(f"{BASE_DIR}/resources/resource.json"))
+    xmlDocument = xml.etree.ElementTree.parse(f"{BASE_DIR}/static/resources/resource.xml").getroot()
     for item in xmlDocument.findall('node'):
         if item.get('room_type') != None:
             roomTypeData.add(item.get('room_type'))
@@ -484,7 +512,9 @@ def filterData():
             floorData.add(item.get('floor'))
         if item.get('key_no') != None:
             keyData.add(item.get('key_no'))
-    for item in jsonDocument.get('data'):
+    
+    jsonDocument = json.load(open(f"{BASE_DIR}/static/resources/resource.json"))
+    for item in jsonDocument:
         wingData.add(item.get('wing_name'))
     DVSDATA["roomType"]=sorted(roomTypeData)
     DVSDATA["wing"] = sorted(wingData)
@@ -509,6 +539,7 @@ def taskPost(request,id="0"):
         return Response(serializer.data)
 
     elif request.method == 'GET':
+        print(request.data)
         serializer = TaskSerializerConfig(data=request.data)
         p=serializer.initial_data
         q=int(p.get('ticker_id'))

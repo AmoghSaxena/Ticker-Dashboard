@@ -12,3 +12,468 @@
 [2022-07-28 15:38:27,433: INFO/MainProcess] DatabaseScheduler: Schedule changed.
 [2022-07-28 15:55:32,064: INFO/MainProcess] DatabaseScheduler: Schedule changed.
 [2022-07-28 15:55:34,688: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-08-03 11:58:59,363: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-08-03 12:48:22,845: WARNING/MainProcess] Traceback (most recent call last):
+[2022-08-03 12:48:22,845: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/transport/virtual/base.py", line 925, in create_channel
+[2022-08-03 12:48:22,864: WARNING/MainProcess]     
+[2022-08-03 12:48:22,864: WARNING/MainProcess] return self._avail_channels.pop()
+[2022-08-03 12:48:22,865: WARNING/MainProcess] IndexError
+[2022-08-03 12:48:22,865: WARNING/MainProcess] : 
+[2022-08-03 12:48:22,865: WARNING/MainProcess] pop from empty list
+[2022-08-03 12:48:22,866: WARNING/MainProcess] 
+During handling of the above exception, another exception occurred:
+[2022-08-03 12:48:22,866: WARNING/MainProcess] Traceback (most recent call last):
+[2022-08-03 12:48:22,866: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 611, in connect
+[2022-08-03 12:48:22,883: WARNING/MainProcess]     
+[2022-08-03 12:48:22,883: WARNING/MainProcess] sock = self.retry.call_with_retry(
+[2022-08-03 12:48:22,884: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/retry.py", line 46, in call_with_retry
+[2022-08-03 12:48:22,885: WARNING/MainProcess]     
+[2022-08-03 12:48:22,886: WARNING/MainProcess] return do()
+[2022-08-03 12:48:22,886: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 612, in <lambda>
+[2022-08-03 12:48:22,888: WARNING/MainProcess]     
+[2022-08-03 12:48:22,888: WARNING/MainProcess] lambda: self._connect(), lambda error: self.disconnect(error)
+[2022-08-03 12:48:22,889: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 645, in _connect
+[2022-08-03 12:48:22,890: WARNING/MainProcess]     
+[2022-08-03 12:48:22,891: WARNING/MainProcess] for res in socket.getaddrinfo(
+[2022-08-03 12:48:22,892: WARNING/MainProcess]   File "/usr/lib/python3.8/socket.py", line 918, in getaddrinfo
+[2022-08-03 12:48:22,894: WARNING/MainProcess]     
+[2022-08-03 12:48:22,894: WARNING/MainProcess] for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+[2022-08-03 12:48:22,895: WARNING/MainProcess] socket
+[2022-08-03 12:48:22,896: WARNING/MainProcess] .
+[2022-08-03 12:48:22,896: WARNING/MainProcess] gaierror
+[2022-08-03 12:48:22,897: WARNING/MainProcess] : 
+[2022-08-03 12:48:22,898: WARNING/MainProcess] [Errno -3] Temporary failure in name resolution
+[2022-08-03 12:48:22,899: WARNING/MainProcess] 
+During handling of the above exception, another exception occurred:
+[2022-08-03 12:48:22,899: WARNING/MainProcess] Traceback (most recent call last):
+[2022-08-03 12:48:22,900: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 446, in _reraise_as_library_errors
+[2022-08-03 12:48:22,901: WARNING/MainProcess]     
+[2022-08-03 12:48:22,902: WARNING/MainProcess] yield
+[2022-08-03 12:48:22,903: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 433, in _ensure_connection
+[2022-08-03 12:48:22,904: WARNING/MainProcess]     
+[2022-08-03 12:48:22,904: WARNING/MainProcess] return retry_over_time(
+[2022-08-03 12:48:22,905: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/utils/functional.py", line 312, in retry_over_time
+[2022-08-03 12:48:22,906: WARNING/MainProcess]     
+[2022-08-03 12:48:22,907: WARNING/MainProcess] return fun(*args, **kwargs)
+[2022-08-03 12:48:22,908: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 877, in _connection_factory
+[2022-08-03 12:48:22,919: WARNING/MainProcess]     
+[2022-08-03 12:48:22,920: WARNING/MainProcess] self._connection = self._establish_connection()
+[2022-08-03 12:48:22,921: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 812, in _establish_connection
+[2022-08-03 12:48:22,922: WARNING/MainProcess]     
+[2022-08-03 12:48:22,923: WARNING/MainProcess] conn = self.transport.establish_connection()
+[2022-08-03 12:48:22,923: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/transport/virtual/base.py", line 949, in establish_connection
+[2022-08-03 12:48:22,925: WARNING/MainProcess]     
+[2022-08-03 12:48:22,926: WARNING/MainProcess] self._avail_channels.append(self.create_channel(self))
+[2022-08-03 12:48:22,926: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/transport/virtual/base.py", line 927, in create_channel
+[2022-08-03 12:48:22,928: WARNING/MainProcess]     
+[2022-08-03 12:48:22,929: WARNING/MainProcess] channel = self.Channel(connection)
+[2022-08-03 12:48:22,929: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 737, in __init__
+[2022-08-03 12:48:22,931: WARNING/MainProcess]     
+[2022-08-03 12:48:22,932: WARNING/MainProcess] self.client.ping()
+[2022-08-03 12:48:22,932: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/commands/core.py", line 1132, in ping
+[2022-08-03 12:48:22,934: WARNING/MainProcess]     
+[2022-08-03 12:48:22,935: WARNING/MainProcess] return self.execute_command("PING", **kwargs)
+[2022-08-03 12:48:22,936: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/client.py", line 1235, in execute_command
+[2022-08-03 12:48:22,938: WARNING/MainProcess]     
+[2022-08-03 12:48:22,939: WARNING/MainProcess] conn = self.connection or pool.get_connection(command_name, **options)
+[2022-08-03 12:48:22,939: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 1387, in get_connection
+[2022-08-03 12:48:22,941: WARNING/MainProcess]     
+[2022-08-03 12:48:22,942: WARNING/MainProcess] connection.connect()
+[2022-08-03 12:48:22,943: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 617, in connect
+[2022-08-03 12:48:22,944: WARNING/MainProcess]     
+[2022-08-03 12:48:22,944: WARNING/MainProcess] raise ConnectionError(self._error_message(e))
+[2022-08-03 12:48:22,945: WARNING/MainProcess] redis.exceptions
+[2022-08-03 12:48:22,946: WARNING/MainProcess] .
+[2022-08-03 12:48:22,946: WARNING/MainProcess] ConnectionError
+[2022-08-03 12:48:22,947: WARNING/MainProcess] : 
+[2022-08-03 12:48:22,947: WARNING/MainProcess] Error -3 connecting to redis:6379. Temporary failure in name resolution.
+[2022-08-03 12:48:22,948: WARNING/MainProcess] 
+The above exception was the direct cause of the following exception:
+[2022-08-03 12:48:22,949: WARNING/MainProcess] Traceback (most recent call last):
+[2022-08-03 12:48:22,949: WARNING/MainProcess]   File "/home/guest/Desktop/venv/bin/celery", line 8, in <module>
+[2022-08-03 12:48:22,950: WARNING/MainProcess]     
+[2022-08-03 12:48:22,951: WARNING/MainProcess] sys.exit(main())
+[2022-08-03 12:48:22,952: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/__main__.py", line 15, in main
+[2022-08-03 12:48:22,952: WARNING/MainProcess]     
+[2022-08-03 12:48:22,953: WARNING/MainProcess] sys.exit(_main())
+[2022-08-03 12:48:22,954: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/bin/celery.py", line 217, in main
+[2022-08-03 12:48:22,955: WARNING/MainProcess]     
+[2022-08-03 12:48:22,955: WARNING/MainProcess] return celery(auto_envvar_prefix="CELERY")
+[2022-08-03 12:48:22,956: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 1130, in __call__
+[2022-08-03 12:48:22,958: WARNING/MainProcess]     
+[2022-08-03 12:48:22,959: WARNING/MainProcess] return self.main(*args, **kwargs)
+[2022-08-03 12:48:22,959: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 1055, in main
+[2022-08-03 12:48:22,961: WARNING/MainProcess]     
+[2022-08-03 12:48:22,962: WARNING/MainProcess] rv = self.invoke(ctx)
+[2022-08-03 12:48:22,962: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 1657, in invoke
+[2022-08-03 12:48:22,964: WARNING/MainProcess]     
+[2022-08-03 12:48:22,965: WARNING/MainProcess] return _process_result(sub_ctx.command.invoke(sub_ctx))
+[2022-08-03 12:48:22,966: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 1404, in invoke
+[2022-08-03 12:48:22,967: WARNING/MainProcess]     
+[2022-08-03 12:48:22,968: WARNING/MainProcess] return ctx.invoke(self.callback, **ctx.params)
+[2022-08-03 12:48:22,969: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 760, in invoke
+[2022-08-03 12:48:22,970: WARNING/MainProcess]     
+[2022-08-03 12:48:22,970: WARNING/MainProcess] return __callback(*args, **kwargs)
+[2022-08-03 12:48:22,971: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/decorators.py", line 26, in new_func
+[2022-08-03 12:48:22,972: WARNING/MainProcess]     
+[2022-08-03 12:48:22,973: WARNING/MainProcess] return f(get_current_context(), *args, **kwargs)
+[2022-08-03 12:48:22,973: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/bin/base.py", line 134, in caller
+[2022-08-03 12:48:22,974: WARNING/MainProcess]     
+[2022-08-03 12:48:22,975: WARNING/MainProcess] return f(ctx, *args, **kwargs)
+[2022-08-03 12:48:22,975: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/bin/beat.py", line 72, in beat
+[2022-08-03 12:48:22,976: WARNING/MainProcess]     
+[2022-08-03 12:48:22,978: WARNING/MainProcess] return beat().run()
+[2022-08-03 12:48:22,979: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/apps/beat.py", line 77, in run
+[2022-08-03 12:48:22,980: WARNING/MainProcess]     
+[2022-08-03 12:48:22,981: WARNING/MainProcess] self.start_scheduler()
+[2022-08-03 12:48:22,981: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/apps/beat.py", line 105, in start_scheduler
+[2022-08-03 12:48:22,982: WARNING/MainProcess]     
+[2022-08-03 12:48:22,983: WARNING/MainProcess] service.start()
+[2022-08-03 12:48:22,983: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/beat.py", line 645, in start
+[2022-08-03 12:48:23,014: WARNING/MainProcess]     
+[2022-08-03 12:48:23,015: WARNING/MainProcess] interval = self.scheduler.tick()
+[2022-08-03 12:48:23,015: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/beat.py", line 357, in tick
+[2022-08-03 12:48:23,016: WARNING/MainProcess]     
+[2022-08-03 12:48:23,016: WARNING/MainProcess] self.apply_entry(entry, producer=self.producer)
+[2022-08-03 12:48:23,016: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/utils/objects.py", line 30, in __get__
+[2022-08-03 12:48:23,016: WARNING/MainProcess]     
+[2022-08-03 12:48:23,017: WARNING/MainProcess] return super().__get__(instance, owner)
+[2022-08-03 12:48:23,017: WARNING/MainProcess]   File "/usr/lib/python3.8/functools.py", line 967, in __get__
+[2022-08-03 12:48:23,048: WARNING/MainProcess]     
+[2022-08-03 12:48:23,048: WARNING/MainProcess] val = self.func(instance)
+[2022-08-03 12:48:23,049: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/beat.py", line 498, in producer
+[2022-08-03 12:48:23,050: WARNING/MainProcess]     
+[2022-08-03 12:48:23,051: WARNING/MainProcess] return self.Producer(self._ensure_connected(), auto_declare=False)
+[2022-08-03 12:48:23,051: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/beat.py", line 481, in _ensure_connected
+[2022-08-03 12:48:23,053: WARNING/MainProcess]     
+[2022-08-03 12:48:23,053: WARNING/MainProcess] return self.connection.ensure_connection(
+[2022-08-03 12:48:23,054: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 381, in ensure_connection
+[2022-08-03 12:48:23,055: WARNING/MainProcess]     
+[2022-08-03 12:48:23,056: WARNING/MainProcess] self._ensure_connection(*args, **kwargs)
+[2022-08-03 12:48:23,056: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 433, in _ensure_connection
+[2022-08-03 12:48:23,058: WARNING/MainProcess]     
+[2022-08-03 12:48:23,058: WARNING/MainProcess] return retry_over_time(
+[2022-08-03 12:48:23,059: WARNING/MainProcess]   File "/usr/lib/python3.8/contextlib.py", line 131, in __exit__
+[2022-08-03 12:48:23,066: WARNING/MainProcess]     
+[2022-08-03 12:48:23,067: WARNING/MainProcess] self.gen.throw(type, value, traceback)
+[2022-08-03 12:48:23,067: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 450, in _reraise_as_library_errors
+[2022-08-03 12:48:23,069: WARNING/MainProcess]     
+[2022-08-03 12:48:23,069: WARNING/MainProcess] raise ConnectionError(str(exc)) from exc
+[2022-08-03 12:48:23,070: WARNING/MainProcess] kombu.exceptions
+[2022-08-03 12:48:23,071: WARNING/MainProcess] .
+[2022-08-03 12:48:23,071: WARNING/MainProcess] OperationalError
+[2022-08-03 12:48:23,072: WARNING/MainProcess] : 
+[2022-08-03 12:48:23,073: WARNING/MainProcess] Error -3 connecting to redis:6379. Temporary failure in name resolution.
+[2022-08-03 14:45:48,791: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-08-03 15:35:12,340: WARNING/MainProcess] Traceback (most recent call last):
+[2022-08-03 15:35:12,340: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/transport/virtual/base.py", line 925, in create_channel
+[2022-08-03 15:35:12,341: WARNING/MainProcess]     
+[2022-08-03 15:35:12,342: WARNING/MainProcess] return self._avail_channels.pop()
+[2022-08-03 15:35:12,342: WARNING/MainProcess] IndexError
+[2022-08-03 15:35:12,342: WARNING/MainProcess] : 
+[2022-08-03 15:35:12,342: WARNING/MainProcess] pop from empty list
+[2022-08-03 15:35:12,343: WARNING/MainProcess] 
+During handling of the above exception, another exception occurred:
+[2022-08-03 15:35:12,343: WARNING/MainProcess] Traceback (most recent call last):
+[2022-08-03 15:35:12,343: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 611, in connect
+[2022-08-03 15:35:12,344: WARNING/MainProcess]     
+[2022-08-03 15:35:12,344: WARNING/MainProcess] sock = self.retry.call_with_retry(
+[2022-08-03 15:35:12,345: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/retry.py", line 46, in call_with_retry
+[2022-08-03 15:35:12,345: WARNING/MainProcess]     
+[2022-08-03 15:35:12,346: WARNING/MainProcess] return do()
+[2022-08-03 15:35:12,346: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 612, in <lambda>
+[2022-08-03 15:35:12,346: WARNING/MainProcess]     
+[2022-08-03 15:35:12,347: WARNING/MainProcess] lambda: self._connect(), lambda error: self.disconnect(error)
+[2022-08-03 15:35:12,347: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 645, in _connect
+[2022-08-03 15:35:12,347: WARNING/MainProcess]     
+[2022-08-03 15:35:12,348: WARNING/MainProcess] for res in socket.getaddrinfo(
+[2022-08-03 15:35:12,348: WARNING/MainProcess]   File "/usr/lib/python3.8/socket.py", line 918, in getaddrinfo
+[2022-08-03 15:35:12,349: WARNING/MainProcess]     
+[2022-08-03 15:35:12,349: WARNING/MainProcess] for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+[2022-08-03 15:35:12,349: WARNING/MainProcess] socket
+[2022-08-03 15:35:12,349: WARNING/MainProcess] .
+[2022-08-03 15:35:12,350: WARNING/MainProcess] gaierror
+[2022-08-03 15:35:12,350: WARNING/MainProcess] : 
+[2022-08-03 15:35:12,350: WARNING/MainProcess] [Errno -3] Temporary failure in name resolution
+[2022-08-03 15:35:12,350: WARNING/MainProcess] 
+During handling of the above exception, another exception occurred:
+[2022-08-03 15:35:12,351: WARNING/MainProcess] Traceback (most recent call last):
+[2022-08-03 15:35:12,351: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 446, in _reraise_as_library_errors
+[2022-08-03 15:35:12,352: WARNING/MainProcess]     
+[2022-08-03 15:35:12,352: WARNING/MainProcess] yield
+[2022-08-03 15:35:12,352: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 433, in _ensure_connection
+[2022-08-03 15:35:12,353: WARNING/MainProcess]     
+[2022-08-03 15:35:12,353: WARNING/MainProcess] return retry_over_time(
+[2022-08-03 15:35:12,354: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/utils/functional.py", line 312, in retry_over_time
+[2022-08-03 15:35:12,355: WARNING/MainProcess]     
+[2022-08-03 15:35:12,355: WARNING/MainProcess] return fun(*args, **kwargs)
+[2022-08-03 15:35:12,355: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 877, in _connection_factory
+[2022-08-03 15:35:12,357: WARNING/MainProcess]     
+[2022-08-03 15:35:12,357: WARNING/MainProcess] self._connection = self._establish_connection()
+[2022-08-03 15:35:12,357: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 812, in _establish_connection
+[2022-08-03 15:35:12,359: WARNING/MainProcess]     
+[2022-08-03 15:35:12,359: WARNING/MainProcess] conn = self.transport.establish_connection()
+[2022-08-03 15:35:12,359: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/transport/virtual/base.py", line 949, in establish_connection
+[2022-08-03 15:35:12,360: WARNING/MainProcess]     
+[2022-08-03 15:35:12,361: WARNING/MainProcess] self._avail_channels.append(self.create_channel(self))
+[2022-08-03 15:35:12,361: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/transport/virtual/base.py", line 927, in create_channel
+[2022-08-03 15:35:12,362: WARNING/MainProcess]     
+[2022-08-03 15:35:12,362: WARNING/MainProcess] channel = self.Channel(connection)
+[2022-08-03 15:35:12,363: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 737, in __init__
+[2022-08-03 15:35:12,387: WARNING/MainProcess]     
+[2022-08-03 15:35:12,387: WARNING/MainProcess] self.client.ping()
+[2022-08-03 15:35:12,387: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/commands/core.py", line 1132, in ping
+[2022-08-03 15:35:12,405: WARNING/MainProcess]     
+[2022-08-03 15:35:12,406: WARNING/MainProcess] return self.execute_command("PING", **kwargs)
+[2022-08-03 15:35:12,406: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/client.py", line 1235, in execute_command
+[2022-08-03 15:35:12,412: WARNING/MainProcess]     
+[2022-08-03 15:35:12,413: WARNING/MainProcess] conn = self.connection or pool.get_connection(command_name, **options)
+[2022-08-03 15:35:12,413: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 1387, in get_connection
+[2022-08-03 15:35:12,415: WARNING/MainProcess]     
+[2022-08-03 15:35:12,416: WARNING/MainProcess] connection.connect()
+[2022-08-03 15:35:12,426: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 617, in connect
+[2022-08-03 15:35:12,427: WARNING/MainProcess]     
+[2022-08-03 15:35:12,427: WARNING/MainProcess] raise ConnectionError(self._error_message(e))
+[2022-08-03 15:35:12,428: WARNING/MainProcess] redis.exceptions
+[2022-08-03 15:35:12,428: WARNING/MainProcess] .
+[2022-08-03 15:35:12,428: WARNING/MainProcess] ConnectionError
+[2022-08-03 15:35:12,429: WARNING/MainProcess] : 
+[2022-08-03 15:35:12,429: WARNING/MainProcess] Error -3 connecting to redis:6379. Temporary failure in name resolution.
+[2022-08-03 15:35:12,430: WARNING/MainProcess] 
+The above exception was the direct cause of the following exception:
+[2022-08-03 15:35:12,433: WARNING/MainProcess] Traceback (most recent call last):
+[2022-08-03 15:35:12,434: WARNING/MainProcess]   File "/home/guest/Desktop/venv/bin/celery", line 8, in <module>
+[2022-08-03 15:35:12,435: WARNING/MainProcess]     
+[2022-08-03 15:35:12,435: WARNING/MainProcess] sys.exit(main())
+[2022-08-03 15:35:12,436: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/__main__.py", line 15, in main
+[2022-08-03 15:35:12,436: WARNING/MainProcess]     
+[2022-08-03 15:35:12,437: WARNING/MainProcess] sys.exit(_main())
+[2022-08-03 15:35:12,445: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/bin/celery.py", line 217, in main
+[2022-08-03 15:35:12,446: WARNING/MainProcess]     
+[2022-08-03 15:35:12,447: WARNING/MainProcess] return celery(auto_envvar_prefix="CELERY")
+[2022-08-03 15:35:12,447: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 1130, in __call__
+[2022-08-03 15:35:12,448: WARNING/MainProcess]     
+[2022-08-03 15:35:12,449: WARNING/MainProcess] return self.main(*args, **kwargs)
+[2022-08-03 15:35:12,449: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 1055, in main
+[2022-08-03 15:35:12,451: WARNING/MainProcess]     
+[2022-08-03 15:35:12,452: WARNING/MainProcess] rv = self.invoke(ctx)
+[2022-08-03 15:35:12,452: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 1657, in invoke
+[2022-08-03 15:35:12,454: WARNING/MainProcess]     
+[2022-08-03 15:35:12,455: WARNING/MainProcess] return _process_result(sub_ctx.command.invoke(sub_ctx))
+[2022-08-03 15:35:12,455: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 1404, in invoke
+[2022-08-03 15:35:12,457: WARNING/MainProcess]     
+[2022-08-03 15:35:12,457: WARNING/MainProcess] return ctx.invoke(self.callback, **ctx.params)
+[2022-08-03 15:35:12,458: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 760, in invoke
+[2022-08-03 15:35:12,459: WARNING/MainProcess]     
+[2022-08-03 15:35:12,460: WARNING/MainProcess] return __callback(*args, **kwargs)
+[2022-08-03 15:35:12,460: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/decorators.py", line 26, in new_func
+[2022-08-03 15:35:12,461: WARNING/MainProcess]     
+[2022-08-03 15:35:12,462: WARNING/MainProcess] return f(get_current_context(), *args, **kwargs)
+[2022-08-03 15:35:12,462: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/bin/base.py", line 134, in caller
+[2022-08-03 15:35:12,463: WARNING/MainProcess]     
+[2022-08-03 15:35:12,463: WARNING/MainProcess] return f(ctx, *args, **kwargs)
+[2022-08-03 15:35:12,464: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/bin/beat.py", line 72, in beat
+[2022-08-03 15:35:12,465: WARNING/MainProcess]     
+[2022-08-03 15:35:12,465: WARNING/MainProcess] return beat().run()
+[2022-08-03 15:35:12,466: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/apps/beat.py", line 77, in run
+[2022-08-03 15:35:12,466: WARNING/MainProcess]     
+[2022-08-03 15:35:12,467: WARNING/MainProcess] self.start_scheduler()
+[2022-08-03 15:35:12,467: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/apps/beat.py", line 105, in start_scheduler
+[2022-08-03 15:35:12,468: WARNING/MainProcess]     
+[2022-08-03 15:35:12,469: WARNING/MainProcess] service.start()
+[2022-08-03 15:35:12,469: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/beat.py", line 645, in start
+[2022-08-03 15:35:12,470: WARNING/MainProcess]     
+[2022-08-03 15:35:12,471: WARNING/MainProcess] interval = self.scheduler.tick()
+[2022-08-03 15:35:12,471: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/beat.py", line 357, in tick
+[2022-08-03 15:35:12,472: WARNING/MainProcess]     
+[2022-08-03 15:35:12,473: WARNING/MainProcess] self.apply_entry(entry, producer=self.producer)
+[2022-08-03 15:35:12,473: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/utils/objects.py", line 30, in __get__
+[2022-08-03 15:35:12,474: WARNING/MainProcess]     
+[2022-08-03 15:35:12,475: WARNING/MainProcess] return super().__get__(instance, owner)
+[2022-08-03 15:35:12,475: WARNING/MainProcess]   File "/usr/lib/python3.8/functools.py", line 967, in __get__
+[2022-08-03 15:35:12,501: WARNING/MainProcess]     
+[2022-08-03 15:35:12,501: WARNING/MainProcess] val = self.func(instance)
+[2022-08-03 15:35:12,501: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/beat.py", line 498, in producer
+[2022-08-03 15:35:12,502: WARNING/MainProcess]     
+[2022-08-03 15:35:12,503: WARNING/MainProcess] return self.Producer(self._ensure_connected(), auto_declare=False)
+[2022-08-03 15:35:12,503: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/beat.py", line 481, in _ensure_connected
+[2022-08-03 15:35:12,504: WARNING/MainProcess]     
+[2022-08-03 15:35:12,505: WARNING/MainProcess] return self.connection.ensure_connection(
+[2022-08-03 15:35:12,505: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 381, in ensure_connection
+[2022-08-03 15:35:12,506: WARNING/MainProcess]     
+[2022-08-03 15:35:12,506: WARNING/MainProcess] self._ensure_connection(*args, **kwargs)
+[2022-08-03 15:35:12,507: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 433, in _ensure_connection
+[2022-08-03 15:35:12,508: WARNING/MainProcess]     
+[2022-08-03 15:35:12,508: WARNING/MainProcess] return retry_over_time(
+[2022-08-03 15:35:12,508: WARNING/MainProcess]   File "/usr/lib/python3.8/contextlib.py", line 131, in __exit__
+[2022-08-03 15:35:12,509: WARNING/MainProcess]     
+[2022-08-03 15:35:12,509: WARNING/MainProcess] self.gen.throw(type, value, traceback)
+[2022-08-03 15:35:12,510: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 450, in _reraise_as_library_errors
+[2022-08-03 15:35:12,510: WARNING/MainProcess]     
+[2022-08-03 15:35:12,512: WARNING/MainProcess] raise ConnectionError(str(exc)) from exc
+[2022-08-03 15:35:12,513: WARNING/MainProcess] kombu.exceptions
+[2022-08-03 15:35:12,513: WARNING/MainProcess] .
+[2022-08-03 15:35:12,513: WARNING/MainProcess] OperationalError
+[2022-08-03 15:35:12,514: WARNING/MainProcess] : 
+[2022-08-03 15:35:12,517: WARNING/MainProcess] Error -3 connecting to redis:6379. Temporary failure in name resolution.
+[2022-08-03 15:51:21,424: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-08-03 16:00:12,840: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-08-03 16:50:23,266: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-08-03 16:50:23,283: WARNING/MainProcess] Traceback (most recent call last):
+[2022-08-03 16:50:23,290: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/transport/virtual/base.py", line 925, in create_channel
+[2022-08-03 16:50:23,297: WARNING/MainProcess]     
+[2022-08-03 16:50:23,305: WARNING/MainProcess] return self._avail_channels.pop()
+[2022-08-03 16:50:23,310: WARNING/MainProcess] IndexError
+[2022-08-03 16:50:23,311: WARNING/MainProcess] : 
+[2022-08-03 16:50:23,312: WARNING/MainProcess] pop from empty list
+[2022-08-03 16:50:23,313: WARNING/MainProcess] 
+During handling of the above exception, another exception occurred:
+[2022-08-03 16:50:23,314: WARNING/MainProcess] Traceback (most recent call last):
+[2022-08-03 16:50:23,314: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 611, in connect
+[2022-08-03 16:50:23,316: WARNING/MainProcess]     
+[2022-08-03 16:50:23,321: WARNING/MainProcess] sock = self.retry.call_with_retry(
+[2022-08-03 16:50:23,333: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/retry.py", line 46, in call_with_retry
+[2022-08-03 16:50:23,334: WARNING/MainProcess]     
+[2022-08-03 16:50:23,335: WARNING/MainProcess] return do()
+[2022-08-03 16:50:23,337: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 612, in <lambda>
+[2022-08-03 16:50:23,346: WARNING/MainProcess]     
+[2022-08-03 16:50:23,346: WARNING/MainProcess] lambda: self._connect(), lambda error: self.disconnect(error)
+[2022-08-03 16:50:23,347: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 645, in _connect
+[2022-08-03 16:50:23,348: WARNING/MainProcess]     
+[2022-08-03 16:50:23,348: WARNING/MainProcess] for res in socket.getaddrinfo(
+[2022-08-03 16:50:23,349: WARNING/MainProcess]   File "/usr/lib/python3.8/socket.py", line 918, in getaddrinfo
+[2022-08-03 16:50:23,350: WARNING/MainProcess]     
+[2022-08-03 16:50:23,351: WARNING/MainProcess] for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+[2022-08-03 16:50:23,351: WARNING/MainProcess] socket
+[2022-08-03 16:50:23,352: WARNING/MainProcess] .
+[2022-08-03 16:50:23,352: WARNING/MainProcess] gaierror
+[2022-08-03 16:50:23,353: WARNING/MainProcess] : 
+[2022-08-03 16:50:23,354: WARNING/MainProcess] [Errno -3] Temporary failure in name resolution
+[2022-08-03 16:50:23,354: WARNING/MainProcess] 
+During handling of the above exception, another exception occurred:
+[2022-08-03 16:50:23,355: WARNING/MainProcess] Traceback (most recent call last):
+[2022-08-03 16:50:23,355: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 446, in _reraise_as_library_errors
+[2022-08-03 16:50:23,356: WARNING/MainProcess]     
+[2022-08-03 16:50:23,357: WARNING/MainProcess] yield
+[2022-08-03 16:50:23,357: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 433, in _ensure_connection
+[2022-08-03 16:50:23,358: WARNING/MainProcess]     
+[2022-08-03 16:50:23,359: WARNING/MainProcess] return retry_over_time(
+[2022-08-03 16:50:23,359: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/utils/functional.py", line 312, in retry_over_time
+[2022-08-03 16:50:23,360: WARNING/MainProcess]     
+[2022-08-03 16:50:23,361: WARNING/MainProcess] return fun(*args, **kwargs)
+[2022-08-03 16:50:23,361: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 877, in _connection_factory
+[2022-08-03 16:50:23,363: WARNING/MainProcess]     
+[2022-08-03 16:50:23,363: WARNING/MainProcess] self._connection = self._establish_connection()
+[2022-08-03 16:50:23,364: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 812, in _establish_connection
+[2022-08-03 16:50:23,365: WARNING/MainProcess]     
+[2022-08-03 16:50:23,366: WARNING/MainProcess] conn = self.transport.establish_connection()
+[2022-08-03 16:50:23,366: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/transport/virtual/base.py", line 949, in establish_connection
+[2022-08-03 16:50:23,368: WARNING/MainProcess]     
+[2022-08-03 16:50:23,369: WARNING/MainProcess] self._avail_channels.append(self.create_channel(self))
+[2022-08-03 16:50:23,369: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/transport/virtual/base.py", line 927, in create_channel
+[2022-08-03 16:50:23,370: WARNING/MainProcess]     
+[2022-08-03 16:50:23,371: WARNING/MainProcess] channel = self.Channel(connection)
+[2022-08-03 16:50:23,372: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 737, in __init__
+[2022-08-03 16:50:23,373: WARNING/MainProcess]     
+[2022-08-03 16:50:23,373: WARNING/MainProcess] self.client.ping()
+[2022-08-03 16:50:23,374: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/commands/core.py", line 1132, in ping
+[2022-08-03 16:50:23,376: WARNING/MainProcess]     
+[2022-08-03 16:50:23,376: WARNING/MainProcess] return self.execute_command("PING", **kwargs)
+[2022-08-03 16:50:23,377: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/client.py", line 1235, in execute_command
+[2022-08-03 16:50:23,378: WARNING/MainProcess]     
+[2022-08-03 16:50:23,379: WARNING/MainProcess] conn = self.connection or pool.get_connection(command_name, **options)
+[2022-08-03 16:50:23,379: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 1387, in get_connection
+[2022-08-03 16:50:23,381: WARNING/MainProcess]     
+[2022-08-03 16:50:23,382: WARNING/MainProcess] connection.connect()
+[2022-08-03 16:50:23,382: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/redis/connection.py", line 617, in connect
+[2022-08-03 16:50:23,383: WARNING/MainProcess]     
+[2022-08-03 16:50:23,384: WARNING/MainProcess] raise ConnectionError(self._error_message(e))
+[2022-08-03 16:50:23,385: WARNING/MainProcess] redis.exceptions
+[2022-08-03 16:50:23,385: WARNING/MainProcess] .
+[2022-08-03 16:50:23,386: WARNING/MainProcess] ConnectionError
+[2022-08-03 16:50:23,386: WARNING/MainProcess] : 
+[2022-08-03 16:50:23,387: WARNING/MainProcess] Error -3 connecting to redis:6379. Temporary failure in name resolution.
+[2022-08-03 16:50:23,387: WARNING/MainProcess] 
+The above exception was the direct cause of the following exception:
+[2022-08-03 16:50:23,388: WARNING/MainProcess] Traceback (most recent call last):
+[2022-08-03 16:50:23,388: WARNING/MainProcess]   File "/home/guest/Desktop/venv/bin/celery", line 8, in <module>
+[2022-08-03 16:50:23,389: WARNING/MainProcess]     
+[2022-08-03 16:50:23,390: WARNING/MainProcess] sys.exit(main())
+[2022-08-03 16:50:23,390: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/__main__.py", line 15, in main
+[2022-08-03 16:50:23,391: WARNING/MainProcess]     
+[2022-08-03 16:50:23,391: WARNING/MainProcess] sys.exit(_main())
+[2022-08-03 16:50:23,392: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/bin/celery.py", line 217, in main
+[2022-08-03 16:50:23,393: WARNING/MainProcess]     
+[2022-08-03 16:50:23,393: WARNING/MainProcess] return celery(auto_envvar_prefix="CELERY")
+[2022-08-03 16:50:23,394: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 1130, in __call__
+[2022-08-03 16:50:23,395: WARNING/MainProcess]     
+[2022-08-03 16:50:23,396: WARNING/MainProcess] return self.main(*args, **kwargs)
+[2022-08-03 16:50:23,397: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 1055, in main
+[2022-08-03 16:50:23,398: WARNING/MainProcess]     
+[2022-08-03 16:50:23,399: WARNING/MainProcess] rv = self.invoke(ctx)
+[2022-08-03 16:50:23,399: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 1657, in invoke
+[2022-08-03 16:50:23,401: WARNING/MainProcess]     
+[2022-08-03 16:50:23,402: WARNING/MainProcess] return _process_result(sub_ctx.command.invoke(sub_ctx))
+[2022-08-03 16:50:23,402: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 1404, in invoke
+[2022-08-03 16:50:23,404: WARNING/MainProcess]     
+[2022-08-03 16:50:23,405: WARNING/MainProcess] return ctx.invoke(self.callback, **ctx.params)
+[2022-08-03 16:50:23,405: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/core.py", line 760, in invoke
+[2022-08-03 16:50:23,407: WARNING/MainProcess]     
+[2022-08-03 16:50:23,407: WARNING/MainProcess] return __callback(*args, **kwargs)
+[2022-08-03 16:50:23,408: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/click/decorators.py", line 26, in new_func
+[2022-08-03 16:50:23,408: WARNING/MainProcess]     
+[2022-08-03 16:50:23,409: WARNING/MainProcess] return f(get_current_context(), *args, **kwargs)
+[2022-08-03 16:50:23,410: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/bin/base.py", line 134, in caller
+[2022-08-03 16:50:23,410: WARNING/MainProcess]     
+[2022-08-03 16:50:23,411: WARNING/MainProcess] return f(ctx, *args, **kwargs)
+[2022-08-03 16:50:23,411: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/bin/beat.py", line 72, in beat
+[2022-08-03 16:50:23,412: WARNING/MainProcess]     
+[2022-08-03 16:50:23,413: WARNING/MainProcess] return beat().run()
+[2022-08-03 16:50:23,413: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/apps/beat.py", line 77, in run
+[2022-08-03 16:50:23,414: WARNING/MainProcess]     
+[2022-08-03 16:50:23,415: WARNING/MainProcess] self.start_scheduler()
+[2022-08-03 16:50:23,415: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/apps/beat.py", line 105, in start_scheduler
+[2022-08-03 16:50:23,416: WARNING/MainProcess]     
+[2022-08-03 16:50:23,417: WARNING/MainProcess] service.start()
+[2022-08-03 16:50:23,417: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/beat.py", line 645, in start
+[2022-08-03 16:50:23,418: WARNING/MainProcess]     
+[2022-08-03 16:50:23,419: WARNING/MainProcess] interval = self.scheduler.tick()
+[2022-08-03 16:50:23,419: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/beat.py", line 357, in tick
+[2022-08-03 16:50:23,420: WARNING/MainProcess]     
+[2022-08-03 16:50:23,421: WARNING/MainProcess] self.apply_entry(entry, producer=self.producer)
+[2022-08-03 16:50:23,421: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/utils/objects.py", line 30, in __get__
+[2022-08-03 16:50:23,422: WARNING/MainProcess]     
+[2022-08-03 16:50:23,423: WARNING/MainProcess] return super().__get__(instance, owner)
+[2022-08-03 16:50:23,423: WARNING/MainProcess]   File "/usr/lib/python3.8/functools.py", line 967, in __get__
+[2022-08-03 16:50:23,425: WARNING/MainProcess]     
+[2022-08-03 16:50:23,425: WARNING/MainProcess] val = self.func(instance)
+[2022-08-03 16:50:23,426: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/beat.py", line 498, in producer
+[2022-08-03 16:50:23,427: WARNING/MainProcess]     
+[2022-08-03 16:50:23,428: WARNING/MainProcess] return self.Producer(self._ensure_connected(), auto_declare=False)
+[2022-08-03 16:50:23,428: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/beat.py", line 481, in _ensure_connected
+[2022-08-03 16:50:23,429: WARNING/MainProcess]     
+[2022-08-03 16:50:23,430: WARNING/MainProcess] return self.connection.ensure_connection(
+[2022-08-03 16:50:23,431: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 381, in ensure_connection
+[2022-08-03 16:50:23,432: WARNING/MainProcess]     
+[2022-08-03 16:50:23,433: WARNING/MainProcess] self._ensure_connection(*args, **kwargs)
+[2022-08-03 16:50:23,434: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 433, in _ensure_connection
+[2022-08-03 16:50:23,435: WARNING/MainProcess]     
+[2022-08-03 16:50:23,436: WARNING/MainProcess] return retry_over_time(
+[2022-08-03 16:50:23,437: WARNING/MainProcess]   File "/usr/lib/python3.8/contextlib.py", line 131, in __exit__
+[2022-08-03 16:50:23,438: WARNING/MainProcess]     
+[2022-08-03 16:50:23,439: WARNING/MainProcess] self.gen.throw(type, value, traceback)
+[2022-08-03 16:50:23,440: WARNING/MainProcess]   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/connection.py", line 450, in _reraise_as_library_errors
+[2022-08-03 16:50:23,441: WARNING/MainProcess]     
+[2022-08-03 16:50:23,442: WARNING/MainProcess] raise ConnectionError(str(exc)) from exc
+[2022-08-03 16:50:23,442: WARNING/MainProcess] kombu.exceptions
+[2022-08-03 16:50:23,443: WARNING/MainProcess] .
+[2022-08-03 16:50:23,443: WARNING/MainProcess] OperationalError
+[2022-08-03 16:50:23,444: WARNING/MainProcess] : 
+[2022-08-03 16:50:23,445: WARNING/MainProcess] Error -3 connecting to redis:6379. Temporary failure in name resolution.
+[2022-08-03 18:28:55,177: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-08-03 19:50:48,810: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-08-03 19:50:49,438: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-08-05 10:18:38,582: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-08-05 10:18:39,792: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-08-05 10:19:50,425: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-08-05 10:19:54,036: INFO/MainProcess] DatabaseScheduler: Schedule changed.

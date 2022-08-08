@@ -1,7 +1,7 @@
 
-FROM ubuntu:20.04
+FROM python:3.9
 
-# ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED 1
 
 # RUN apk update \
 #   # psycopg2 dependencies
@@ -14,15 +14,16 @@ FROM ubuntu:20.04
 
 # RUN addgroup -S django \
 #     && adduser -S -G django django
+# RUN addgroup django \
+#     && adduser --system --group django
 
-
-RUN apt  update \
-    && apt install net-tools iptoute2 pyhton3.9 command-not-found python3-pip python-is-python openssh-server mariadb-server -y
+RUN apt  update
+    # && apt install net-tools iptoute2 pyhton3.9 command-not-found python3-pip python-is-python openssh-server mariadb-server -y
 
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements
-RUN pip install -U pip
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r /requirements/production.txt 
     
 
@@ -34,7 +35,7 @@ RUN pip install --no-cache-dir -r /requirements/production.txt
 COPY ./compose/production/django/copyadmin /copyadmin
 RUN sed -i 's/\r$//g' /copyadmin
 RUN chmod +x /copyadmin
-RUN /copyadmin
+# RUN /copyadmin
 
 COPY ./compose/production/django/start /start
 RUN sed -i 's/\r$//g' /start
@@ -52,13 +53,16 @@ RUN chmod +x /start-celerybeat
 # RUN sed -i 's/\r$//g' /start-flower
 # RUN chmod +x /start-flower
 
-RUN chown django /start
+# RUN chown django /start
 COPY . /app
 
-RUN chown -R django /app
-
-USER django
+# RUN chown -R django /app
+RUN cp /app/AdminFiles/* /usr/local/lib/python3.9/site-packages/admin_volt/templates/admin/
+# USER django
 
 WORKDIR /app
+
+# RUN python /app/manage.py makemigrations
+# RUN python /app/manage.py migrate
 
 # ENTRYPOINT ["/entrypoint"]

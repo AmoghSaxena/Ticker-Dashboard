@@ -439,10 +439,14 @@ function fopositionbox(id)
 }
 
 function getdata() {
+  
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
       if (xhttp.readyState == 4 && xhttp.status == 200) {
-          var javaobj = JSON.parse(xhttp.response);
+          var javaobj = JSON.parse(xhttp.responseText);
+          // alert(javaobj);
+          // alert(javaobj.data);
+          console.log(javaobj.data);
           roomtype = document.getElementById('roomTypeSelection');
           wing = document.getElementById('wingSelection');
           floor = document.getElementById('floorSelection');
@@ -455,6 +459,7 @@ function getdata() {
               if (!arr.includes(opt.innerHTML)) {
                   roomtype.appendChild(opt);
                   arr.push(opt.innerHTML);
+                  console.log("hello")
               }
               opt = document.createElement('option');
               opt.innerHTML = javaobj.data[i].wing_name;
@@ -478,7 +483,7 @@ function getdata() {
       }
   }
   xhttp.open("GET", "/static/resources/resource.json", true);
-  xhttp.send();
+  xhttp.send(null);
 }
 
 function schedulebuttonenabler(id)
@@ -544,7 +549,7 @@ function filterforkeys(id) {
 
     var request = new XMLHttpRequest();
 
-    request.open("GET", "/static/resources/resource.json", false);
+    request.open("GET", "/static/resources/resource.json", true);
     request.send(null);
 
     var javaobj = JSON.parse(request.responseText);

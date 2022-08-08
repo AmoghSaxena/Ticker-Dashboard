@@ -22,11 +22,11 @@ app.conf.beat_schedule = {
         'task':'ticker_management.maintainLogs.filereader',
         'schedule': crontab(hour=00,minute=00)
     },
-    'syncDVSData': {
-        #to sync dvs data
-        'task':'ticker_management.views.syncDVSData',
-        'schedule': crontab(hour=00,minute=00)
-    },
+    # 'syncDVSData': {
+    #     #to sync dvs data
+    #     'task':'ticker_management.views.syncDVSData',
+    #     'schedule': crontab(hour=00,minute=00)
+    # },
 }
 
 app.autodiscover_tasks()

@@ -64,7 +64,7 @@ def roomConfigurations(request):
     datafromdvs=json.load(file)
 
 
-    tree = ET.parse(f"{str(BASE_DIR)}/static/resources/res.xml")
+    tree = ET.parse(f"{str(BASE_DIR)}/static/resources/resource.xml")
     root = tree.getroot()
 
     tagList=list()
