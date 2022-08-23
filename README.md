@@ -1,42 +1,60 @@
-A simple app
-for Django 3.2.8 and Python 3.9.2
-that allows listing and downloading files from a given directory,
-while controlling who can access the files.
+# Ticker/On Screen Promotion Dashboard Server.
 
-Installation
-============
-`python manage.py migrate` is not required as there are no models.
 
-Add to the `settings.py` file::
+#### This is the Ticker/On Screen Promotion Server files which can be hosted as Standalone or Dockerized Container
 
-    INSTALLED_APPS += ['directory']
 
-    DIRECTORY_DIRECTORY = '/path/to/dir'
+## To Run the server follow the Steps below!
 
-That's the directory to be listed.
+> Step 1 [Clone this Repository]
+```
+git clone https://github.com/AmoghSaxena/Ticker-Dashboard.git TickerDashboard
+```
 
-Add to the `urls.py` file the url entry, e.g.:
+> Step 2 [Change the Working directory to the cloned directory]
+```
+cd TickerDashboard
+```
 
-    ('files/', include('directory.urls')),
+###  To Start with it with Docker you can run few Simple Commands
 
-Dependencies
-============
-If setting `DIRECTORY_ACCESS_MODE` is set to `'use-perms'`, or (possibly) `'custom'`,
-then this app will require `django.contrib.auth` installed in the project.
+> Step 3 [Build the image of it]
+```
+docker build -t tickerdashboard:1.0 .
+```
 
-Configuration
-=============
+> Step 4 [Run the container with the same image]
+```
+docker run -d --name tickerserver -p 8042:5085 tickerdashboard:1.0
+```
 
-Setting `DIRECTORY_ACCESS_MODE`, can be one of: `'public'`, `'use-perms'`, `'custom'`,
-value `'public'` is default.
+> Step 5 [Make Initial Migrations]
+```
+docker exec -it tickerserver /migrate
+```
 
-* value `'public'` means that anyone can see the directory and download files.
-* `'use-perms'` means that django permission `'directory_read'` from `django.contrib.auth` will be checked
-* `'custom'` - means that function provided with `DIRECTORY_ACCESS_FUNCTION` will be called to check the permission
+> Step 6 [Run the Cloud Server]
+```
+docker exec -itd tickerserver gunicorn --config gunicorn-cfg.py ticker_dashboard.wsgi
+```
 
-`DIRECTORY_ACCESS_FUNCTION` - a function or python path to the custom permission checking function e.g. `'myapp.perms.check_get_backups_perm'`.
+### To Start with it as a Standalone
+> Step 3 [Install the Requirements - Make sure you Have Python3.8 +]
+```
+pip install -r requirements.txt
+```
 
-The function should accept parameter `request` and return a Boolean value - access granted if `True`.
+> Step 4 [To perform Migrations]
+```
+python manage.py makemigrations
+```
 
-`DIRECTORY_TEMPLATE` - path to the template file for the directory listing. Default value
-is `'directory/list.html'`
+> Step 5 [To migrate the database]
+```
+python manage.py migrate
+```
+
+> Step 6 [This will run your server on Port 5085]
+```
+gunicorn --config gunicorn-cfg.py ticker_dashboard.wsgi
+```

@@ -1,0 +1,44 @@
+#!/bin/sh
+
+set -o errexit
+set -o nounset
+
+
+
+# screen -S celerybeat -d -m "/start-celerybeat"
+
+# screen -S celeryworker -d -m "/start-celeryworker"
+
+redis-server --daemonize yes
+
+sleep 2s
+
+redis-cli PING
+
+echo ${DVS_FQDN_ENTRY}
+
+echo ${DVS_FQDN_ENTRY} >> /etc/hosts
+
+python manage.py collectstatic --noinput
+
+python manage.py makemigrations
+
+sleep 1s
+
+python manage.py migrate
+
+# DJANGO_SUPERUSER_USERNAME=testuser \
+# DJANGO_SUPERUSER_PASSWORD=testpass \
+# DJANGO_SUPERUSER_EMAIL="admin@admin.com" \
+python manage.py createsuperuser --noinput
+
+echo "IMPORTING TRIGGERS..."
+mysql -uroot -p$MYSQL_ROOT_PASSWORD < trigger.sql
+echo "TRIGGERS IMPORTED"
+
+
+echo "STARTING CELERY"
+screen -S celerybeat -d -m "/start-celerybeat"
+
+screen -S celeryworker -d -m "/start-celeryworker"
+echo "CELERY STARTED"

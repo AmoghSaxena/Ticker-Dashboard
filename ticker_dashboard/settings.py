@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 import pymysql
+import subprocess
+# from dotenv import load_dotenv
+TZ=subprocess.check_output(['cat', '/etc/timezone']).decode().strip()
+
 # from dotenv import load_dotenv
 
 # load_dotenv()
@@ -38,16 +42,20 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_CREDENTIALS = True
 
+try:
+    TICKER_FQDN = subprocess.check_output(['cat', '/app/TICKER_FQDN.txt']).decode().strip()
+    CSRF_TRUSTED_ORIGINS = [f'https://{TICKER_FQDN}']
+except:
+    CSRF_TRUSTED_ORIGINS = [f'https://ticker.uncle.army']
+    pass
 
-# CSRF_TRUSTED_ORIGINS = ['https://ticker.dns.army']
-
-CORS_REPLACE_HTTPS_REFERER = True
+# CORS_REPLACE_HTTPS_REFERER = True
 
 # CSRF_COOKIE_DOMAIN = 'ticker.dns.army'
 
 # CORS_ORIGIN_WHITELIST = (
-#     'https://front.bluemix.net/',
-#     'front.bluemix.net',
+#     'https://ticker.dns.army/',
+#     'ticker.dns.army',
 #     'bluemix.net',
 # )
 
@@ -107,32 +115,41 @@ EMAIL_USE_TLS = True
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Ticker',
-        'USER': 'Ticker',
-        'HOST': 'localhost',
-        'PASSWORD': '1',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+try:
+    DATABASE_NAME = subprocess.check_output(['cat', '/app/DATABASE_NAME.txt']).decode().strip()
+    DATABASE_PASS = subprocess.check_output(['cat', '/app/MYSQL_ROOT_PASSWORD_FILE.txt']).decode().strip()
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': DATABASE_NAME,
+            'USER': 'root',
+            'HOST': 'localhost',
+            'PASSWORD': DATABASE_PASS,
+            'PORT': '3306',
+            'OPTIONS': {
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+            }
         }
     }
-}
+except:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'Ticker',
+            'USER': 'Ticker',
+            'HOST': 'localhost',
+            'PASSWORD': '1',
+            'PORT': '3306',
+            'OPTIONS': {
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+            }
+        }
+    }
+    pass
 
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": "postgres",
-#         "USER": "postgres",
-#         "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
-#         "HOST": "db",
-#         "PORT": "5432",
-#     }
-# }
+
+
 
 
 
@@ -159,7 +176,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Kolkata'
+TIME_ZONE = TZ
 
 USE_I18N = True
 
@@ -189,8 +206,8 @@ SESSION_EXPIRE_SECONDS = 12
 #     ]
 
 STATICFILES_DIRS = [
-    (BASE_DIR + "static"),
-    os.path.join(BASE_DIR, 'static')
+    (BASE_DIR + "/static")
+    # os.path.join(BASE_DIR, '/static')
 
 ]
 
@@ -206,7 +223,7 @@ CELERY_BROKER_URL = "redis://localhost:6379"
 CELERY_ACCEPT_CONTEXT = ['application/json']
 CELERY_RESULT_SERIALIZER='json'
 CELERY_TASK_SERIALIZER='json'
-CELERY_TIMEZONE='Asia/Kolkata'
+CELERY_TIMEZONE=TZ
 
 DJANGO_CELERY_BEAT_TZ_AWARE = False
 
@@ -272,3 +289,5 @@ LOGGING = {
         }
     }
 }
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')

@@ -8,6 +8,9 @@ from pathlib import Path
 from django_celery_beat.models import PeriodicTask,CrontabSchedule
 from ticker_dashboard.settings import BASE_DIR
 
+import logging
+logger=logging.getLogger('dashboardLogs')
+
 def replacer(s):
     return str(s).replace('{','').replace('}','').replace(' ','')
 
@@ -15,7 +18,6 @@ def addrecurringtime(start_time,end_time,frequency):
    minutes=set()
    hours=set()
    day=set()
-#    day_of_week=set()
    month=set()
 
    while (start_time<end_time):
@@ -26,7 +28,6 @@ def addrecurringtime(start_time,end_time,frequency):
        month.add(int(start_time.strftime('%m')))
 
        start_time+=timedelta(minutes=frequency)
-
 
    return {"hours":replacer(hours),"minutes":replacer(minutes),
            "days":replacer(day)#"day_of_week":replacer(day_of_week)
@@ -43,11 +44,10 @@ def xmlFileRead(tagList,idList,root):
     for i in tagList:
         st+=str(i)+' '
 
-    # print(st)
-
     return st.strip()
 
 def roomConfigurations(request):
+    logger.info('Inside roomConfiguration function')
 
     wings=request.POST.getlist('wingSelection')
     floors=request.POST.getlist('floorSelection')
@@ -124,6 +124,8 @@ def roomConfigurations(request):
 
 def schedule_tasks(ticker_id,command):
 
+    logger.info('Inside schedule_tasks function')
+
     ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
 
     # print(ticker_id,ticker_obj.get())
@@ -155,7 +157,7 @@ def schedule_tasks(ticker_id,command):
 
     else:
         
-        frequency=str(ticker_obj.get().get('frequency'))
+        frequency=str(ticker_obj.get()['frequency'])
 
         if 'minutes' in frequency:
             frequency=frequency.split(" ")[0]
@@ -165,9 +167,9 @@ def schedule_tasks(ticker_id,command):
         
         data=addrecurringtime(start_dateobj,end_dateobj,int(frequency))
 
-        if ',' in data.get('days'):
+        if ',' in data['days']:
 
-            week=str(ticker_obj.get().get('occuring_days')).split(',')
+            week=str(ticker_obj.get()['occuring_days']).split(',')
 
             all_week= ['Sunday',
                         'Monday',
@@ -190,33 +192,31 @@ def schedule_tasks(ticker_id,command):
 
         print(data,week_number)
 
-        schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=data.get('month'),day_of_month=data.get('days'),hour=data.get('hours'),minute=data.get('minutes'),day_of_week=week_number)
+        schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=data.get('month'),day_of_month=data['days'],hour=data['hours'],minute=data['minutes'],day_of_week=week_number)
         task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((command,ticker_id)))
 
 def schedulingticker(request,ticker_id):
+    logger.info('Inside scheduleticker function')
 
     setup=SetUp.objects.filter(id=1).values()
 
-    FQDN=setup.get().get('FQDN')
-    Dvs_Token=setup.get().get('Dvs_Token')
-    Rundeck_Token=setup.get().get('Rundeck_Token')
-    Rundeck_Api_Version=setup.get().get('Rundeck_Api_Version')
-    Ticker_FQDN=setup.get().get('Ticker_FQDN')
-
-    command=str()
-    part_a=str()
-    part_b=str()
+    FQDN=setup.get()['FQDN']
+    Dvs_Token=setup.get()['Dvs_Token']
+    Rundeck_Token=setup.get()['Rundeck_Token']
+    Rundeck_Api_Version=setup.get()['Rundeck_Api_Version']
+    Ticker_FQDN=setup.get()['Ticker_FQDN']
+    Rundeck_Start_Job=setup.get()['Rundeck_Start_Job']
 
     configuration=roomConfigurations(request)
-        
-    part_a="curl --location --request POST 'https://"+str(FQDN)+"/r/api/"+str(Rundeck_Api_Version)+"/job/0d0c3cfe-adcd-4f86-8c03-adaa1cd2c0e0/run' --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-Rundeck-Auth-Token: "+str(Rundeck_Token)+"""' --header 'Cookie: JSESSIONID=56pr1s6s16yt1fsckqzcyjwfc' --data-raw '{ "argString": "-whichnode \\"""+'"'+str(configuration)+'''\\" -FQDN \\'''
-    part_b='"'+str(Ticker_FQDN)+'\\" -jsonFile \\"'+str(ticker_id)+"""\\" -BasicAuth \\"YWRtaW46YWRtaW4xMjM0\\""}'"""
     
-    command=part_a+part_b
-    if (len(command)>0):
+    json_data = {
+        'argString': f'-whichnode {configuration} -FQDN {Ticker_FQDN} -jsonFile {ticker_id} -BasicAuth "YWRtaW46YWRtaW4xMjM0"',
+    }
+    
+    if (len(json_data)>0):
         if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scheduleEnabler') == 'enabled':
-            callticker(command,ticker_id)
+            callticker(json_data,ticker_id)
         else:
-            schedule_tasks(ticker_id,command)
+            schedule_tasks(ticker_id,json_data)
     else:
         print("No scheduled processes")

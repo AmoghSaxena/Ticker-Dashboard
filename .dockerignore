@@ -3,6 +3,5 @@
 !.env
 !.pylintrc
 venv
-dbdata
-db_all
-*.sqlite
+*/migrations/*
+!*/migrations/__init__.py

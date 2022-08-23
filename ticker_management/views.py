@@ -1,7 +1,5 @@
 import os
 import requests
-import xml.etree.ElementTree as ET
-from xml.dom import minidom
 import json
 import xml.etree.ElementTree
 from django.contrib.auth.decorators import login_required
@@ -9,7 +7,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth import login as user_login
 from django.contrib import messages
-from ticker_management.gadget import datagetter,filterData
+from ticker_management.gadget import datagetter
 from django.http import HttpResponse
 # from django_celery_beat.models import PeriodicTask,CrontabSchedule
 from datetime import date,datetime
@@ -23,7 +21,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Task
 from ticker_management.rundecklog import rundeck_update, abortTicker
-from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import check_password
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage
 from django.db.models import Q
@@ -44,8 +42,8 @@ def login(request):
     msg = None
     if request.method == "POST":
         if form.is_valid():
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
             user = authenticate(username=username, password=password)
             if user is not None:
                 user_login(request, user)
@@ -91,6 +89,7 @@ def createTicker(request):
     try:
         syncDVSData()
     except Exception as e:
+        logger.error('Error: '+str(e))
         return HttpResponse('SetUp not set : '+e)
     
     data = {
@@ -254,18 +253,18 @@ def detail(request, id):
     try:
         ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
         logObject = list()
-        if ticker_obj.get().get('rundeckid')!=None:
+        if ticker_obj.get()['rundeckid']!=None:
             # logObject.append(initial_data(ticker_obj))
             rundeckLogData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
             rundeckProcess=RundeckLog.objects.all().filter(ticker_id=int(id),execution='running').values()
 
             for i in rundeckProcess:
-                rundeck_update(i.get('rundeck_id'))
+                rundeck_update(i['rundeck_id'])
 
             rundeckLog=sorted(rundeckLogData,key=lambda item: item['rundeck_id'],reverse=True)
         else:
             rundeckLog=list()
-            dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get().get('ticker_id'), 'ticker_title': ticker_obj.get().get('ticker_title'), 'execution': "pending", 'successfull_nodes':
+            dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get()['ticker_id'], 'ticker_title': ticker_obj.get()['ticker_title'], 'execution': "pending", 'successfull_nodes':
              "None", 'failed_nodes': 'None', 'tv_status': 'None', 'iPad_status': 'None'}
             rundeckLog.append(dictwithoutrundeckid)
         return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog, 'logObject':list()})
@@ -278,13 +277,13 @@ def abort(request, id):
     try:
         ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
         logObject = list()
-        if ticker_obj.get().get('rundeckid')!=None:
+        if ticker_obj.get()['rundeckid']!=None:
             logObject.append(abortTicker(ticker_obj))
             rundeckLogData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
             rundeckLog=sorted(rundeckLogData,key=lambda item: item['rundeck_id'],reverse=True)
         else:
             rundeckLog=list()
-            dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get().get('ticker_id'), 'ticker_title': ticker_obj.get().get('ticker_title'), 'execution': "pending", 'successfull_nodes':
+            dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get()['ticker_id'], 'ticker_title': ticker_obj.get()['ticker_title'], 'execution': "pending", 'successfull_nodes':
              "None", 'failed_nodes': 'None', 'tv_status': 'None', 'iPad_status': 'None'}
             rundeckLog.append(dictwithoutrundeckid)
         return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog, 'logObject':logObject})
@@ -472,8 +471,8 @@ def changePassword(request):
 def syncDVSData():
     dvs_data=SetUp.objects.filter(id=1).values()
     # print(dvs_data.get())
-    FQDN=dvs_data.get().get('FQDN')
-    Dvs_Token=dvs_data.get().get('Dvs_Token')
+    FQDN=dvs_data.get()['FQDN']
+    Dvs_Token=dvs_data.get()['Dvs_Token']
     # dvs_data="curl -s --location --request POST 'https://{2}/dvs/api/key/selectR' --header 'Content-Type: application/vnd.digivalet.v1+json' --header 'Access-Token: {3}' --data-raw '{0}' | jq  > {1}/../static/resources/resource.json".format('{}',BASE_DIR,FQDN,Dvs_Token)
 
     # # requests.post(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/job/{Rundeck_Stop_Job}/run/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"}, json={ "argString": f"-whichnode \"{nodes}\""})
@@ -544,7 +543,7 @@ def taskPost(request,id="0"):
         p=serializer.initial_data
         q=int(p.get('ticker_id'))
         ticker_obj = TickerDetails.objects.filter(ticker_id=q).values()
-        if (ticker_obj.get().get('ticker_end_time'))<datetime.now() and (ticker_obj.get().get('ticker_type')=="Emergency Ticker"):
+        if (ticker_obj.get()['ticker_end_time'])<datetime.now() and (ticker_obj.get()['ticker_type']=="Emergency Ticker"):
             Content={"Completed":True}
         else:
             Content={"Completed:":False}
@@ -553,7 +552,7 @@ def taskPost(request,id="0"):
     elif request.method == 'DELETE':
         serializer = TaskSerializer(data=request.data)
         p=serializer.initial_data
-        q=int(p.get('id'))
+        q=int(p['id'])
         # print(type(q))
         task = Task.objects.get(id=q)
         task.delete()

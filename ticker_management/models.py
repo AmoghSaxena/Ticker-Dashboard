@@ -19,9 +19,9 @@ class SetUp(models.Model):
     Apache_server_url=models.CharField(max_length=150,null=True)
     Ticker_FQDN=models.CharField(max_length=150,null=True)
     
-    class Meta:
-        managed = False
-        db_table = 'ticker_management_setup'
+    # class Meta:
+    #     managed = False
+    #     db_table = 'ticker_management_setup'
 
 class RundeckLog(models.Model):
     rundeck_id=models.IntegerField(primary_key=True)

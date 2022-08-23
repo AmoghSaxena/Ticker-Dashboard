@@ -7,15 +7,15 @@ import logging
 logger=logging.getLogger('dashboardLogs')
 
 def initial_data(ticker_obj):
+    logger.info('Inside initial_data function')
     try:
-
         setupData=SetUp.objects.filter(id=1).values()
-        FQDN=setupData.get().get('FQDN')
-        Rundeck_Token=setupData.get().get('Rundeck_Token')
-        Rundeck_Stop_Job=setupData.get().get('Rundeck_Stop_Job')
-        Rundeck_Api_Version=setupData.get().get('Rundeck_Api_Version')
+        FQDN=setupData.get()['FQDN']
+        Rundeck_Token=setupData.get()['Rundeck_Token']
+        Rundeck_Stop_Job=setupData.get()['Rundeck_Stop_Job']
+        Rundeck_Api_Version=setupData.get()['Rundeck_Api_Version']
 
-        rundeckid=ticker_obj.get().get('rundeckid')
+        rundeckid=ticker_obj.get()['rundeckid']
         
         response = requests.get(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/execution/{rundeckid}/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"})
         rundeckOutput = response.json()
@@ -25,8 +25,8 @@ def initial_data(ticker_obj):
             failedNodes = rundeckOutput.get('failedNodes', '[]')
             RundeckLog_obj=RundeckLog()
             RundeckLog_obj.rundeck_id=rundeckid
-            RundeckLog_obj.ticker_id=ticker_obj.get().get('ticker_id')
-            RundeckLog_obj.ticker_title=ticker_obj.get().get('ticker_title')
+            RundeckLog_obj.ticker_id=ticker_obj.get()['ticker_id']
+            RundeckLog_obj.ticker_title=ticker_obj.get()['ticker_title']
             RundeckLog_obj.execution=status
             RundeckLog_obj.successfull_nodes=successfulNodes
             RundeckLog_obj.failed_nodes=failedNodes
@@ -43,12 +43,11 @@ def initial_data(ticker_obj):
 
 def rundeck_update(rundeckid):
     try:
-
         setupData=SetUp.objects.filter(id=1).values()
-        FQDN=setupData.get().get('FQDN')
-        Rundeck_Token=setupData.get().get('Rundeck_Token')
-        Rundeck_Stop_Job=setupData.get().get('Rundeck_Stop_Job')
-        Rundeck_Api_Version=setupData.get().get('Rundeck_Api_Version')
+        FQDN=setupData.get()['FQDN']
+        Rundeck_Token=setupData.get()['Rundeck_Token']
+        Rundeck_Stop_Job=setupData.get()['Rundeck_Stop_Job']
+        Rundeck_Api_Version=setupData.get()['Rundeck_Api_Version']
         
         response = requests.get(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/execution/{rundeckid}/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"})
         rundeckOutput = response.json()
@@ -79,17 +78,17 @@ def rundeck_update(rundeckid):
 
 
 def abortTicker(ticker_obj):
+    logger.info('Inside abortTicker function')
     try:
-
         setupData=SetUp.objects.filter(id=1).values()
-        FQDN=setupData.get().get('FQDN')
-        Rundeck_Token=setupData.get().get('Rundeck_Token')
-        Rundeck_Stop_Job=setupData.get().get('Rundeck_Stop_Job')
-        Rundeck_Api_Version=setupData.get().get('Rundeck_Api_Version')
+        FQDN=setupData.get()['FQDN']
+        Rundeck_Token=setupData.get()['Rundeck_Token']
+        Rundeck_Stop_Job=setupData.get()['Rundeck_Stop_Job']
+        Rundeck_Api_Version=setupData.get()['Rundeck_Api_Version']
 
-        rundeckid=ticker_obj.get().get('rundeckid')
+        rundeckid=ticker_obj.get()['rundeckid']
         
-        rundeckid=ticker_obj.get().get('rundeckid')
+        rundeckid=ticker_obj.get()['rundeckid']
         response = requests.get(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/execution/{rundeckid}/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"})
         rundeckOutput = response.json()
         if response.status_code == 200:
@@ -98,8 +97,8 @@ def abortTicker(ticker_obj):
             failedNodes = rundeckOutput.get('failedNodes', '[]')
             RundeckLog_obj=RundeckLog()
             RundeckLog_obj.rundeck_id=rundeckid
-            RundeckLog_obj.ticker_id=ticker_obj.get().get('ticker_id')
-            RundeckLog_obj.ticker_title=ticker_obj.get().get('ticker_title')
+            RundeckLog_obj.ticker_id=ticker_obj.get()['ticker_id']
+            RundeckLog_obj.ticker_title=ticker_obj.get()['ticker_title']
             RundeckLog_obj.execution=status
             RundeckLog_obj.successfull_nodes=successfulNodes
             RundeckLog_obj.failed_nodes=failedNodes
