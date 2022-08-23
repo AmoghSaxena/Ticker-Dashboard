@@ -14,6 +14,10 @@ echo ${DVS_FQDN_ENTRY}
 
 echo ${DVS_FQDN_ENTRY} >> /etc/hosts
 
+
+python authgen.py
+
+
 python manage.py collectstatic --noinput
 
 python manage.py makemigrations
@@ -23,7 +27,6 @@ sleep 1s
 python manage.py migrate
 
 python manage.py createsuperuser --noinput
-python authgen.py
 
 echo "IMPORTING TRIGGERS..."
 mysql -uroot -p$MYSQL_ROOT_PASSWORD < trigger.sql
