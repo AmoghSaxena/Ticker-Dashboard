@@ -25,7 +25,7 @@ docker build -t tickerdashboard:1.0 .
 
 > Step 4 [Run the container with the same image]
 ```
-docker run -d --name tickerserver -p 8042:5015 tickerdashboard:1.0
+docker run -d --name tickerserver -p 8042:5015 -v tickerdashboard:/var/lib/mysql -v media:/app/media tickerdashboard:1.0
 ```
 
 > Step 5 [Make Initial Migrations] - MAKE SURE TO WAIT FOR FEW SECONDS SO THAT MYSQL SERVICES CAN START
