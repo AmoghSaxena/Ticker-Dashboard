@@ -15,6 +15,7 @@ import subprocess
 # from dotenv import load_dotenv
 TZ=subprocess.check_output(['cat', '/etc/timezone']).decode().strip()
 
+AUTH_TOKEn_API = subprocess.check_output(['cat', '/app/auth_token_api']).decode().strip()
 # from dotenv import load_dotenv
 
 # load_dotenv()
@@ -236,15 +237,15 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 #127.0.0.1:6379
 
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#          'rest_framework.authentication.BasicAuthentication',
-#     ],
-#     'DEFAULT_PERMISSION_CLASSES': [
-#          'rest_framework.permissions.IsAuthenticated'
-#         #'knox.auth.TokenAuthentication',
-#     ]
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+         'rest_framework.authentication.BasicAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+         'rest_framework.permissions.IsAuthenticated'
+        #'knox.auth.TokenAuthentication',
+    ]
+}
 
 # DIRECTORY_DIRECTORY = '/home/guest/Desktop/Ticker-Dashboard/media'
 

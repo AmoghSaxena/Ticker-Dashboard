@@ -18,3 +18,13 @@ INFO 2022-08-22 16:46:17,535 :  ticker_schedules 1272116 Inside scheduleticker f
 INFO 2022-08-22 16:46:17,550 :  ticker_schedules 1272116 Inside roomConfiguration function from function roomConfigurations in line no. 50
 INFO 2022-08-22 16:46:17,576 :  tasks 1272116 Inside callticker function from function callticker in line no. 14
 INFO 2022-08-22 16:46:17,815 :  rundecklog 1272116 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-23 15:03:46,864 :  gadget 1297276 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-23 15:03:46,927 :  ticker_schedules 1297276 Inside scheduleticker function from function schedulingticker in line no. 199
+INFO 2022-08-23 15:03:46,938 :  ticker_schedules 1297276 Inside roomConfiguration function from function roomConfigurations in line no. 50
+INFO 2022-08-23 15:03:46,950 :  tasks 1297276 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-23 15:03:47,162 :  rundecklog 1297276 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-23 15:05:57,241 :  gadget 1297413 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-23 15:05:57,370 :  ticker_schedules 1297413 Inside scheduleticker function from function schedulingticker in line no. 199
+INFO 2022-08-23 15:05:57,383 :  ticker_schedules 1297413 Inside roomConfiguration function from function roomConfigurations in line no. 50
+INFO 2022-08-23 15:05:57,408 :  tasks 1297413 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-23 15:05:57,635 :  rundecklog 1297413 Inside initial_data function from function initial_data in line no. 10

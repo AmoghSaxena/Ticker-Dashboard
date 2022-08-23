@@ -1895,6 +1895,28 @@
          "modified_on": null
       },
       {
+         "id": "115",
+         "key_number": "99999",
+         "number": "99999",
+         "key_category_id": "9",
+         "key_category_name": "Standard",
+         "wing_id": "15",
+         "wing_name": "Tower A",
+         "floor_id": "20",
+         "floor_name": "12th Floor",
+         "with_dvc": "1",
+         "number_of_dvc": "1",
+         "number_of_ipad": "1",
+         "number_of_tv": "0",
+         "is_handed_over": "0",
+         "is_active": "1",
+         "is_deleted": "0",
+         "created_by": "Digivalet Admin",
+         "created_on": "22, Aug 2022, 07:26 PM",
+         "modified_by": null,
+         "modified_on": null
+      },
+      {
          "id": "29",
          "key_number": "0",
          "number": "NONDV",

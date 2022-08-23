@@ -6,7 +6,7 @@ from ticker_management.tasks import callticker
 from .models import TickerDetails
 from pathlib import Path
 from django_celery_beat.models import PeriodicTask,CrontabSchedule
-from ticker_dashboard.settings import BASE_DIR
+from ticker_dashboard.settings import BASE_DIR,AUTH_TOKEn_API
 
 import logging
 logger=logging.getLogger('dashboardLogs')
@@ -209,9 +209,16 @@ def schedulingticker(request,ticker_id):
 
     configuration=roomConfigurations(request)
     
+    try:
+        auth=AUTH_TOKEn_API
+    except:
+        auth="YWRtaW46YWRtaW4xMjM0"
+
     json_data = {
-        'argString': f'-whichnode {configuration} -FQDN {Ticker_FQDN} -jsonFile {ticker_id} -BasicAuth "YWRtaW46YWRtaW4xMjM0"',
+        'argString': f'-whichnode {configuration} -FQDN {Ticker_FQDN} -jsonFile {ticker_id} -BasicAuth {auth}',
     }
+
+    print(auth)
     
     if (len(json_data)>0):
         if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scheduleEnabler') == 'enabled':

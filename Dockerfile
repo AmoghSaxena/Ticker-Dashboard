@@ -49,6 +49,8 @@ COPY . /app
 
 # RUN pip install -r /app/requirement.txt 
 RUN echo ${DVS_FQDN_ENTRY} >> /etc/hosts
+RUN echo ${DJANGO_SUPERUSER_USERNAME} > /app/admin_user
+RUN echo ${DJANGO_SUPERUSER_PASSWORD} > /app/admin_pass
 RUN echo ${MARIADB_DATABASE} > /app/DATABASE_NAME.txt
 RUN echo ${MYSQL_ROOT_PASSWORD} > /app/MYSQL_ROOT_PASSWORD_FILE.txt
 RUN echo ${TICKER_FQDN} > /app/TICKER_FQDN.txt

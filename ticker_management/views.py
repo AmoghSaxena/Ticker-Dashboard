@@ -9,6 +9,7 @@ from django.contrib.auth import login as user_login
 from django.contrib import messages
 from ticker_management.gadget import datagetter
 from django.http import HttpResponse
+import subprocess
 # from django_celery_beat.models import PeriodicTask,CrontabSchedule
 from datetime import date,datetime
 from ticker_management.models import TickerDetails,TickerHistory,SetUp,RundeckLog
@@ -25,7 +26,7 @@ from django.contrib.auth.hashers import check_password
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage
 from django.db.models import Q
-from ticker_dashboard.settings import BASE_DIR
+from ticker_dashboard.settings import BASE_DIR,AUTH_TOKEn_API
 
 # #Api
 # BASE_DIR = Path(__file__).resolve().parent
@@ -563,17 +564,29 @@ def configApi(request,pk="0"):
     if request.method == 'GET':
         serializer = TaskSerializerConfig(data=request.data)
         p=serializer.initial_data
+
         q=int(p.get('ticker_id'))
         try:
             tasks = TickerDetails.objects.filter(ticker_id=q).values_list('ticker_json')
-            serializer = TaskSerializerConfig(tasks.get(), many=False)
-            return Response(json.loads(serializer._args[0][0]))
+            print(tasks.get(),type(tasks.get()[0]))
+            ticker_config_file = json.loads(tasks.get()[0])
+            try:
+                ticker_config_file['auth_token'] = AUTH_TOKEn_API
+            except:
+                ticker_config_file['auth_token'] = "YWRtaW46YWRtaW4xMjM0"
+            
+            tasks = json.dumps(ticker_config_file,indent=3)
+            return Response(json.loads(tasks))
 
         except TickerDetails.DoesNotExist  as e:
             tasks=TickerHistory.objects.filter(ticker_id=q).values_list('ticker_json')
-            serializer = TaskSerializerConfigHistory(tasks.get(), many=False)
-            return Response(json.loads(serializer._args[0][0]))
-       
+            ticker_config_file = json.loads(tasks.get()[0])
+            try:
+                ticker_config_file['auth_token'] = AUTH_TOKEn_API
+            except:
+                ticker_config_file['auth_token'] = "YWRtaW46YWRtaW4xMjM0"
+            tasks = json.dumps(ticker_config_file,indent=3)
+            return Response(json.loads(tasks))       
 
 def setupMail():
     try:

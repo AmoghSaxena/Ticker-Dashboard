@@ -1,0 +1,5 @@
+APP_NAME Ticker-Dashboard
+COMPANY_NAME Digivalet.
+WEBSITE http://digivalet.com
+VERSION_MAJOR 1
+VERSION_MINOR 2
