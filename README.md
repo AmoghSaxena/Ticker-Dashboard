@@ -28,14 +28,14 @@ docker build -t tickerdashboard:1.0 .
 docker run -d --name tickerserver -p 8042:5085 tickerdashboard:1.0
 ```
 
-> Step 5 [Make Initial Migrations]
+> Step 5 [Make Initial Migrations] - MAKE SURE TO WAIT FOR FEW SECONDS SO THAT MYSQL SERVICES CAN START
 ```
-docker exec -it tickerserver /migrate
+docker exec -it tickerserver /startservices
 ```
 
 > Step 6 [Run the Cloud Server]
 ```
-docker exec -itd tickerserver gunicorn --config gunicorn-cfg.py ticker_dashboard.wsgi
+docker exec -itd tickerserver /startserver
 ```
 
 ### To Start with it as a Standalone
