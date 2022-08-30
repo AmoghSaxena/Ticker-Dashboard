@@ -136,7 +136,7 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-square-plus fs-5"></i></div>
                                 Create Ticker
                             </a>
-                            <a class="nav-link mx-2 my-1 {% if request.path == '/ticker/active/'%} active rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'active'%}">
+                            <a class="nav-link mx-2 my-1 {% if request.path == '/ticker/active/' or  request.path == '/ticker/detail/'%} active rounded-border tickernav-color text-white {% else %} text-color {% endif %}" href="{% url 'active'%}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-bolt fs-5"></i></div>
                                 Active
                             </a>

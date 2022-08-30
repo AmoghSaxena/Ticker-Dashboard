@@ -11,5 +11,4 @@ except:
 
 
 tmp = base64.b64encode(f"{username}:{password}".encode('utf-8')).decode()
-print(f"Auth Token  is  : {tmp}")
 os.system(f"echo {tmp} > /app/auth_token_api")

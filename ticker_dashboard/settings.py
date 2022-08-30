@@ -12,13 +12,19 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 import pymysql
 import subprocess
+
 # from dotenv import load_dotenv
 TZ=subprocess.check_output(['cat', '/etc/timezone']).decode().strip()
 
-AUTH_TOKEn_API = subprocess.check_output(['cat', '/app/auth_token_api']).decode().strip()
-# from dotenv import load_dotenv
+AUTH_TOKEN_API = "K9c491y3kKfuodcuVU8pzxNX1raunlQLFKVqsxJENkE"
 
-# load_dotenv()
+
+# try:
+#     AUTH_TOKEN_API = subprocess.check_output(['cat', '/app/auth_token_api']).decode().strip()
+# except:
+#     AUTH_TOKEn_API = subprocess.check_output(['cat', '/tmp/auth_token_api']).decode().strip()
+
+
 
 pymysql.install_as_MySQLdb()
 
@@ -70,6 +76,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'ticker_management',
     'django_celery_results',
     'django_celery_beat'
@@ -237,15 +244,15 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 #127.0.0.1:6379
 
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-         'rest_framework.authentication.BasicAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-         'rest_framework.permissions.IsAuthenticated'
-        #'knox.auth.TokenAuthentication',
-    ]
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#          'rest_framework.authentication.BasicAuthentication',
+#     ],
+#     'DEFAULT_PERMISSION_CLASSES': [
+#          'rest_framework.permissions.IsAuthenticated'
+#         #'knox.auth.TokenAuthentication',
+#     ]
+# }
 
 # DIRECTORY_DIRECTORY = '/home/guest/Desktop/Ticker-Dashboard/media'
 
@@ -281,11 +288,16 @@ LOGGING = {
             'class':'logging.FileHandler',
             'filename':BASE_DIR+'/logs/critical.log',
             'formatter':'simple',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
         }
     },
     'formatters':{
         'simple':{
-            'format':'{levelname} {asctime} :  {module} {process:d} {message} from function {funcName} in line no. {lineno}',
+            'format':'{levelname} {asctime} :  {message} from function {funcName} in line no. {lineno} (FILENAME {module})',
             'style':'{',
         }
     }

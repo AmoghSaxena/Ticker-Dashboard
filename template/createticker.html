@@ -4,7 +4,7 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-3 mt-5">
-            <div class="path my-4 text-muted fs-5 bg-white p-2 col-xl-2 col-md-3 col-sm-3">  
+            <div class="path my-4 text-muted fs-5 bg-white p-2 d-inline-flex">  
                 <div class="mx-1"><i class="fa-solid fa-square-plus fs-5"></i> Create Ticker</div>
             </div>
 
@@ -20,7 +20,7 @@
                             {% csrf_token %}
                             <div class="d-lg-block d-md-block d-sm-block d-none" style="text-align:center;margin-top:40px;">
                                 <span class="step"><i class="fa-solid fa-plus fs-3 m-2 text-white"></i></i><strong class="text-color">Create</strong></span>
-                                <span class="step"><i class="fa-solid fa-tv fs-3 m-2 text-white"></i><strong class="text-color">Preview</strong></span>
+                                {% comment %} <span class="step"><i class="fa-solid fa-tv fs-3 m-2 text-white"></i><strong class="text-color">Preview</strong></span> {% endcomment %}
                                 <span class="step"><i class="fa-solid fa-calendar fs-3 m-2 text-white"></i><strong class="text-color">Schedule</strong></span>
                                 <!-- <span class="step"><i class="fa-solid fa-check-to-slot fs-3 m-2 text-white"></i><strong class="text-color">Success</strong></span> -->
                             </div>
@@ -423,7 +423,7 @@
                             </div>
                             
                                     
-                            <div class="tab m-3">
+                            {% comment %} <div class="tab m-3">
                                 <div class="col-lg-8 mx-auto">
                                     <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
                                         <video autoplay loop muted>
@@ -446,10 +446,9 @@
                                         <div class="border border-dark border-5" style="width: 300px;"></div>
                                     </center>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
                 
                             <div class="tab m-3">
-                                <marquee>hello</marquee>
                                 <div class="m-1" id="">
                                     <div id="">
                                         <div class="row mb-3">

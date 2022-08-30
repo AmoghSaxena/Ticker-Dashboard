@@ -3,7 +3,7 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4 mt-5">
-            <div class="path my-4 text-muted fs-5 bg-white p-2 col-xl-1 col-md-2 col-sm-2">  
+            <div class="path my-4 text-muted fs-5 bg-white p-2 d-inline-flex">  
                 <div class="mx-1"><i class="fa-solid fa-bolt fs-5"></i> Active</div>
             </div>
             <div class="mb-4 bg-white rounded-border">
@@ -19,6 +19,7 @@
                                 <th>Ticker&nbspTitle</th>
                                 <th>Rundeck&nbspID</th>
                                 <th>Execution</th>
+                                <th>Ticker&nbspStatus</th>
                                 <th>Successful&nbspNodes</th>
                                 <th>Failed&nbspNodes</th>
                                 <th>TV&nbspStatus</th>
@@ -32,6 +33,7 @@
                                 <th>Ticker&nbspTitle</th>
                                 <th>Rundeck&nbspID</th>
                                 <th>Execution</th>
+                                <th>Ticker&nbspStatus</th>
                                 <th>Successful&nbspNodes</th>
                                 <th>Failed&nbspNodes</th>
                                 <th>TV&nbspStatus</th>
@@ -47,6 +49,18 @@
                             <td>{{item.ticker_title}}</td>
                             <td>{{item.rundeck_id}}</td>
                             
+                            {% if item.execution == 'succeeded' %}
+                                <td class="text-success fw-bold">{{item.execution}}</td>
+                            {% elif item.execution == 'aborted' %}
+                                <td class="text-secondary fw-bold">{{item.execution}}</td>
+                            {% elif item.execution == 'running' %}
+                                <td class="text-primary fw-bold">{{item.execution}}</td>
+                            {% elif item.execution == 'failed' %}
+                                <td class="text-danger fw-bold">{{item.execution}}</td>
+                            {% else %}
+                                <td class="text-color fw-bold">{{item.execution}}</td>
+                            {% endif %}
+
                             {% if item.execution == 'succeeded' %}
                                 <td class="text-success fw-bold">{{item.execution}}</td>
                             {% elif item.execution == 'aborted' %}

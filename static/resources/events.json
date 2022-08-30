@@ -1,66 +1,6 @@
 {
    "events": [
       {
-         "groupId": 1,
-         "title": "ddd",
-         "start": "2022-08-20T18:49:25",
-         "end": "2022-08-20T18:49:25"
-      },
-      {
-         "groupId": 2,
-         "title": "ddede",
-         "start": "2022-08-20T18:51:05",
-         "end": "2022-08-20T18:51:05"
-      },
-      {
-         "groupId": 3,
-         "title": "hthtrht",
-         "start": "2022-08-20T18:57:57",
-         "end": "2022-08-20T18:57:57"
-      },
-      {
-         "groupId": 4,
-         "title": "tttt",
-         "start": "2022-08-20T18:59:17",
-         "end": "2022-08-20T18:59:17"
-      },
-      {
-         "groupId": 5,
-         "title": "ddd",
-         "start": "2022-08-20T19:55:47",
-         "end": "2022-08-20T19:55:47"
-      },
-      {
-         "groupId": 6,
-         "title": "Scrolling Ticker",
-         "start": "2022-08-20T20:05:33",
-         "end": "2022-08-20T20:05:33"
-      },
-      {
-         "groupId": 7,
-         "title": "DUYDVIWDFUV",
-         "start": "2022-08-22T13:03:14",
-         "end": "2022-08-22T13:03:14"
-      },
-      {
-         "groupId": 8,
-         "title": "DFWDD",
-         "start": "2022-08-22T13:05:15",
-         "end": "2022-08-22T13:05:15"
-      },
-      {
-         "groupId": 9,
-         "title": "DWD",
-         "start": "2022-08-22T13:06:13",
-         "end": "2022-08-22T13:06:13"
-      },
-      {
-         "groupId": 10,
-         "title": "fffff",
-         "start": "2022-08-22T15:30:54",
-         "end": "2022-08-22T15:30:54"
-      },
-      {
          "groupId": 11,
          "title": "sqwwwwwwww",
          "start": "2022-08-22T15:56:01",
@@ -73,10 +13,142 @@
          "end": "2022-08-22T15:56:27"
       },
       {
-         "groupId": 13,
+         "groupId": 31,
+         "title": "Scrolling Ticker",
+         "start": "2022-08-25T13:44:52",
+         "end": "2022-08-25T13:44:52"
+      },
+      {
+         "groupId": 32,
+         "title": "Scrolling Ticker",
+         "start": "2022-08-25T14:18:17",
+         "end": "2022-08-25T14:18:17"
+      },
+      {
+         "groupId": 33,
+         "title": "Scrolling Ticker",
+         "start": "2022-08-25T14:19:25",
+         "end": "2022-08-25T14:19:25"
+      },
+      {
+         "groupId": 34,
+         "title": "Scrolling Ticker",
+         "start": "2022-08-25T14:19:39",
+         "end": "2022-08-25T14:19:39"
+      },
+      {
+         "groupId": 35,
+         "title": "Scrolling Ticker",
+         "start": "2022-08-25T14:23:00",
+         "end": "2022-08-25T14:23:00"
+      },
+      {
+         "groupId": 36,
+         "title": "Scrolling Ticker",
+         "start": "2022-08-25T14:28:10",
+         "end": "2022-08-25T14:28:10"
+      },
+      {
+         "groupId": 51,
+         "title": "de",
+         "start": "2022-08-25T17:10:07",
+         "end": "2022-08-25T17:10:07"
+      },
+      {
+         "groupId": 54,
          "title": "sss",
-         "start": "2022-08-22T16:00:51",
-         "end": "2022-08-22T16:00:51"
+         "start": "2022-08-26T11:06:45",
+         "end": "2022-08-26T11:11:45"
+      },
+      {
+         "groupId": 55,
+         "title": "sss",
+         "start": "2022-08-26T11:09:32",
+         "end": "2022-08-26T11:14:32"
+      },
+      {
+         "groupId": 56,
+         "title": "sss",
+         "start": "2022-08-26T11:10:05",
+         "end": "2022-08-26T11:15:05"
+      },
+      {
+         "groupId": 61,
+         "title": "gdfgdfd",
+         "start": "2022-08-29T11:00:49",
+         "end": "2022-08-29T11:01:49"
+      },
+      {
+         "groupId": 62,
+         "title": "Scrolling Ticker",
+         "start": "2022-08-29T11:29:11",
+         "end": "2022-08-29T11:30:11"
+      },
+      {
+         "groupId": 63,
+         "title": "Scrolling Ticker",
+         "start": "2022-08-29T11:36:57",
+         "end": "2022-08-29T11:37:57"
+      },
+      {
+         "groupId": 64,
+         "title": "dddd",
+         "start": "2022-08-29T11:42:14",
+         "end": "2022-08-29T11:43:14"
+      },
+      {
+         "groupId": 65,
+         "title": "Scrolling Ticker",
+         "start": "2022-08-29T12:00:44",
+         "end": "2022-08-29T12:01:44"
+      },
+      {
+         "groupId": 66,
+         "title": "ssdd",
+         "start": "2022-08-29T12:32:15",
+         "end": "2022-08-29T12:33:15"
+      },
+      {
+         "groupId": 67,
+         "title": "XCVBN",
+         "start": "2022-08-29T12:38:10",
+         "end": "2022-11-27T12:38:10"
+      },
+      {
+         "groupId": 68,
+         "title": "ASDFG",
+         "start": "2022-08-29T12:38:37",
+         "end": "2022-11-27T12:38:37"
+      },
+      {
+         "groupId": 69,
+         "title": "SFDGH",
+         "start": "2022-08-29T12:39:34",
+         "end": "2022-11-27T12:39:34"
+      },
+      {
+         "groupId": 70,
+         "title": "ddfdf",
+         "start": "2022-08-29T12:41:28",
+         "end": "2022-08-29T12:42:28"
+      },
+      {
+         "groupId": 71,
+         "title": "DSFV",
+         "start": "2022-08-29T12:48:16",
+         "end": "2022-11-27T12:48:16"
+      },
+      {
+         "groupId": 72,
+         "title": "ddd",
+         "start": "2022-08-29T12:48:20",
+         "end": "2022-08-29T12:49:20"
+      },
+      {
+         "groupId": 73,
+         "title": "ASDF",
+         "start": "2022-08-29T12:49:46",
+         "end": "2022-11-27T12:49:46"
       }
    ]
 }

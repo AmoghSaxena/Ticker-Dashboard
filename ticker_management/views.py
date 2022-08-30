@@ -1,4 +1,4 @@
-import os
+import os, re
 import requests
 import json
 import xml.etree.ElementTree
@@ -8,29 +8,32 @@ from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth import login as user_login
 from django.contrib import messages
 from ticker_management.gadget import datagetter
-from django.http import HttpResponse
-import subprocess
-# from django_celery_beat.models import PeriodicTask,CrontabSchedule
 from datetime import date,datetime
 from ticker_management.models import TickerDetails,TickerHistory,SetUp,RundeckLog
-from pathlib import Path
 from .forms import LoginForm, ChangePassword
-from rest_framework.decorators import api_view
 from django.http import QueryDict
-from .serializers import TaskSerializer, TaskSerializerConfig,TaskSerializerConfigHistory
+from .serializers import TaskSerializer, TaskSerializerConfig
+from ticker_management.node import getTickerId,strToList
+from ticker_management.tasks import callticker
+from threading import Thread
+#### Error Code ####
+from .APIStatus import *
+
+#### Rest Framework ####
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+
 from .models import Task
 from ticker_management.rundecklog import rundeck_update, abortTicker
 from django.contrib.auth.hashers import check_password
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage
 from django.db.models import Q
-from ticker_dashboard.settings import BASE_DIR,AUTH_TOKEn_API
+from ticker_dashboard.settings import BASE_DIR,AUTH_TOKEN_API
 
 # #Api
 # BASE_DIR = Path(__file__).resolve().parent
-
 def base(request):
     return redirect('/ticker')
 
@@ -57,41 +60,44 @@ def login(request):
 
 @login_required(login_url='/ticker/accounts/login/')
 def index(request):
-    active_ticker_length=TickerDetails.objects.all()
-    active_ticker=TickerDetails.objects.all().order_by('modified_on').reverse()[:5]
+    try:
+        active_ticker_length=TickerDetails.objects.all()
+        active_ticker=TickerDetails.objects.all().order_by('modified_on').reverse()[:5]
 
-    tmp=active_ticker_length.values_list('ticker_id')
-    
-    excludedID=[i[0] for i in tmp]
+        tmp=active_ticker_length.values_list('ticker_id')
+        
+        excludedID=[i[0] for i in tmp]
 
-    # for i in tmp:
-    #     excludedID.append(i[0])
+        # for i in tmp:
+        #     excludedID.append(i[0])
 
-    history_ticker_length=TickerHistory.objects.all().filter(is_active=0,is_deleted=1)
-    history_ticker=TickerHistory.objects.all().exclude(ticker_id__in=excludedID).filter(is_active=0,is_deleted=1).order_by('modified_on').reverse()[:5]
-    today_event=TickerDetails.objects.filter(Q(ticker_start_time__range=[str(date.today())+str(" 00:00:00"),str(date.today())+str(" 23:59:59")])
-                                            | Q(ticker_end_time__range=[str(date.today())+str(" 00:00:00"),str(date.today())+str(" 23:59:59")])
-                                            )
+        history_ticker_length=TickerHistory.objects.all().filter(is_active=0,is_deleted=1)
+        history_ticker=TickerHistory.objects.all().exclude(ticker_id__in=excludedID).filter(is_active=0,is_deleted=1).order_by('modified_on').reverse()[:5]
+        today_event=TickerDetails.objects.filter(Q(ticker_start_time__range=[str(date.today())+str(" 00:00:00"),str(date.today())+str(" 23:59:59")])
+                                                | Q(ticker_end_time__range=[str(date.today())+str(" 00:00:00"),str(date.today())+str(" 23:59:59")])
+                                                )
 
-    ticker_count={
-        'active':len(active_ticker_length),
-        'history':len(history_ticker_length),
-        'total':(len(history_ticker_length)+len(active_ticker_length)),
-        'events': len(today_event),
-        'active_ticker_data':active_ticker,
-        'history_ticker_data':history_ticker,
-        'user':request.user.username
-    }
-    return render(request, 'index.html',ticker_count)
+        ticker_count={
+            'active':len(active_ticker_length),
+            'history':len(history_ticker_length),
+            'total':(len(history_ticker_length)+len(active_ticker_length)),
+            'events': len(today_event),
+            'active_ticker_data':active_ticker,
+            'history_ticker_data':history_ticker,
+            'user':request.user.username
+        }
+        return render(request, 'index.html',ticker_count)
+    except Exception as err:
+        logger.error(err)
+        return render(request,'acknowledgement.html',{"message":"Ticker ID not exists"})
 
 @login_required(login_url='/ticker/accounts/login/')
 def createTicker(request):
-
     try:
         syncDVSData()
-    except Exception as e:
-        logger.error('Error: '+str(e))
-        return HttpResponse('SetUp not set : '+e)
+    except Exception as err:
+        logger.error('Error: '+str(err))
+        return render(request,'acknowledgement.html',{"message":'SetUp not set : '+err})
     
     data = {
             'pos_box':[
@@ -198,56 +204,73 @@ def createTicker(request):
             'days' :['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
         }
     # data['scheduleData']=filterData()
-    if request.method == 'POST':
-        datagetter(request)
-        return redirect(index)
-    else:
-        return render(request, 'createticker.html', data)
+    try:
+        if request.method == 'POST':
+            Thread(target=datagetter,args=(request,)).start()
+            # datagetter(request)
+            return redirect(index)
+        else:
+            return render(request, 'createticker.html', data)
+    except Exception as err:
+        logger.error(err)
+        return render(request,'acknowledgement.html',{"message":f"SetUp may be wrong: {err}"})
 
 @login_required(login_url='/ticker/accounts/login/')
 def updateTicker(request,ticker_id):
-    pass
+    return render(request,'acknowledgement.html',{"message":"Page not found"})
 
 @login_required(login_url='/ticker/accounts/login/')
 def active(request):
-    data=TickerDetails.objects.all().filter().values()
-    tickerDataList=sorted(data,key=lambda item: item['ticker_id'],reverse=True)
-    data={'tickerDataList':tickerDataList,'user':request.user.username}
-    return render(request, 'active.html',data)
+    try:
+        data=TickerDetails.objects.all().filter().values()
+        tickerDataList=sorted(data,key=lambda item: item['ticker_id'],reverse=True)
+        data={'tickerDataList':tickerDataList,'user':request.user.username}
+        return render(request, 'active.html',data)
+    except Exception as err:
+        logger.error(err)
+        return render(request,'acknowledgement.html',{"message":f"Ticker does not exists"})
 
 @login_required(login_url='/ticker/accounts/login/')
 def scheduled(request):
     eventData = dict()
     events = list()
-    ticker_obj=TickerDetails.objects.values('ticker_id','ticker_title','ticker_start_time','ticker_end_time')
-    for item in ticker_obj:
-        data = dict()
-        data['groupId']=item.get('ticker_id')
-        data['title']=item.get('ticker_title')
-        data['start']=item.get('ticker_start_time').strftime('%Y-%m-%dT%H:%M:%S')
-        data['end']=item.get('ticker_end_time').strftime('%Y-%m-%dT%H:%M:%S')
-        events.append(data)
-    eventData['events'] = events
-    event = json.dumps(eventData,indent = 3)
-    with open('{0}/static/resources/events.json'.format(BASE_DIR), 'w') as f:
-        f.write(str(event))
-    return render(request, 'scheduled.html',{'user':request.user.username})
+    try:
+        ticker_obj=TickerDetails.objects.values('ticker_id','ticker_title','ticker_start_time','ticker_end_time')
+        for item in ticker_obj:
+            data = dict()
+            data['groupId']=item.get('ticker_id')
+            data['title']=item.get('ticker_title')
+            data['start']=item.get('ticker_start_time').strftime('%Y-%m-%dT%H:%M:%S')
+            data['end']=item.get('ticker_end_time').strftime('%Y-%m-%dT%H:%M:%S')
+            events.append(data)
+        eventData['events'] = events
+        event = json.dumps(eventData,indent = 3)
+        with open('{0}/static/resources/events.json'.format(BASE_DIR), 'w') as f:
+            f.write(str(event))
+        return render(request, 'scheduled.html',{'user':request.user.username})
+    except Exception as err:
+        logger.error(err)
+        return render(request,'acknowledgement.html',{"message":"File not present"})
 
 @login_required(login_url='/ticker/accounts/login/')
 def history(request):
-    active_ticker_length=TickerDetails.objects.all()
-    tmp=active_ticker_length.values_list('ticker_id')
-    excludedID=list()
+    try:
+        active_ticker_length=TickerDetails.objects.all()
+        tmp=active_ticker_length.values_list('ticker_id')
+        excludedID=list()
 
-    for i in tmp:
-        excludedID.append(i[0])
-    data=TickerHistory.objects.all().values().exclude(ticker_id__in=excludedID)
-    tickerDataList=list()
-    for item in data:
-        tickerDataList.append(item)
-    tickerDataList=sorted(tickerDataList,key=lambda item: item['ticker_id'],reverse=True)
-    data={'tickerDataList':tickerDataList,'user':request.user.username}
-    return render(request, 'history.html',data)
+        for i in tmp:
+            excludedID.append(i[0])
+        data=TickerHistory.objects.all().values().exclude(ticker_id__in=excludedID)
+        tickerDataList=list()
+        for item in data:
+            tickerDataList.append(item)
+        tickerDataList=sorted(tickerDataList,key=lambda item: item['ticker_id'],reverse=True)
+        data={'tickerDataList':tickerDataList,'user':request.user.username}
+        return render(request, 'history.html',data)
+    except Exception as err:
+        logger.error(err)
+        return render(request,'acknowledgement.html',{"message":err})
 
 @login_required(login_url='/ticker/accounts/login/')
 def detail(request, id):
@@ -257,9 +280,9 @@ def detail(request, id):
         if ticker_obj.get()['rundeckid']!=None:
             # logObject.append(initial_data(ticker_obj))
             rundeckLogData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
-            rundeckProcess=RundeckLog.objects.all().filter(ticker_id=int(id),execution='running').values()
+            rundeckLogDB=RundeckLog.objects.all().filter(ticker_id=int(id),execution='running').values()
 
-            for i in rundeckProcess:
+            for i in rundeckLogDB:
                 rundeck_update(i['rundeck_id'])
 
             rundeckLog=sorted(rundeckLogData,key=lambda item: item['rundeck_id'],reverse=True)
@@ -269,9 +292,10 @@ def detail(request, id):
              "None", 'failed_nodes': 'None', 'tv_status': 'None', 'iPad_status': 'None'}
             rundeckLog.append(dictwithoutrundeckid)
         return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog, 'logObject':list()})
-    except Exception as e:
-        logger.error('Error: '+str(e))
-        return active(request)
+    except Exception as err:
+        logger.error('Error: '+str(err))
+        return render(request,'acknowledgement.html',{"message":"Ticker ID not present"})
+        # return active(request)
 
 @login_required(login_url='/ticker/accounts/login/')
 def abort(request, id):
@@ -288,8 +312,8 @@ def abort(request, id):
              "None", 'failed_nodes': 'None', 'tv_status': 'None', 'iPad_status': 'None'}
             rundeckLog.append(dictwithoutrundeckid)
         return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog, 'logObject':logObject})
-    except Exception as e:
-        return HttpResponse('Error: '+str(e))
+    except Exception as err:
+        return render(request,'acknowledgement.html',{"message":err})
 
 @login_required(login_url='/ticker/accounts/login/')
 def isEdit(request, id):
@@ -432,19 +456,21 @@ def isDelete(request, id):
                 image_name=ticker_json.get('emergency_ticker_logo_name')
         except TickerHistory.DoesNotExist  as e:
             logger.error(f'ID {id} not found')
-            messages.info(request, 'Specificied ID not found')
-            return redirect(active)
+            return render(request,'acknowledgement.html',{"message":'Specificied ID not found'})
+            # messages.info(request, 'Specificied ID not found')
+            # return redirect(active)
     try:
         os.remove(FileSystemStorage().base_location+str('/')+image_name.split('/')[-1])
-    except Exception as e:
+    except Exception as err:
         logger.info(f'No image found for {id} ticker id')
     try:
         tickerDataDelete.delete()
         return redirect(active)
-    except Exception as e:
+    except Exception as err:
         logger.error(f'Unable to delete {id} ID')
-        messages.info(request, 'Unable to delete specificied ID')
-        return redirect(active)
+        return render(request,'acknowledgement.html',{"message":'Unable to delete specificied ID'})
+        # messages.info(request, 'Unable to delete specificied ID')
+        # return redirect(active)
 
 @login_required(login_url='/ticker/accounts/login/')
 def changePassword(request):
@@ -466,19 +492,45 @@ def changePassword(request):
             else:
                 msg = 'Invalid credentials'
         return render(request, 'changepassword.html', {'form': form, 'msg': msg})
-    except Exception as e:
-        return HttpResponse(e)
+    except Exception as err:
+        return render(request,'acknowledgement.html',{"message":err})
+
+def avDataFilter():
+    try:
+        file=open(f'{str(BASE_DIR)}/static/resources/resourceAV.json')
+        file=json.load(file)
+
+        data=set()
+
+        for i in file['data']:
+            data.add(i['key_id'])
+
+        data=list(data)
+
+        file=open(f'{str(BASE_DIR)}/static/resources/resource.json')
+        file=json.load(file)
+
+        count=0
+
+        for i in file['data']:
+            if i['id'] not in data:
+                count+=1
+                file['data'].remove(i)
+
+        filteredData=json.dumps(file,indent=3)
+
+        logger.info(str(count)+" AV data filtered")
+
+        with open(f'{str(BASE_DIR)}/static/resources/resource.json','w') as file:
+            file.write(filteredData)
+    except Exception as err:
+        logger.error(err)
 
 def syncDVSData():
     dvs_data=SetUp.objects.filter(id=1).values()
-    # print(dvs_data.get())
     FQDN=dvs_data.get()['FQDN']
     Dvs_Token=dvs_data.get()['Dvs_Token']
-    # dvs_data="curl -s --location --request POST 'https://{2}/dvs/api/key/selectR' --header 'Content-Type: application/vnd.digivalet.v1+json' --header 'Access-Token: {3}' --data-raw '{0}' | jq  > {1}/../static/resources/resource.json".format('{}',BASE_DIR,FQDN,Dvs_Token)
-
-    # # requests.post(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/job/{Rundeck_Stop_Job}/run/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"}, json={ "argString": f"-whichnode \"{nodes}\""})
-    # os.system(dvs_data)
-
+    
     headers = {
         'Content-Type': 'application/vnd.digivalet.v1+json',
         'Access-Token': Dvs_Token,
@@ -488,15 +540,27 @@ def syncDVSData():
 
     response = requests.post(f'https://{FQDN}/dvs/api/key/selectR', headers=headers, data=data)
     response=json.dumps(response.json(),indent=3).encode('utf-8')
-    with open((str(BASE_DIR)+'/static/resources/'+'resource.json'),'wb') as f:
-        f.write(response)
+    with open((str(BASE_DIR)+'/static/resources/'+'resource.json'),'wb') as file:
+        file.write(response)
     
+    headers = {
+    'Content-Type': 'application/vnd.digivalet.v1+json',
+    'Access-Token': 'da1ca0a34d72bd530bfc21b7a4d70ec903a0611c18058eb8b6290cae6644251e',
+    }
+
+    data = '{"device_type_id": "2"}'
+
+    response = requests.post(f'https://{FQDN}/dvs/api/inRoomDevice/selectR', headers=headers, data=data)
+    response=json.dumps(response.json(),indent=3).encode('utf-8')
+    with open((str(BASE_DIR)+'/static/resources/'+'resourceAV.json'),'wb') as file:
+        file.write(response)
+    
+    avDataFilter()
+
     response = requests.get(f'https://{FQDN}/dvs/core/resourcexml')
     response=response.text.encode('utf-8')
-
-    with open((str(BASE_DIR)+'/static/resources/'+'resource.xml'),'wb') as f:
-        f.write(response)
-
+    with open((str(BASE_DIR)+'/static/resources/'+'resource.xml'),'wb') as file:
+        file.write(response)
 
 def filterData():
     DVSDATA = dict()
@@ -527,7 +591,6 @@ def taskPost(request,id="0"):
     if request.method == 'POST':
         d=dict()
         d.update(request.POST)
-        print(request.POST)
         for i,j in d.items():
             if type(j) == list:
                 d[i] = j[0]
@@ -539,7 +602,6 @@ def taskPost(request,id="0"):
         return Response(serializer.data)
 
     elif request.method == 'GET':
-        print(request.data)
         serializer = TaskSerializerConfig(data=request.data)
         p=serializer.initial_data
         q=int(p.get('ticker_id'))
@@ -554,50 +616,526 @@ def taskPost(request,id="0"):
         serializer = TaskSerializer(data=request.data)
         p=serializer.initial_data
         q=int(p['id'])
-        # print(type(q))
         task = Task.objects.get(id=q)
         task.delete()
         return Response('Item succsesfully delete!')
 
+#### TICKER CONFIG SECTION START ####
 @api_view(['GET'])
 def configApi(request,pk="0"):
     if request.method == 'GET':
-        serializer = TaskSerializerConfig(data=request.data)
-        p=serializer.initial_data
 
-        q=int(p.get('ticker_id'))
         try:
-            tasks = TickerDetails.objects.filter(ticker_id=q).values_list('ticker_json')
-            print(tasks.get(),type(tasks.get()[0]))
-            ticker_config_file = json.loads(tasks.get()[0])
-            try:
-                ticker_config_file['auth_token'] = AUTH_TOKEn_API
-            except:
-                ticker_config_file['auth_token'] = "YWRtaW46YWRtaW4xMjM0"
-            
-            tasks = json.dumps(ticker_config_file,indent=3)
-            return Response(json.loads(tasks))
 
-        except TickerDetails.DoesNotExist  as e:
-            tasks=TickerHistory.objects.filter(ticker_id=q).values_list('ticker_json')
-            ticker_config_file = json.loads(tasks.get()[0])
-            try:
-                ticker_config_file['auth_token'] = AUTH_TOKEn_API
-            except:
-                ticker_config_file['auth_token'] = "YWRtaW46YWRtaW4xMjM0"
-            tasks = json.dumps(ticker_config_file,indent=3)
-            return Response(json.loads(tasks))       
+            if request.headers.get('tickerToken') == None:
 
+                res['status'] = False
+                res['statusCode'] = tokenPresent.get('statusCode')
+                res['message'] = tokenPresent.get('message')
+
+                logger.info(tokenPresent.get('message'))
+                return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+
+            else:
+
+                if tokenValidation(request.headers.get('tickerToken')):
+                    serializer = TaskSerializerConfig(data=request.data)
+                    p=serializer.initial_data
+
+                    q=int(p.get('ticker_id'))
+
+                    if TickerDetails.objects.filter(ticker_id=q).exists() or TickerHistory.objects.filter(ticker_id=q).exists():
+
+                        try:
+
+                            tasks = TickerDetails.objects.filter(ticker_id=q).values_list('ticker_json')
+                            ticker_config_file = json.loads(tasks.get()[0])
+
+                            try:
+                                ticker_config_file['auth_token'] = AUTH_TOKEN_API
+
+                            except:
+                                ticker_config_file['auth_token'] = "YWRtaW46YWRtaW4xMjM0"
+                            
+                            tasks = json.dumps(ticker_config_file,indent=3)
+                            return Response(json.loads(tasks))
+
+                        except TickerDetails.DoesNotExist  as err:
+
+                            tasks=TickerHistory.objects.filter(ticker_id=q).values_list('ticker_json')
+                            ticker_config_file = json.loads(tasks.get()[0])
+
+                            try:
+                                ticker_config_file['auth_token'] = AUTH_TOKEN_API
+
+                            except:
+                                ticker_config_file['auth_token'] = "YWRtaW46YWRtaW4xMjM0"
+
+                            logger.error(err)
+
+                            tasks = json.dumps(ticker_config_file,indent=3)
+                            return Response(json.loads(tasks))
+                    
+                    else:
+                        
+                        res['status'] = False
+                        res['statusCode'] = ConfigNotFoundFailure.get('statusCode')
+                        res['message'] = ConfigNotFoundFailure.get('message')
+
+                        logger.info(ConfigNotFoundFailure.get('message'))
+                        return Response(res, status = status.HTTP_401_UNAUTHORIZED) 
+                else:
+
+                        res['status'] = False
+                        res['statusCode'] = tokenFailure.get('statusCode')
+                        res['message'] = tokenFailure.get('message')
+
+                        logger.info(tokenFailure.get('message'))
+                        return Response(res, status = status.HTTP_401_UNAUTHORIZED)   
+
+        except Exception as err:
+
+            res['status'] = False
+            res['statusCode'] = ConfigFailure.get('statusCode')
+            res['message'] = ConfigFailure.get('message')
+
+            logger.info(ConfigFailure.get('message'))
+            logger.error(err)
+            return Response(res, status = status.HTTP_404_NOT_FOUND)
+         
+    else:
+
+        res['status'] = False
+        res['statusCode'] = requestInvalid.get('statusCode')
+        res['message'] = requestInvalid.get('message')
+
+        logger.info(requestInvalid.get('message'))
+        return Response(res, status = status.HTTP_404_NOT_FOUND)
+#### TICKER CONFIG SECTION END ####
+
+#### MAIL SET-UP SECTION START ####
 def setupMail():
     try:
+
         subject = "Hello"
         body = ""
         emailQueue = ['temper.projectgroup@gmail.com']
         email = EmailMessage(subject, body, to=emailQueue)
         email.send()
-    except Exception as e:
-        print(e)
 
+    except Exception as err:
+        pass
+#### MAIL SET-UP SECTION END ####
 
-# @api_view(['GET'])
-# def tickerStatusReboot(request,id=0,ip=0):
+#### TOKEN VALIDATION SECTION START ####
+def tokenValidation(token):
+    if token == AUTH_TOKEN_API:
+        return True
+    return False
+#### TOKEN VALIDATION SECTION END ####
+
+#### IP VALIDATION SECTION START ####
+def ipAddressValidation(ip):
+    ip_address_validate_pattern = "^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$"
+    check_fun = re.match(ip_address_validate_pattern, ip)
+    if check_fun:
+        return True
+    return False
+#### IP VALIDATION SECTION END ####
+
+#### REBOOT STATUS SECTION START ####
+@api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+def rebootStatus(request):
+    if request.method=='GET':
+
+        try:
+            if request.headers.get('tickerToken') == None:
+
+                res['status'] = False
+                res['statusCode'] = tokenPresent.get('statusCode')
+                res['message'] = tokenPresent.get('message')
+
+                logger.info(tokenPresent.get('message'))
+                return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+
+            else:
+
+                try:
+                    if tokenValidation(request.headers.get('tickerToken')):
+
+                        if request.GET.get('dvcIp') != None:
+
+                            if ipAddressValidation(request.GET.get('dvcIp')):
+
+                                try:
+                                    tickerDetailsDB=TickerDetails.objects.all().filter(ticker_start_time__lte=datetime.now(),ticker_end_time__gt=datetime.now()).values()
+                                    
+                                    if len(tickerDetailsDB)==0:
+
+                                        data=getTickerId(tickerDetailsDB,request.GET.get('dvcIp'))
+
+                                        if data['ticker_id']==-1 or data['key_name']=='Not Found':
+
+                                            res['status'] = False
+                                            res['statusCode'] = rebootNodeNotFound.get('statusCode')
+                                            res['message'] = rebootNodeNotFound.get('message')
+
+                                            logger.info(rebootNodeNotFound.get('message'))
+                                            return Response(res)
+
+                                        else:
+                                            try:
+
+                                                try:
+                                                    auth=AUTH_TOKEN_API
+                                                except:
+                                                    auth="YWRtaW46YWRtaW4xMjM0"
+                                                
+                                                setup=SetUp.objects.filter(id=1).values()
+
+                                                FQDN=setup.get()['FQDN']
+                                                Dvs_Token=setup.get()['Dvs_Token']
+                                                Rundeck_Token=setup.get()['Rundeck_Token']
+                                                Rundeck_Api_Version=setup.get()['Rundeck_Api_Version']
+                                                Ticker_FQDN=setup.get()['Ticker_FQDN']
+                                                Rundeck_Start_Job=setup.get()['Rundeck_Start_Job']
+
+                                                basicTickerInfo={
+                                                    'FQDN':FQDN,
+                                                    'Dvs_Token':Dvs_Token,
+                                                    'Rundeck_Token':Rundeck_Token,
+                                                    'Rundeck_Api_Version':Rundeck_Api_Version,
+                                                    'Ticker_FQDN':Ticker_FQDN,
+                                                    'Rundeck_Start_Job':Rundeck_Start_Job
+                                                }
+                                                
+                                                json_data = {
+                                                    'argString': f"-whichnode {data['key_name']} -FQDN {Ticker_FQDN} -jsonFile {data['ticker_id']} -BasicAuth {auth}",
+                                                }
+
+                                                basicTickerInfo['json_data']=json_data
+
+                                                Thread(target=callticker,args=(basicTickerInfo,data['ticker_id'])).start()
+
+                                                res['status'] = True
+                                                res['statusCode'] = rebootSuccessStatus.get('statusCode')
+                                                res['message'] = rebootSuccessStatus.get('message')
+
+                                                logger.info(rebootSuccessStatus.get('message'))
+                                                return Response(res)
+
+                                            except Exception as err:
+                                                
+                                                res['status'] = False
+                                                res['statusCode'] = rebootNotReschedule.get('statusCode')
+                                                res['message'] = rebootNotReschedule.get('message')
+
+                                                logger.info(rebootNotReschedule.get('message'))
+                                                logger.error(err)
+                                                return Response(res)
+                                                
+                                    else:
+
+                                        res['status'] = False
+                                        res['statusCode'] = rebootFailureStatus.get('statusCode')
+                                        res['message'] = rebootFailureStatus.get('message')
+
+                                        logger.info(rebootFailureStatus.get('message'))
+                                        return Response(res)
+
+                                except Exception as err:
+                                    
+                                    res['status'] = False
+                                    res['statusCode'] = DBError.get('statusCode')
+                                    res['message'] = DBError.get('message')
+
+                                    logger.info(DBError.get('message'))
+                                    logger.error(err)
+                                    return Response(res)
+
+                            else:
+
+                                res['status'] = False
+                                res['statusCode'] = ipAddressFailure.get('statusCode')
+                                res['message'] = ipAddressFailure.get('message')
+
+                                logger.info(ipAddressFailure.get('message'))
+                                return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+
+                        else:
+
+                            res['status'] = False
+                            res['statusCode'] = ipAddressPresent.get('statusCode')
+                            res['message'] = ipAddressPresent.get('message')
+                            
+                            logger.info(ipAddressPresent.get('message'))
+                            return Response(res)
+
+                    else:
+
+                        res['status'] = False
+                        res['statusCode'] = tokenFailure.get('statusCode')
+                        res['message'] = tokenFailure.get('message')
+
+                        logger.info(tokenFailure.get('message'))
+                        return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+
+                except Exception as err:
+
+                    res['status'] = False
+                    res['statusCode'] = validationError.get('statusCode')
+                    res['message'] = validationError.get('message')
+
+                    logger.info(validationError.get('message'))
+                    logger.error(err)
+                    return Response(res)
+
+        except Exception as err:
+
+            res['status'] = False
+            res['statusCode'] = rebootStatusError.get('statusCode')
+            res['message'] = rebootStatusError.get('message')
+
+            logger.info(rebootStatusError.get('message'))
+            logger.error(err)
+            return Response(res)
+
+    else:
+
+        res['status'] = False
+        res['statusCode'] = requestInvalid.get('statusCode')
+        res['message'] = requestInvalid.get('message')
+
+        logger.info(requestInvalid.get('message'))
+        return Response(res)
+#### REBOOT STATUS SECTION END ####
+
+#### TV IPAD STATUS SECTION START ####
+@api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+def tvIpadStatus(request):
+    if request.method=='POST':
+
+        try:
+            if request.headers.get('tickerToken') == None:
+
+                res['status'] = False
+                res['statusCode'] = tokenPresent.get('statusCode')
+                res['message'] = tokenPresent.get('message')
+
+                logger.info(tokenPresent.get('message'))
+                return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+
+            else:
+
+                try:
+                    if tokenValidation(request.headers.get('tickerToken')):
+
+                        if request.body != b'':
+
+                            tvIpadStatusData=json.loads(request.body.decode('utf-8'))
+
+                            ipadStatus=tvIpadStatusData.get('ipadStatus')
+                            tvStatus=tvIpadStatusData.get('tvStatus')
+                            nowTime=datetime.now()
+
+                            tickerDetailsDB=TickerDetails.objects.all().filter(ticker_start_time__lte=nowTime,ticker_end_time__gt=nowTime).values()
+
+                            if len(tickerDetailsDB)>0:
+                                data=getTickerId(tickerDetailsDB,request.GET.get('dvcIp'))
+                                
+                                rundeckLogDB=RundeckLog.objects.filter(ticker_id=int(data['ticker_id'])).values()
+                                tv_status=rundeckLogDB.get()['tv_status'].strip('[]')
+                                iPad_status=rundeckLogDB.get()['iPad_status'].strip('[]')
+
+                                tvStatusList=list()
+                                ipadStatusList=list()
+
+                                if len(tv_status)>0:
+                                    strToList(tvStatusList,tv_status)
+                                
+                                tvStatusList=list(set(tvStatusList.append(str(data['key_name'])+" : "+str(tvStatus))))
+                                
+                                if len(iPad_status)>0:
+                                    strToList(ipadStatusList,iPad_status)
+                                
+                                ipadStatusList=list(set(ipadStatusList.append(str(data['key_name'])+" : "+str(ipadStatus))))
+                                
+                                rundeckLogDB.update(tv_status=tvStatusList,iPad_status=ipadStatusList)
+
+                                res['status'] = True
+                                res['statusCode'] = tvIpadSuccessStatus.get('statusCode')
+                                res['message'] = tvIpadSuccessStatus.get('message')
+
+                                logger.info(tvIpadSuccessStatus.get('message'))
+                                return Response(res)
+
+                            else:
+
+                                res['status'] = False
+                                res['statusCode'] = tickerNotFound.get('statusCode')
+                                res['message'] = tickerNotFound.get('message')
+
+                                logger.info(tickerNotFound.get('message'))
+                                return Response(res)
+
+                        else:
+
+                            res['status'] = False
+                            res['statusCode'] = requestBody.get('statusCode')
+                            res['message'] = requestBody.get('message')
+
+                            logger.info(requestBody.get('message'))
+                            return Response(res)
+                            
+                    else:
+
+                        res['status'] = False
+                        res['statusCode'] = tokenFailure.get('statusCode')
+                        res['message'] = tokenFailure.get('message')
+
+                        logger.info(tokenFailure.get('message'))
+                        return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+
+                except Exception as err:
+
+                    res['status'] = False
+                    res['statusCode'] = validationError.get('statusCode')
+                    res['message'] = validationError.get('message')
+
+                    logger.info(validationError.get('message'))
+                    logger.error(err)
+                    return Response(res)
+
+        except Exception as err:
+
+            res['status'] = False
+            res['statusCode'] = tvIpadStatusError.get('statusCode')
+            res['message'] = tvIpadStatusError.get('message')
+            res['data'] = None
+
+            logger.info(tvIpadStatusError.get('message'))
+            logger.error(err)
+            return Response(res)
+
+    else:
+
+        res['status'] = False
+        res['statusCode'] = requestInvalid.get('statusCode')
+        res['message'] = requestInvalid.get('message')
+
+        logger.info(requestInvalid.get('message'))
+        return Response(res)
+#### TV IPAD STATUS SECTION END ####
+
+####  TICKER CLOSE STATUS SECTION START ####
+@api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+def statusClose(request):
+    if request.method=='POST':
+
+        try:
+            if request.body != b'':
+                statusCloseData = request.body
+
+                if request.headers.get('tickerToken') == None:
+
+                    res['status'] = False
+                    res['statusCode'] = tokenPresent.get('statusCode')
+                    res['message'] = tokenPresent.get('message')
+
+                    logger.info(tokenPresent.get('message'))
+                    return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+
+                else:
+                    try:
+                        if tokenValidation(request.headers.get('tickerToken')):
+
+                            statusCloseData=json.loads(request.body.decode('utf-8'))
+
+                            if statusCloseData.get('dvcIp') != None:
+
+                                if ipAddressValidation(statusCloseData.get('dvcIp')):
+
+                                    try:
+
+                                        res['status'] = True
+                                        res['statusCode'] = tickerCloseStatus.get('statusCode')
+                                        res['message'] = tickerCloseStatus.get('message')
+
+                                        logger.info(tickerCloseStatus.get('message'))
+                                        return Response(res)
+
+                                    except Exception as err:
+
+                                        res['status'] = False
+                                        res['statusCode'] = DBError.get('statusCode')
+                                        res['message'] = DBError.get('message')
+
+                                        logger.info(DBError.get('message'))
+                                        logger.error(err)
+                                        return Response(res)
+
+                                else:
+
+                                    res['status'] = False
+                                    res['statusCode'] = ipAddressFailure.get('statusCode')
+                                    res['message'] = ipAddressFailure.get('message')
+
+                                    logger.info(ipAddressFailure.get('message'))
+                                    return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+
+                            else:
+
+                                res['status'] = False
+                                res['statusCode'] = ipAddressPresent.get('statusCode')
+                                res['message'] = ipAddressPresent.get('message')
+                                
+                                logger.info(ipAddressPresent.get('message'))
+                                return Response(res)
+
+                        else:
+                            
+                            res['status'] = False
+                            res['statusCode'] = tokenFailure.get('statusCode')
+                            res['message'] = tokenFailure.get('message')
+
+                            logger.info(tokenFailure.get('message'))
+                            return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+
+                    except Exception as err:
+
+                        res['status'] = False
+                        res['statusCode'] = validationError.get('statusCode')
+                        res['message'] = validationError.get('message')
+
+                        logger.info(validationError.get('message'))
+                        logger.error(err)
+                        return Response(res)
+            else:
+
+                res['status'] = False
+                res['statusCode'] = requestBody.get('statusCode')
+                res['message'] = requestBody.get('message')
+                
+                logger.info(requestBody.get('message'))
+                return Response(res)
+
+        except Exception as err:
+
+            res['status'] = False
+            res['statusCode'] = TickerCloseError.get('statusCode')
+            res['message'] = TickerCloseError.get('message')
+            res['data'] = None
+
+            logger.info(TickerCloseError.get('message'))
+            logger.error(err)
+            return Response(res)
+
+    else:
+
+        res['status'] = False
+        res['statusCode'] = requestInvalid.get('statusCode')
+        res['message'] = requestInvalid.get('message')
+
+        logger.info(requestInvalid.get('message'))
+        return Response(res)
+####  TICKER CLOSE STATUS SECTION END ####

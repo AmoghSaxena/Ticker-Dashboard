@@ -17,5 +17,8 @@ urlpatterns = [
     path('abort/<str:id>', views.abort, name = 'abort'),
 	path('ticker-post/', views.taskPost),
     path('ticker-config-api/', views.configApi),
+    path('java/ticker/reboot/status/',views.rebootStatus,name='rebootStatus'),
+    path('java/ticker/tv-ipad/status/',views.tvIpadStatus,name='tvipadStatus'),
+    path('java/ticker/status/close/',views.statusClose,name='statusClose'),
     # path('tickerStatusReboot/',views.tickerStatusReboot),
 ]

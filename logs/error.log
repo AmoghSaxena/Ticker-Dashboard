@@ -1,2 +1,66 @@
 ERROR 2022-08-20 18:43:04,390 :  views 1218711 Error: SetUp matching query does not exist. from function createTicker in line no. 94
 ERROR 2022-08-20 18:43:59,209 :  views 1218711 Error: TickerDetails matching query does not exist. from function detail in line no. 274
+ERROR 2022-08-24 16:28:46,289 :  views 1340686 'Request' object has no attribute 'Get' from function rebootStatus in line no. 639
+ERROR 2022-08-25 11:39:57,663 :  rundecklog 1363017 (1054, "Unknown column 'ticker_start_time' in 'field list'") from function initial_data in line no. 42
+ERROR 2022-08-25 11:40:01,873 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:04,553 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:07,203 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:15,836 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:17,833 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:18,881 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:19,084 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:19,323 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:24,815 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:30,809 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:32,564 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:33,615 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:35,562 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:36,595 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:39,176 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:44,181 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:57,922 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:42:14,085 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:42:15,489 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-26 11:03:09,528 :  gadget 1442909 Exception while insertion: string indices must be integers from function datagetter in line no. 382
+ERROR 2022-08-26 11:10:05,425 :  gadget 1443711 Unable to update: TickerDetails matching query does not exist. from function datagetter in line no. 396
+ERROR 2022-08-26 11:13:59,131 :  gadget 1443984 Exception while insertion: string indices must be integers from function datagetter in line no. 381
+ERROR 2022-08-26 11:16:29,164 :  gadget 1445577 Unable to update: TickerDetails matching query does not exist. from function datagetter in line no. 396
+ERROR 2022-08-26 16:07:23,931 :  views 1477185 local variable 'key_name' referenced before assignment from function rebootStatus in line no. 725
+ERROR 2022-08-26 16:07:40,102 :  views 1477185 local variable 'key_name' referenced before assignment from function rebootStatus in line no. 725
+ERROR 2022-08-29 11:29:12,260 :  gadget 4144228 Error While schedule: TickerDetails matching query does not exist. from function datagetter in line no. 405
+ERROR 2022-08-29 11:36:58,464 :  gadget 4157549 Error While schedule: 'int' object has no attribute 'get' from function datagetter in line no. 405
+ERROR 2022-08-29 12:07:38,546 :  views 16524 'dvcIp' from function statusClose in line no. 1006
+ERROR 2022-08-29 12:32:17,710 :  rundecklog 56355 'rundeckid' from function initial_data in line no. 36
+ERROR 2022-08-29 12:38:12,812 :  rundecklog 56355 'rundeckid' from function initial_data in line no. 36
+ERROR 2022-08-29 12:38:38,785 :  rundecklog 56355 'rundeckid' from function initial_data in line no. 36
+ERROR 2022-08-29 12:39:35,724 :  rundecklog 68908 'rundeckid' from function initial_data in line no. 40
+ERROR 2022-08-29 12:41:29,375 :  rundecklog 68908 'rundeckid' from function initial_data in line no. 40
+ERROR 2022-08-29 15:45:26,944 :  views 377157 Error: tickerdetail.html from function detail in line no. 280
+ERROR 2022-08-29 15:46:01,802 :  views 382919 Error: tickerdetail.html from function detail in line no. 280
+ERROR 2022-08-29 15:46:03,979 :  views 382919 Error: tickerdetail.html from function detail in line no. 280
+ERROR 2022-08-29 16:40:53,741 :  views 386629 Error: HTTPSConnectionPool(host='dvs-uatblue.digivalet.comh', port=443): Max retries exceeded with url: /dvs/api/key/selectR (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f71060b45b0>: Failed to establish a new connection: [Errno -2] Name or service not known')) from function createTicker in line no. 99
+ERROR 2022-08-29 17:51:00,938 :  [Errno 2] No such file or directory: 'resourceAV.json' from function avDataFilter in line no. 526 file views
+ERROR 2022-08-29 17:51:26,879 :  [Errno 2] No such file or directory: 'resourceAV.json' from function avDataFilter in line no. 526 file views
+ERROR 2022-08-29 17:52:51,258 :  [Errno 2] No such file or directory: 'resourceAV.json' from function avDataFilter in line no. 526 (FILENAME views)
+ERROR 2022-08-29 17:53:41,175 :  [Errno 2] No such file or directory: 'resourceAV.json' from function avDataFilter in line no. 526 (FILENAME views)
+ERROR 2022-08-29 19:33:39,259 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:35:40,912 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:35:42,451 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:37:12,392 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:37:13,518 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:37:14,243 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:37:14,429 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:37:14,654 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:37:43,774 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:38:27,948 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:39:30,125 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:40:44,914 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:41:19,398 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:42:11,267 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:42:14,619 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:42:15,364 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:42:15,783 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:42:16,163 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:42:25,460 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-30 10:57:57,364 :  name 'ss' is not defined from function index in line no. 93 (FILENAME views)
+ERROR 2022-08-30 10:58:14,301 :  name 'ss' is not defined from function index in line no. 93 (FILENAME views)

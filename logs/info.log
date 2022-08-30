@@ -28,3 +28,389 @@ INFO 2022-08-23 15:05:57,370 :  ticker_schedules 1297413 Inside scheduleticker f
 INFO 2022-08-23 15:05:57,383 :  ticker_schedules 1297413 Inside roomConfiguration function from function roomConfigurations in line no. 50
 INFO 2022-08-23 15:05:57,408 :  tasks 1297413 Inside callticker function from function callticker in line no. 14
 INFO 2022-08-23 15:05:57,635 :  rundecklog 1297413 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-24 12:42:47,364 :  views 1332994 Invalid Request from function rebootStatus in line no. 617
+INFO 2022-08-24 12:43:30,583 :  views 1332994 Invalid Request from function rebootStatus in line no. 617
+INFO 2022-08-24 15:31:56,400 :  views 1332994 Invalid Request from function rebootStatus in line no. 617
+INFO 2022-08-24 15:32:37,131 :  views 1339316 Token Not Found from function rebootStatus in line no. 619
+INFO 2022-08-24 15:36:03,830 :  views 1339600 Invalid Token from function rebootStatus in line no. 631
+INFO 2022-08-24 15:43:43,480 :  views 1339600 Invalid Token from function rebootStatus in line no. 631
+INFO 2022-08-24 15:46:49,148 :  views 1339766 Token Not Found from function rebootStatus in line no. 621
+INFO 2022-08-24 15:46:56,350 :  views 1339766 Invalid Token from function rebootStatus in line no. 631
+INFO 2022-08-24 16:21:51,057 :  views 1339766 Invalid Token from function rebootStatus in line no. 631
+INFO 2022-08-24 16:28:46,289 :  views 1340686 Error Occurred During Token verify from function rebootStatus in line no. 638
+ERROR 2022-08-24 16:28:46,289 :  views 1340686 'Request' object has no attribute 'Get' from function rebootStatus in line no. 639
+INFO 2022-08-24 16:42:02,999 :  views 1341749 Invalid IP Address from function rebootStatus in line no. 641
+INFO 2022-08-24 16:59:58,907 :  views 1342917 Token Not Found from function rebootStatus in line no. 628
+INFO 2022-08-24 16:59:59,698 :  views 1342917 Token Not Found from function rebootStatus in line no. 628
+INFO 2022-08-25 11:39:57,117 :  gadget 1363017 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 11:39:57,185 :  ticker_schedules 1363017 Inside scheduleticker function from function schedulingticker in line no. 110
+INFO 2022-08-25 11:39:57,202 :  node 1363017 Inside roomConfiguration function from function roomConfigurations in line no. 21
+INFO 2022-08-25 11:39:57,226 :  tasks 1363017 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 11:39:57,586 :  rundecklog 1363017 Inside initial_data function from function initial_data in line no. 10
+ERROR 2022-08-25 11:39:57,663 :  rundecklog 1363017 (1054, "Unknown column 'ticker_start_time' in 'field list'") from function initial_data in line no. 42
+ERROR 2022-08-25 11:40:01,873 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:04,553 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:07,203 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:15,836 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:17,833 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:18,881 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:19,084 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:19,323 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:24,815 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:30,809 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:32,564 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:33,615 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:35,562 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:36,595 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:39,176 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:44,181 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:40:57,922 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:42:14,085 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+ERROR 2022-08-25 11:42:15,489 :  views 1363017 Error: (1054, "Unknown column 'ticker_management_rundecklog.ticker_start_time' in 'field list'") from function detail in line no. 280
+INFO 2022-08-25 11:42:41,341 :  views 1364178 No image found for 17 ticker id from function isDelete in line no. 447
+INFO 2022-08-25 11:43:20,221 :  gadget 1364178 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 11:43:20,289 :  ticker_schedules 1364178 Inside scheduleticker function from function schedulingticker in line no. 110
+INFO 2022-08-25 11:43:20,304 :  node 1364178 Inside roomConfiguration function from function roomConfigurations in line no. 21
+INFO 2022-08-25 11:43:20,329 :  tasks 1364178 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 11:43:20,680 :  rundecklog 1364178 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 11:59:26,054 :  gadget 1369452 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 11:59:26,112 :  ticker_schedules 1369452 Inside scheduleticker function from function schedulingticker in line no. 110
+INFO 2022-08-25 11:59:26,140 :  node 1369452 Inside roomConfiguration function from function roomConfigurations in line no. 21
+INFO 2022-08-25 11:59:26,178 :  tasks 1369452 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 11:59:26,470 :  rundecklog 1369452 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 12:00:16,574 :  gadget 1369841 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 12:00:16,756 :  ticker_schedules 1369841 Inside scheduleticker function from function schedulingticker in line no. 110
+INFO 2022-08-25 12:00:16,768 :  node 1369841 Inside roomConfiguration function from function roomConfigurations in line no. 21
+INFO 2022-08-25 12:00:16,790 :  tasks 1369841 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 12:00:17,025 :  rundecklog 1369841 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 12:01:54,634 :  gadget 1370078 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 12:01:54,723 :  ticker_schedules 1370078 Inside scheduleticker function from function schedulingticker in line no. 110
+INFO 2022-08-25 12:01:54,741 :  node 1370078 Inside roomConfiguration function from function roomConfigurations in line no. 21
+INFO 2022-08-25 12:01:54,766 :  tasks 1370078 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 12:01:55,005 :  rundecklog 1370078 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 12:04:41,167 :  gadget 1370957 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 12:04:41,229 :  ticker_schedules 1370957 Inside scheduleticker function from function schedulingticker in line no. 110
+INFO 2022-08-25 12:04:41,247 :  node 1370957 Inside roomConfiguration function from function roomConfigurations in line no. 21
+INFO 2022-08-25 12:04:41,273 :  tasks 1370957 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 12:04:41,532 :  rundecklog 1370957 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 12:07:47,908 :  gadget 1371955 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 12:07:47,970 :  ticker_schedules 1371955 Inside scheduleticker function from function schedulingticker in line no. 110
+INFO 2022-08-25 12:07:47,985 :  node 1371955 Inside roomConfiguration function from function roomConfigurations in line no. 21
+INFO 2022-08-25 12:07:48,008 :  tasks 1371955 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 12:07:48,227 :  rundecklog 1371955 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 12:12:47,442 :  gadget 1373300 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 12:12:47,547 :  ticker_schedules 1373300 Inside scheduleticker function from function schedulingticker in line no. 110
+INFO 2022-08-25 12:12:47,561 :  node 1373300 Inside roomConfiguration function from function roomConfigurations in line no. 21
+INFO 2022-08-25 12:12:47,584 :  tasks 1373300 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 12:12:47,749 :  rundecklog 1373300 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 12:16:08,566 :  gadget 1374482 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 12:16:08,633 :  ticker_schedules 1374482 Inside scheduleticker function from function schedulingticker in line no. 110
+INFO 2022-08-25 12:16:08,647 :  node 1374482 Inside roomConfiguration function from function roomConfigurations in line no. 21
+INFO 2022-08-25 12:16:08,674 :  tasks 1374482 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 12:16:09,023 :  rundecklog 1374482 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 12:17:28,616 :  gadget 1374759 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 12:17:28,686 :  ticker_schedules 1374759 Inside scheduleticker function from function schedulingticker in line no. 110
+INFO 2022-08-25 12:17:28,709 :  node 1374759 Inside roomConfiguration function from function roomConfigurations in line no. 21
+INFO 2022-08-25 12:17:28,754 :  tasks 1374759 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 12:17:28,987 :  rundecklog 1374759 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 12:27:42,996 :  gadget 1375765 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 12:27:43,154 :  ticker_schedules 1375765 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 12:27:43,169 :  node 1375765 Inside roomConfiguration function from function roomConfigurations in line no. 22
+INFO 2022-08-25 12:27:43,203 :  tasks 1375765 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 12:27:43,645 :  rundecklog 1375765 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 12:30:31,922 :  gadget 1376276 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 12:30:32,043 :  ticker_schedules 1376276 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 12:30:32,056 :  node 1376276 Inside roomConfiguration function from function roomConfigurations in line no. 22
+INFO 2022-08-25 12:30:32,085 :  tasks 1376276 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 12:30:32,300 :  rundecklog 1376276 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 13:03:46,394 :  gadget 1382661 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 13:03:46,458 :  ticker_schedules 1382661 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 13:03:46,515 :  node 1382661 Inside roomConfiguration function from function roomConfigurations in line no. 41
+INFO 2022-08-25 13:03:46,562 :  tasks 1382661 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 13:03:46,805 :  rundecklog 1382661 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 13:38:54,670 :  gadget 1386187 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 13:38:55,379 :  ticker_schedules 1386187 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 13:38:55,403 :  node 1386187 Inside roomConfiguration function from function roomConfigurations in line no. 42
+INFO 2022-08-25 13:38:55,444 :  tasks 1386187 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 13:38:55,790 :  rundecklog 1386187 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 13:44:52,604 :  gadget 1388092 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 13:44:52,670 :  ticker_schedules 1388092 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 13:44:52,688 :  node 1388092 Inside roomConfiguration function from function roomConfigurations in line no. 38
+INFO 2022-08-25 13:44:52,724 :  tasks 1388092 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 14:18:17,865 :  gadget 1388744 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 14:18:17,922 :  ticker_schedules 1388744 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 14:18:17,937 :  node 1388744 Inside roomConfiguration function from function roomConfigurations in line no. 38
+INFO 2022-08-25 14:19:25,126 :  gadget 1388744 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 14:19:25,183 :  ticker_schedules 1388744 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 14:19:25,230 :  node 1388744 Inside roomConfiguration function from function roomConfigurations in line no. 38
+INFO 2022-08-25 14:19:39,859 :  gadget 1389100 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 14:19:39,923 :  ticker_schedules 1389100 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 14:19:39,940 :  node 1389100 Inside roomConfiguration function from function roomConfigurations in line no. 38
+INFO 2022-08-25 14:23:00,634 :  gadget 1389250 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 14:23:00,706 :  ticker_schedules 1389250 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 14:23:00,727 :  node 1389250 Inside roomConfiguration function from function roomConfigurations in line no. 38
+INFO 2022-08-25 14:28:10,146 :  gadget 1389250 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 14:28:10,215 :  ticker_schedules 1389250 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 14:28:10,228 :  node 1389250 Inside roomConfiguration function from function roomConfigurations in line no. 38
+INFO 2022-08-25 14:35:23,745 :  gadget 1389742 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 14:35:23,812 :  ticker_schedules 1389742 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 14:35:23,851 :  node 1389742 Inside roomConfiguration function from function roomConfigurations in line no. 36
+INFO 2022-08-25 14:35:23,894 :  tasks 1389742 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 14:35:24,192 :  rundecklog 1389742 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 14:59:43,377 :  gadget 1390777 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 14:59:43,433 :  ticker_schedules 1390777 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 14:59:43,448 :  node 1390777 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 14:59:43,479 :  tasks 1390777 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 14:59:43,712 :  rundecklog 1390777 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 15:01:57,217 :  gadget 1390928 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 15:01:57,274 :  ticker_schedules 1390928 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 15:01:57,281 :  node 1390928 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 15:01:57,298 :  tasks 1390928 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 15:01:57,497 :  rundecklog 1390928 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 15:05:03,402 :  gadget 1391715 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 15:05:03,462 :  ticker_schedules 1391715 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 15:05:03,470 :  node 1391715 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 15:05:03,482 :  tasks 1391715 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 15:05:03,696 :  rundecklog 1391715 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 15:07:59,964 :  gadget 1391993 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 15:08:00,025 :  ticker_schedules 1391993 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 15:08:00,033 :  node 1391993 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 15:08:00,048 :  tasks 1391993 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 15:08:00,282 :  rundecklog 1391993 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 15:13:41,158 :  gadget 1392572 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 15:13:41,343 :  ticker_schedules 1392572 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 15:13:41,351 :  node 1392572 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 15:13:41,364 :  tasks 1392572 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 15:13:41,645 :  rundecklog 1392572 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 15:22:38,010 :  ticker_schedules 1392572 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 15:22:38,019 :  node 1392572 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 15:22:38,026 :  tasks 1392572 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 15:22:38,222 :  rundecklog 1392572 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 15:28:46,643 :  gadget 1392572 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 15:28:46,702 :  ticker_schedules 1392572 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 15:28:46,712 :  node 1392572 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 15:28:46,718 :  tasks 1392572 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 15:28:46,915 :  rundecklog 1392572 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 15:30:17,493 :  gadget 1392572 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 15:30:17,560 :  ticker_schedules 1392572 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 15:30:17,567 :  node 1392572 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 15:30:17,572 :  tasks 1392572 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 15:30:17,772 :  rundecklog 1392572 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 15:46:41,225 :  gadget 1393602 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 15:46:41,887 :  ticker_schedules 1393602 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 15:46:41,910 :  node 1393602 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 15:46:41,950 :  tasks 1393602 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 15:46:42,259 :  rundecklog 1393602 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 15:48:10,962 :  gadget 1394137 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 15:48:11,030 :  ticker_schedules 1394137 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 15:48:11,035 :  node 1394137 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 15:48:11,052 :  tasks 1394137 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 15:48:11,253 :  rundecklog 1394137 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 16:04:24,072 :  gadget 1395263 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 16:04:24,130 :  ticker_schedules 1395263 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 16:04:24,148 :  node 1395263 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 16:04:24,180 :  tasks 1395263 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 16:04:24,398 :  rundecklog 1395263 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 16:06:50,046 :  gadget 1395263 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 16:06:50,108 :  ticker_schedules 1395263 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 16:06:50,122 :  node 1395263 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 16:06:50,136 :  tasks 1395263 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 16:06:50,354 :  rundecklog 1395263 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 16:26:40,402 :  gadget 1396627 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 16:26:40,466 :  ticker_schedules 1396627 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 16:26:40,483 :  node 1396627 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 16:26:40,518 :  tasks 1396627 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 16:26:40,746 :  rundecklog 1396627 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-25 17:10:08,056 :  gadget 1398954 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 17:10:08,115 :  ticker_schedules 1398954 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 17:10:08,131 :  node 1398954 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 17:11:18,788 :  gadget 1399080 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-25 17:11:18,851 :  ticker_schedules 1399080 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-25 17:11:18,866 :  node 1399080 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-25 17:11:18,959 :  tasks 1399080 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-25 17:11:19,231 :  rundecklog 1399080 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-26 10:40:23,547 :  gadget 1434767 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-26 10:40:23,610 :  ticker_schedules 1434767 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-26 10:40:23,618 :  node 1434767 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-26 10:40:23,700 :  tasks 1434767 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-26 10:40:23,979 :  rundecklog 1434767 Inside initial_data function from function initial_data in line no. 10
+ERROR 2022-08-26 11:03:09,528 :  gadget 1442909 Exception while insertion: string indices must be integers from function datagetter in line no. 382
+ERROR 2022-08-26 11:10:05,425 :  gadget 1443711 Unable to update: TickerDetails matching query does not exist. from function datagetter in line no. 396
+ERROR 2022-08-26 11:13:59,131 :  gadget 1443984 Exception while insertion: string indices must be integers from function datagetter in line no. 381
+ERROR 2022-08-26 11:16:29,164 :  gadget 1445577 Unable to update: TickerDetails matching query does not exist. from function datagetter in line no. 396
+INFO 2022-08-26 11:18:44,357 :  gadget 1446760 No Image for upload from function FileUploader in line no. 108
+INFO 2022-08-26 11:18:44,418 :  ticker_schedules 1446760 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-26 11:18:44,432 :  node 1446760 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-26 11:18:44,594 :  tasks 1446760 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-26 11:18:44,865 :  rundecklog 1446760 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-26 11:27:01,251 :  gadget 1448696 No Image for upload from function FileUploader in line no. 108
+INFO 2022-08-26 11:27:01,310 :  ticker_schedules 1448696 Inside scheduleticker function from function schedulingticker in line no. 109
+INFO 2022-08-26 11:27:01,334 :  node 1448696 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-26 11:27:01,452 :  tasks 1448696 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-26 11:27:02,058 :  rundecklog 1448696 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-26 11:29:05,518 :  views 1451156 Found ticker for acknowledged request from function rebootStatus in line no. 668
+INFO 2022-08-26 11:29:05,549 :  tasks 1451156 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-26 11:29:05,838 :  rundecklog 1451156 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-26 16:00:34,871 :  gadget 1477185 No Image for upload from function FileUploader in line no. 107
+INFO 2022-08-26 16:00:34,946 :  ticker_schedules 1477185 Inside scheduleticker function from function schedulingticker in line no. 112
+INFO 2022-08-26 16:00:35,060 :  node 1477185 Inside roomConfiguration function from function roomConfigurations in line no. 35
+INFO 2022-08-26 16:00:35,334 :  tasks 1477185 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-26 16:00:35,654 :  rundecklog 1477185 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-26 16:07:23,930 :  views 1477185 Error Occurred During Token verify from function rebootStatus in line no. 724
+ERROR 2022-08-26 16:07:23,931 :  views 1477185 local variable 'key_name' referenced before assignment from function rebootStatus in line no. 725
+INFO 2022-08-26 16:07:40,102 :  views 1477185 Error Occurred During Token verify from function rebootStatus in line no. 724
+ERROR 2022-08-26 16:07:40,102 :  views 1477185 local variable 'key_name' referenced before assignment from function rebootStatus in line no. 725
+INFO 2022-08-26 16:56:49,242 :  views 1500529 Ticker Time Out from function rebootStatus in line no. 696
+INFO 2022-08-29 11:05:09,827 :  views 4070785 IP Address Not Found from function rebootStatus in line no. 739
+INFO 2022-08-29 11:16:19,494 :  views 4122667 Invalid Token from function configApi in line no. 617
+INFO 2022-08-29 11:16:23,248 :  views 4122667 Token Not Found from function configApi in line no. 578
+INFO 2022-08-29 11:29:11,709 :  gadget 4144228 No Image for upload from function FileUploader in line no. 109
+INFO 2022-08-29 11:29:11,714 :  node 4144228 Inside roomConfiguration function from function roomConfigurations in line no. 71
+INFO 2022-08-29 11:29:12,243 :  ticker_schedules 4144228 Inside scheduleticker function from function schedulingticker in line no. 112
+ERROR 2022-08-29 11:29:12,260 :  gadget 4144228 Error While schedule: TickerDetails matching query does not exist. from function datagetter in line no. 405
+INFO 2022-08-29 11:36:57,957 :  gadget 4157549 No Image for upload from function FileUploader in line no. 109
+INFO 2022-08-29 11:36:57,965 :  node 4157549 Inside roomConfiguration function from function roomConfigurations in line no. 71
+INFO 2022-08-29 11:36:58,213 :  ticker_schedules 4157549 Inside scheduleticker function from function schedulingticker in line no. 112
+INFO 2022-08-29 11:36:58,453 :  tasks 4157549 Inside callticker function from function callticker in line no. 14
+ERROR 2022-08-29 11:36:58,464 :  gadget 4157549 Error While schedule: 'int' object has no attribute 'get' from function datagetter in line no. 405
+INFO 2022-08-29 11:42:14,356 :  gadget 4167393 No Image for upload from function FileUploader in line no. 109
+INFO 2022-08-29 11:42:14,359 :  node 4167393 Inside roomConfiguration function from function roomConfigurations in line no. 71
+INFO 2022-08-29 11:42:14,447 :  ticker_schedules 4167393 Inside scheduleticker function from function schedulingticker in line no. 112
+INFO 2022-08-29 11:42:14,535 :  tasks 4167393 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-29 11:42:14,983 :  rundecklog 4167393 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-29 11:46:57,965 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:47:09,874 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:47:15,409 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:47:16,537 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:47:17,687 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:47:18,510 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:47:19,658 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:47:20,767 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:47:21,690 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:47:22,192 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:47:27,461 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:47:33,556 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:47:34,644 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:48:08,931 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:48:11,532 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:49:39,149 :  views 4167393 Invalid Request from function statusClose in line no. 992
+INFO 2022-08-29 11:50:24,922 :  views 4181187 Invalid Request from function statusClose in line no. 991
+INFO 2022-08-29 11:50:41,096 :  views 4181187 Invalid Request from function statusClose in line no. 991
+INFO 2022-08-29 12:00:44,804 :  gadget 3667 No Image for upload from function FileUploader in line no. 109
+INFO 2022-08-29 12:00:44,806 :  node 3667 Inside roomConfiguration function from function roomConfigurations in line no. 71
+INFO 2022-08-29 12:00:45,267 :  ticker_schedules 3667 Inside scheduleticker function from function schedulingticker in line no. 114
+INFO 2022-08-29 12:00:45,510 :  tasks 3667 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-29 12:00:45,827 :  rundecklog 3667 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-29 12:03:30,895 :  views 9713 Data Not Exists at Body from function statusClose in line no. 1012
+INFO 2022-08-29 12:07:38,545 :  views 16524 Error Occurred During Token verify from function statusClose in line no. 1005
+ERROR 2022-08-29 12:07:38,546 :  views 16524 'dvcIp' from function statusClose in line no. 1006
+INFO 2022-08-29 12:10:13,458 :  views 20626 IP Address Not Found from function statusClose in line no. 988
+INFO 2022-08-29 12:11:37,469 :  views 23336 Invalid IP Address from function statusClose in line no. 979
+INFO 2022-08-29 12:12:56,974 :  views 25591 Data Updated from function statusClose in line no. 959
+INFO 2022-08-29 12:23:10,002 :  views 41627 Ticker Not Exists from function configApi in line no. 620
+INFO 2022-08-29 12:32:16,419 :  gadget 56355 No Image for upload from function FileUploader in line no. 109
+INFO 2022-08-29 12:32:16,421 :  node 56355 Inside roomConfiguration function from function roomConfigurations in line no. 71
+INFO 2022-08-29 12:32:16,672 :  ticker_schedules 56355 Inside scheduleticker function from function schedulingticker in line no. 114
+INFO 2022-08-29 12:32:17,148 :  tasks 56355 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-29 12:32:17,679 :  rundecklog 56355 Inside initial_data function from function initial_data in line no. 10
+ERROR 2022-08-29 12:32:17,710 :  rundecklog 56355 'rundeckid' from function initial_data in line no. 36
+INFO 2022-08-29 12:38:10,664 :  gadget 56355 No Image for upload from function FileUploader in line no. 109
+INFO 2022-08-29 12:38:10,665 :  node 56355 Inside roomConfiguration function from function roomConfigurations in line no. 71
+INFO 2022-08-29 12:38:10,912 :  ticker_schedules 56355 Inside scheduleticker function from function schedulingticker in line no. 114
+INFO 2022-08-29 12:38:11,136 :  tasks 56355 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-29 12:38:12,674 :  rundecklog 56355 Inside initial_data function from function initial_data in line no. 10
+ERROR 2022-08-29 12:38:12,812 :  rundecklog 56355 'rundeckid' from function initial_data in line no. 36
+INFO 2022-08-29 12:38:38,002 :  gadget 56355 No Image for upload from function FileUploader in line no. 109
+INFO 2022-08-29 12:38:38,003 :  node 56355 Inside roomConfiguration function from function roomConfigurations in line no. 71
+INFO 2022-08-29 12:38:38,232 :  ticker_schedules 56355 Inside scheduleticker function from function schedulingticker in line no. 114
+INFO 2022-08-29 12:38:38,313 :  tasks 56355 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-29 12:38:38,774 :  rundecklog 56355 Inside initial_data function from function initial_data in line no. 10
+ERROR 2022-08-29 12:38:38,785 :  rundecklog 56355 'rundeckid' from function initial_data in line no. 36
+INFO 2022-08-29 12:39:34,459 :  gadget 68908 No Image for upload from function FileUploader in line no. 109
+INFO 2022-08-29 12:39:34,471 :  node 68908 Inside roomConfiguration function from function roomConfigurations in line no. 71
+INFO 2022-08-29 12:39:34,651 :  ticker_schedules 68908 Inside scheduleticker function from function schedulingticker in line no. 114
+INFO 2022-08-29 12:39:34,836 :  tasks 68908 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-29 12:39:35,714 :  rundecklog 68908 Inside initial_data function from function initial_data in line no. 10
+ERROR 2022-08-29 12:39:35,724 :  rundecklog 68908 'rundeckid' from function initial_data in line no. 40
+INFO 2022-08-29 12:41:28,583 :  gadget 68908 No Image for upload from function FileUploader in line no. 109
+INFO 2022-08-29 12:41:28,585 :  node 68908 Inside roomConfiguration function from function roomConfigurations in line no. 71
+INFO 2022-08-29 12:41:28,904 :  ticker_schedules 68908 Inside scheduleticker function from function schedulingticker in line no. 114
+INFO 2022-08-29 12:41:28,933 :  tasks 68908 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-29 12:41:29,352 :  rundecklog 68908 Inside initial_data function from function initial_data in line no. 10
+ERROR 2022-08-29 12:41:29,375 :  rundecklog 68908 'rundeckid' from function initial_data in line no. 40
+INFO 2022-08-29 12:48:17,051 :  gadget 82032 No Image for upload from function FileUploader in line no. 109
+INFO 2022-08-29 12:48:17,055 :  node 82032 Inside roomConfiguration function from function roomConfigurations in line no. 71
+INFO 2022-08-29 12:48:17,661 :  ticker_schedules 82032 Inside scheduleticker function from function schedulingticker in line no. 114
+INFO 2022-08-29 12:48:17,775 :  tasks 82032 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-29 12:48:21,273 :  gadget 82032 No Image for upload from function FileUploader in line no. 109
+INFO 2022-08-29 12:48:21,274 :  node 82032 Inside roomConfiguration function from function roomConfigurations in line no. 71
+INFO 2022-08-29 12:48:21,436 :  ticker_schedules 82032 Inside scheduleticker function from function schedulingticker in line no. 114
+INFO 2022-08-29 12:48:21,512 :  tasks 82032 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-29 12:48:22,645 :  rundecklog 82032 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-29 12:48:23,039 :  rundecklog 82032 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-29 12:49:46,519 :  gadget 82032 No Image for upload from function FileUploader in line no. 109
+INFO 2022-08-29 12:49:46,658 :  node 82032 Inside roomConfiguration function from function roomConfigurations in line no. 71
+INFO 2022-08-29 12:49:47,053 :  ticker_schedules 82032 Inside scheduleticker function from function schedulingticker in line no. 114
+INFO 2022-08-29 12:49:47,156 :  tasks 82032 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-29 12:49:47,643 :  rundecklog 82032 Inside initial_data function from function initial_data in line no. 10
+INFO 2022-08-29 14:01:50,212 :  gadget 206653 No Image for upload from function FileUploader in line no. 109
+INFO 2022-08-29 14:01:50,218 :  node 206653 Inside roomConfiguration function from function roomConfigurations in line no. 71
+INFO 2022-08-29 14:01:50,513 :  ticker_schedules 206653 Inside scheduleticker function from function schedulingticker in line no. 114
+INFO 2022-08-29 14:01:50,555 :  tasks 206653 Inside callticker function from function callticker in line no. 14
+INFO 2022-08-29 14:01:50,758 :  rundecklog 206653 Inside initial_data function from function initial_data in line no. 10
+ERROR 2022-08-29 15:45:26,944 :  views 377157 Error: tickerdetail.html from function detail in line no. 280
+ERROR 2022-08-29 15:46:01,802 :  views 382919 Error: tickerdetail.html from function detail in line no. 280
+ERROR 2022-08-29 15:46:03,979 :  views 382919 Error: tickerdetail.html from function detail in line no. 280
+ERROR 2022-08-29 16:40:53,741 :  views 386629 Error: HTTPSConnectionPool(host='dvs-uatblue.digivalet.comh', port=443): Max retries exceeded with url: /dvs/api/key/selectR (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f71060b45b0>: Failed to establish a new connection: [Errno -2] Name or service not known')) from function createTicker in line no. 99
+ERROR 2022-08-29 17:51:00,938 :  [Errno 2] No such file or directory: 'resourceAV.json' from function avDataFilter in line no. 526 file views
+ERROR 2022-08-29 17:51:26,879 :  [Errno 2] No such file or directory: 'resourceAV.json' from function avDataFilter in line no. 526 file views
+INFO 2022-08-29 17:51:28,155 :  No Image for upload from function FileUploader in line no. 109 file gadget
+INFO 2022-08-29 17:51:28,193 :  Inside roomConfiguration function from function roomConfigurations in line no. 72 file node
+INFO 2022-08-29 17:51:28,367 :  Inside scheduleticker function from function schedulingticker in line no. 114 file ticker_schedules
+INFO 2022-08-29 17:51:28,610 :  Inside callticker function from function callticker in line no. 14 file tasks
+INFO 2022-08-29 17:51:29,679 :  Inside initial_data function from function initial_data in line no. 10 file rundecklog
+ERROR 2022-08-29 17:52:51,258 :  [Errno 2] No such file or directory: 'resourceAV.json' from function avDataFilter in line no. 526 (FILENAME views)
+ERROR 2022-08-29 17:53:41,175 :  [Errno 2] No such file or directory: 'resourceAV.json' from function avDataFilter in line no. 526 (FILENAME views)
+INFO 2022-08-29 17:53:42,316 :  No Image for upload from function FileUploader in line no. 109 (FILENAME gadget)
+INFO 2022-08-29 17:53:42,369 :  Inside roomConfiguration function from function roomConfigurations in line no. 72 (FILENAME node)
+INFO 2022-08-29 17:53:42,840 :  Inside scheduleticker function from function schedulingticker in line no. 114 (FILENAME ticker_schedules)
+INFO 2022-08-29 17:53:43,094 :  Inside callticker function from function callticker in line no. 14 (FILENAME tasks)
+INFO 2022-08-29 17:53:43,524 :  Inside initial_data function from function initial_data in line no. 10 (FILENAME rundecklog)
+INFO 2022-08-29 18:04:09,326 :  26 AV data filtered from function avDataFilter in line no. 521 (FILENAME views)
+ERROR 2022-08-29 19:33:39,259 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:35:40,912 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:35:42,451 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:37:12,392 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:37:13,518 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:37:14,243 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:37:14,429 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:37:14,654 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:37:43,774 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:38:27,948 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:39:30,125 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:40:44,914 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:41:19,398 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:42:11,267 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:42:14,619 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:42:15,364 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:42:15,783 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:42:16,163 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-29 19:42:25,460 :  name 'ss' is not defined from function index in line no. 94 (FILENAME views)
+ERROR 2022-08-30 10:57:57,364 :  name 'ss' is not defined from function index in line no. 93 (FILENAME views)
+ERROR 2022-08-30 10:58:14,301 :  name 'ss' is not defined from function index in line no. 93 (FILENAME views)
+INFO 2022-08-30 10:59:38,465 :  26 AV data filtered from function avDataFilter in line no. 523 (FILENAME views)
+INFO 2022-08-30 11:00:25,758 :  26 AV data filtered from function avDataFilter in line no. 523 (FILENAME views)
+INFO 2022-08-30 11:00:26,224 :  No Image for upload from function FileUploader in line no. 106 (FILENAME gadget)
+INFO 2022-08-30 11:00:26,226 :  Inside roomConfiguration function from function roomConfigurations in line no. 72 (FILENAME node)
+INFO 2022-08-30 11:00:26,314 :  Inside scheduleticker function from function schedulingticker in line no. 108 (FILENAME ticker_schedules)
+INFO 2022-08-30 11:00:26,428 :  Inside callticker function from function callticker in line no. 14 (FILENAME tasks)
+INFO 2022-08-30 11:00:26,676 :  Inside initial_data function from function initial_data in line no. 9 (FILENAME rundecklog)
+INFO 2022-08-30 11:02:52,873 :  26 AV data filtered from function avDataFilter in line no. 523 (FILENAME views)
+INFO 2022-08-30 11:03:32,451 :  26 AV data filtered from function avDataFilter in line no. 523 (FILENAME views)
+INFO 2022-08-30 11:03:33,134 :  No Image for upload from function FileUploader in line no. 106 (FILENAME gadget)
+INFO 2022-08-30 11:03:33,146 :  Inside roomConfiguration function from function roomConfigurations in line no. 72 (FILENAME node)
+INFO 2022-08-30 11:03:33,483 :  Inside scheduleticker function from function schedulingticker in line no. 108 (FILENAME ticker_schedules)
+INFO 2022-08-30 11:03:33,511 :  Inside callticker function from function callticker in line no. 14 (FILENAME tasks)
+INFO 2022-08-30 11:03:33,708 :  Inside initial_data function from function initial_data in line no. 9 (FILENAME rundecklog)
+INFO 2022-08-30 11:04:07,973 :  26 AV data filtered from function avDataFilter in line no. 523 (FILENAME views)
+INFO 2022-08-30 11:05:07,200 :  26 AV data filtered from function avDataFilter in line no. 523 (FILENAME views)

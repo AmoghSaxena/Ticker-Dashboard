@@ -29,7 +29,7 @@ var currentTab = 0;
     x[currentTab].style.display = "none";
     currentTab = currentTab + n;
     // alert(currentTab);
-    if (currentTab == 3){
+    if (currentTab == 2){
         document.getElementById("nextBtn").style.display = "none";
         document.getElementById("SubForm").style.display = "inline";
     }

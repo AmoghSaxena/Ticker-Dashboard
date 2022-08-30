@@ -1,11 +1,13 @@
 import json
 from datetime import datetime,timedelta
 import os
+
+from ticker_management.node import roomConfigurations
+from django.shortcuts import render
 from .models import TickerDetails,SetUp
 from ticker_management.ticker_schedules import schedulingticker
 from django.core.files.storage import FileSystemStorage
 import xml.etree.ElementTree
-from django.http import HttpResponse
 
 import logging
 logger=logging.getLogger('dashboardLogs')
@@ -13,7 +15,6 @@ logger=logging.getLogger('dashboardLogs')
 def dateformatter(dateObj,timeorday):
     dateObj=datetime.strptime(dateObj,"%Y-%m-%dT%H:%M")
     if timeorday=='time':
-        # print(dateObj.strftime('%Y-%m-%d %H:%M:%S'))
         return dateObj.strftime('%Y-%m-%d %H:%M:%S')
     else:
         return dateObj.strftime('%A')
@@ -29,8 +30,6 @@ def FileUploader(request,ticker_db_data):
     ticker_json=json.loads(temp)
 
     fss=FileSystemStorage()
-
-    # print("outside")
 
     if ticker_json.get('main_ticker_condition','not found')==True and ticker_json.get('main_ticker_logo','not found')==True:
 
@@ -139,6 +138,7 @@ def datagetter(request):
 
         if request.POST.get('scrollingTickerPriority')=="Emergency":
             CONFIG_DATA['time_interval']= int(864000)
+            CONFIG_DATA['emergency_ticker_type']="stayInRoom"
         else:
             CONFIG_DATA['time_interval']= int(request.POST.get('scrollingTickerTimeInterval')) * 60
         
@@ -364,46 +364,44 @@ def datagetter(request):
         try:
             CONFIG_DATA['emergency_ticker_condition']= True
             CONFIG_DATA['time_interval']= 864000
+            CONFIG_DATA['emergency_ticker_type']="evacuate"
         except Exception as emergencyscroll:
             logger.warning('Exception raised during emergencyscroll'+emergencyscroll)
 
     else:
-            print('No ticker selected')
+        return render(request,'acknowledgement.html',{"message":'No ticker selected'})
         
     CONFIG_DATA['ticker_type']=tickertype
     CONFIG_DATA=json.dumps(CONFIG_DATA, indent=3)
 
     try:
         data_saver(request,tickertype,CONFIG_DATA,tickerTitle,tickerPriority)
-    except Exception as e:
-        logger.error("Exception while insertion: "+e)
-        return HttpResponse("Something went wrong while saving ticker data")
+    except Exception as err:
+        logger.error("Exception while insertion: "+str(err))
+        return render(request,'acknowledgement.html',{"message":"Something went wrong while saving ticker data"})
 
     try:
         t=TickerDetails.objects.filter(ticker_title=tickerTitle,ticker_priority=tickerPriority,ticker_type=tickertype,ticker_json=CONFIG_DATA,created_on__gte=str(datetime.now()-timedelta(minutes=1))).values()
     except Exception as e:
-        logger.error("Exception when fetching for update: "+e)
+        logger.error("Exception when fetching for update: "+str(e))
         t=None
     
     if t!=None:
-        
-        ticker_id_for_schedule=t.get().get('ticker_id',-1)
         try:
+            ticker_id_for_schedule=t.get().get('ticker_id',-1)
             CONFIG_DATA=FileUploader(request,t.get())
-            t.update(ticker_json=CONFIG_DATA)
-        except TickerDetails.DoesNotExist  as e:
-            logger.error('Unable to update: '+e)
-            return HttpResponse("Something went wrong while update")
+            data=roomConfigurations(t)
+            t.update(wings=data['wings'],floors=data['floors'],rooms=data['rooms'],ticker_json=CONFIG_DATA)
+        except TickerDetails.DoesNotExist  as err:
+            logger.error('Unable to update: '+str(err))
+            return render(request,'acknowledgement.html',{"message":"Something went wrong while update"})
         
-        try:
-            schedulingticker(request,ticker_id_for_schedule)
-        except Exception as e:
-            logger.error('Error While schedule: '+e)
+        schedulingticker(request,ticker_id_for_schedule)
+    
     else:
-        return HttpResponse("None object found")
-        
+        return render(request,'acknowledgement.html',{"message":"None object found"})
 
-def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
+def data_saver(request,tickertype,CONFIG_DATA,tickerTitle,tickerPriority):
     
     tickerobj=TickerDetails()
 
@@ -411,7 +409,7 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
 
     tickerobj.ticker_title=tickerTitle
 
-    tickerobj.ticker_json=CONFIG_DATA1
+    tickerobj.ticker_json=CONFIG_DATA
     
     if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scrollingTickerPriority') == 'Emergency':
         tickerobj.ticker_start_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -423,8 +421,7 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
         tickerobj.ticker_start_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         tickerobj.frequency = str(1)
         tickerobj.occuring_days = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        tickerobj.ticker_end_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
+        tickerobj.ticker_end_time=(datetime.now()+timedelta(seconds=int(json.loads(tickerobj.ticker_json)['time_interval']))).strftime("%Y-%m-%d %H:%M:%S")
     else:
         if request.POST.get('recurring')=='enabled':
             
@@ -464,7 +461,6 @@ def data_saver(request,tickertype,CONFIG_DATA1,tickerTitle,tickerPriority):
             tickerobj.occuring_days = dateformatter(request.POST.get('startDate'),'days')
             tickerobj.ticker_end_time=dateformatter(request.POST.get('startDate'),'time')
 
-    # print(tickerobj.ticker_start_time,tickerobj.ticker_end_time)
     tickerobj.wings=str(request.POST.getlist('wingSelection'))
     tickerobj.floors=str(request.POST.getlist('floorSelection'))
     tickerobj.rooms=str(request.POST.getlist('roomSelection'))

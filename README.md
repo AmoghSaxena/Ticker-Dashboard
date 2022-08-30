@@ -1,6 +1,9 @@
 # Ticker/On Screen Promotion Dashboard Server.
 
 
+># MAKE SURE TO CHANGE THE `ENV` FROM THE DOCKERFILE SO THAT IT CAN BUILD ACCORDING TO THE REQUIREMENTS
+
+
 #### This is the Ticker/On Screen Promotion Server files which can be hosted as Standalone or Dockerized Container
 
 
