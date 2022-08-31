@@ -10,6 +10,7 @@ from django.contrib import messages
 from ticker_management.gadget import datagetter
 from datetime import date,datetime
 from ticker_management.models import TickerDetails,TickerHistory,SetUp,RundeckLog
+from ticker_management.node import checkPriority
 from .forms import LoginForm, ChangePassword
 from django.http import QueryDict
 from .serializers import TaskSerializer, TaskSerializerConfig
@@ -110,17 +111,15 @@ def createTicker(request):
                 ],
             
             'font_style':[
-                'TimesNewRoman',
-                'MyriadProFont',
-                'Ubuntu',
-                'Russian',
-                'Chinese',
-                'Japanese',
-                'Arabic',
-                'Turkish',
-                'Spanish',
-                'French',
-                'Hindi'
+                "English",
+                "Hindi",
+                "Chinese",
+                "Arabic",
+                "Japnese",
+                "Russian",
+                "French",
+                "Spanish",
+                "Filipino"
                 ],
 
             'font_size':[
@@ -203,17 +202,26 @@ def createTicker(request):
 
             'days' :['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
         }
-    # data['scheduleData']=filterData()
-    try:
-        if request.method == 'POST':
-            Thread(target=datagetter,args=(request,)).start()
-            # datagetter(request)
+    
+    if request.method == 'POST':
+            # Thread(target=datagetter,args=(request,)).start()
+
+        priorityData=checkPriority(request)
+
+        if priorityData!=None:
+            return render(request,'alert.html',{'data':priorityData})
+        
+        dataget=datagetter(request)
+        if dataget['message']=='Success':
             return redirect(index)
         else:
+            return render(request,'acknowledgement.html',dataget)
+    else:
+        try:
             return render(request, 'createticker.html', data)
-    except Exception as err:
-        logger.error(err)
-        return render(request,'acknowledgement.html',{"message":f"SetUp may be wrong: {err}"})
+        except Exception as err:
+            logger.error(err)
+            return render(request,'acknowledgement.html',{"message":f"SetUp may be wrong: {err}"})
 
 @login_required(login_url='/ticker/accounts/login/')
 def updateTicker(request,ticker_id):
@@ -588,6 +596,7 @@ def filterData():
 
 @api_view(['GET', 'POST', 'DELETE'])
 def taskPost(request,id="0"):
+    logger.info('TaskPost Api hitted')
     if request.method == 'POST':
         d=dict()
         d.update(request.POST)
@@ -623,20 +632,21 @@ def taskPost(request,id="0"):
 #### TICKER CONFIG SECTION START ####
 @api_view(['GET'])
 def configApi(request,pk="0"):
+    logger.info('Config Api hitted')
     if request.method == 'GET':
 
         try:
 
             if request.headers.get('tickerToken') == None:
 
-                res['status'] = False
-                res['statusCode'] = tokenPresent.get('statusCode')
-                res['message'] = tokenPresent.get('message')
+            #     res['status'] = False
+            #     res['statusCode'] = tokenPresent.get('statusCode')
+            #     res['message'] = tokenPresent.get('message')
 
-                logger.info(tokenPresent.get('message'))
-                return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+            #     logger.info(tokenPresent.get('message'))
+            #     return Response(res, status = status.HTTP_401_UNAUTHORIZED)
 
-            else:
+            # else:
 
                 if tokenValidation(request.headers.get('tickerToken')):
                     serializer = TaskSerializerConfig(data=request.data)
@@ -731,6 +741,7 @@ def setupMail():
 def tokenValidation(token):
     if token == AUTH_TOKEN_API:
         return True
+    # return True
     return False
 #### TOKEN VALIDATION SECTION END ####
 
@@ -746,6 +757,7 @@ def ipAddressValidation(ip):
 #### REBOOT STATUS SECTION START ####
 @api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def rebootStatus(request):
+    logger.info('rebootStatus Api hitted')
     if request.method=='GET':
 
         try:
@@ -913,6 +925,7 @@ def rebootStatus(request):
 #### TV IPAD STATUS SECTION START ####
 @api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def tvIpadStatus(request):
+    logger.info('tvIpadStatus api hitted')
     if request.method=='POST':
 
         try:
@@ -1030,6 +1043,7 @@ def tvIpadStatus(request):
 ####  TICKER CLOSE STATUS SECTION START ####
 @api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def statusClose(request):
+    logger.info('statusClose api hitted')
     if request.method=='POST':
 
         try:

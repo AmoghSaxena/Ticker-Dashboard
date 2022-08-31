@@ -5,7 +5,7 @@ from ticker_management.tasks import callticker
 from .models import TickerDetails
 from django_celery_beat.models import PeriodicTask,CrontabSchedule
 from ticker_dashboard.settings import AUTH_TOKEN_API
-from django.shortcuts import render
+from threading import Thread
 
 import logging
 logger=logging.getLogger('dashboardLogs')
@@ -102,6 +102,7 @@ def schedule_tasks(basicTickerInfo,ticker_obj):
             task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((basicTickerInfo,ticker_id)))
     except Exception as err:
         logger.error(err)
+        return {"message":"Error while periodic schedules: "+str(err)}
 
 def schedulingticker(request,ticker_id):
     try:
@@ -151,12 +152,19 @@ def schedulingticker(request,ticker_id):
 
     except Exception as err:
         logger.error(err)
-        return render(request,'acknowledgement.html',{"message":"Error error while schedules: "+str(err)})
+        return {"message":"Error while schedules: "+str(err)}
+    
+    data=dict()
 
     if (len(json_data)>0):
         if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scheduleEnabler') == 'enabled':
-            callticker(basicTickerInfo,ticker_obj)
+            Thread(target=callticker,args=(basicTickerInfo,ticker_obj)).start()
         else:
-            schedule_tasks(basicTickerInfo,ticker_obj)
+            data=schedule_tasks(basicTickerInfo,ticker_obj)
+        
+        if data.get('message','0')=='0':
+            return {"message":'Success'}
+        else:
+            return data
     else:
         logger.info("No scheduled processes")

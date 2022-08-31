@@ -32,6 +32,7 @@ def initial_data(ticker_obj,basicTickerInfo):
                 return errorLog
         else:
             logger.warning('Response status code is not 200')
+        return 'Success'
     except Exception as e:
         logger.error(e)
 

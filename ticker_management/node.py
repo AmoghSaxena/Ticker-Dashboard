@@ -57,38 +57,13 @@ def getTickerId(tickerDetailsDB,ip):
     else:
         return {"key_name":"Not Found","ticker_id":-1}
 
-def checkPriority(ticker_obj,roomList):
-    priority=ticker_obj.ticker_priority
+def commonRooms(runningTickerRoomList,newTickerRoomList):
+    for i in runningTickerRoomList:
+        if i in newTickerRoomList:
+            return True
+    return False
 
-    tickerDetailsDB = TickerDetails.objects.all().filter(ticker_start_time__lte=datetime.now(),ticker_end_time__gt=datetime.now())
-    
-    for ticker in tickerDetailsDB:
-        for items in roomList:
-            if items in ticker.rooms:
-                # runnningTickerPriority=
-                break
-
-def roomConfigurations(ticker_obj):
-    logger.info('Inside roomConfiguration function')
-    
-    # ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
-    
-    wings_str=ticker_obj.get()['wings'].strip('[]')
-    floors_str=ticker_obj.get()['floors'].strip('[]')
-    rooms_str=ticker_obj.get()['rooms'].strip('[]')
-
-    wings=list()
-    floors=list()
-    rooms=list()
-
-    strToList(wings,wings_str)
-    strToList(floors,floors_str)
-    strToList(rooms,rooms_str)
-
-    print(wings)
-    print(floors)
-    print(rooms)
-
+def findRoomNumber(wings,floors,rooms):
     idList = list()
 
     file=open(f"{str(BASE_DIR)}/static/resources/resource.json")
@@ -103,7 +78,6 @@ def roomConfigurations(ticker_obj):
     if (len(rooms)==0) or rooms[0]=='All':
         if (len(floors)==0 or floors[0]=='All'):
             if (len(wings)==0 or wings[0]=='All'):
-                ticker_obj.update(wings='All',floors='All',rooms='All')
                 return {'wings':'All','floors':'All','rooms':'All'}
                 # return '.*'
                 # return roomList
@@ -129,12 +103,77 @@ def roomConfigurations(ticker_obj):
             for items in datafromdvs.get('data'):
                 if items.get('key_number')!=None and items.get('key_number') == parRoom:
                     idList.append(items.get('id'))
+    
     xmlFileRead(roomList,idList,root)
 
-    # ticker_obj.update(wings='[]',floors='[]',rooms=roomList)
-
-    # checkPriority(ticker_obj,roomList)
-
-    # return str(roomList).strip("[]").replace("'",'').replace(",","")
-
     return {'wings':'[]','floors':'[]','rooms':roomList}
+
+def checkPriority(request):
+    wings=request.POST.getlist('wingSelection')
+    floors=request.POST.getlist('floorSelection')
+    rooms=request.POST.getlist('roomSelection')
+
+    roomList=findRoomNumber(wings,floors,rooms)
+
+    priority=['Low','Medium','High','Emergency']
+
+    tickerSelection=request.POST.get('tickerSelecter')
+
+    if tickerSelection == 'scrolling':
+        newTickerPriority=request.POST.get('scrollingTickerPriority')
+    elif tickerSelection == 'media':
+        newTickerPriority=request.POST.get('mediaTickerPriority')
+    elif tickerSelection == 'emergency':
+        newTickerPriority="Emergency"
+
+    tickerDetailsDB = TickerDetails.objects.all().filter(ticker_start_time__lte=datetime.now(),ticker_end_time__gt=datetime.now())
+    
+    runningTicker=dict()
+
+    for ticker in tickerDetailsDB:
+        if ticker['ticker_priority']!='Emergency':
+            if ticker['rooms']=='All':
+                runningTicker['runningTickerObj']=ticker
+                break
+            else:
+                rooms_str=ticker.get()['rooms'].strip('[]')
+                rooms=list()
+                strToList(rooms,rooms_str)
+
+                if commonRooms(roomList,rooms):
+                    runningTicker=ticker
+                    break
+    if len(runningTicker)>0:
+        a=priority.index(runningTicker['ticker_priority'])
+        b=priority.index(newTickerPriority)
+
+        if b>a:
+            runningTicker['message']="New ticker has higher priority than running ticker.\nDO YOU REALLY WANT TO OVERRIDE?"
+        else:
+            runningTicker['message']="New ticker has lower priority than running ticker.\nDO YOU REALLY WANT TO OVERRIDE?"
+        return runningTicker
+
+def roomConfigurations(ticker_obj):
+    logger.info('Inside roomConfiguration function')
+    
+    # ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
+    
+    wings_str=ticker_obj.get()['wings'].strip('[]')
+    floors_str=ticker_obj.get()['floors'].strip('[]')
+    rooms_str=ticker_obj.get()['rooms'].strip('[]')
+
+    wings=list()
+    floors=list()
+    rooms=list()
+
+    strToList(wings,wings_str)
+    strToList(floors,floors_str)
+    strToList(rooms,rooms_str)
+
+    print(wings)
+    print(floors)
+    print(rooms)
+
+    data=findRoomNumber(wings,floors,rooms)
+
+    return data

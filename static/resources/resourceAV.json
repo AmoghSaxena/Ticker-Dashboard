@@ -1531,7 +1531,7 @@
          "key_number": "7775",
          "room_type_id": "1",
          "room_type": "Standard",
-         "tv_profile_id": "10",
+         "tv_profile_id": "12",
          "display_device_id": null,
          "ipad_profile_id": null,
          "dvc_profile_id": null,
@@ -1540,7 +1540,7 @@
          "created_by": "Digivalet Admin",
          "created_on": "27, Jul 2022, 02:28 PM",
          "modified_by": "Digivalet Admin",
-         "modified_on": "24, Aug 2022, 03:04 PM"
+         "modified_on": "30, Aug 2022, 12:09 PM"
       },
       {
          "id": "268",

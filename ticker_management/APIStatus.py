@@ -50,4 +50,4 @@ DBError = {"message": "DB Error", "statusCode": 1501}
 
 """ Config API Case """   #### STATUS 16XX ####
 ConfigNotFoundFailure = {"message": "Ticker Not Exists", "statusCode": 1601}
-ConfigFailure = {"message": "Error Occurred During Fetched Config File", "statusCode": 1601}
+ConfigFailure = {"message": "Error Occurred During Fetched Config File", "statusCode": 1602}

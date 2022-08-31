@@ -260,7 +260,7 @@ LOGGING = {
     'version': 1,
     'loggers':{
         'dashboardLogs':{
-            'handlers':['infoLogs','warningLogs','errorLogs','criticalLogs'],
+            'handlers':['infoLogs','warningLogs','errorLogs','criticalLogs','console'],
             'level':DEBUG
         }
     },
@@ -290,7 +290,7 @@ LOGGING = {
             'formatter':'simple',
         },
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         }
