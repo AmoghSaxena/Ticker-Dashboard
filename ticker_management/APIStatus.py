@@ -11,13 +11,15 @@ rebootSuccessStatus = {"message": "Ticker Re-Scheduled", "statusCode": 601}
 rebootFailureStatus = {"message": "Ticker Time Out", "statusCode": 602}
 rebootNodeNotFound = {"message": "Node Not Found", "statusCode": 603}
 rebootNotReschedule = {"message": "Error In Ticker Re-Schedule", "statusCode": 604}
-rebootStatusError = {"message": "Error Occurred During ", "statusCode": 605}
+rebootStatusError = {"message": "Error Occurred During Ticker Re-Scheduled", "statusCode": 605}
 
 
 """ TV ipad Status Case """    #### STATUS 7XX #### 
 tvIpadSuccessStatus = {"message": "Status Updated", "statusCode": 701}
 tickerNotFound = {"message": "Ticker Not Found", "statusCode": 702}
-tvIpadStatusError = {"message": "Error Occurred During ", "statusCode": 705}
+dataNotFound = {"message": "Required Data Not Found", "statusCode": 703}
+dvcNotFound = {"message": "Controller Not Found", "statusCode": 704}
+tvIpadStatusError = {"message": "Error Occurred During Update Status", "statusCode": 705}
 
 
 """ Ticker Close Case """    #### STATUS 8XX #### 
@@ -51,3 +53,9 @@ DBError = {"message": "DB Error", "statusCode": 1501}
 """ Config API Case """   #### STATUS 16XX ####
 ConfigNotFoundFailure = {"message": "Ticker Not Exists", "statusCode": 1601}
 ConfigFailure = {"message": "Error Occurred During Fetched Config File", "statusCode": 1602}
+
+
+""" DND Status API Case """   #### STATUS 17XX ####
+dndStatusSuccess = {"message": "Status Update", "statusCode": 1701}
+b = {"message": "Ticker Not Exists", "statusCode": 1702}
+dndStatusError = {"message": "Error Occurred During Update Status", "statusCode": 1703}

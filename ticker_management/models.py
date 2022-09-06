@@ -28,6 +28,7 @@ class RundeckLog(models.Model):
     ticker_id=models.IntegerField(null=True)
     ticker_title=models.CharField(max_length=150,null=True)
     execution= models.CharField(max_length=150,null=True,default="Pending")
+    tickerStatus= models.CharField(max_length=150,null=True,default="Pending")
     successfull_nodes= models.TextField(blank=True,null=True,default="None")
     failed_nodes= models.TextField(blank=True,null=True,default="None")
     tv_status=models.CharField(max_length=150,null=True,default="None")

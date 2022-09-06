@@ -58,8 +58,8 @@ def getTickerId(tickerDetailsDB,ip):
         return {"key_name":"Not Found","ticker_id":-1}
 
 def commonRooms(runningTickerRoomList,newTickerRoomList):
-    for i in runningTickerRoomList:
-        if i in newTickerRoomList:
+    for i in newTickerRoomList:
+        if i in runningTickerRoomList:
             return True
     return False
 
@@ -108,7 +108,7 @@ def findRoomNumber(wings,floors,rooms):
 
     return {'wings':'[]','floors':'[]','rooms':roomList}
 
-def checkPriority(request):
+def checkPriority(request,newTickerPriority,tickerDetailsDB):
     wings=request.POST.getlist('wingSelection')
     floors=request.POST.getlist('floorSelection')
     rooms=request.POST.getlist('roomSelection')
@@ -117,17 +117,6 @@ def checkPriority(request):
 
     priority=['Low','Medium','High','Emergency']
 
-    tickerSelection=request.POST.get('tickerSelecter')
-
-    if tickerSelection == 'scrolling':
-        newTickerPriority=request.POST.get('scrollingTickerPriority')
-    elif tickerSelection == 'media':
-        newTickerPriority=request.POST.get('mediaTickerPriority')
-    elif tickerSelection == 'emergency':
-        newTickerPriority="Emergency"
-
-    tickerDetailsDB = TickerDetails.objects.all().filter(ticker_start_time__lte=datetime.now(),ticker_end_time__gt=datetime.now())
-    
     runningTicker=dict()
 
     for ticker in tickerDetailsDB:
@@ -136,15 +125,15 @@ def checkPriority(request):
                 runningTicker['runningTickerObj']=ticker
                 break
             else:
-                rooms_str=ticker.get()['rooms'].strip('[]')
+                rooms_str=ticker['rooms'].strip('[]')
                 rooms=list()
                 strToList(rooms,rooms_str)
 
-                if commonRooms(roomList,rooms):
-                    runningTicker=ticker
+                if commonRooms(roomList['rooms'],rooms):
+                    runningTicker['runningTicker']=ticker
                     break
     if len(runningTicker)>0:
-        a=priority.index(runningTicker['ticker_priority'])
+        a=priority.index(runningTicker['runningTicker']['ticker_priority'])
         b=priority.index(newTickerPriority)
 
         if b>a:
@@ -177,3 +166,22 @@ def roomConfigurations(ticker_obj):
     data=findRoomNumber(wings,floors,rooms)
 
     return data
+
+def removeDuplicate(listObj,stringObj):
+    stringObj=stringObj.replace("[","").replace("]","")
+
+    data=str()
+
+    for i in stringObj:
+        if i==',':
+            data=data.replace("{","").replace("}","")
+            if data.split(":")[0].replace("'",'') not in listObj[0].keys():
+                listObj.append({data.split(":")[0].replace("'",''): data.split(":")[1].strip()})
+            data=str()
+        else:
+            data+=i
+    
+    if len(data)>0:
+        data=data.replace("{","").replace("}","")
+        if data.split(":")[0].replace("'",'') not in listObj[0].keys():
+            listObj.append({data.split(":")[0].replace("'",''): data.split(":")[1].strip()})

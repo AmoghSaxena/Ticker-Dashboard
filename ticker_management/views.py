@@ -14,7 +14,7 @@ from ticker_management.node import checkPriority
 from .forms import LoginForm, ChangePassword
 from django.http import QueryDict
 from .serializers import TaskSerializer, TaskSerializerConfig
-from ticker_management.node import getTickerId,strToList
+from ticker_management.node import getTickerId,removeDuplicate
 from ticker_management.tasks import callticker
 from threading import Thread
 #### Error Code ####
@@ -206,16 +206,40 @@ def createTicker(request):
     if request.method == 'POST':
             # Thread(target=datagetter,args=(request,)).start()
 
-        priorityData=checkPriority(request)
+        # tickerSelection=request.POST.get('tickerSelecter')
 
-        if priorityData!=None:
-            return render(request,'alert.html',{'data':priorityData})
-        
-        dataget=datagetter(request)
-        if dataget['message']=='Success':
-            return redirect(index)
+        # if tickerSelection == 'scrolling':
+        #     newTickerPriority=request.POST.get('scrollingTickerPriority')
+        # elif tickerSelection == 'media':
+        #     newTickerPriority=request.POST.get('mediaTickerPriority')
+        # elif tickerSelection == 'emergency':
+        #     newTickerPriority="Emergency"
+
+        # tickerDetailsDB = TickerDetails.objects.all().filter(ticker_start_time__lte=datetime.now(),ticker_end_time__gt=datetime.now()).values()
+
+        # if len(tickerDetailsDB)>0:
+        #     pass
+
+        if False:
+            pass
+        #     priorityData=checkPriority(request,newTickerPriority,tickerDetailsDB)
+
+        #     print(priorityData)
+
+        #     if priorityData!=None:
+        #         return render(request,'alert.html',{'data':priorityData}) 
+        #     else:
+        #         dataget=datagetter(request)
+        #         if dataget['message']=='Success':
+        #             return redirect(index)
+        #         else:
+        #             return render(request,'acknowledgement.html',dataget)
         else:
-            return render(request,'acknowledgement.html',dataget)
+            dataget=datagetter(request)
+            if dataget['message']=='Success':
+                return redirect(index)
+            else:
+                return render(request,'acknowledgement.html',dataget)
     else:
         try:
             return render(request, 'createticker.html', data)
@@ -255,7 +279,7 @@ def scheduled(request):
         event = json.dumps(eventData,indent = 3)
         with open('{0}/static/resources/events.json'.format(BASE_DIR), 'w') as f:
             f.write(str(event))
-        return render(request, 'scheduled.html',{'user':request.user.username})
+        return render(request, 'scheduled.html',{'user':request.user.username, 'events':events})
     except Exception as err:
         logger.error(err)
         return render(request,'acknowledgement.html',{"message":"File not present"})
@@ -311,12 +335,12 @@ def abort(request, id):
         ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
         logObject = list()
         if ticker_obj.get()['rundeckid']!=None:
-            logObject.append(abortTicker(ticker_obj))
+            logObject.append(killTicker(ticker_obj))
             rundeckLogData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
             rundeckLog=sorted(rundeckLogData,key=lambda item: item['rundeck_id'],reverse=True)
         else:
             rundeckLog=list()
-            dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get()['ticker_id'], 'ticker_title': ticker_obj.get()['ticker_title'], 'execution': "pending", 'successfull_nodes':
+            dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get()['ticker_id'], 'ticker_title': ticker_obj.get()['ticker_title'], 'execution': "pending", "tickerStatus": "pending", 'successfull_nodes':
              "None", 'failed_nodes': 'None', 'tv_status': 'None', 'iPad_status': 'None'}
             rundeckLog.append(dictwithoutrundeckid)
         return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog, 'logObject':logObject})
@@ -629,6 +653,7 @@ def taskPost(request,id="0"):
         task.delete()
         return Response('Item succsesfully delete!')
 
+
 #### TICKER CONFIG SECTION START ####
 @api_view(['GET'])
 def configApi(request,pk="0"):
@@ -639,14 +664,14 @@ def configApi(request,pk="0"):
 
             if request.headers.get('tickerToken') == None:
 
-            #     res['status'] = False
-            #     res['statusCode'] = tokenPresent.get('statusCode')
-            #     res['message'] = tokenPresent.get('message')
+                res['status'] = False
+                res['statusCode'] = tokenPresent.get('statusCode')
+                res['message'] = tokenPresent.get('message')
 
-            #     logger.info(tokenPresent.get('message'))
-            #     return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+                logger.info(tokenPresent.get('message'))
+                return Response(res, status = status.HTTP_401_UNAUTHORIZED)
 
-            # else:
+            else:
 
                 if tokenValidation(request.headers.get('tickerToken')):
                     serializer = TaskSerializerConfig(data=request.data)
@@ -658,8 +683,16 @@ def configApi(request,pk="0"):
 
                         try:
 
-                            tasks = TickerDetails.objects.filter(ticker_id=q).values_list('ticker_json')
+                            tasks = TickerDetails.objects.filter(ticker_id=q).values_list('ticker_json','ticker_end_time','frequency')
                             ticker_config_file = json.loads(tasks.get()[0])
+
+                            if tasks.get()[2]=='1':
+                                time_interval=tasks.get()[1]-datetime.now()
+                                time_interval=time_interval.total_seconds()
+                                if time_interval>0:
+                                    ticker_config_file['time_interval']=int(time_interval)
+                                else:
+                                    ticker_config_file['time_interval'] =0
 
                             try:
                                 ticker_config_file['auth_token'] = AUTH_TOKEN_API
@@ -668,18 +701,31 @@ def configApi(request,pk="0"):
                                 ticker_config_file['auth_token'] = "YWRtaW46YWRtaW4xMjM0"
                             
                             tasks = json.dumps(ticker_config_file,indent=3)
+
                             return Response(json.loads(tasks))
 
                         except TickerDetails.DoesNotExist  as err:
 
-                            tasks=TickerHistory.objects.filter(ticker_id=q).values_list('ticker_json')
+                            tasks=TickerHistory.objects.filter(ticker_id=q).values_list('ticker_json','ticker_end_time','frequency')
                             ticker_config_file = json.loads(tasks.get()[0])
+
+                            if tasks.get()[2]=='1':
+                                time_interval=tasks.get()[1]-datetime.now()
+                                time_interval=time_interval.total_seconds()
+                                if time_interval>0:
+                                    ticker_config_file['time_interval']=int(time_interval)
+                                else:
+                                    ticker_config_file['time_interval'] =0
 
                             try:
                                 ticker_config_file['auth_token'] = AUTH_TOKEN_API
-
+                                
                             except:
                                 ticker_config_file['auth_token'] = "YWRtaW46YWRtaW4xMjM0"
+                            
+                            print(tasks['ticker_end_time'],type(tasks['ticker_end_time']))
+
+                            # ticker_config_file['time_interval']=int()
 
                             logger.error(err)
 
@@ -723,6 +769,7 @@ def configApi(request,pk="0"):
         return Response(res, status = status.HTTP_404_NOT_FOUND)
 #### TICKER CONFIG SECTION END ####
 
+
 #### MAIL SET-UP SECTION START ####
 def setupMail():
     try:
@@ -737,6 +784,7 @@ def setupMail():
         pass
 #### MAIL SET-UP SECTION END ####
 
+
 #### TOKEN VALIDATION SECTION START ####
 def tokenValidation(token):
     if token == AUTH_TOKEN_API:
@@ -744,6 +792,7 @@ def tokenValidation(token):
     # return True
     return False
 #### TOKEN VALIDATION SECTION END ####
+
 
 #### IP VALIDATION SECTION START ####
 def ipAddressValidation(ip):
@@ -753,6 +802,7 @@ def ipAddressValidation(ip):
         return True
     return False
 #### IP VALIDATION SECTION END ####
+
 
 #### REBOOT STATUS SECTION START ####
 @api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
@@ -781,10 +831,12 @@ def rebootStatus(request):
 
                                 try:
                                     tickerDetailsDB=TickerDetails.objects.all().filter(ticker_start_time__lte=datetime.now(),ticker_end_time__gt=datetime.now()).values()
-                                    
-                                    if len(tickerDetailsDB)==0:
+                                    # print(tickerDetailsDB)
+                                    if len(tickerDetailsDB)>0:
 
                                         data=getTickerId(tickerDetailsDB,request.GET.get('dvcIp'))
+
+                                        print(data)
 
                                         if data['ticker_id']==-1 or data['key_name']=='Not Found':
 
@@ -827,7 +879,11 @@ def rebootStatus(request):
 
                                                 basicTickerInfo['json_data']=json_data
 
-                                                Thread(target=callticker,args=(basicTickerInfo,data['ticker_id'])).start()
+                                                print(basicTickerInfo['json_data'])
+
+                                                ticker_obj=TickerDetails.objects.filter(ticker_id=data['ticker_id']).values()
+
+                                                Thread(target=callticker,args=(basicTickerInfo,ticker_obj)).start()
 
                                                 res['status'] = True
                                                 res['statusCode'] = rebootSuccessStatus.get('statusCode')
@@ -922,10 +978,10 @@ def rebootStatus(request):
         return Response(res)
 #### REBOOT STATUS SECTION END ####
 
+
 #### TV IPAD STATUS SECTION START ####
 @api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def tvIpadStatus(request):
-    logger.info('tvIpadStatus api hitted')
     if request.method=='POST':
 
         try:
@@ -939,7 +995,6 @@ def tvIpadStatus(request):
                 return Response(res, status = status.HTTP_401_UNAUTHORIZED)
 
             else:
-
                 try:
                     if tokenValidation(request.headers.get('tickerToken')):
 
@@ -947,50 +1002,86 @@ def tvIpadStatus(request):
 
                             tvIpadStatusData=json.loads(request.body.decode('utf-8'))
 
+                            dvcIp=tvIpadStatusData.get('dvcIp')
                             ipadStatus=tvIpadStatusData.get('ipadStatus')
                             tvStatus=tvIpadStatusData.get('tvStatus')
-                            nowTime=datetime.now()
 
-                            tickerDetailsDB=TickerDetails.objects.all().filter(ticker_start_time__lte=nowTime,ticker_end_time__gt=nowTime).values()
+                            print(dvcIp,ipadStatus,tvStatus)
 
-                            if len(tickerDetailsDB)>0:
-                                data=getTickerId(tickerDetailsDB,request.GET.get('dvcIp'))
-                                
-                                rundeckLogDB=RundeckLog.objects.filter(ticker_id=int(data['ticker_id'])).values()
-                                tv_status=rundeckLogDB.get()['tv_status'].strip('[]')
-                                iPad_status=rundeckLogDB.get()['iPad_status'].strip('[]')
+                            if dvcIp==None or ipadStatus==None or tvStatus==None:
+                                print('s')
 
-                                tvStatusList=list()
-                                ipadStatusList=list()
+                                res['status'] = False
+                                res['statusCode'] = dataNotFound.get('statusCode')
+                                res['message'] = dataNotFound.get('message')
 
-                                if len(tv_status)>0:
-                                    strToList(tvStatusList,tv_status)
-                                
-                                tvStatusList=list(set(tvStatusList.append(str(data['key_name'])+" : "+str(tvStatus))))
-                                
-                                if len(iPad_status)>0:
-                                    strToList(ipadStatusList,iPad_status)
-                                
-                                ipadStatusList=list(set(ipadStatusList.append(str(data['key_name'])+" : "+str(ipadStatus))))
-                                
-                                rundeckLogDB.update(tv_status=tvStatusList,iPad_status=ipadStatusList)
-
-                                res['status'] = True
-                                res['statusCode'] = tvIpadSuccessStatus.get('statusCode')
-                                res['message'] = tvIpadSuccessStatus.get('message')
-
-                                logger.info(tvIpadSuccessStatus.get('message'))
+                                logger.info(dataNotFound.get('message'))
                                 return Response(res)
 
                             else:
+                                try:
 
-                                res['status'] = False
-                                res['statusCode'] = tickerNotFound.get('statusCode')
-                                res['message'] = tickerNotFound.get('message')
+                                    nowTime=datetime.now()
+                                    tickerDetailsDB=TickerDetails.objects.all().filter(ticker_start_time__lte=nowTime,ticker_end_time__gt=nowTime).values()
 
-                                logger.info(tickerNotFound.get('message'))
-                                return Response(res)
+                                    if len(tickerDetailsDB)>0:
+                                        data=getTickerId(tickerDetailsDB,dvcIp)
+                                        
+                                        if data['key_name']=="Not Found":
 
+                                            res['status'] = False
+                                            res['statusCode'] = dvcNotFound.get('statusCode')
+                                            res['message'] = dvcNotFound.get('message')
+
+                                            logger.info(dvcNotFound.get('message'))
+                                            return Response(res)
+                                            
+                                        else:
+
+                                            rundeckLogDB=RundeckLog.objects.filter(ticker_id=int(data['ticker_id'])).values()
+                                            tv_status=rundeckLogDB.get()['tv_status'].strip('[]')
+                                            iPad_status=rundeckLogDB.get()['iPad_status'].strip('[]')
+
+                                            tvStatusList=list()
+                                            ipadStatusList=list()
+                                                                                       
+                                            tvStatusList.append({data['key_name']:str(tvStatus)})
+                                                                                        
+                                            ipadStatusList.append({data['key_name']:str(ipadStatus)})
+                                            
+                                            if len(tv_status)>0 and tv_status!='None':
+                                                removeDuplicate(tvStatusList,tv_status)
+                                            if len(iPad_status)>0 and iPad_status!='None':
+                                                removeDuplicate(ipadStatusList,iPad_status)
+
+                                            print(tvStatusList,ipadStatusList)
+
+                                            rundeckLogDB.update(tv_status=tvStatusList,iPad_status=ipadStatusList)
+
+                                            res['status'] = True
+                                            res['statusCode'] = tvIpadSuccessStatus.get('statusCode')
+                                            res['message'] = tvIpadSuccessStatus.get('message')
+
+                                            logger.info(tvIpadSuccessStatus.get('message'))
+                                            return Response(res)
+                                    else:
+
+                                        res['status'] = False
+                                        res['statusCode'] = tickerNotFound.get('statusCode')
+                                        res['message'] = tickerNotFound.get('message')
+
+                                        logger.info(tickerNotFound.get('message'))
+                                        return Response(res)
+
+                                except Exception as err:
+                                    res['status'] = False
+                                    res['statusCode'] = DBError.get('statusCode')
+                                    res['message'] = DBError.get('message')
+
+                                    logger.info(DBError.get('message'))
+                                    logger.error(err)
+                                    return Response(res)
+                            
                         else:
 
                             res['status'] = False
@@ -1040,6 +1131,7 @@ def tvIpadStatus(request):
         return Response(res)
 #### TV IPAD STATUS SECTION END ####
 
+
 ####  TICKER CLOSE STATUS SECTION START ####
 @api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def statusClose(request):
@@ -1071,6 +1163,8 @@ def statusClose(request):
 
                                     try:
 
+                                        #### Start code here ####
+                                        
                                         res['status'] = True
                                         res['statusCode'] = tickerCloseStatus.get('statusCode')
                                         res['message'] = tickerCloseStatus.get('message')
@@ -1153,3 +1247,121 @@ def statusClose(request):
         logger.info(requestInvalid.get('message'))
         return Response(res)
 ####  TICKER CLOSE STATUS SECTION END ####
+
+
+
+####  TICKER DND STATUS SECTION START ####
+@api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+def dndStatus(request):
+    logger.info('statusClose api hitted')
+    if request.method=='POST':
+
+        try:
+            if request.body != b'':
+                statusCloseData = request.body
+
+                if request.headers.get('tickerToken') == None:
+
+                    res['status'] = False
+                    res['statusCode'] = tokenPresent.get('statusCode')
+                    res['message'] = tokenPresent.get('message')
+
+                    logger.info(tokenPresent.get('message'))
+                    return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+
+                else:
+                    try:
+                        if tokenValidation(request.headers.get('tickerToken')):
+
+                            dndStatusData=json.loads(request.body.decode('utf-8'))
+
+                            if dndStatusData.get('dvcIp') != None:
+
+                                if ipAddressValidation(dndStatusData.get('dvcIp')):
+
+                                    try:
+
+                                        #### Start code here ####
+
+                                        res['status'] = True
+                                        res['statusCode'] = tickerCloseStatus.get('statusCode')
+                                        res['message'] = tickerCloseStatus.get('message')
+
+                                        logger.info(tickerCloseStatus.get('message'))
+                                        return Response(res)
+
+                                    except Exception as err:
+
+                                        res['status'] = False
+                                        res['statusCode'] = DBError.get('statusCode')
+                                        res['message'] = DBError.get('message')
+
+                                        logger.info(DBError.get('message'))
+                                        logger.error(err)
+                                        return Response(res)
+
+                                else:
+
+                                    res['status'] = False
+                                    res['statusCode'] = ipAddressFailure.get('statusCode')
+                                    res['message'] = ipAddressFailure.get('message')
+
+                                    logger.info(ipAddressFailure.get('message'))
+                                    return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+
+                            else:
+
+                                res['status'] = False
+                                res['statusCode'] = ipAddressPresent.get('statusCode')
+                                res['message'] = ipAddressPresent.get('message')
+                                
+                                logger.info(ipAddressPresent.get('message'))
+                                return Response(res)
+
+                        else:
+                            
+                            res['status'] = False
+                            res['statusCode'] = tokenFailure.get('statusCode')
+                            res['message'] = tokenFailure.get('message')
+
+                            logger.info(tokenFailure.get('message'))
+                            return Response(res, status = status.HTTP_401_UNAUTHORIZED)
+
+                    except Exception as err:
+
+                        res['status'] = False
+                        res['statusCode'] = validationError.get('statusCode')
+                        res['message'] = validationError.get('message')
+
+                        logger.info(validationError.get('message'))
+                        logger.error(err)
+                        return Response(res)
+            else:
+
+                res['status'] = False
+                res['statusCode'] = requestBody.get('statusCode')
+                res['message'] = requestBody.get('message')
+                
+                logger.info(requestBody.get('message'))
+                return Response(res)
+
+        except Exception as err:
+
+            res['status'] = False
+            res['statusCode'] = dndStatusError.get('statusCode')
+            res['message'] = dndStatusError.get('message')
+            res['data'] = None
+
+            logger.info(dndStatusError.get('message'))
+            logger.error(err)
+            return Response(res)
+
+    else:
+
+        res['status'] = False
+        res['statusCode'] = requestInvalid.get('statusCode')
+        res['message'] = requestInvalid.get('message')
+
+        logger.info(requestInvalid.get('message'))
+        return Response(res)
+####  TICKER DND STATUS SECTION END ####

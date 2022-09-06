@@ -15,10 +15,13 @@ urlpatterns = [
     path('detail/<str:id>', views.detail, name = 'detail'),
     path('accounts/changepassword/', views.changePassword, name = 'changepassword'),
     path('abort/<str:id>', views.abort, name = 'abort'),
+
+    #### API's
 	path('ticker-post/', views.taskPost),
     path('ticker-config-api/', views.configApi),
     path('java/ticker/reboot/status/',views.rebootStatus,name='rebootStatus'),
     path('java/ticker/tv-ipad/status/',views.tvIpadStatus,name='tvipadStatus'),
     path('java/ticker/status/close/',views.statusClose,name='statusClose'),
+    path('java/ticker/dnd/',views.dndStatus,name='dndStatus'),
     # path('tickerStatusReboot/',views.tickerStatusReboot),
 ]

@@ -49,12 +49,12 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_CREDENTIALS = True
 
-try:
-    TICKER_FQDN = subprocess.check_output(['cat', '/app/TICKER_FQDN.txt']).decode().strip()
-    CSRF_TRUSTED_ORIGINS = [f'https://{TICKER_FQDN}']
-except:
-    CSRF_TRUSTED_ORIGINS = [f'https://ticker.uncle.army']
-    pass
+# try:
+#     TICKER_FQDN = subprocess.check_output(['cat', '/app/TICKER_FQDN.txt']).decode().strip()
+#     CSRF_TRUSTED_ORIGINS = [f'https://{TICKER_FQDN}']
+# except:
+#     CSRF_TRUSTED_ORIGINS = [f'https://ticker.uncle.army']
+#     pass
 
 # CORS_REPLACE_HTTPS_REFERER = True
 

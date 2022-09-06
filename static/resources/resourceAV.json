@@ -1157,7 +1157,7 @@
          "key_number": "7774",
          "room_type_id": "1",
          "room_type": "Standard",
-         "tv_profile_id": "6",
+         "tv_profile_id": "10",
          "display_device_id": null,
          "ipad_profile_id": null,
          "dvc_profile_id": null,
@@ -1166,7 +1166,7 @@
          "created_by": "Digivalet Admin",
          "created_on": "14, Sep 2021, 01:20 PM",
          "modified_by": "Digivalet Admin",
-         "modified_on": "29, Aug 2022, 08:23 PM"
+         "modified_on": "01, Sep 2022, 07:08 PM"
       },
       {
          "id": "216",
@@ -1311,7 +1311,7 @@
          "key_number": "1255",
          "room_type_id": "2",
          "room_type": "Living",
-         "tv_profile_id": "2",
+         "tv_profile_id": "3",
          "display_device_id": null,
          "ipad_profile_id": null,
          "dvc_profile_id": null,
@@ -1320,7 +1320,7 @@
          "created_by": "Digivalet Admin",
          "created_on": "24, Feb 2022, 01:25 PM",
          "modified_by": "Digivalet Admin",
-         "modified_on": "23, Aug 2022, 03:56 PM"
+         "modified_on": "06, Sep 2022, 11:20 AM"
       },
       {
          "id": "237",
@@ -1342,7 +1342,7 @@
          "created_by": "Digivalet Admin",
          "created_on": "24, Feb 2022, 01:25 PM",
          "modified_by": "Digivalet Admin",
-         "modified_on": "23, Aug 2022, 03:56 PM"
+         "modified_on": "06, Sep 2022, 11:20 AM"
       },
       {
          "id": "242",
@@ -1377,7 +1377,7 @@
          "key_number": "6565",
          "room_type_id": "1",
          "room_type": "Standard",
-         "tv_profile_id": "3",
+         "tv_profile_id": "17",
          "display_device_id": null,
          "ipad_profile_id": null,
          "dvc_profile_id": null,
@@ -1386,7 +1386,7 @@
          "created_by": "Digivalet Admin",
          "created_on": "12, Apr 2022, 03:59 PM",
          "modified_by": "Digivalet Admin",
-         "modified_on": "12, Apr 2022, 04:02 PM"
+         "modified_on": "03, Sep 2022, 07:49 PM"
       },
       {
          "id": "248",
@@ -1509,7 +1509,7 @@
          "key_number": "702",
          "room_type_id": "1",
          "room_type": "Standard",
-         "tv_profile_id": "2",
+         "tv_profile_id": "17",
          "display_device_id": null,
          "ipad_profile_id": null,
          "dvc_profile_id": null,
@@ -1518,7 +1518,29 @@
          "created_by": "Digivalet Admin",
          "created_on": "14, Jul 2022, 05:42 PM",
          "modified_by": "Digivalet Admin",
-         "modified_on": "06, Aug 2022, 03:36 PM"
+         "modified_on": "01, Sep 2022, 03:30 PM"
+      },
+      {
+         "id": "265",
+         "parent_id": "0",
+         "device_type_id": "2",
+         "device_category": "controller",
+         "device_type": "AV",
+         "display_name": "Standard-3443",
+         "key_id": "112",
+         "key_number": "3443",
+         "room_type_id": "1",
+         "room_type": "Standard",
+         "tv_profile_id": "10",
+         "display_device_id": null,
+         "ipad_profile_id": null,
+         "dvc_profile_id": null,
+         "is_active": "1",
+         "is_deleted": "0",
+         "created_by": "Digivalet Admin",
+         "created_on": "20, Jul 2022, 06:20 PM",
+         "modified_by": "Digivalet Admin",
+         "modified_on": "03, Sep 2022, 04:52 PM"
       },
       {
          "id": "266",
@@ -1531,7 +1553,7 @@
          "key_number": "7775",
          "room_type_id": "1",
          "room_type": "Standard",
-         "tv_profile_id": "12",
+         "tv_profile_id": "6",
          "display_device_id": null,
          "ipad_profile_id": null,
          "dvc_profile_id": null,
@@ -1540,7 +1562,7 @@
          "created_by": "Digivalet Admin",
          "created_on": "27, Jul 2022, 02:28 PM",
          "modified_by": "Digivalet Admin",
-         "modified_on": "30, Aug 2022, 12:09 PM"
+         "modified_on": "01, Sep 2022, 11:29 AM"
       },
       {
          "id": "268",
@@ -1587,6 +1609,28 @@
          "modified_on": "22, Aug 2022, 07:28 PM"
       },
       {
+         "id": "272",
+         "parent_id": "0",
+         "device_type_id": "2",
+         "device_category": "controller",
+         "device_type": "AV",
+         "display_name": "Standard-7898",
+         "key_id": "116",
+         "key_number": "7898",
+         "room_type_id": "1",
+         "room_type": "Standard",
+         "tv_profile_id": "10",
+         "display_device_id": null,
+         "ipad_profile_id": null,
+         "dvc_profile_id": null,
+         "is_active": "1",
+         "is_deleted": "0",
+         "created_by": "Digivalet Admin",
+         "created_on": "24, Aug 2022, 12:01 PM",
+         "modified_by": "Digivalet Admin",
+         "modified_on": "03, Sep 2022, 04:51 PM"
+      },
+      {
          "id": "276",
          "parent_id": "0",
          "device_type_id": "2",
@@ -1606,7 +1650,7 @@
          "created_by": "Digivalet Admin",
          "created_on": "24, Aug 2022, 08:52 PM",
          "modified_by": "Digivalet Admin",
-         "modified_on": "24, Aug 2022, 08:57 PM"
+         "modified_on": "02, Sep 2022, 02:52 PM"
       },
       {
          "id": "278",
@@ -1651,6 +1695,28 @@
          "created_on": "29, Aug 2022, 01:39 PM",
          "modified_by": "Digivalet Admin",
          "modified_on": "29, Aug 2022, 01:53 PM"
+      },
+      {
+         "id": "282",
+         "parent_id": "0",
+         "device_type_id": "2",
+         "device_category": "controller",
+         "device_type": "AV",
+         "display_name": null,
+         "key_id": "106",
+         "key_number": "7412",
+         "room_type_id": "1",
+         "room_type": "Standard",
+         "tv_profile_id": null,
+         "display_device_id": null,
+         "ipad_profile_id": null,
+         "dvc_profile_id": null,
+         "is_active": "1",
+         "is_deleted": "0",
+         "created_by": "Digivalet Admin",
+         "created_on": "01, Sep 2022, 03:57 PM",
+         "modified_by": null,
+         "modified_on": null
       }
    ],
    "response_tag": 0

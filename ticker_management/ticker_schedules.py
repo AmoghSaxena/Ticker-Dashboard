@@ -61,6 +61,7 @@ def schedule_tasks(basicTickerInfo,ticker_obj):
             schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute)
             task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((basicTickerInfo,ticker_id)))
 
+            return {"message":""}
         else:
             
             frequency=str(ticker_obj.get()['frequency'])
@@ -100,6 +101,7 @@ def schedule_tasks(basicTickerInfo,ticker_obj):
 
             schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=data.get('month'),day_of_month=data['days'],hour=data['hours'],minute=data['minutes'],day_of_week=week_number)
             task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((basicTickerInfo,ticker_id)))
+            return {"message":""}
     except Exception as err:
         logger.error(err)
         return {"message":"Error while periodic schedules: "+str(err)}
