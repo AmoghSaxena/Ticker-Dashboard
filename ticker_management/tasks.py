@@ -1,13 +1,24 @@
 from celery import shared_task
-from .models import TickerDetails,SetUp
+from .models import TickerDetails,SetUp, TickerHistory
 from datetime import datetime
-import json
 import requests
 from ticker_management.rundecklog import initial_data
 
 #Loggers
 import logging
 logger=logging.getLogger('dashboardLogs')
+
+
+@shared_task(bind=True)
+def callscheduledticker(self,basicTickerInfo,ticker_id):
+    if TickerDetails.objects.filter(ticker_id=ticker_id).exists():
+        ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
+        callticker(basicTickerInfo,ticker_obj)
+    elif TickerHistory.objects.filter(ticker_id=ticker_id).exists():
+        ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
+        callticker(basicTickerInfo,ticker_obj)
+    else:
+        logger.info('Ticker id not found')
 
 @shared_task(bind=True)
 def callticker(self,basicTickerInfo,ticker_obj):
@@ -18,6 +29,7 @@ def callticker(self,basicTickerInfo,ticker_obj):
             'X-Rundeck-Auth-Token': basicTickerInfo['Rundeck_Token']
         }
 
+        # print(basicTickerInfo["json_data"])
 
         response = requests.post(f'https://{basicTickerInfo["FQDN"]}/r/api/{basicTickerInfo["Rundeck_Api_Version"]}/job/{basicTickerInfo["Rundeck_Start_Job"]}/run', headers=headers, json=basicTickerInfo["json_data"])
         

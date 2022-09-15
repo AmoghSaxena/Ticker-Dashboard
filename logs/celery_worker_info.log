@@ -194,3 +194,289 @@ KeyError: 'ticker_management.maintainLogs.filereader'
             leak, never use this setting in production environments!
   warnings.warn('''Using settings.DEBUG leads to a memory
 
+[2022-09-08 15:30:15,608: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 15:30:15,616: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 15:30:15,616: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 15:30:15,616: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 15:30:15,911: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-09-08 15:30:15,914: INFO/MainProcess] mingle: searching for neighbors
+[2022-09-08 15:30:16,924: INFO/MainProcess] mingle: all alone
+[2022-09-08 15:30:16,970: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-09-08 15:32:00,041: INFO/MainProcess] Task ticker_management.tasks.callticker[6aa263f0-50f3-4a59-9c20-6e8f49879f75] received
+[2022-09-08 15:32:00,043: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-09-08 15:32:00,254: ERROR/ForkPoolWorker-3] Error while execution of task: 'int' object has no attribute 'get'
+[2022-09-08 15:32:00,256: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-09-08 15:32:00,256: ERROR/ForkPoolWorker-3] 'int' object has no attribute 'get'
+[2022-09-08 15:32:00,257: WARNING/ForkPoolWorker-3] After initial
+[2022-09-08 15:34:00,007: INFO/MainProcess] Task ticker_management.tasks.callticker[9e6e5046-7e47-4e5e-a2d0-9ac349b82b24] received
+[2022-09-08 15:34:00,009: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-09-08 15:34:00,220: ERROR/ForkPoolWorker-3] Error while execution of task: 'int' object has no attribute 'get'
+[2022-09-08 15:34:00,221: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-09-08 15:34:00,221: ERROR/ForkPoolWorker-3] 'int' object has no attribute 'get'
+[2022-09-08 15:34:00,222: WARNING/ForkPoolWorker-3] After initial
+[2022-09-08 15:37:00,003: INFO/MainProcess] Task ticker_management.tasks.callticker[dda9547f-38e2-44b1-9825-d933991439a9] received
+[2022-09-08 15:37:00,005: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-09-08 15:37:00,011: INFO/MainProcess] Task ticker_management.tasks.callticker[00a6f067-87b5-44ec-8d7c-62683f882869] received
+[2022-09-08 15:37:00,014: INFO/ForkPoolWorker-2] Inside callticker function
+[2022-09-08 15:37:00,204: ERROR/ForkPoolWorker-3] Error while execution of task: 'int' object has no attribute 'get'
+[2022-09-08 15:37:00,205: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-09-08 15:37:00,205: ERROR/ForkPoolWorker-3] 'int' object has no attribute 'get'
+[2022-09-08 15:37:00,206: WARNING/ForkPoolWorker-3] After initial
+[2022-09-08 15:37:00,216: ERROR/ForkPoolWorker-2] Error while execution of task: 'int' object has no attribute 'get'
+[2022-09-08 15:37:00,217: INFO/ForkPoolWorker-2] Inside initial_data function
+[2022-09-08 15:37:00,218: ERROR/ForkPoolWorker-2] 'int' object has no attribute 'get'
+[2022-09-08 15:37:00,219: WARNING/ForkPoolWorker-2] After initial
+[2022-09-08 15:37:49,922: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 15:37:49,923: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 15:37:49,923: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 15:37:49,923: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 15:37:50,172: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-09-08 15:37:50,175: INFO/MainProcess] mingle: searching for neighbors
+[2022-09-08 15:37:51,185: INFO/MainProcess] mingle: all alone
+[2022-09-08 15:37:51,196: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-09-08 15:39:00,005: INFO/MainProcess] Task ticker_management.tasks.callticker[5d856048-7221-4139-9801-68f93fa73d1c] received
+[2022-09-08 15:39:00,007: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-09-08 15:39:00,245: ERROR/ForkPoolWorker-3] Error while execution of task: 'int' object has no attribute 'get'
+[2022-09-08 15:39:00,247: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-09-08 15:39:00,248: ERROR/ForkPoolWorker-3] 'int' object has no attribute 'get'
+[2022-09-08 15:39:00,250: WARNING/ForkPoolWorker-3] After initial
+[2022-09-08 15:42:00,007: INFO/MainProcess] Task ticker_management.tasks.callticker[7a90121d-3a0c-4a86-abd0-1ea4624cd3b1] received
+[2022-09-08 15:42:00,009: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-09-08 15:42:00,224: ERROR/ForkPoolWorker-3] Error while execution of task: 'int' object has no attribute 'get'
+[2022-09-08 15:42:00,226: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-09-08 15:42:00,227: ERROR/ForkPoolWorker-3] 'int' object has no attribute 'get'
+[2022-09-08 15:42:00,230: WARNING/ForkPoolWorker-3] After initial
+[2022-09-08 15:47:00,006: INFO/MainProcess] Task ticker_management.tasks.callticker[9f7cc778-452a-499d-ae5c-97341b8429a4] received
+[2022-09-08 15:47:00,008: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-09-08 15:47:00,204: ERROR/ForkPoolWorker-3] Error while execution of task: 'int' object has no attribute 'get'
+[2022-09-08 15:47:00,205: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-09-08 15:47:00,206: ERROR/ForkPoolWorker-3] 'int' object has no attribute 'get'
+[2022-09-08 15:47:00,207: WARNING/ForkPoolWorker-3] After initial
+[2022-09-08 16:29:00,008: ERROR/MainProcess] Received unregistered task of type 'ticker_management.tasks.callscheduledticker'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[[{"FQDN": "dvs-dev.digivalet.com", "Dvs_Token": "da1ca0a34d72bd530bfc21b7a4d70ec903a0611c18058eb8b6290cae6644251e", "Rundeck_Token": "GPE0a5rF328fUHV9Zwj1kmQSudVY0zOn", "Rundeck_Api_Version": 17, "Ticker_FQDN": "ticker.dns.army/ticker", "Rundeck_Start_Job": "0d0c3cfe-adcd-4f86-8c03-adaa1cd2c0e0", "json_data": {"argString": "-whichnode \\"bedroom-515 living-515 bathroom-515\\" -FQDN ticker.dns.army/ticker -jsonFile 172 -BasicAuth K9c491y3kKfuodcuVU8pzxNX1raunlQLFKVqsxJENkE"}}, 172], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (558b)
+
+Thw full contents of the message headers:
+{'lang': 'py', 'task': 'ticker_management.tasks.callscheduledticker', 'id': '3dbaf1ec-6d81-42fa-9b1d-e9d7a7d9fe79', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [None, None], 'root_id': '3dbaf1ec-6d81-42fa-9b1d-e9d7a7d9fe79', 'parent_id': None, 'argsrepr': '[{\'FQDN\': \'dvs-dev.digivalet.com\', \'Dvs_Token\': \'da1ca0a34d72bd530bfc21b7a4d70ec903a0611c18058eb8b6290cae6644251e\', \'Rundeck_Token\': \'GPE0a5rF328fUHV9Zwj1kmQSudVY0zOn\', \'Rundeck_Api_Version\': 17, \'Ticker_FQDN\': \'ticker.dns.army/ticker\', \'Rundeck_Start_Job\': \'0d0c3cfe-adcd-4f86-8c03-adaa1cd2c0e0\', \'json_data\': {\'argString\': \'-whichnode "bedroom-515 living-515 bathroom-515" -FQDN ticker.dns.army/ticker -jsonFile 172 -BasicAuth K9c491y3kKfuodcuVU8pzxNX1raunlQLFKVqsxJENkE\'}}, 172]', 'kwargsrepr': '{}', 'origin': 'gen2758811@rextermac', 'ignore_result': False}
+
+The delivery info for this task is:
+{'exchange': '', 'routing_key': 'celery'}
+Traceback (most recent call last):
+  File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 591, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'ticker_management.tasks.callscheduledticker'
+[2022-09-08 16:29:36,832: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 16:29:36,833: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 16:29:36,834: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 16:29:36,835: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 16:29:37,459: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-09-08 16:29:37,468: INFO/MainProcess] mingle: searching for neighbors
+[2022-09-08 16:29:38,499: INFO/MainProcess] mingle: all alone
+[2022-09-08 16:29:38,524: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-09-08 16:53:04,727: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 16:53:04,728: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 16:53:04,729: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 16:53:04,729: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-08 16:53:05,173: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-09-08 16:53:05,181: INFO/MainProcess] mingle: searching for neighbors
+[2022-09-08 16:53:06,207: INFO/MainProcess] mingle: all alone
+[2022-09-08 16:53:06,232: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-09-08 16:55:00,084: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[b404c278-f0ee-4141-8876-1fbb9ae33412] received
+[2022-09-08 16:55:00,107: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-09-08 16:55:00,399: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-09-08 16:55:00,555: WARNING/ForkPoolWorker-3] After initial
+[2022-09-08 17:49:00,012: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[2315b078-bdf2-4448-b4ab-b122d9e62519] received
+[2022-09-08 17:49:00,020: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-09-08 17:49:00,298: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-09-08 17:49:00,454: WARNING/ForkPoolWorker-3] After initial
+[2022-09-12 17:37:09,599: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-12 17:37:09,630: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-12 17:37:09,631: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-12 17:37:09,631: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-12 17:37:10,279: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-09-12 17:37:10,285: INFO/MainProcess] mingle: searching for neighbors
+[2022-09-12 17:37:11,303: INFO/MainProcess] mingle: all alone
+[2022-09-12 17:37:11,350: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-09-12 17:38:00,080: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[0ced894d-ec0d-4277-bc41-f5cdea7da92d] received
+[2022-09-12 17:38:00,101: INFO/ForkPoolWorker-2] Inside callticker function
+[2022-09-12 17:38:00,396: INFO/ForkPoolWorker-2] Inside initial_data function
+[2022-09-12 17:38:00,563: WARNING/ForkPoolWorker-2] After initial
+[2022-09-12 17:43:00,007: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[6f09dd9c-a122-4570-a555-d01401fd5da5] received
+[2022-09-12 17:43:00,017: INFO/ForkPoolWorker-2] Inside callticker function
+[2022-09-12 17:43:00,324: INFO/ForkPoolWorker-2] Inside initial_data function
+[2022-09-12 17:43:00,480: WARNING/ForkPoolWorker-2] After initial
+[2022-09-12 17:48:00,010: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[9611eddf-2e1e-4f02-a1d1-97f492c04531] received
+[2022-09-12 17:48:00,060: INFO/ForkPoolWorker-2] Inside callticker function
+[2022-09-12 17:48:00,417: INFO/ForkPoolWorker-2] Inside initial_data function
+[2022-09-12 17:48:00,630: WARNING/ForkPoolWorker-2] After initial
+[2022-09-12 17:53:00,008: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[a62af9f8-cefc-40ad-bb90-cb149e9a1616] received
+[2022-09-12 17:53:00,018: INFO/ForkPoolWorker-2] Inside callticker function
+[2022-09-12 17:53:00,321: INFO/ForkPoolWorker-2] Inside initial_data function
+[2022-09-12 17:53:00,477: WARNING/ForkPoolWorker-2] After initial
+[2022-09-12 17:58:00,012: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[efca0c05-cd7d-49f0-9d3a-903a1e2239cd] received
+[2022-09-12 17:58:00,022: INFO/ForkPoolWorker-2] Inside callticker function
+[2022-09-12 17:58:00,313: INFO/ForkPoolWorker-2] Inside initial_data function
+[2022-09-12 17:58:00,469: WARNING/ForkPoolWorker-2] After initial
+[2022-09-12 18:12:01,777: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-12 18:12:01,779: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-12 18:12:01,779: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-12 18:12:01,780: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-09-12 18:12:02,328: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-09-12 18:12:02,335: INFO/MainProcess] mingle: searching for neighbors
+[2022-09-12 18:12:03,353: INFO/MainProcess] mingle: all alone
+[2022-09-12 18:12:03,406: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-09-12 18:14:00,011: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[d681b3a6-1943-4b09-acd5-039ef164ccd5] received
+[2022-09-12 18:14:00,032: INFO/ForkPoolWorker-2] Inside callticker function
+[2022-09-12 18:14:00,370: INFO/ForkPoolWorker-2] Inside initial_data function
+[2022-09-12 18:14:00,537: WARNING/ForkPoolWorker-2] After initial
+[2022-09-12 18:19:00,012: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[9b3f3eaa-6646-40a6-9e5b-a1a07717f567] received
+[2022-09-12 18:19:00,022: INFO/ForkPoolWorker-2] Inside callticker function
+[2022-09-12 18:19:00,521: INFO/ForkPoolWorker-2] Inside initial_data function
+[2022-09-12 18:19:00,720: WARNING/ForkPoolWorker-2] After initial

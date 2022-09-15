@@ -1,43 +1,63 @@
+
+function notification() {
+
+    var modal = document.getElementById("notificationModal");
+    var span = document.getElementsByClassName("close")[0];
+
+    modal.style.display = "block";
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+}
+
+function submitCreateTickerForm() {
+    document.getElementById("createTickerForm").submit();
+    document.getElementById("nextBtn").style.display = "none";
+    document.getElementById("SubForm").style.display = "inline";
+}
+
 var currentTab = 0; 
     showTab(currentTab);
     function showTab(n) {
-        // alert(n)
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
-    if (n == 0) {
-        document.getElementById("prevBtn").style.display = "none";
-        document.getElementById("SubForm").style.display = "none";
-    } else {
-        document.getElementById("prevBtn").style.display = "inline";
-        document.getElementById("SubForm").style.display = "none";
-    }
-    if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Schedule";
-        document.getElementById("SubForm").style.display = "none";
-    } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
-        document.getElementById("SubForm").style.display = "none";
-    }
-    fixStepIndicator(n)
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+            document.getElementById("SubForm").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
+            document.getElementById("SubForm").style.display = "none";
+        }
+        if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Schedule";
+            document.getElementById("SubForm").style.display = "none";
+        } else {
+            document.getElementById("nextBtn").innerHTML = "Next";
+            document.getElementById("SubForm").style.display = "none";
+        }
+        fixStepIndicator(n)
     }
     
     function nextPrev(n) {
-    var x = document.getElementsByClassName("tab");
-    var rex = document.getElementById("nextBtn");
-    // alert(n);
-    if (n == 1 && !validateForm()) return false;
-    x[currentTab].style.display = "none";
-    currentTab = currentTab + n;
-    // alert(currentTab);
-    if (currentTab == 2){
-        document.getElementById("nextBtn").style.display = "none";
-        document.getElementById("SubForm").style.display = "inline";
-    }
-    if (currentTab >= x.length) {
-        document.getElementById("createTickerForm").submit();
-        return false;
-    }
-    showTab(currentTab);
+        var x = document.getElementsByClassName("tab");
+        var rex = document.getElementById("nextBtn");
+        // alert(n);
+        if (n == 1 && !validateForm()) return false;
+            x[currentTab].style.display = "none";
+            currentTab = currentTab + n;
+        // alert(currentTab);
+        if (currentTab == 2){
+            // notification()
+            document.getElementById("nextBtn").style.display = "none";
+            document.getElementById("SubForm").style.display = "inline";
+        }
+        if (currentTab >= x.length) {
+            document.getElementById("createTickerForm").submit();
+            return false;
+        }
+        showTab(currentTab);
     }
 
     function validateForm()
@@ -51,10 +71,12 @@ var currentTab = 0;
         {           
             if (document.getElementById("scrollingTickerTitle").value == "")
             {
+                document.getElementById("scrollingTickerTitleLabel").hidden = false;
                 return false;
             }
             else
             {
+                document.getElementById("scrollingTickerTitleLabel").hidden = true;
                 var primaryEnable = document.getElementById("primaryEnable");
                 var secondaryEnable = document.getElementById("secondaryEnable");
                 var primaryLogoEnabler=document.getElementById("primaryLogoEnabler");
@@ -64,84 +86,144 @@ var currentTab = 0;
                 else if(primaryEnable.checked == true && secondaryEnable.checked == true)
                 {
                     if (document.getElementById("primaryTickerMessage").value == "")
-                    {return false;}
+                    {
+                        document.getElementById("primaryTickerMessageLabel").hidden = false;
+                        return false;
+                    }
                     else
                     {
+                        document.getElementById("primaryTickerMessageLabel").hidden = true;
                         if(primaryLogoEnabler.checked)
                         {
                             tmp=document.getElementById("primaryTickerLogo");
                             if(tmp.files.length == 0 )
-                            {return false;}
+                            {
+                                document.getElementById("primaryTickerLogoLabel").hidden = false;
+                                return false;
+                            }
+                            else{document.getElementById("primaryTickerLogoLabel").hidden = true;}
                         }
                         if (document.getElementById("secondaryTickerMessage").value == "")
-                        {return false;}
+                        {
+                            document.getElementById("secondaryTickerMessageLabel").hidden = false;
+                            return false;
+                        }
                         else
-                        {return true;}
+                        {
+                            document.getElementById("secondaryTickerMessageLabel").hidden = true;
+                            return true;
+                        }
                     }
                 }
                 else if (primaryEnable.checked == true && secondaryEnable.checked == false)
                 {
                     if (document.getElementById("primaryTickerMessage").value == "")
-                    {return false;}
+                    {
+                        document.getElementById("primaryTickerMessageLabel").hidden = false;
+                        return false;
+                    }
                     else
                     {
+                        document.getElementById("primaryTickerMessageLabel").hidden = true;
                         if(primaryLogoEnabler.checked)
                         {
                             tmp=document.getElementById("primaryTickerLogo");
                             if(tmp.files.length == 0 )
-                            {return false;}
+                            {
+                                document.getElementById("primaryTickerLogoLabel").hidden = false;
+                                return false;
+                            }
                             else
-                            {return true;}
+                            {
+                                document.getElementById("primaryTickerLogoLabel").hidden = true;
+                                return true;
+                            }
                         }
-                        else{return true;}
+                        else
+                        {
+                            return true;
+                        }
                     }
                 }
                 else
                 {
                     if (document.getElementById("secondaryTickerMessage").value == "")
-                    {return false;}
+                    {
+                        document.getElementById("secondaryTickerMessageLabel").hidden = false;
+                        return false;
+                    }
                     else
-                    {return true;}
+                    {
+                        document.getElementById("secondaryTickerMessageLabel").hidden = true;
+                        return true;
+                    }
                 }
             }
         }
         else if (option.text == "Media Ticker")
         {
             if (document.getElementById("mediaTickerTitle").value == "")
-            {return false;}
+            {
+                document.getElementById("mediaTickerTitleLabel").hidden = false;
+                return false;
+            }
             else
             {
+                document.getElementById("mediaTickerTitleLabel").hidden = true;
                 var staticEnable = document.getElementById("staticEnable");
                 var dynamicEnable = document.getElementById("dynamicEnable");
                 if (staticEnable.checked == false && dynamicEnable.checked == false)
-                {return false;}
+                {
+                    return false;
+                }
                 else
                 {
                     if (staticEnable.checked)
                     {
                         tmp=document.getElementById("staticTickerLogo");
-                        if (tmp.files.length==0){return false;}
+                        if (tmp.files.length==0)
+                        {
+                            document.getElementById("staticTickerLogoLabel").hidden = false;
+                            return false;
+                        }
                         else
                         {
+                            document.getElementById("staticTickerLogoLabel").hidden = true;
                             var posbox=document.getElementById("staticPositionBox");
                             option = posbox.options[posbox.selectedIndex];
 
                             if(option.text=="center")
                             {
                                 if(document.getElementById("staticTickerMessage").value=="")
-                                {return false;}
-                                else{return true;}
+                                {
+                                    document.getElementById("staticTickerMessageLabel").hidden = false;
+                                    return false;
+                                }
+                                else
+                                {
+                                    document.getElementById("staticTickerMessageLabel").hidden = true;
+                                    return true;
+                                }
                             }
                             else if(option.text=="fullscreen")
                             {
+                                document.getElementById("staticTickerMessageLabel").hidden = true;
                                 return true;
                             }
                             else
                             {
                                 if (document.getElementById("StaticScrollingEnable").checked)
                                 {
-                                    if(document.getElementById("staticScrollingTickerMessage").value==""){return false;}
-                                    else{return true;}
+                                    if(document.getElementById("staticScrollingTickerMessage").value=="")
+                                    {
+                                        document.getElementById("staticScrollingTickerMessageLabel").hidden = false;
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        document.getElementById("staticScrollingTickerMessageLabel").hidden = true;
+                                        return true;
+                                    }
                                 }
                                 else{return true;}
                             }
@@ -150,8 +232,16 @@ var currentTab = 0;
                     else
                     {
                         tmp=document.getElementById("dynamicTickerVideo");
-                        if (tmp.files.length==0){return false;}
-                        else{return true;}
+                        if (tmp.files.length==0)
+                        {
+                            document.getElementById("dynamicTickerVideoLabel").hidden = false;
+                            return false;
+                        }
+                        else
+                        {
+                            document.getElementById("dynamicTickerVideoLabel").hidden = true;
+                            return true;
+                        }
 
                         // {% comment %} alert("1");
                         // if ((dynamicEnable == true)  && (document.getElementById("dynamicTickerVideo").value == undefined))
@@ -166,10 +256,12 @@ var currentTab = 0;
         {
             if (document.getElementById("emergencyTickerTitle").value == "")
             {
-                {return false;}
+                document.getElementById("emergencyTickerTitleLabel").hidden = false;
+                return false;
             }
             else
             {
+                document.getElementById("emergencyTickerTitleLabel").hidden = true;
                 var emergencyselector = document.getElementById("emergencySelecter");
                 var custom = emergencyselector.options[emergencyselector.selectedIndex];
                 if (custom.text == "Custom" && document.getElementById("emergencyTickerFile").value == "")
@@ -205,6 +297,7 @@ var currentTab = 0;
     }
     x[n].className += " active";
     }
+
 $("#roomTypeSelection").select2({
     placeholder:'Select Room Type'
 });

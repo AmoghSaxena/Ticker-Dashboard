@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -yq tzdata && dpkg-reconfigure -f noninter
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     python3-pip net-tools iproute2 command-not-found python-is-python3 openssh-server screen redis
 
-RUN apt  update
+RUN apt update
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements

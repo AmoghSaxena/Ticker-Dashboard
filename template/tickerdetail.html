@@ -61,17 +61,19 @@
                                 <td class="text-color fw-bold">{{item.execution}}</td>
                             {% endif %}
 
-                            {% if item.execution == 'running' %}
+
+                            {% if item.tickerStatus == 'succeeded' %}
                                 <td class="text-success fw-bold">{{item.tickerStatus}}</td>
                             {% elif item.tickerStatus == 'aborted' %}
                                 <td class="text-secondary fw-bold">{{item.tickerStatus}}</td>
-                            {% elif item.tickerStatus == 'succeeded' %}
-                                <td class="text-primary fw-bold">{{item.execution}}</td>
+                            {% elif item.tickerStatus == 'running' %}
+                                <td class="text-primary fw-bold">{{item.tickerStatus}}</td>
                             {% elif item.execution == 'failed' %}
                                 <td class="text-danger fw-bold">{{item.execution}}</td>
                             {% else %}
-                                <td class="text-color fw-bold">{{item.tickerStatus}}</td>
+                                <td class="text-color fw-bold">{{item.execution}}</td>
                             {% endif %}
+                            
                             
                             {% if item.successfull_nodes == '[]' %}
                                 <td>None</td>
@@ -88,9 +90,9 @@
                             <td>{{item.tv_status}}</td>
                             <td>{{item.iPad_status}}</td>
                             <td>
-                                {% if item.execution == 'pending' %}
-                                    <a class="btn btn-danger" href="#"><i class="fa-solid fa-ban"></i> Stop</a>
-                                {% elif item.tickerStatus == 'running' %}
+                                {% comment %} {% if item.execution == 'pending' %}
+                                    <a class="btn btn-danger" href="#"><i class="fa-solid fa-ban"></i> Stop</a> {% endcomment %}
+                                {% if item.tickerStatus == 'running' %}
                                     <a class="btn btn-danger" href={% url 'abort' item.ticker_id %}><i class="fa-solid fa-ban"></i> abort</a>
                                 {% else %}
                                     <a class="btn btn-danger disabled" href="#"><i class="fa-solid fa-ban"></i> Stop</a>
@@ -113,7 +115,7 @@
                             location.reload();
                             }, 10000);
                         </script>
-                        {% elif item.execution == 'running' %}
+                        {% elif item.tickerStatus == 'running' %}
                         <script>
                             setTimeout(function() {
                             location.reload();

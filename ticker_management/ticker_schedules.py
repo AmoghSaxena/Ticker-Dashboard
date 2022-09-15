@@ -35,7 +35,6 @@ def addrecurringtime(start_time,end_time,frequency):
 def schedule_tasks(basicTickerInfo,ticker_obj):
     try:
         logger.info('Inside schedule_tasks function')
-        
         start_dateobj=datetime.strftime(ticker_obj.get().get('ticker_start_time'), '%Y-%m-%d %H:%M:%S')
         end_dateobj=datetime.strftime(ticker_obj.get().get('ticker_end_time'), '%Y-%m-%d %H:%M:%S')
 
@@ -59,9 +58,9 @@ def schedule_tasks(basicTickerInfo,ticker_obj):
             minute = int(start_dateobj.strftime("%M"))
 
             schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute)
-            task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((basicTickerInfo,ticker_id)))
+            task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callscheduledticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((basicTickerInfo,ticker_id)))
 
-            return {"message":""}
+            return {"message":"Success"}
         else:
             
             frequency=str(ticker_obj.get()['frequency'])
@@ -100,8 +99,9 @@ def schedule_tasks(basicTickerInfo,ticker_obj):
             print(data,week_number)
 
             schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=data.get('month'),day_of_month=data['days'],hour=data['hours'],minute=data['minutes'],day_of_week=week_number)
-            task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((basicTickerInfo,ticker_id)))
-            return {"message":""}
+            print('GOAL')
+            task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callscheduledticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((basicTickerInfo,ticker_id)))
+            return {"message":"Success"}
     except Exception as err:
         logger.error(err)
         return {"message":"Error while periodic schedules: "+str(err)}
@@ -137,17 +137,21 @@ def schedulingticker(request,ticker_id):
         except:
             auth="YWRtaW46YWRtaW4xMjM0"
         
+        # print('GOAL')
+        # print(ticker_obj.get()['ticker_json'],json.loads(ticker_obj.get()['ticker_json']))
+
         basicTickerInfo={
             'FQDN':FQDN,
             'Dvs_Token':Dvs_Token,
             'Rundeck_Token':Rundeck_Token,
             'Rundeck_Api_Version':Rundeck_Api_Version,
             'Ticker_FQDN':Ticker_FQDN,
-            'Rundeck_Start_Job':Rundeck_Start_Job
+            'Rundeck_Start_Job':Rundeck_Start_Job,
+            'time_interval':int(json.loads(ticker_obj.get()['ticker_json'])['time_interval'])
         }
 
         json_data = {
-            'argString': f'-whichnode {configuration} -FQDN {Ticker_FQDN} -jsonFile {ticker_id} -BasicAuth {auth}',
+            'argString': f'-whichnode "{configuration}" -FQDN {Ticker_FQDN} -jsonFile {ticker_id} -BasicAuth {auth}',
         }
 
         basicTickerInfo['json_data']=json_data
@@ -159,7 +163,7 @@ def schedulingticker(request,ticker_id):
     data=dict()
 
     if (len(json_data)>0):
-        if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scheduleEnabler') == 'enabled':
+        if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scheduleEnabler') == 'enabled' or request.POST.get('scrollingTickerPriority')=='Emergency':
             Thread(target=callticker,args=(basicTickerInfo,ticker_obj)).start()
         else:
             data=schedule_tasks(basicTickerInfo,ticker_obj)

@@ -27,6 +27,7 @@ class RundeckLog(models.Model):
     rundeck_id=models.IntegerField(primary_key=True)
     ticker_id=models.IntegerField(null=True)
     ticker_title=models.CharField(max_length=150,null=True)
+    time_interval=models.DateTimeField(null=True)
     execution= models.CharField(max_length=150,null=True,default="Pending")
     tickerStatus= models.CharField(max_length=150,null=True,default="Pending")
     successfull_nodes= models.TextField(blank=True,null=True,default="None")

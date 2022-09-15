@@ -15,6 +15,17 @@ function foselector(id)
         document.getElementById("scrollingTickerPriority").value = "Medium";
         document.getElementById("scheduleLaterDiv").hidden = false;
         foenabler("scheduleEnabler");
+
+
+        document.getElementById('mediaTickerTitle').value = "";
+        document.getElementById('staticScrollingTickerMessage').value = "";
+        document.getElementById('staticTickerMessage').value = "";
+        document.getElementById("staticEnable").checked=false;
+        document.getElementById("StaticScrollingEnable").checked=false;
+        document.getElementById("dynamicEnable").checked=false;
+        document.getElementById("staticTickerLogo").value="";
+        document.getElementById("dynamicTickerVideo").value="";
+        document.getElementById("emergencyTickerTitle").value="";
       }
       else if (option.text == "Media Ticker")
       {
@@ -26,6 +37,15 @@ function foselector(id)
         document.getElementById("mediaTickerPriority").value = "Medium";
         document.getElementById("scheduleLaterDiv").hidden = false;
         foenabler("scheduleEnabler");
+
+        document.getElementById("scrollingTickerTitle").value="";
+        document.getElementById("primaryEnable").checked=false;
+        document.getElementById("secondaryEnable").checked=false;
+        document.getElementById("primaryTickerMessage").value="";
+        document.getElementById("primaryLogoEnabler").checked=false;
+        document.getElementById("primaryTickerLogo").value="";
+        document.getElementById("secondaryTickerMessage").value="";
+        document.getElementById("emergencyTickerTitle").value="";
       }
       else if (option.text == "Emergency Ticker")
       {
@@ -36,9 +56,45 @@ function foselector(id)
         document.getElementById("scheduleEnabler").disabled = true;
         document.getElementById("scheduleLaterDiv").hidden = true;
         foenabler("scheduleEnabler");
+
+        document.getElementById("scrollingTickerTitle").value="";
+        document.getElementById("primaryEnable").checked=false;
+        document.getElementById("secondaryEnable").checked=false;
+        document.getElementById("primaryTickerMessage").value="";
+        document.getElementById("primaryLogoEnabler").checked=false;
+        document.getElementById("primaryTickerLogo").value="";
+        document.getElementById("secondaryTickerMessage").value="";
+        document.getElementById('mediaTickerTitle').value = "";
+        document.getElementById('staticScrollingTickerMessage').value = "";
+        document.getElementById('staticTickerMessage').value = "";
+        document.getElementById("staticEnable").checked=false;
+        document.getElementById("StaticScrollingEnable").checked=false;
+        document.getElementById("dynamicEnable").checked=false;
+        document.getElementById("staticTickerLogo").value="";
+        document.getElementById("dynamicTickerVideo").value="";
       }
       else
       {
+        document.getElementById("scrolling").hidden = false;
+        document.getElementById("media").hidden = true;
+        document.getElementById("emergency").hidden = true;
+
+        document.getElementById("scrollingTickerTitle").value="";
+        document.getElementById("primaryEnable").checked=false;
+        document.getElementById("secondaryEnable").checked=false;
+        document.getElementById("primaryTickerMessage").value="";
+        document.getElementById("primaryLogoEnabler").checked=false;
+        document.getElementById("primaryTickerLogo").value="";
+        document.getElementById("secondaryTickerMessage").value="";
+        document.getElementById('mediaTickerTitle').value = "";
+        document.getElementById('staticScrollingTickerMessage').value = "";
+        document.getElementById('staticTickerMessage').value = "";
+        document.getElementById("staticEnable").checked=false;
+        document.getElementById("StaticScrollingEnable").checked=false;
+        document.getElementById("dynamicEnable").checked=false;
+        document.getElementById("staticTickerLogo").value="";
+        document.getElementById("dynamicTickerVideo").value="";
+        document.getElementById("emergencyTickerTitle").value="";
       }
     }
     if (id=="scrollingTickerPriority")
@@ -152,7 +208,7 @@ function foselector(id)
         document.getElementById("scheduleEnablerLater").checked = false;
         document.getElementById("occurancySection").hidden = true;
         document.getElementById("dateTimeSection").hidden = true;
-     }
+      }
       else
       {
         document.getElementById("scheduleEnablerLater").checked = true;
@@ -234,7 +290,18 @@ function foselector(id)
     document.getElementById("positionCenter").hidden = true;
     document.getElementById("positionNotCenter").hidden = false;
     document.getElementById("StaticScrolling").hidden = true;
-    // document.getElementById("staticTickerLogo").hidden = true;
+    document.getElementById("positionNotCenter").hidden = true;
+
+    document.getElementById("scrollingTickerTitleLabel").hidden = true;
+    document.getElementById("primaryTickerMessageLabel").hidden = true;
+    document.getElementById("primaryTickerLogoLabel").hidden = true;
+    document.getElementById("secondaryTickerMessageLabel").hidden = true;
+    document.getElementById("mediaTickerTitleLabel").hidden = true;
+    document.getElementById("staticTickerLogoLabel").hidden = true;
+    document.getElementById("staticTickerMessageLabel").hidden = true;
+    document.getElementById("staticScrollingTickerMessageLabel").hidden = true;
+    document.getElementById("dynamicTickerVideoLabel").hidden = true;
+    document.getElementById("emergencyTickerTitleLabel").hidden = true;
     getdata();
     foselector();
   }
@@ -446,7 +513,7 @@ function getdata() {
           var javaobj = JSON.parse(xhttp.responseText);
           // alert(javaobj);
           // alert(javaobj.data);
-          console.log(javaobj.data);
+          // console.log(javaobj.data);
           roomtype = document.getElementById('roomTypeSelection');
           wing = document.getElementById('wingSelection');
           floor = document.getElementById('floorSelection');
@@ -459,7 +526,7 @@ function getdata() {
               if (!arr.includes(opt.innerHTML)) {
                   roomtype.appendChild(opt);
                   arr.push(opt.innerHTML);
-                  console.log("hello")
+                  // console.log("hello");
               }
               opt = document.createElement('option');
               opt.innerHTML = javaobj.data[i].wing_name;
@@ -587,8 +654,6 @@ function filterforkeys(id) {
                     arr.push(opt.innerHTML);
                 }
             }
-
-
             if (roomtype.options.length == 0){
 
                 for (var i = 0; i < javaobj.data.length; i++) {

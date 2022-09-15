@@ -1,14 +1,14 @@
 import os, re
 import requests
 import json
-import xml.etree.ElementTree
+import xml.etree.ElementTree as XMLReader
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth import login as user_login
 from django.contrib import messages
 from ticker_management.gadget import datagetter
-from datetime import date,datetime
+from datetime import date,datetime,timedelta
 from ticker_management.models import TickerDetails,TickerHistory,SetUp,RundeckLog
 from ticker_management.node import checkPriority
 from .forms import LoginForm, ChangePassword
@@ -17,6 +17,7 @@ from .serializers import TaskSerializer, TaskSerializerConfig
 from ticker_management.node import getTickerId,removeDuplicate
 from ticker_management.tasks import callticker
 from threading import Thread
+from ticker_management.gadget import dateformatter
 #### Error Code ####
 from .APIStatus import *
 
@@ -26,7 +27,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Task
-from ticker_management.rundecklog import rundeck_update, abortTicker
+from ticker_management.rundecklog import rundeck_update, abortTicker, killTicker
 from django.contrib.auth.hashers import check_password
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage
@@ -71,11 +72,13 @@ def index(request):
 
         # for i in tmp:
         #     excludedID.append(i[0])
+        start_time=str(date.today())+str(" 00:00:00")
+        end_time=str(date.today())+str(" 23:53:53")
 
         history_ticker_length=TickerHistory.objects.all().filter(is_active=0,is_deleted=1)
         history_ticker=TickerHistory.objects.all().exclude(ticker_id__in=excludedID).filter(is_active=0,is_deleted=1).order_by('modified_on').reverse()[:5]
-        today_event=TickerDetails.objects.filter(Q(ticker_start_time__range=[str(date.today())+str(" 00:00:00"),str(date.today())+str(" 23:59:59")])
-                                                | Q(ticker_end_time__range=[str(date.today())+str(" 00:00:00"),str(date.today())+str(" 23:59:59")])
+        today_event=TickerDetails.objects.filter(Q(ticker_start_time__range=(start_time,end_time))
+                                                | Q(ticker_end_time__range=(start_time,end_time))
                                                 )
 
         ticker_count={
@@ -90,26 +93,27 @@ def index(request):
         return render(request, 'index.html',ticker_count)
     except Exception as err:
         logger.error(err)
-        return render(request,'acknowledgement.html',{"message":"Ticker ID not exists"})
+        return render(request,'acknowledgement.html',{"message":err})
 
 @login_required(login_url='/ticker/accounts/login/')
 def createTicker(request):
     try:
-        syncDVSData()
+        Thread(target=syncDVSData).start()
     except Exception as err:
         logger.error('Error: '+str(err))
         return render(request,'acknowledgement.html',{"message":'SetUp not set : '+err})
     
     data = {
             'pos_box':[
+                'fullscreen',
+                'top-fix-width',
                 'top-right',
                 'top-left',
-                'bottom-right',
-                'bottom-left',
                 'center',
-                'fullscreen'
+                'bottom-fix-width',
+                'bottom-right',
+                'bottom-left'
                 ],
-            
             'font_style':[
                 "English",
                 "Hindi",
@@ -123,15 +127,14 @@ def createTicker(request):
                 ],
 
             'font_size':[
-                'x-large',
-                'large',
+                'small',
                 'normal',
-                'small'
+                'large'
                 ],
 
             'position':[
-                'down',
-                'up'
+                'up',
+                'down'
                 ],
 
             'logo_position':[
@@ -140,15 +143,15 @@ def createTicker(request):
                 ],
 
             'speed':[
-                'normal',
-                'fast',
+                'very-slow',
                 'slow',
-                'very-slow'
+                'normal',
+                'fast'
                 ],
             
             'motion':[
-                'right-left',
-                'left-right'
+                'left-right',
+                'right-left'
                 ],
 
             'location':[
@@ -166,16 +169,16 @@ def createTicker(request):
                 ],
 
             'priority':[
-                'High',
-                'Medium',
                 'Low',
+                'Medium',
+                'High',
                 'Emergency'
                 ],
 
             'mediaPriority':[
-                'High',
+                'Low',
                 'Medium',
-                'Low'
+                'High'
                 ],
 
             'user':request.user.username,
@@ -188,7 +191,7 @@ def createTicker(request):
                 '1 hour',
                 '75 minutes',
                 '90 minutes'
-                '105 minutes'
+                '105 minutes',
                 '2 hour', 
                 '3 hour',
                 '4 hour',  
@@ -204,6 +207,7 @@ def createTicker(request):
         }
     
     if request.method == 'POST':
+        print('GOAL')
             # Thread(target=datagetter,args=(request,)).start()
 
         # tickerSelection=request.POST.get('tickerSelecter')
@@ -260,7 +264,7 @@ def active(request):
         return render(request, 'active.html',data)
     except Exception as err:
         logger.error(err)
-        return render(request,'acknowledgement.html',{"message":f"Ticker does not exists"})
+        return render(request,'acknowledgement.html',{"message":"Ticker does not exists"})
 
 @login_required(login_url='/ticker/accounts/login/')
 def scheduled(request):
@@ -270,14 +274,14 @@ def scheduled(request):
         ticker_obj=TickerDetails.objects.values('ticker_id','ticker_title','ticker_start_time','ticker_end_time')
         for item in ticker_obj:
             data = dict()
-            data['groupId']=item.get('ticker_id')
-            data['title']=item.get('ticker_title')
-            data['start']=item.get('ticker_start_time').strftime('%Y-%m-%dT%H:%M:%S')
-            data['end']=item.get('ticker_end_time').strftime('%Y-%m-%dT%H:%M:%S')
+            data['groupId']=item['ticker_id']
+            data['title']=item['ticker_title']
+            data['start']=item['ticker_start_time'].strftime('%Y-%m-%dT%H:%M:%S')
+            data['end']=item['ticker_end_time'].strftime('%Y-%m-%dT%H:%M:%S')
             events.append(data)
         eventData['events'] = events
         event = json.dumps(eventData,indent = 3)
-        with open('{0}/static/resources/events.json'.format(BASE_DIR), 'w') as f:
+        with open(f'{BASE_DIR}/static/resources/events.json', 'w') as f:
             f.write(str(event))
         return render(request, 'scheduled.html',{'user':request.user.username, 'events':events})
     except Exception as err:
@@ -308,16 +312,15 @@ def history(request):
 def detail(request, id):
     try:
         ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
-        logObject = list()
         if ticker_obj.get()['rundeckid']!=None:
-            # logObject.append(initial_data(ticker_obj))
-            rundeckLogData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
-            rundeckLogDB=RundeckLog.objects.all().filter(ticker_id=int(id),execution='running').values()
+            rundeckData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
 
-            for i in rundeckLogDB:
+            runningTickers=RundeckLog.objects.all().filter(ticker_id=int(id),tickerStatus='running').values()
+
+            for i in runningTickers:
                 rundeck_update(i['rundeck_id'])
-
-            rundeckLog=sorted(rundeckLogData,key=lambda item: item['rundeck_id'],reverse=True)
+            
+            rundeckLog=sorted(rundeckData,key=lambda item: item['rundeck_id'],reverse=True)
         else:
             rundeckLog=list()
             dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get()['ticker_id'], 'ticker_title': ticker_obj.get()['ticker_title'], 'execution': "pending", 'successfull_nodes':
@@ -330,20 +333,26 @@ def detail(request, id):
         # return active(request)
 
 @login_required(login_url='/ticker/accounts/login/')
-def abort(request, id):
+def abort(request,id):
     try:
+        # ticker_id=id.split("&")[0]
+        # rundeck_id=id.split("&")[1]
         ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
-        logObject = list()
+        # logObject = list()
         if ticker_obj.get()['rundeckid']!=None:
-            logObject.append(killTicker(ticker_obj))
+            # logObject.append(killTicker(ticker_obj))
+            Thread(target=killTicker,args=(ticker_obj,)).start()
             rundeckLogData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
             rundeckLog=sorted(rundeckLogData,key=lambda item: item['rundeck_id'],reverse=True)
-        else:
-            rundeckLog=list()
-            dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get()['ticker_id'], 'ticker_title': ticker_obj.get()['ticker_title'], 'execution': "pending", "tickerStatus": "pending", 'successfull_nodes':
-             "None", 'failed_nodes': 'None', 'tv_status': 'None', 'iPad_status': 'None'}
-            rundeckLog.append(dictwithoutrundeckid)
-        return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog, 'logObject':logObject})
+        # else:
+        #     rundeckLog=list()
+        #     dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get()['ticker_id'], 'ticker_title': ticker_obj.get()['ticker_title'], 'execution': "pending", "tickerStatus": "pending", 'successfull_nodes':
+        #      "None", 'failed_nodes': 'None', 'tv_status': 'None', 'iPad_status': 'None'}
+        #     rundeckLog.append(dictwithoutrundeckid)
+        
+        TickerDetails.objects.filter(ticker_id=int(id),frequency='1').values().update(ticker_end_time=datetime.now())
+
+        return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog})#, 'logObject':logObject})
     except Exception as err:
         return render(request,'acknowledgement.html',{"message":err})
 
@@ -462,7 +471,6 @@ def isRestore(request):
 
 @login_required(login_url='/ticker/accounts/login/')
 def isDelete(request, id):
-
     try:
         tickerDataDelete = TickerDetails.objects.filter(ticker_id=id)
         ticker_json=json.loads(tickerDataDelete.values().get().get('ticker_json'))
@@ -527,36 +535,77 @@ def changePassword(request):
     except Exception as err:
         return render(request,'acknowledgement.html',{"message":err})
 
-def avDataFilter():
-    try:
-        file=open(f'{str(BASE_DIR)}/static/resources/resourceAV.json')
-        file=json.load(file)
+# def avDataFilter():
+#     try:
+#         file=open(f'{str(BASE_DIR)}/static/resources/resourceAV.json')
+#         file=json.load(file)
 
-        data=set()
+#         data=set()
 
-        for i in file['data']:
-            data.add(i['key_id'])
+#         for item in file['data']:
+#             data.add(item['key_id'])
 
-        data=list(data)
+#         data=list(data)
 
-        file=open(f'{str(BASE_DIR)}/static/resources/resource.json')
-        file=json.load(file)
+#         file=open(f'{str(BASE_DIR)}/static/resources/resource.json')
+#         file=json.load(file)
 
-        count=0
+#         count=0
 
-        for i in file['data']:
-            if i['id'] not in data:
-                count+=1
-                file['data'].remove(i)
+#         for item in file['data']:
+#             if item['id'] not in data:
+#                 count+=1
+#                 file['data'].remove(item)
 
-        filteredData=json.dumps(file,indent=3)
+#         filteredData=json.dumps(file,indent=3)
 
-        logger.info(str(count)+" AV data filtered")
+#         logger.info(str(count)+" AV data filtered")
 
-        with open(f'{str(BASE_DIR)}/static/resources/resource.json','w') as file:
-            file.write(filteredData)
-    except Exception as err:
-        logger.error(err)
+#         with open(f'{str(BASE_DIR)}/static/resources/resource.json','w') as file:
+#             file.write(filteredData)
+#     except Exception as err:
+#         logger.error(err)
+
+def dataFilter(filePath):
+    avFile=json.load(open(filePath+'resourceAV.json'))
+    resourceXml=XMLReader.parse(filePath+'resource.xml').getroot()
+    mainFile=json.load(open(filePath+'resource.json'))
+
+    avList=list()
+    xmlList=list()
+    mainList=list()
+    mainDict=dict()
+
+    for item in avFile['data']:
+        avList.append(item['key_id'])   
+
+    avList=set(avList)
+
+    for child in resourceXml:
+        if child.get('key_id'):
+            xmlList.append(child.get('key_id'))
+
+    xmlList=set(xmlList)
+    
+    filteredList=avList.intersection(xmlList)
+    
+    for keys in mainFile.keys():
+        if keys=='data':
+            pass
+        else:
+            mainDict[keys]=mainFile[keys]
+
+    for item in mainFile['data']:
+        if item['id'] in filteredList:
+            mainList.append(item)
+
+    mainDict['data']=mainList
+
+    mainFile=json.dumps(mainDict,indent=3)
+
+    with open(str(filePath+'resource.json'),'w+') as file:
+        file.write(mainFile)
+    logger.info('Filtered data')
 
 def syncDVSData():
     dvs_data=SetUp.objects.filter(id=1).values()
@@ -570,53 +619,62 @@ def syncDVSData():
 
     data = '{}'
 
-    response = requests.post(f'https://{FQDN}/dvs/api/key/selectR', headers=headers, data=data)
-    response=json.dumps(response.json(),indent=3).encode('utf-8')
-    with open((str(BASE_DIR)+'/static/resources/'+'resource.json'),'wb') as file:
-        file.write(response)
+    baseFQDN=f'https://{FQDN}/dvs/'
+    filePath=f'{str(BASE_DIR)}/static/resources/'
+
+    try:
+        response = requests.post(baseFQDN+'api/key/selectR', headers=headers, data=data)
+        response=json.dumps(response.json(),indent=3).encode('utf-8')
+        with open((str(filePath)+'resource.json'),'wb') as file:
+            file.write(response)
+        
+        headers = {
+        'Content-Type': 'application/vnd.digivalet.v1+json',
+        'Access-Token': 'da1ca0a34d72bd530bfc21b7a4d70ec903a0611c18058eb8b6290cae6644251e',
+        }
+
+        data = '{"device_type_id": "2"}'
+
+        response = requests.post(baseFQDN+'api/inRoomDevice/selectR', headers=headers, data=data)
+        response=json.dumps(response.json(),indent=3).encode('utf-8')
+        with open((str(filePath)+'resourceAV.json'),'wb') as file:
+            file.write(response)
+
+        response = requests.get(baseFQDN+'core/resourcexml')
+        response=response.text.encode('utf-8')
+        with open((str(filePath)+'resource.xml'),'wb') as file:
+            file.write(response)
+    except Exception as err:
+        logger.error("Api call error: "+str(err))
+        raise
+    try:
+        Thread(target=dataFilter,args=(filePath,)).start()
+    except:
+        raise
+
+# def filterData():
+#     DVSDATA = dict()
+#     roomTypeData = set()
+#     wingData = set()
+#     floorData = set()
+#     keyData = set()
+#     xmlDocument = XMLReader.parse(f"{BASE_DIR}/static/resources/resource.xml").getroot()
+#     for item in xmlDocument.findall('node'):
+#         if item.get('room_type') != None:
+#             roomTypeData.add(item.get('room_type'))
+#         if item.get('floor') != None:
+#             floorData.add(item.get('floor'))
+#         if item.get('key_no') != None:
+#             keyData.add(item.get('key_no'))
     
-    headers = {
-    'Content-Type': 'application/vnd.digivalet.v1+json',
-    'Access-Token': 'da1ca0a34d72bd530bfc21b7a4d70ec903a0611c18058eb8b6290cae6644251e',
-    }
-
-    data = '{"device_type_id": "2"}'
-
-    response = requests.post(f'https://{FQDN}/dvs/api/inRoomDevice/selectR', headers=headers, data=data)
-    response=json.dumps(response.json(),indent=3).encode('utf-8')
-    with open((str(BASE_DIR)+'/static/resources/'+'resourceAV.json'),'wb') as file:
-        file.write(response)
-    
-    avDataFilter()
-
-    response = requests.get(f'https://{FQDN}/dvs/core/resourcexml')
-    response=response.text.encode('utf-8')
-    with open((str(BASE_DIR)+'/static/resources/'+'resource.xml'),'wb') as file:
-        file.write(response)
-
-def filterData():
-    DVSDATA = dict()
-    roomTypeData = set()
-    wingData = set()
-    floorData = set()
-    keyData = set()
-    xmlDocument = xml.etree.ElementTree.parse(f"{BASE_DIR}/static/resources/resource.xml").getroot()
-    for item in xmlDocument.findall('node'):
-        if item.get('room_type') != None:
-            roomTypeData.add(item.get('room_type'))
-        if item.get('floor') != None:
-            floorData.add(item.get('floor'))
-        if item.get('key_no') != None:
-            keyData.add(item.get('key_no'))
-    
-    jsonDocument = json.load(open(f"{BASE_DIR}/static/resources/resource.json"))
-    for item in jsonDocument:
-        wingData.add(item.get('wing_name'))
-    DVSDATA["roomType"]=sorted(roomTypeData)
-    DVSDATA["wing"] = sorted(wingData)
-    DVSDATA["floor"] = sorted(floorData)
-    DVSDATA["key"] = sorted(keyData)
-    return DVSDATA
+#     jsonDocument = json.load(open(f"{BASE_DIR}/static/resources/resource.json"))
+#     for item in jsonDocument:
+#         wingData.add(item.get('wing_name'))
+#     DVSDATA["roomType"]=sorted(roomTypeData)
+#     DVSDATA["wing"] = sorted(wingData)
+#     DVSDATA["floor"] = sorted(floorData)
+#     DVSDATA["key"] = sorted(keyData)
+#     return DVSDATA
 
 @api_view(['GET', 'POST', 'DELETE'])
 def taskPost(request,id="0"):
@@ -715,7 +773,7 @@ def configApi(request,pk="0"):
                                 if time_interval>0:
                                     ticker_config_file['time_interval']=int(time_interval)
                                 else:
-                                    ticker_config_file['time_interval'] =0
+                                    ticker_config_file['time_interval'] = 0
 
                             try:
                                 ticker_config_file['auth_token'] = AUTH_TOKEN_API
@@ -807,7 +865,6 @@ def ipAddressValidation(ip):
 #### REBOOT STATUS SECTION START ####
 @api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def rebootStatus(request):
-    logger.info('rebootStatus Api hitted')
     if request.method=='GET':
 
         try:
@@ -1232,7 +1289,6 @@ def statusClose(request):
             res['status'] = False
             res['statusCode'] = TickerCloseError.get('statusCode')
             res['message'] = TickerCloseError.get('message')
-            res['data'] = None
 
             logger.info(TickerCloseError.get('message'))
             logger.error(err)
@@ -1247,7 +1303,6 @@ def statusClose(request):
         logger.info(requestInvalid.get('message'))
         return Response(res)
 ####  TICKER CLOSE STATUS SECTION END ####
-
 
 
 ####  TICKER DND STATUS SECTION START ####
@@ -1350,7 +1405,6 @@ def dndStatus(request):
             res['status'] = False
             res['statusCode'] = dndStatusError.get('statusCode')
             res['message'] = dndStatusError.get('message')
-            res['data'] = None
 
             logger.info(dndStatusError.get('message'))
             logger.error(err)
@@ -1365,3 +1419,181 @@ def dndStatus(request):
         logger.info(requestInvalid.get('message'))
         return Response(res)
 ####  TICKER DND STATUS SECTION END ####
+
+
+#### CHECK PRIORITY TICKER SECTION START ####
+@api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+def checkPriorityTicker(request):
+    if request.method=='POST':
+
+        try:
+            if request.body != b'':
+
+                bodyData=json.loads(request.body.decode('utf-8'))
+                
+                if bodyData['tickerToken'] == None:
+
+                    resp['status'] = False
+                    resp['statusCode'] = tokenPresent.get('statusCode')
+                    resp['message'] = tokenPresent.get('message')
+                    resp['data'] = None
+
+                    logger.info(tokenPresent.get('message'))
+                    return Response(resp, status = status.HTTP_401_UNAUTHORIZED)
+
+                else:
+                    try:
+                        if tokenValidation(bodyData['tickerToken']):
+
+                            print(bodyData)
+
+                            mainData=checkPriority(bodyData['newTickerPriority'],bodyData['wings'],bodyData['floors'],bodyData['rooms'],bodyData['startTime'],bodyData['endTime'],bodyData['timeInterval'])
+
+                            resp['status'] = True
+                            resp['statusCode'] = priorityTickerAPISuccess.get('statusCode')
+                            resp['message'] = priorityTickerAPISuccess.get('message')
+                            resp['data'] = mainData['runningTicker']['message']
+
+                            logger.info(priorityTickerAPISuccess.get('message'))
+                            return Response(resp)
+
+                        else:
+                            
+                            resp['status'] = False
+                            resp['statusCode'] = tokenFailure.get('statusCode')
+                            resp['message'] = tokenFailure.get('message')
+                            resp['data'] = None
+
+                            logger.info(tokenFailure.get('message'))
+                            return Response(resp, status = status.HTTP_401_UNAUTHORIZED)
+
+                    except Exception as err:
+
+                        resp['status'] = False
+                        resp['statusCode'] = validationError.get('statusCode')
+                        resp['message'] = validationError.get('message')
+                        resp['data'] = None
+
+                        logger.info(validationError.get('message'))
+                        logger.error(err)
+                        return Response(resp)
+            else:
+
+                resp['status'] = False
+                resp['statusCode'] = requestBody.get('statusCode')
+                resp['message'] = requestBody.get('message')
+                resp['data'] = None
+                
+                logger.info(requestBody.get('message'))
+                return Response(resp)
+
+        except Exception as err:
+
+            resp['status'] = False
+            resp['statusCode'] = priorityTickerAPIFailure.get('statusCode')
+            resp['message'] = priorityTickerAPIFailure.get('message')
+            resp['data'] = None
+
+            logger.info(priorityTickerAPIFailure.get('message'))
+            logger.error(err)
+            return Response(resp)
+
+    else:
+
+        resp['status'] = False
+        resp['statusCode'] = requestInvalid.get('statusCode')
+        resp['message'] = requestInvalid.get('message')
+        resp['data'] = None
+
+        logger.info(requestInvalid.get('message'))
+        return Response(resp)
+#### CHECK PRIORITY TICKER SECTION STOP ####
+
+
+#### REMOVE TICKER SECTION START ####
+@api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+def closeTicker(request):
+    if request.method=='POST':
+        try:
+            if request.body != b'':
+
+                if request.headers.get('tickerToken') == None:
+
+                    resp['status'] = False
+                    resp['statusCode'] = tokenPresent.get('statusCode')
+                    resp['message'] = tokenPresent.get('message')
+                    resp['data'] = None
+
+                    logger.info(tokenPresent.get('message'))
+                    return Response(resp, status = status.HTTP_401_UNAUTHORIZED)
+
+                else:
+                    try:
+                        if tokenValidation(request.headers.get('tickerToken')):
+
+                            bodyData=json.loads(request.body.decode('utf-8'))
+
+                            print(bodyData)
+
+                            #### Write code here ####
+                            resp['status'] = True
+                            resp['statusCode'] = closeTickerAPISuccess.get('statusCode')
+                            resp['message'] = closeTickerAPISuccess.get('message')
+                            resp['data'] = None
+
+                            logger.info(closeTickerAPISuccess.get('message'))
+                            return Response(resp)
+                           
+                        else:
+                            
+                            resp['status'] = False
+                            resp['statusCode'] = tokenFailure.get('statusCode')
+                            resp['message'] = tokenFailure.get('message')
+                            resp['data'] = None
+
+                            logger.info(tokenFailure.get('message'))
+                            return Response(resp, status = status.HTTP_401_UNAUTHORIZED)
+
+                    except Exception as err:
+
+                        resp['status'] = False
+                        resp['statusCode'] = validationError.get('statusCode')
+                        resp['message'] = validationError.get('message')
+                        resp['data'] = None
+
+                        logger.info(validationError.get('message'))
+                        logger.error(err)
+                        return Response(resp)
+                        
+            else:
+
+                resp['status'] = False
+                resp['statusCode'] = requestBody.get('statusCode')
+                resp['message'] = requestBody.get('message')
+                resp['data'] = None
+                
+                logger.info(requestBody.get('message'))
+                return Response(resp)
+
+        except Exception as err:
+
+            resp['status'] = False
+            resp['statusCode'] = closeTickerAPIFailure.get('statusCode')
+            resp['message'] = closeTickerAPIFailure.get('message')
+            resp['data'] = None
+
+            logger.info(closeTickerAPIFailure.get('message'))
+            logger.error(err)
+            return Response(resp)
+
+    else:
+
+        resp['status'] = False
+        resp['statusCode'] = requestInvalid.get('statusCode')
+        resp['message'] = requestInvalid.get('message')
+        resp['data'] = None
+
+        logger.info(requestInvalid.get('message'))
+        return Response(resp)
+#### REMOVE TICKER SECTION STOP ####
+

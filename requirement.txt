@@ -21,3 +21,4 @@ redis==4.3.4
 requests==2.28.1
 tzdata==2022.1
 urllib3==1.26.10
+django-admin-interface==0.20.0

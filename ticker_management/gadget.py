@@ -2,7 +2,7 @@ import json
 from datetime import datetime,timedelta
 import os
 
-from ticker_management.node import checkPriority, roomConfigurations
+from ticker_management.node import roomConfigurations
 from django.shortcuts import render
 from .models import TickerDetails,SetUp
 from ticker_management.ticker_schedules import schedulingticker
@@ -79,29 +79,40 @@ def FileUploader(request,ticker_db_data):
 
         ticker_json['moving_ticker_logo_name']=apache_server_url+'/'+filename
 
-    elif  ticker_json.get('emergency_ticker_condition','not found')==True and request.POST.get('emergencySelecter')=='Custom':
+    elif  ticker_json.get('emergency_ticker_condition','not found')==True:
+        if request.POST.get('emergencySelecter')=='Custom':
+            a=request.FILES.get('emergencyTickerFile')
+
+            fss.save(a.name,a)
+
+            ext=a.name.split('.')[-1]
+
+            filename=str()
+
+            if ext == 'mp4':
+                ticker_json['emergency_ticker_style'] = 'dynamic'
+                filename="%s_%s_%s.%s"%('video',ticker_id,5,ext)        
+            else:
+                ticker_json['emergency_ticker_style'] = 'static'
+                filename="%s_%s_%s.%s"%('image',ticker_id,5,ext)
+            
+            old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
+            new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
+            os.rename(old_name,new_name)
+
+            ticker_json['emergency_ticker_logo_name']=apache_server_url+'/'+filename
+        elif request.POST.get('emergencySelecter')=='Earthquake':
+            ticker_json['emergency_ticker_logo_name']="https://i.ibb.co/KNHyyMy/Marielle-Price.png"
+        elif request.POST.get('emergencySelecter')=='Fire':
+            ticker_json['emergency_ticker_logo_name']="https://i.ibb.co/zQ3F50k/warning.png"
+        elif request.POST.get('emergencySelecter')=='Active Shooting':
+            ticker_json['emergency_ticker_logo_name']="https://i.ibb.co/3rgf3N6/MS-Paint-Microsoft-Paint-Online.png"
+        elif request.POST.get('emergencySelecter')=='General Evacuation':
+            ticker_json['emergency_ticker_logo_name']="https://i.ibb.co/f8M3K50/general.png"
         
-        a=request.FILES.get('emergencyTickerFile')
+        if not request.POST.get('emergencySelecter') =='Custom':
+            ticker_json['emergency_ticker_style']='static'
 
-        fss.save(a.name,a)
-
-        ext=a.name.split('.')[-1]
-
-        filename=str()
-
-        if ext == 'mp4':
-            ticker_json['emergency_ticker_style'] = 'dynamic'
-            filename="%s_%s_%s.%s"%('video',ticker_id,5,ext)        
-        else:
-            ticker_json['emergency_ticker_style'] = 'static'
-            filename="%s_%s_%s.%s"%('image',ticker_id,5,ext)
-        
-        old_name="{0}{1}{2}".format(fss.base_location,os.sep,a.name)
-        new_name="{0}{1}{2}".format(fss.base_location,os.sep,filename)
-        os.rename(old_name,new_name)
-
-        ticker_json['emergency_ticker_logo_name']=apache_server_url+'/'+filename
-    
     else:
         logger.info('No Image for upload')
     
@@ -136,7 +147,10 @@ def datagetter(request):
         tickerTitle=request.POST.get('scrollingTickerTitle')
         tickerPriority=request.POST.get('scrollingTickerPriority')
 
+        CONFIG_DATA['ticker_priority']=tickerPriority
+
         if request.POST.get('scrollingTickerPriority')=="Emergency":
+            CONFIG_DATA['ticker_priority']='Emergency'
             CONFIG_DATA['time_interval']= int(864000)
             CONFIG_DATA['emergency_ticker_type']="stayInRoom"
         else:
@@ -233,6 +247,9 @@ def datagetter(request):
         tickertype='Media Ticker' 
         tickerTitle=request.POST.get('mediaTickerTitle')
         tickerPriority=request.POST.get('mediaTickerPriority')
+
+        CONFIG_DATA['ticker_priority']=tickerPriority
+
         CONFIG_DATA['time_interval']= int(request.POST.get('mediaTickerTimeInterval')) * 60
 
         static_ticker_condition = request.POST.get('staticTickerEnabler')
@@ -258,6 +275,12 @@ def datagetter(request):
                     static_ticker_message = ""
                     static_ticker_font_type = 'english'
                     static_ticker_font_size = 'x-large'
+                elif position_static_ticker=='bottom-fix-width' or position_static_ticker=='top-fix-width':
+                    static_ticker_font_color = '#FFFFFF'
+                    static_ticker_bgcolor = '#FFFFFF'
+                    static_ticker_message = ""
+                    static_ticker_font_type = 'english'
+                    static_ticker_font_size = 'x-large'
                 else:
                     static_ticker_font_color = '#FFFFFF'
                     static_ticker_bgcolor = '#FFFFFF'
@@ -265,46 +288,46 @@ def datagetter(request):
                     static_ticker_font_type = request.POST.get('staticScrollingFontType').lower()
                     static_ticker_font_size = 'x-large'
 
-                    main_ticker_enabler=request.POST.get('StaticScrollingEnable')
+                main_ticker_enabler=request.POST.get('StaticScrollingEnable')
 
-                    if main_ticker_enabler=='enabled':
+                if main_ticker_enabler=='enabled':
 
-                        main_ticker_message    = request.POST.get('staticScrollingTickerMessage')
-                        main_ticker_font    = "english"
-                        # main_ticker_font_size    = request.POST.get('primaryFontSize')
-                        main_ticker_bgcolor    = request.POST.get('staticScrollingBgColor') 
-                        main_ticker_font_color    = request.POST.get('staticScrollingFontColor')
-                        # main_ticker_speed    = request.POST.get('primaryTickerSpeed')
-                        main_ticker_motion    = request.POST.get('staticScrollingTickerMotion')
+                    main_ticker_message    = request.POST.get('staticScrollingTickerMessage')
+                    main_ticker_font    = "english"
+                    # main_ticker_font_size    = request.POST.get('primaryFontSize')
+                    main_ticker_bgcolor    = request.POST.get('staticScrollingBgColor') 
+                    main_ticker_font_color    = request.POST.get('staticScrollingFontColor')
+                    # main_ticker_speed    = request.POST.get('primaryTickerSpeed')
+                    main_ticker_motion    = request.POST.get('staticScrollingTickerMotion')
 
-                        CONFIG_DATA['main_ticker_condition']=True
-                        CONFIG_DATA['main_ticker_logo'] = False
-                        CONFIG_DATA['main_ticker_font_size'] = "x-large"
-                        CONFIG_DATA['main_ticker_bgcolor'] = hex_to_rgb(main_ticker_bgcolor)
-                        CONFIG_DATA['main_ticker_font_color'] = hex_to_rgb(main_ticker_font_color)
-                        CONFIG_DATA['main_ticker_speed'] = "normal"
-                        CONFIG_DATA['main_ticker_motion'] = main_ticker_motion 
+                    CONFIG_DATA['main_ticker_condition']=True
+                    CONFIG_DATA['main_ticker_logo'] = False
+                    CONFIG_DATA['main_ticker_font_size'] = "x-large"
+                    CONFIG_DATA['main_ticker_bgcolor'] = hex_to_rgb(main_ticker_bgcolor)
+                    CONFIG_DATA['main_ticker_font_color'] = hex_to_rgb(main_ticker_font_color)
+                    CONFIG_DATA['main_ticker_speed'] = "normal"
+                    CONFIG_DATA['main_ticker_motion'] = main_ticker_motion 
 
-                        CONFIG_DATA['main_ticker_message'] = main_ticker_message
-                        CONFIG_DATA['main_ticker_font'] = main_ticker_font
+                    CONFIG_DATA['main_ticker_message'] = main_ticker_message
+                    CONFIG_DATA['main_ticker_font'] = main_ticker_font
 
-                        # if main_ticker_font == 'TimesNewRoman' or main_ticker_font == 'english' or main_ticker_font == 'Ubuntu':
-                        #     CONFIG_DATA['main_ticker_font'] = main_ticker_font
-                        # elif main_ticker_font == 'Chinese':
-                        #     CONFIG_DATA['main_ticker_font'] = 'ZCOOLQingKeHuangYou'
-                        # elif main_ticker_font == 'Japanese':
-                        #     CONFIG_DATA['main_ticker_font'] = 'NotoSansJP'
-                        # elif main_ticker_font == 'Arabic':
-                        #     CONFIG_DATA['main_ticker_font'] = 'NotoSansArabic'
-                        # elif main_ticker_font == 'Russian' or main_ticker_font == 'Turkish' or main_ticker_font == 'Spanish' or main_ticker_font == 'Hindi' or main_ticker_font == 'French' or main_ticker_font == 'Italian':
-                        #     CONFIG_DATA['main_ticker_font'] = 'FreeSans'
-                        
-                        if 'top' in position_static_ticker:
-                            CONFIG_DATA['main_ticker_position'] = 'down'
-                        else:
-                            CONFIG_DATA['main_ticker_position'] = 'up'   
+                    # if main_ticker_font == 'TimesNewRoman' or main_ticker_font == 'english' or main_ticker_font == 'Ubuntu':
+                    #     CONFIG_DATA['main_ticker_font'] = main_ticker_font
+                    # elif main_ticker_font == 'Chinese':
+                    #     CONFIG_DATA['main_ticker_font'] = 'ZCOOLQingKeHuangYou'
+                    # elif main_ticker_font == 'Japanese':
+                    #     CONFIG_DATA['main_ticker_font'] = 'NotoSansJP'
+                    # elif main_ticker_font == 'Arabic':
+                    #     CONFIG_DATA['main_ticker_font'] = 'NotoSansArabic'
+                    # elif main_ticker_font == 'Russian' or main_ticker_font == 'Turkish' or main_ticker_font == 'Spanish' or main_ticker_font == 'Hindi' or main_ticker_font == 'French' or main_ticker_font == 'Italian':
+                    #     CONFIG_DATA['main_ticker_font'] = 'FreeSans'
+                    
+                    if 'top' in position_static_ticker:
+                        CONFIG_DATA['main_ticker_position'] = 'down'
                     else:
-                        CONFIG_DATA['main_ticker_condition']=False                   
+                        CONFIG_DATA['main_ticker_position'] = 'up'   
+                else:
+                    CONFIG_DATA['main_ticker_condition']=False                   
                 
                 CONFIG_DATA['static_ticker_bgcolor'] = hex_to_rgb(static_ticker_bgcolor)
                 CONFIG_DATA['static_ticker_font_color'] = hex_to_rgb(static_ticker_font_color)
@@ -365,10 +388,14 @@ def datagetter(request):
         tickertype='Emergency Ticker'
         tickerTitle=request.POST.get('emergencyTickerTitle')
         tickerPriority='Emergency'
+
+        CONFIG_DATA['ticker_priority']=tickerPriority
+
         try:
             CONFIG_DATA['emergency_ticker_condition']= True
             CONFIG_DATA['time_interval']= 864000
             CONFIG_DATA['emergency_ticker_type']="evacuate"
+            
         except Exception as emergencyscroll:
             logger.warning('Exception raised during emergencyscroll'+emergencyscroll)
 

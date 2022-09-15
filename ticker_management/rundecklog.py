@@ -1,5 +1,6 @@
 from .models import SetUp, RundeckLog
 import requests
+from datetime import datetime,timedelta
 
 #Loggers
 import logging
@@ -20,9 +21,10 @@ def initial_data(ticker_obj,basicTickerInfo):
             RundeckLog_obj=RundeckLog()
             RundeckLog_obj.rundeck_id=rundeckid
             RundeckLog_obj.ticker_id=ticker_obj.get()['ticker_id']
+            RundeckLog_obj.time_interval=datetime.now()+timedelta(seconds=basicTickerInfo['time_interval'])
             RundeckLog_obj.ticker_title=ticker_obj.get()['ticker_title']
             RundeckLog_obj.execution=status
-            RundeckLog_obj.tickerStatus=status
+            RundeckLog_obj.tickerStatus='running'
             RundeckLog_obj.successfull_nodes=successfulNodes
             RundeckLog_obj.failed_nodes=failedNodes
             RundeckLog_obj.save()
@@ -48,11 +50,19 @@ def rundeck_update(rundeckid):
         response = requests.get(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/execution/{rundeckid}/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"})
         rundeckOutput = response.json()
         if response.status_code == 200:
+
+            rundeckLog=RundeckLog.objects.filter(rundeck_id=rundeckid).values()
+
             status = rundeckOutput['status']
             successfulNodes = rundeckOutput.get('successfulNodes','[]')
             failedNodes = rundeckOutput.get('failedNodes', '[]')
 
-            RundeckLog.objects.filter(rundeck_id=rundeckid).update(execution=status,successfull_nodes=successfulNodes,failed_nodes=failedNodes)
+            if (status=='failed' or status=='aborted'):
+                rundeckLog.update(execution=status,successfull_nodes=successfulNodes,failed_nodes=failedNodes,tickerStatus=status)
+            elif datetime.now()>=rundeckLog.get()['time_interval']:
+                rundeckLog.update(execution=status,successfull_nodes=successfulNodes,failed_nodes=failedNodes,tickerStatus='succeeded')
+            else:
+                rundeckLog.update(execution=status,successfull_nodes=successfulNodes,failed_nodes=failedNodes)
 
             # if status == 'succeeded' or status == 'aborted' or status == 'failed':
             #     errorLog = requests.get(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/execution/{rundeckid}/output/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"})
@@ -128,15 +138,21 @@ def killTicker(ticker_obj):
             status = rundeckOutput['status']
             successfulNodes = rundeckOutput.get('successfulNodes','[]')
             failedNodes = rundeckOutput.get('failedNodes', '[]')
-            RundeckLog_obj=RundeckLog()
-            RundeckLog_obj.rundeck_id=rundeckid
-            RundeckLog_obj.ticker_id=ticker_obj.get()['ticker_id']
-            RundeckLog_obj.ticker_title=ticker_obj.get()['ticker_title']
-            RundeckLog_obj.execution=status
-            RundeckLog_obj.tickerStatus=status
-            RundeckLog_obj.successfull_nodes=successfulNodes
-            RundeckLog_obj.failed_nodes=failedNodes
-            RundeckLog_obj.save()
+
+            RundeckLog_obj=RundeckLog.objects.filter(rundeck_id=rundeckid).values()
+
+            # RundeckLog_obj=RundeckLog()
+            # RundeckLog_obj.rundeck_id=rundeckid
+            # RundeckLog_obj.ticker_id=ticker_obj.get()['ticker_id']
+            # RundeckLog_obj.ticker_title=ticker_obj.get()['ticker_title']
+            # RundeckLog_obj.
+            # RundeckLog_obj.
+
+            # RundeckLog_obj.
+            # RundeckLog_obj.
+
+
+            RundeckLog_obj.update(execution=status,tickerStatus='aborted',successfull_nodes=successfulNodes,failed_nodes=failedNodes)
 
             nodes = ''
             if len(successfulNodes) < 1:
@@ -147,8 +163,8 @@ def killTicker(ticker_obj):
 
             nodes = ' '.join(successfulNodes) + ' ' + ' '.join(failedNodes)
 
-            if status == 'running':
-                requests.post(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/job/{Rundeck_Stop_Job}/run/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"}, json={ "argString": f"-whichnode \"{nodes}\""})
+
+            requests.post(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/job/{Rundeck_Stop_Job}/run/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"}, json={ "argString": f"-whichnode \"{nodes}\""})
 
         else:
             logger.warning('Response status code is not 200')

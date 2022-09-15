@@ -14,7 +14,6 @@ echo ${DVS_FQDN_ENTRY}
 
 echo ${DVS_FQDN_ENTRY} >> /etc/hosts
 
-
 python authgen.py
 
 

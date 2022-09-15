@@ -17,11 +17,13 @@ urlpatterns = [
     path('abort/<str:id>', views.abort, name = 'abort'),
 
     #### API's
-	path('ticker-post/', views.taskPost),
-    path('ticker-config-api/', views.configApi),
-    path('java/ticker/reboot/status/',views.rebootStatus,name='rebootStatus'),
-    path('java/ticker/tv-ipad/status/',views.tvIpadStatus,name='tvipadStatus'),
-    path('java/ticker/status/close/',views.statusClose,name='statusClose'),
-    path('java/ticker/dnd/',views.dndStatus,name='dndStatus'),
+	path('ticker-post', views.taskPost),
+    path('ticker-config-api', views.configApi),
+    path('java/reboot/status',views.rebootStatus,name='rebootStatus'),
+    path('java/tv-ipad/status',views.tvIpadStatus,name='tvipadStatus'),
+    path('java/status/close',views.statusClose,name='statusClose'),
+    path('java/dnd',views.dndStatus,name='dndStatus'),
+    path('priority-ticker',views.checkPriorityTicker,name='checkPriorityTicker'),
+    path('close-ticker',views.closeTicker,name='closeTicker'),
     # path('tickerStatusReboot/',views.tickerStatusReboot),
 ]

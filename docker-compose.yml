@@ -1,0 +1,32 @@
+version: "3"
+services:
+    db:
+        container_name: 'db'
+        image: mariadb:10.2
+        env_file: /etc/env/apc.env
+        networks:
+            - apcnetwork 
+        ports:
+            - 33306:3306
+        # restart: on-failure
+        volumes:
+            - /opt/docker/apc/data:/var/lib/mysql
+    
+    dashboard:
+        build: .
+        hostname: apcserver
+        command: /install
+        env_file: /etc/env/apc.env
+        ports:
+            - 8042:5085
+        volumes:
+            - ./:/APS/
+            - /opt/docker/apc/app:/APS/logs
+        depends_on:
+            - db
+        networks:
+            - apcnetwork
+    
+networks:
+  apcnetwork:
+    external: true

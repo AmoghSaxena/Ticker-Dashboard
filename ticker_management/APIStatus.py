@@ -5,6 +5,13 @@ res = {
     "message": None
 }
 
+resp = {
+    "status": None,
+    "statusCode": None,
+    "message": None,
+    "data": None
+}
+
 
 """ Reboot Status Case """    #### STATUS 6XX #### 
 rebootSuccessStatus = {"message": "Ticker Re-Scheduled", "statusCode": 601}
@@ -59,3 +66,14 @@ ConfigFailure = {"message": "Error Occurred During Fetched Config File", "status
 dndStatusSuccess = {"message": "Status Update", "statusCode": 1701}
 b = {"message": "Ticker Not Exists", "statusCode": 1702}
 dndStatusError = {"message": "Error Occurred During Update Status", "statusCode": 1703}
+
+
+
+""" Close Ticker API Case """   #### STATUS 18XX ####
+closeTickerAPISuccess = {"message": "Ticker Close Successfully", "statusCode": 1801}
+closeTickerAPIFailure = {"message": "Error Occurred During Close Ticker", "statusCode": 1802}
+
+
+""" Priority Ticker API Case """   #### STATUS 18XX ####
+priorityTickerAPISuccess = {"message": "Ticker Priority Check Successfully", "statusCode": 1901}
+priorityTickerAPIFailure = {"message": "Error Occurred During Check Priority Ticker", "statusCode": 1902}

@@ -393,3 +393,38 @@ During handling of the above exception, another exception occurred:
     raise ValueError("MySQL backend does not support timezone-aware datetimes when USE_TZ is False.")
 [2022-08-18 12:37:47,409: WARNING/MainProcess] ValueError: MySQL backend does not support timezone-aware datetimes when USE_TZ is False.
 [2022-08-22 16:54:29,545: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 15:29:53,974: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 15:29:58,578: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 15:31:28,769: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 15:36:35,395: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 15:39:20,239: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 15:42:05,042: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 15:46:25,672: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 15:48:20,520: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 15:49:55,776: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 15:52:11,116: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 15:52:11,149: ERROR/MainProcess] Removing schedule ScheduledTicker 161 for argument deseralization error: JSONDecodeError('Expecting value: line 1 column 1 (char 0)')
+Traceback (most recent call last):
+  File "/home/guest/Desktop/venv/lib/python3.8/site-packages/django_celery_beat/schedulers.py", line 68, in __init__
+    self.args = loads(model.args or '[]')
+  File "/home/guest/Desktop/venv/lib/python3.8/site-packages/kombu/utils/json.py", line 88, in loads
+    return _loads(s)
+  File "/usr/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2022-09-08 16:03:21,200: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 16:27:34,108: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 16:29:37,737: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 16:46:22,230: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 16:47:27,415: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 16:48:27,599: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 16:53:01,647: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 16:54:31,990: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-08 17:48:11,839: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-12 17:36:33,052: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-12 17:37:58,303: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-09-12 18:13:52,127: INFO/MainProcess] DatabaseScheduler: Schedule changed.
