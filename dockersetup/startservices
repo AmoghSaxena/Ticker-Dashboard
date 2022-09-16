@@ -95,12 +95,6 @@ echo "CELERY WORKER STARTED"
 ###########################################################
 
 
-################  STARTING NGINX ##########################
-echo "STARTING NGINX SERVICE"
-/usr/sbin/nginx
-echo "NGINX STARTED"
-###########################################################
-
 
 ################# STARTING SERVER #########################
 cd /app

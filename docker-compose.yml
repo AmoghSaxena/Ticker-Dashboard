@@ -33,7 +33,7 @@ services:
         ports:
             - 8043:80
         volumes:
-            - ./media:/var/www/html
+            - ./media:/usr/local/apache2/htdocs
         depends_on:
             - db
             - dashboard
