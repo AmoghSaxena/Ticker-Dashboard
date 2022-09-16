@@ -3,7 +3,7 @@
 -- Host: localhost    Database: Ticker
 -- ------------------------------------------------------
 -- Server version	10.3.34-MariaDB-0ubuntu0.20.04.1
-
+USE `Ticker`;
 
 DROP TRIGGER IF EXISTS `forSetupNotMoreThan1Value`;
 

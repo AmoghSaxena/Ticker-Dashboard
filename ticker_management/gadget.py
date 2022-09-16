@@ -261,6 +261,10 @@ def datagetter(request):
                 CONFIG_DATA['static_ticker_condition']=True
                 CONFIG_DATA['static_ticker_logo']=True
                 position_static_ticker = request.POST.get('staticPositionBox')
+                
+                if position_static_ticker=='top-fix-width' or position_static_ticker=='bottom-fix-width':
+                    position_static_ticker=position_static_ticker.replace('-','_')
+
                 CONFIG_DATA['position_static_ticker']=position_static_ticker
 
                 if position_static_ticker=="center":

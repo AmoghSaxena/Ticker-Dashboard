@@ -19,13 +19,6 @@ TZ=subprocess.check_output(['cat', '/etc/timezone']).decode().strip()
 AUTH_TOKEN_API = "K9c491y3kKfuodcuVU8pzxNX1raunlQLFKVqsxJENkE"
 
 
-# try:
-#     AUTH_TOKEN_API = subprocess.check_output(['cat', '/app/auth_token_api']).decode().strip()
-# except:
-#     AUTH_TOKEn_API = subprocess.check_output(['cat', '/tmp/auth_token_api']).decode().strip()
-
-
-
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'. 
@@ -43,33 +36,27 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# CORS_ALLOW_CREDENTIALS = True
 
-# CORS_ORIGIN_ALLOW_ALL = True
-
-# CORS_ALLOW_CREDENTIALS = True
-
-# try:
-#     TICKER_FQDN = subprocess.check_output(['cat', '/app/TICKER_FQDN.txt']).decode().strip()
-#     CSRF_TRUSTED_ORIGINS = [f'https://{TICKER_FQDN}']
-# except:
-#     CSRF_TRUSTED_ORIGINS = [f'https://ticker.uncle.army']
-#     pass
-
-# CORS_REPLACE_HTTPS_REFERER = True
-
-# CSRF_COOKIE_DOMAIN = 'ticker.dns.army'
-
-# CORS_ORIGIN_WHITELIST = (
-#     'https://ticker.dns.army/',
-#     'ticker.dns.army',
-#     'bluemix.net',
+CORS_ALLOW_CREDENTIALS = True	
+CORS_ORIGIN_ALLOW_ALL = True	
+CORS_ALLOW_CREDENTIALS = True	
+try:	
+    TICKER_FQDN = subprocess.check_output(['cat', '/app/TICKER_FQDN.txt']).decode().strip()	
+    CSRF_TRUSTED_ORIGINS = [f'https://{TICKER_FQDN}', f'http://{TICKER_FQDN}', 'https://ticker.dns.army']	
+except:	
+    CSRF_TRUSTED_ORIGINS = [f'https://ticker.dns.army']	
+    pass	
+CORS_REPLACE_HTTPS_REFERER = True
+# CSRF_COOKIE_DOMAIN = 'ticker.dns.army'	
+# CORS_ORIGIN_WHITELIST = (	
+#    'https://ticker.dns.army/',	
+#    'ticker.dns.army',	
+#    'bluemix.net',	
 # )
 
-# Application definition
+#CSRF_TRUSTED_ORIGINS=['https://ticker.dns.army/']
 
 INSTALLED_APPS = [
-    # 'admin_volt.apps.AdminVoltConfig',
     'admin_interface',
     'colorfield',
     'django.contrib.admin',
@@ -133,7 +120,7 @@ try:
             'ENGINE': 'django.db.backends.mysql',
             'NAME': DATABASE_NAME,
             'USER': 'root',
-            'HOST': 'db',
+            'HOST': 'ticker-db',
             'PASSWORD': DATABASE_PASS,
             'PORT': '3306',
             'OPTIONS': {
@@ -189,8 +176,6 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = TZ
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = False
 

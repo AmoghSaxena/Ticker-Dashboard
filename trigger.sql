@@ -3,9 +3,6 @@ CREATE DATABASE IF NOT EXISTS `Ticker`;
 
 USE `Ticker`;
 
-CREATE USER IF NOT EXISTS `Ticker`@'%' IDENTIFIED BY '92b9a3b730';
-GRANT ALL PRIVILEGES ON *.* TO 'Ticker'@'%' IDENTIFIED BY '92b9a3b730';
-
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;

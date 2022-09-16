@@ -98,7 +98,7 @@ def index(request):
 @login_required(login_url='/ticker/accounts/login/')
 def createTicker(request):
     try:
-        Thread(target=syncDVSData).start()
+        syncDVSData()
     except Exception as err:
         logger.error('Error: '+str(err))
         return render(request,'acknowledgement.html',{"message":'SetUp not set : '+err})

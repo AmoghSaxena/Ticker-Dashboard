@@ -1,32 +1,34 @@
 version: "3"
 services:
-    db:
-        container_name: 'db'
+    ticker-db:
+        container_name: 'ticker-db'
         image: mariadb:10.2
-        env_file: /etc/env/apc.env
+        env_file: /etc/env/ticker.env
         networks:
-            - apcnetwork 
+            - tickernetwork 
         ports:
             - 33306:3306
         # restart: on-failure
         volumes:
-            - /opt/docker/apc/data:/var/lib/mysql
+            - ./testdb4:/var/lib/mysql
+            # - ./dbconfig/my.cnf:/etc/mysql/my.cnf
     
     dashboard:
         build: .
-        hostname: apcserver
-        command: /install
-        env_file: /etc/env/apc.env
+        hostname: ticker-dashboard
+        command: /startservices
+        env_file: /etc/env/ticker.env
         ports:
-            - 8042:5085
+            - 8042:5015
+            - 8043:80
         volumes:
-            - ./:/APS/
-            - /opt/docker/apc/app:/APS/logs
+            - ./:/app/
+            - /opt/docker/ticker/logs:/app/logs
         depends_on:
             - db
         networks:
-            - apcnetwork
+            - tickernetwork
     
 networks:
-  apcnetwork:
+  tickernetwork:
     external: true

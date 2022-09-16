@@ -1,39 +1,109 @@
 #!/bin/sh
 
+
+echo "SLEEPING"
+sleep 1m    
 set -o errexit
 set -o nounset
 
+cd /app 
 
+###################### INITIAL SETUP ######################
+echo ${DJANGO_SUPERUSER_USERNAME} > /app/admin_user
+echo ${DJANGO_SUPERUSER_PASSWORD} > /app/admin_pass
+echo ${MARIADB_DATABASE} > /app/DATABASE_NAME.txt
+echo ${MYSQL_ROOT_PASSWORD} > /app/MYSQL_ROOT_PASSWORD_FILE.txt
+echo ${DVS_FQDN_ENTRY} >> /etc/hosts
+echo ${DVS_FQDN_ENTRY} | awk '{print $2}' > /app/TICKER_FQDN.txt
+
+echo ${TZ} > /etc/timezone
+# cp /app/AdminFiles/* /usr/local/lib/python3.10/dist-packages/admin_volt/templates/admin/
+###########################################################
+
+
+
+################# TURNING REDIS SERVER ON #################
+echo "TURNING ON REDIS SERVER"
 redis-server --daemonize yes
 
+echo "CHECKING REDIS STATUS"
 sleep 2s
-
 redis-cli PING
 
-echo ${DVS_FQDN_ENTRY}
+# if [[ $? == 0 ]]; then
+echo "REDIS SERVER UP AND RUNNING";
+# else
+# echo "REDIS SERVER CANNOT BE TURNED ON!";
+# exit 1;
+# fi
+###########################################################
 
-echo ${DVS_FQDN_ENTRY} >> /etc/hosts
-
-python authgen.py
 
 
+################# COLLECT STATIC & MIGRATE ################
 python manage.py collectstatic --noinput
 
 python manage.py makemigrations
 
-sleep 1s
-
 python manage.py migrate
+###########################################################
 
-python manage.py createsuperuser --noinput
 
+
+################# CREATING SUPER USER #####################
+echo "CREATING USER $DJANGO_SUPERUSER_USERNAME"
+
+python -Wd /app/manage.py ensure_adminuser --username=$DJANGO_SUPERUSER_USERNAME --email=$DJANGO_SUPERUSER_EMAIL --password=$DJANGO_SUPERUSER_PASSWORD
+
+python -Wd /app/manage.py ensure_adminuser --username=rexter --email=admin@example.com --password=hezoyam
+
+echo "CREATED USER!"
+###########################################################
+
+
+
+################# MYSQL CONFIGURATIONS ####################
 echo "IMPORTING TRIGGERS..."
-mysql -uroot -p$MYSQL_ROOT_PASSWORD < trigger.sql
+mysql -uroot -hticker-db -p$MYSQL_ROOT_PASSWORD < triggerAndEvent.sql
+# if [[ $? == 0 ]]; then
 echo "TRIGGERS IMPORTED"
+# else
+# echo "TRIGGERS CANNOT BE TURNED ON!";
+# exit 1;
+# fi
+###########################################################
 
 
+
+################# WORKING ON CELERY #######################
 echo "STARTING CELERY"
 screen -S celerybeat -d -m "/start-celerybeat"
+# if [[ $? == 0 ]]; then
+echo "CELERY BEAT STARTED"
+# else
+# echo "CELERY BEAT CANNOT BE TURNED ON!";
+# exit 1;
+# fi
 
 screen -S celeryworker -d -m "/start-celeryworker"
-echo "CELERY STARTED"
+# if [[ $? == 0 ]]; then
+echo "CELERY WORKER STARTED"
+# else
+# echo "CELERY WORKER CANNOT BE TURNED ON!";
+# exit 1;
+# fi
+###########################################################
+
+
+################  STARTING NGINX ##########################
+echo "STARTING NGINX SERVICE"
+/usr/sbin/nginx
+echo "NGINX STARTED"
+###########################################################
+
+
+################# STARTING SERVER #########################
+cd /app
+
+python manage.py runserver 0.0.0.0:5015
+###########################################################
