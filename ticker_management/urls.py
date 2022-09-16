@@ -25,5 +25,6 @@ urlpatterns = [
     path('java/dnd',views.dndStatus,name='dndStatus'),
     path('priority-ticker',views.checkPriorityTicker,name='checkPriorityTicker'),
     path('close-ticker',views.closeTicker,name='closeTicker'),
+    path('demo-ticker',views.demoTicker,name='demoTicker'),
     # path('tickerStatusReboot/',views.tickerStatusReboot),
 ]

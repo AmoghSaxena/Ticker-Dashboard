@@ -20,12 +20,23 @@ services:
         env_file: /etc/env/ticker.env
         ports:
             - 8042:5015
-            - 8043:80
         volumes:
             - ./:/app/
             - /opt/docker/ticker/logs:/app/logs
         depends_on:
+            - ticker-db
+        networks:
+            - tickernetwork
+    httpd:
+        image: httpd:2.4
+        env_file: /etc/env/ticker.env
+        ports:
+            - 8043:80
+        volumes:
+            - ./media:/var/www/html
+        depends_on:
             - db
+            - dashboard
         networks:
             - tickernetwork
     

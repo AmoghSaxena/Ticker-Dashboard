@@ -28,9 +28,9 @@ COPY ./dockersetup/startbeat /start-celerybeat
 RUN sed -i 's/\r$//g' /start-celerybeat
 RUN chmod +x /start-celerybeat
 
-COPY ./dockersetup/createadmin /createadmin
-RUN sed -i 's/\r$//g' /createadmin
-RUN chmod +x /createadmin
+# COPY ./dockersetup/createadmin /createadmin
+# RUN sed -i 's/\r$//g' /createadmin
+# RUN chmod +x /createadmin
 
 COPY ./dockersetup/startservices /startservices
 RUN sed -i 's/\r$//g' /startservices

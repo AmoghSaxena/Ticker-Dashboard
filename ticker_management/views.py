@@ -608,19 +608,22 @@ def dataFilter(filePath):
     logger.info('Filtered data')
 
 def syncDVSData():
-    dvs_data=SetUp.objects.filter(id=1).values()
-    FQDN=dvs_data.get()['FQDN']
-    Dvs_Token=dvs_data.get()['Dvs_Token']
-    
-    headers = {
-        'Content-Type': 'application/vnd.digivalet.v1+json',
-        'Access-Token': Dvs_Token,
-    }
+    try:
+        dvs_data=SetUp.objects.filter(id=1).values()
+        FQDN=dvs_data.get()['FQDN']
+        Dvs_Token=dvs_data.get()['Dvs_Token']
+        
+        headers = {
+            'Content-Type': 'application/vnd.digivalet.v1+json',
+            'Access-Token': Dvs_Token,
+        }
 
-    data = '{}'
+        data = '{}'
 
-    baseFQDN=f'https://{FQDN}/dvs/'
-    filePath=f'{str(BASE_DIR)}/static/resources/'
+        baseFQDN=f'https://{FQDN}/dvs/'
+        filePath=f'{str(BASE_DIR)}/static/resources/'
+    except Exception as err:
+        raise
 
     try:
         response = requests.post(baseFQDN+'api/key/selectR', headers=headers, data=data)
@@ -1597,3 +1600,11 @@ def closeTicker(request):
         return Response(resp)
 #### REMOVE TICKER SECTION STOP ####
 
+#### DEMO TICKER SECTION START ####
+@api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+def demoTicker(request):
+    if request.method=='POST':
+        print("shot")
+        return Response({"Hello"})
+    else:
+        return Response(requestInvalid.get('message'))
