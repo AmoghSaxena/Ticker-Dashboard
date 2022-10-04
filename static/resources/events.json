@@ -1,22 +1,28 @@
 {
    "events": [
       {
-         "groupId": 287,
-         "title": "dsagsadgdsfagsd[oghs",
-         "start": "2022-10-03T11:37:52",
-         "end": "2022-10-03T11:38:52"
+         "groupId": 294,
+         "title": "Welcome",
+         "start": "2022-10-04T15:16:28",
+         "end": "2022-10-04T15:17:28"
       },
       {
-         "groupId": 288,
-         "title": "Ticker1g",
-         "start": "2022-10-03T11:48:38",
-         "end": "2022-10-03T11:49:38"
+         "groupId": 295,
+         "title": "Welcome",
+         "start": "2022-10-04T15:17:09",
+         "end": "2022-10-04T15:18:09"
       },
       {
-         "groupId": 289,
-         "title": "dsagsadgdsfagsd[oghs",
-         "start": "2022-10-03T11:50:38",
-         "end": "2022-10-03T11:51:38"
+         "groupId": 296,
+         "title": "Welcome",
+         "start": "2022-10-04T15:17:09",
+         "end": "2022-10-04T15:18:09"
+      },
+      {
+         "groupId": 303,
+         "title": "RND TESTING",
+         "start": "2022-10-04T18:22:26",
+         "end": "2022-10-04T18:22:54"
       }
    ]
 }

@@ -550,3 +550,11 @@ KeyError: 'ticker_management.tasks.callscheduledticker'
 [2022-10-04 15:36:38,423: INFO/ForkPoolWorker-3] Inside callticker function
 [2022-10-04 15:36:39,681: INFO/ForkPoolWorker-3] Inside initial_data function
 [2022-10-04 15:36:40,004: WARNING/ForkPoolWorker-3] After initial
+[2022-10-04 18:18:18,828: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[5b47ea97-5cdf-432d-b621-26fbd19881aa] received
+[2022-10-04 18:18:18,838: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-04 18:18:19,252: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-04 18:18:19,586: WARNING/ForkPoolWorker-3] After initial
+[2022-10-04 18:22:26,686: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[054789af-b685-4a64-a60c-f54b134ffa56] received
+[2022-10-04 18:22:26,695: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-04 18:22:26,904: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-04 18:22:27,093: WARNING/ForkPoolWorker-3] After initial

@@ -31,8 +31,6 @@ function notification() {
         priority="Emergency";
     }
 
-    console.log(document.getElementById("scheduleEnabler").checked);
-
     if (document.getElementById("scheduleEnabler").checked)
     {
         var nowTime= new Date();
@@ -164,9 +162,13 @@ function notification() {
 
 
 function submitCreateTickerForm() {
-    document.getElementById("createTickerForm").submit();
-    document.getElementById("nextBtn").style.display = "none";
-    document.getElementById("SubForm").style.display = "inline";
+    if (validateScheduleForm()){
+        document.getElementById("createTickerForm").submit();
+        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("SubForm").style.display = "inline";
+    }
+    else
+    {alert('HELLO');}
 }
 
 var currentTab = 0; 
@@ -444,20 +446,12 @@ var currentTab = 0;
 
         if ( roomType.options.length > 0 || wings.options.length > 0 || floor.options.length > 0 || rooms.options.length > 0)
         {
-            if (document.getElementById("scheduleEnabler").checked)
-            {
-                return true;
-            }
-            else
-            {
-                
-            }
+            return true;
         }
         else
         {
             return false;
         }
-
       }
 
     function validateFormf(){
