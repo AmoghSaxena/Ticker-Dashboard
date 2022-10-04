@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="author" content="" />
+        <title>ticker</title>
+        
+        <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> -->
+        <link href="/static/css/simpledatatables.css" rel="stylesheet" />
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"> -->
+        <link href="/static/css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="/static/css/preview.css" />
+        <!-- <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script> -->
+        <script src="/static/js/fontawsome.js" crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+        <link href="/static/css/bootstrap-min.css" rel="stylesheet">
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
+        <script src="/static/js/bootstrap-bundle.js"></script>
+
+        <!-- Select2 CSS --> 
+        <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />  -->
+        <link href="/static/css/select2.css" rel="stylesheet" />
+        <!-- jQuery --> 
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  -->
+        <script src="/static/js/jquery-min.js"></script>
+        <!-- Select2 JS --> 
+        <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script> -->
+        <script src="/static/js/select2.js"></script>
+
+
+
+    </head>
+      <body class="sb-nav-fixed bg-dark">
+        
+
+<div id="layoutSidenav_content">
+  <main>
+    <div class="">
+      <div class="bg-white">
+        <div class="p-3 tickernav-color text-white">
+            <div class="col d-flex justify-content-between">
+              <div class="text-uppercase ls-1"><i class="fa fa-circle text-danger"></i>&nbsp<i class="fa fa-circle text-warning"></i>&nbsp<i class="fa fa-circle text-success"></i>&nbsp&nbspSystem Logs</div>
+              <div>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                    <a href="{% url 'systemLog' %}" class="btn btn-secondary {% if 'info' in segment %} active {% endif %}">Information</a>
+                    <a href="{% url 'celeryBeatLog' %}" class="btn btn-secondary {% if 'beat' in segment %} active {% endif %}">Celery Beat</a>
+                    <a href="{% url 'celeryWorkerLog' %}" class="btn btn-secondary {% if 'worker' in segment %} active {% endif %}">celery Worker</a>
+                </div>
+                <a href="{% url 'index'%}" class="rounded-circle bg-danger text-white px-2 p-1 ml-3" data-toggle="tooltip" data-placement="left" title="Back To Dashboard"><i class="fa-solid fa-arrow-left"></i></a>
+              </div>
+            </div>
+        </div>
+        <div class="rounded-border">
+            <div class="card-body bg-dark overflow-auto" style="height: 800px;" id="frame">
+              <!-- Chart -->
+              <div class="" id="data">
+
+                {% for log in sysLog %}
+                <div class="text-white m-1">
+                  {% if "ERROR" in log %}
+                    <div class="text-danger">{{log}}</div>
+                  {% elif "WARNING" in log %}
+                    <div class="text-warning">{{log}}</div>
+                  {% else %}
+                    <div class="text-white">{{log}}</div>
+                  {% endif %} 
+                </div>
+                {% endfor %}
+
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+    </div>
+    </body>
+
+  <script>
+    var myElement = document.getElementById('frame');
+    var topPos = myElement.offsetHeight;
+    document.getElementById('frame').scrollTop = topPos+100;
+    {% comment %} setTimeout(()=>{
+      document.getElementById('frame').scrollTop = topPos+100;
+    },500); {% endcomment %}
+    
+  
+    setTimeout(function() {
+      location.reload();
+      }, 5000);
+
+      window.setInterval(function() {
+        var elem = document.getElementById('data');
+        elem.scrollTop = elem.scrollHeight;
+      }, 5000);
+  </script>
+
+</html>

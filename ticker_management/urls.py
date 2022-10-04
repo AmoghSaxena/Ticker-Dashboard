@@ -12,9 +12,13 @@ urlpatterns = [
     path('edit/<str:id>', views.isEdit, name = 'edit'),
     path('restore/<str:id>', views.isRestore, name = 'restore'),
     path('delete/<str:id>', views.isDelete, name = 'delete'),
+    path('delete/history/<str:id>', views.isDeleteHistory, name = 'deleteHistory'),
     path('detail/<str:id>', views.detail, name = 'detail'),
     path('accounts/changepassword/', views.changePassword, name = 'changepassword'),
     path('abort/<str:id>', views.abort, name = 'abort'),
+    path('system/info/logs/', views.systemLog, name = 'systemLog'),
+    path('system/celery/beat/logs/', views.celeryBeatLog, name = 'celeryBeatLog'),
+    path('system/celery/worker/logs/', views.celeryWorkerLog, name = 'celeryWorkerLog'),
 
     #### API's
 	path('ticker-post', views.taskPost),
@@ -25,6 +29,5 @@ urlpatterns = [
     path('java/dnd',views.dndStatus,name='dndStatus'),
     path('priority-ticker',views.checkPriorityTicker,name='checkPriorityTicker'),
     path('close-ticker',views.closeTicker,name='closeTicker'),
-    path('demo-ticker',views.demoTicker,name='demoTicker'),
     # path('tickerStatusReboot/',views.tickerStatusReboot),
 ]

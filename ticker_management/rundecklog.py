@@ -34,8 +34,7 @@ def initial_data(ticker_obj,basicTickerInfo):
             #     errorLog = errorLogOutput['entries'][-1]['log']
             #     return errorLog
         else:
-            logger.warning('Response status code is not 200')
-        return 'Success'
+            logger.error('Response status code is not 200')
     except Exception as e:
         logger.error(e)
 
@@ -58,7 +57,13 @@ def rundeck_update(rundeckid):
             failedNodes = rundeckOutput.get('failedNodes', '[]')
 
             if (status=='failed' or status=='aborted'):
-                rundeckLog.update(execution=status,successfull_nodes=successfulNodes,failed_nodes=failedNodes,tickerStatus=status)
+                if len(successfulNodes)>0:
+                    if datetime.now()>=rundeckLog.get()['time_interval']:
+                        rundeckLog.update(execution=status,successfull_nodes=successfulNodes,failed_nodes=failedNodes,tickerStatus='succeeded')
+                    else:
+                        rundeckLog.update(execution=status,successfull_nodes=successfulNodes,failed_nodes=failedNodes,tickerStatus='running')    
+                else:
+                    rundeckLog.update(execution=status,successfull_nodes=successfulNodes,failed_nodes=failedNodes,tickerStatus=status)
             elif datetime.now()>=rundeckLog.get()['time_interval']:
                 rundeckLog.update(execution=status,successfull_nodes=successfulNodes,failed_nodes=failedNodes,tickerStatus='succeeded')
             else:
@@ -70,7 +75,7 @@ def rundeck_update(rundeckid):
             #     errorLog = errorLogOutput['entries'][-1]['log']
             #     return errorLog
         else:
-            logger.warning('Response status code is not 200')
+            logger.error('Response status code is not 200')
     except Exception as e:
         logger.error(e)
 
@@ -117,7 +122,7 @@ def abortTicker(ticker_obj):
             elif status == 'running':
                 requests.get(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/execution/{rundeckid}/abort/", headers={"X-Rundeck-Auth-Token": Rundeck_Token})
         else:
-            logger.warning('Response status code is not 200')
+            logger.error('Response status code is not 200')
     except Exception as e:
         logger.error(e)
 
@@ -167,7 +172,7 @@ def killTicker(ticker_obj):
             requests.post(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/job/{Rundeck_Stop_Job}/run/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"}, json={ "argString": f"-whichnode \"{nodes}\""})
 
         else:
-            logger.warning('Response status code is not 200')
+            logger.error('Response status code is not 200')
 
     except Exception as e:
         logger.error(e)

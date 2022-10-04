@@ -1,4 +1,5 @@
 
+
 function notification() {
 
     var modal = document.getElementById("notificationModal");
@@ -10,7 +11,157 @@ function notification() {
         modal.style.display = "none";
     }
 
+    var select = document.getElementById("tickerSelecter");
+    var option = select.options[select.selectedIndex];
+
+    var priority,timeInterval;
+
+    if (option.text == "Scrolling Ticker")
+    {
+        priority=document.getElementById("scrollingTickerPriority").value;
+        timeInterval=document.getElementById("scrollingTickerTimeInterval").value;
+    }
+    else if (option.text == "Media Ticker")
+    {
+        priority=document.getElementById("mediaTickerPriority").value;
+        timeInterval=document.getElementById("mediaTickerTimeInterval").value;
+    }
+    else
+    {
+        priority="Emergency";
+    }
+
+    console.log(document.getElementById("scheduleEnabler").checked);
+
+    if (document.getElementById("scheduleEnabler").checked)
+    {
+        var nowTime= new Date();
+        startTime=nowTime.getFullYear()+"-"+(nowTime.getMonth()+1)+"-"+nowTime.getDate()+"T"+nowTime.getHours()+":"+nowTime.getMinutes();
+        endTime=null;
+        if (priority=="Emergency")
+        {
+            timeInterval="864000";
+        }
+    }
+    else
+    {
+        if (document.getElementById("onetime").checked)
+        {
+            startTime=document.getElementById("startDate").value;
+            endTime=null;
+        }
+        else
+        {
+            startTime=document.getElementById("startDate").value;
+            endTime=document.getElementById("endDate").value;
+        }
+    }
+
+    wing = document.getElementById('wingSelection');
+    floor = document.getElementById('floorSelection');
+    roomnumber = document.getElementById('roomSelection');
+
+    var wingresult = [];
+    var floorresult = [];
+    var roomnumberresult = [];
+
+    console.log(wing.options.length+" "+floor.options.length+" "+roomnumber.options.length);
+
+    if (wing.options.length > 0) {
+        for (var option of wing.options) {
+            if (option.selected)
+            {
+                wingresult.push(option.text);
+            }
+        }
+    }
+
+    if (floor.options.length > 0) {
+        for (var option of floor.options) {
+            if (option.selected)
+            {
+                floorresult.push(option.text);
+            }
+        }
+    }
+
+    if (roomnumber.options.length > 0) {
+        for (var option of roomnumber.options) {
+            if (option.selected)
+            {
+                roomnumberresult.push(option.text);
+            }
+        }
+    }
+
+    var raw = JSON.stringify({
+            "newTickerPriority": priority,
+            "wings": wingresult,
+            "floors": floorresult,
+            "rooms": roomnumberresult,
+            "startTime": startTime,
+            "endTime": endTime,
+            "timeInterval": timeInterval,
+            "tickerToken": "K9c491y3kKfuodcuVU8pzxNX1raunlQLFKVqsxJENkE"
+        });
+    
+    // var myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "application/json");   
+
+    // console.log(raw);
+
+    // var requestOptions = {
+    // method: 'POST',
+    // headers: myHeaders,
+    // body: raw,
+    // redirect: 'follow'
+    // };
+    // var sysUrl = window.location;
+    // fetch(sysUrl.origin+"/ticker/priority-ticker", requestOptions)
+    // .then(response => response.text())
+    // .then(result => {
+    //         const res = JSON.parse(result)
+    //         console.log(result)
+    //         document.getElementById('notification').innerHTML = res.data
+    //     })
+    //   .catch(error => console.log('error', error));
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+    "newTickerPriority": "Medium",
+    "wings": [],
+    "floors": [],
+    "rooms": [
+        "515"
+    ],
+    "startTime": "2022-9-26T15:30",
+    "endTime": null,
+    "timeInterval": "1",
+    "tickerToken": "K9c491y3kKfuodcuVU8pzxNX1raunlQLFKVqsxJENkE"
+    });
+
+    console.log(raw);
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    fetch("https://ticker.dns.army"+"/ticker/priority-ticker", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+        const res = JSON.parse(result)
+        console.log(result)
+        document.getElementById('notification').innerHTML = res.data
+    })
+    .catch(error => console.log('error', error));
+
 }
+
 
 function submitCreateTickerForm() {
     document.getElementById("createTickerForm").submit();
@@ -49,12 +200,12 @@ var currentTab = 0;
             currentTab = currentTab + n;
         // alert(currentTab);
         if (currentTab == 2){
-            // notification()
-            document.getElementById("nextBtn").style.display = "none";
-            document.getElementById("SubForm").style.display = "inline";
+            notification()
+            // document.getElementById("nextBtn").style.display = "none";
+            // document.getElementById("SubForm").style.display = "inline";
         }
         if (currentTab >= x.length) {
-            document.getElementById("createTickerForm").submit();
+            // document.getElementById("createTickerForm").submit();
             return false;
         }
         showTab(currentTab);
@@ -201,8 +352,18 @@ var currentTab = 0;
                                 }
                                 else
                                 {
-                                    document.getElementById("staticTickerMessageLabel").hidden = true;
-                                    return true;
+                                    let imageTag=document.getElementById("staticTickerLogo");
+                                    alert(document.getElementById("staticTickerLogo").clientWidth);
+                                    if (imageTag.clientWidth!=imageTag.clientHeight)
+                                    {
+                                        alert("Please select square image.");
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        document.getElementById("staticTickerMessageLabel").hidden = true;
+                                        return true;
+                                    }
                                 }
                             }
                             else if(option.text=="fullscreen")
@@ -275,6 +436,30 @@ var currentTab = 0;
         }
     }
     
+    function validateScheduleForm() {
+        var roomType=document.getElementById("roomTypeSelection");
+        var wings=document.getElementById("wingSelection");
+        var floor=document.getElementById("floorSelection");
+        var rooms=document.getElementById("roomSelection");
+
+        if ( roomType.options.length > 0 || wings.options.length > 0 || floor.options.length > 0 || rooms.options.length > 0)
+        {
+            if (document.getElementById("scheduleEnabler").checked)
+            {
+                return true;
+            }
+            else
+            {
+                
+            }
+        }
+        else
+        {
+            return false;
+        }
+
+      }
+
     function validateFormf(){
     var x, y, i, valid = true;
     x = document.getElementsByClassName("tab");

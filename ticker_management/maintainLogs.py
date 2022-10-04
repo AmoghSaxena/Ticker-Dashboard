@@ -18,6 +18,7 @@ def filereader():
         if os.path.isfile(os.path.join(BASE_DIR, path)) and 'celery' not in path:
             file1=BASE_DIR+path
             file2=BASE_DIR+'temp.log'
+            print(file1)
             clearLogs(open(file1,'r'),open(file2,'w'))
             os.rename(file2, file1)
     

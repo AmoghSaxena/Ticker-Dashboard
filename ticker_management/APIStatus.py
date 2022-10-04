@@ -74,6 +74,10 @@ closeTickerAPISuccess = {"message": "Ticker Close Successfully", "statusCode": 1
 closeTickerAPIFailure = {"message": "Error Occurred During Close Ticker", "statusCode": 1802}
 
 
-""" Priority Ticker API Case """   #### STATUS 18XX ####
+""" Priority Ticker API Case """   #### STATUS 19XX ####
 priorityTickerAPISuccess = {"message": "Ticker Priority Check Successfully", "statusCode": 1901}
 priorityTickerAPIFailure = {"message": "Error Occurred During Check Priority Ticker", "statusCode": 1902}
+
+
+""" Template Error """  #### STATUS 20XX ####
+templateError = {"message": "Server Error", "statusCode": 2001}

@@ -1,7 +1,7 @@
 import json
 from datetime import datetime,timedelta
 from .models import SetUp
-from ticker_management.tasks import callticker
+from ticker_management.tasks import callscheduledticker
 from .models import TickerDetails
 from django_celery_beat.models import PeriodicTask,CrontabSchedule
 from ticker_dashboard.settings import AUTH_TOKEN_API
@@ -164,7 +164,9 @@ def schedulingticker(request,ticker_id):
 
     if (len(json_data)>0):
         if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scheduleEnabler') == 'enabled' or request.POST.get('scrollingTickerPriority')=='Emergency':
-            Thread(target=callticker,args=(basicTickerInfo,ticker_obj)).start()
+            ticker_id=ticker_obj.get()['ticker_id']
+            callscheduledticker.apply_async(args=[basicTickerInfo,ticker_id])
+            return {"message":'Success'}
         else:
             data=schedule_tasks(basicTickerInfo,ticker_obj)
         

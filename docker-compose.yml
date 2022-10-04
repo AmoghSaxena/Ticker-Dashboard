@@ -11,7 +11,7 @@ services:
         # restart: on-failure
         volumes:
             - ./testdb4:/var/lib/mysql
-            # - ./dbconfig/my.cnf:/etc/mysql/my.cnf
+            - ./dbconfig/my.cnf:/etc/mysql/my.cnf
     
     dashboard:
         build: .
@@ -35,7 +35,7 @@ services:
         volumes:
             - ./media:/usr/local/apache2/htdocs
         depends_on:
-            - db
+            - ticker-db
             - dashboard
         networks:
             - tickernetwork

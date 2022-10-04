@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 
 echo "SLEEPING"
@@ -14,7 +14,7 @@ echo ${DJANGO_SUPERUSER_PASSWORD} > /app/admin_pass
 echo ${MARIADB_DATABASE} > /app/DATABASE_NAME.txt
 echo ${MYSQL_ROOT_PASSWORD} > /app/MYSQL_ROOT_PASSWORD_FILE.txt
 echo ${DVS_FQDN_ENTRY} >> /etc/hosts
-echo ${DVS_FQDN_ENTRY} | awk '{print $2}' > /app/TICKER_FQDN.txt
+echo ${DVS_FQDN} > /app/TICKER_FQDN.txt
 
 echo ${TZ} > /etc/timezone
 # cp /app/AdminFiles/* /usr/local/lib/python3.10/dist-packages/admin_volt/templates/admin/

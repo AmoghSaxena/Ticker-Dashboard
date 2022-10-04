@@ -1,0 +1,1 @@
+ERROR 2022-09-21 11:17:21,085 :  Exception while insertion: time data '' does not match format '%Y-%m-%dT%H:%M' from function datagetter in line no. 415 (FILENAME gadget)

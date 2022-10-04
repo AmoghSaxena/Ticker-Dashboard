@@ -56,3 +56,4 @@ def callticker(self,basicTickerInfo,ticker_obj):
 
     initial_data(ticker_obj,basicTickerInfo)
     print('After initial')
+    return 'Success'

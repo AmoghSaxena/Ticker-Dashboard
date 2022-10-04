@@ -21,12 +21,12 @@ app.conf.beat_schedule = {
     'filereader': {
         #for removing logs which are more than 90 days
         'task':'ticker_management.maintainLogs.filereader',
-        'schedule': crontab(hour=00,minute=00)
+        'schedule': crontab(hour=0,minute=0)
     },
     'syncDVSData': {
         #to sync dvs data
         'task':'ticker_management.views.syncDVSData',
-        'schedule': crontab(hour=00,minute=00)
+        'schedule': crontab(hour=0,minute=0)
     },
 }
 
