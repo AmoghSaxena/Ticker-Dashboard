@@ -7,7 +7,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth import login as user_login
 from django.contrib import messages
-from ticker_management.gadget import datagetter
+from ticker_management.gadget import dataSetter
 from datetime import date,datetime,timedelta
 from ticker_management.models import TickerDetails,TickerHistory,SetUp,RundeckLog
 from ticker_management.node import checkPriority
@@ -32,7 +32,7 @@ from django.contrib.auth.hashers import check_password
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage
 from django.db.models import Q
-from ticker_dashboard.settings import BASE_DIR,AUTH_TOKEN_API, CSRF_TRUSTED_ORIGINS
+from ticker_dashboard.settings import BASE_DIR,AUTH_TOKEN_API
 
 # #Api
 # BASE_DIR = Path(__file__).resolve().parent
@@ -81,7 +81,7 @@ def index(request):
                                                 | Q(ticker_end_time__range=(start_time,end_time))
                                                 )
 
-        ticker_count={
+        ticker_details={
             'active':len(active_ticker_length),
             'history':len(history_ticker_length),
             'total':(len(history_ticker_length)+len(active_ticker_length)),
@@ -90,7 +90,7 @@ def index(request):
             'history_ticker_data':history_ticker,
             'user':request.user.username
         }
-        return render(request, 'index.html',ticker_count)
+        return render(request, 'index.html',ticker_details)
     except Exception as err:
         logger.error(err)
         return render(request,'acknowledgement.html',{"message":err})
@@ -101,7 +101,7 @@ def createTicker(request):
         syncDVSData()
     except Exception as err:
         logger.error('Error: '+str(err))
-        return render(request,'acknowledgement.html',{"message":'SetUp not set : '+str(err)})
+        return render(request,'acknowledgement.html',{"message":f'SetUp not set : {err}'})
     
     data = {
             'pos_box':[
@@ -208,44 +208,11 @@ def createTicker(request):
         }
     
     if request.method == 'POST':
-            # Thread(target=datagetter,args=(request,)).start()
-
-        # tickerSelection=request.POST.get('tickerSelecter')
-
-        # if tickerSelection == 'scrolling':
-        #     newTickerPriority=request.POST.get('scrollingTickerPriority')
-        # elif tickerSelection == 'media':
-        #     newTickerPriority=request.POST.get('mediaTickerPriority')
-        # elif tickerSelection == 'emergency':
-        #     newTickerPriority="Emergency"
-
-        # tickerDetailsDB = TickerDetails.objects.all().filter(ticker_start_time__lte=datetime.now(),ticker_end_time__gt=datetime.now()).values()
-
-        # if len(tickerDetailsDB)>0:
-        #     pass
-
-
-        # priorityData=checkPriority(request,newTickerPriority,tickerDetailsDB)
-
-        if False:
-            pass
-
-        #     print(priorityData)
-
-        #     if priorityData!=None:
-        #         return render(request,'alert.html',{'data':priorityData}) 
-        #     else:
-        #         dataget=datagetter(request)
-        #         if dataget['message']=='Success':
-        #             return redirect(index)
-        #         else:
-        #             return render(request,'acknowledgement.html',dataget)
+        dataget=dataSetter(request)
+        if dataget['message']=='Success':
+            return redirect(index)
         else:
-            dataget=datagetter(request)
-            if dataget['message']=='Success':
-                return redirect(index)
-            else:
-                return render(request,'acknowledgement.html',dataget)
+            return render(request,'acknowledgement.html',dataget)
     else:
         try:
             return render(request, 'createticker.html', data)
@@ -337,23 +304,13 @@ def detail(request, id):
 @login_required(login_url='/ticker/accounts/login/')
 def abort(request,id):
     try:
-        # ticker_id=id.split("&")[0]
-        # rundeck_id=id.split("&")[1]
         ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
-        # logObject = list()
         if ticker_obj.get()['rundeckid']!=None:
-            # logObject.append(killTicker(ticker_obj))
             Thread(target=killTicker,args=(ticker_obj,)).start()
-            # killTicker.apply_async(args=[ticker_id,])
             rundeckLogData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
             rundeckLog=sorted(rundeckLogData,key=lambda item: item['rundeck_id'],reverse=True)
-        # else:
-        #     rundeckLog=list()
-        #     dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get()['ticker_id'], 'ticker_title': ticker_obj.get()['ticker_title'], 'execution': "pending", "tickerStatus": "pending", 'successfull_nodes':
-        #      "None", 'failed_nodes': 'None', 'tv_status': 'None', 'iPad_status': 'None'}
-        #     rundeckLog.append(dictwithoutrundeckid)
         
-        TickerDetails.objects.filter(ticker_id=int(id),frequency='1').values().update(ticker_end_time=datetime.now())
+        TickerDetails.objects.filter(ticker_id=int(id),frequency='1').values().update(ticker_end_time=datetime.now(),is_active=0,is_deleted=1)
 
         return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog})#, 'logObject':logObject})
     except Exception as err:
@@ -962,7 +919,7 @@ def rebootStatus(request):
                                                 ticker_obj=TickerDetails.objects.filter(ticker_id=data['ticker_id']).values()
 
                                                 ticker_id=ticker_obj.get()['ticker_id']
-                                                callscheduledticker.apply_async(args=[basicTickerInfo,ticker_id])
+                                                callscheduledticker.apply_async(args=[basicTickerInfo,ticker_id,-1])
 
                                                 res['status'] = True
                                                 res['statusCode'] = rebootSuccessStatus.get('statusCode')
@@ -1445,8 +1402,6 @@ def dndStatus(request):
 
 #### CHECK PRIORITY TICKER SECTION START ####
 @api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
-# from django.views.decorators.csrf import csrf_exempt
-# @csrf_exempt
 def checkPriorityTicker(request):
     if request.method=='POST':
 
@@ -1474,7 +1429,7 @@ def checkPriorityTicker(request):
                             resp['status'] = True
                             resp['statusCode'] = priorityTickerAPISuccess.get('statusCode')
                             resp['message'] = priorityTickerAPISuccess.get('message')
-                            resp['data'] = mainData['runningTicker']['message']
+                            resp['data'] = {"message": mainData['runningTicker']['message'],"runningTickerID": mainData['runningTickerID']}
 
                             logger.info(priorityTickerAPISuccess.get('message'))
                             return Response(resp)

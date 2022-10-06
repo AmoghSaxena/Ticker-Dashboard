@@ -125,7 +125,7 @@ def hex_to_rgb(value):
     lv = len(value)
     return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
 
-def datagetter(request):
+def dataSetter(request):
 
     CONFIG_DATA={
         "static_ticker_condition":False,
@@ -434,8 +434,8 @@ def datagetter(request):
         except Exception  as err:
             logger.error('Unable to update: '+str(err))
             return {"message":"Something went wrong while update"}
-        
-        return schedulingticker(request,ticker_id_for_schedule)
+                
+        return schedulingticker(request,ticker_id_for_schedule,int(request.POST.get('runningTickerID')))
     else:
         return {"message":"None object found"}
 

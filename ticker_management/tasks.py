@@ -1,8 +1,8 @@
 from celery import shared_task
-from .models import TickerDetails,SetUp, TickerHistory
+from .models import TickerDetails,TickerHistory
 from datetime import datetime
 import requests
-from ticker_management.rundecklog import initial_data
+from ticker_management.rundecklog import initial_data,abortForPriority
 
 #Loggers
 import logging
@@ -10,7 +10,12 @@ logger=logging.getLogger('dashboardLogs')
 
 
 @shared_task(bind=True)
-def callscheduledticker(self,basicTickerInfo,ticker_id):
+def callscheduledticker(self,basicTickerInfo,ticker_id,runningTickerID):
+
+    print(runningTickerID)
+    if runningTickerID!=-1:
+        abortForPriority(runningTickerID,basicTickerInfo['nodes'])
+
     if TickerDetails.objects.filter(ticker_id=ticker_id).exists():
         ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
         callticker(basicTickerInfo,ticker_obj)

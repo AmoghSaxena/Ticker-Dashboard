@@ -115,12 +115,16 @@ def checkPriority(newTickerPriority,wings,floors,rooms,startTime,endTime,timeInt
 
     if endTime is not None:
         ticker_list=TickerDetails.objects.all().filter(Q(ticker_start_time__range=(startTime,endTime)) |
-                                                            Q(ticker_end_time__range=(startTime,endTime))).values()
+                                                            Q(ticker_end_time__range=(startTime,endTime)) |
+                                                            (Q(ticker_start_time__lte=startTime) & Q(ticker_end_time__gte=endTime))
+                                                            ).values()
     else:
         endTime=datetime.strptime(startTime,"%Y-%m-%dT%H:%M")+timedelta(minutes=int(timeInterval))
 
         ticker_list=TickerDetails.objects.all().filter(Q(ticker_start_time__range=(startTime,endTime)) |
-                                                            Q(ticker_end_time__range=(startTime,endTime))).values()
+                                                            Q(ticker_end_time__range=(startTime,endTime)) |
+                                                            (Q(ticker_start_time__lte=startTime) & Q(ticker_end_time__gte=endTime))
+                                                            ).values()
     
     runningTicker=dict()
     
@@ -149,7 +153,7 @@ def checkPriority(newTickerPriority,wings,floors,rooms,startTime,endTime,timeInt
             else:
                 runningTicker['runningTicker']=ticker
                 break
-
+        
         if len(runningTicker)>0:
             a=priority.index(runningTicker['runningTicker']['ticker_priority'])
             b=priority.index(newTickerPriority)
@@ -158,14 +162,14 @@ def checkPriority(newTickerPriority,wings,floors,rooms,startTime,endTime,timeInt
                 runningTicker['message']="New ticker has higher priority than running ticker.\nDO YOU REALLY WANT TO OVERRIDE?"
             else:
                 runningTicker['message']="New ticker has lower priority than running ticker.\nDO YOU REALLY WANT TO OVERRIDE?"
-            return {'status':True,'runningTicker':runningTicker}
+            return {'status':True,'runningTicker':runningTicker,'runningTickerID':runningTicker['runningTicker']['ticker_id']}
         else:
             runningTicker['message']="Are you sure, You want to create ticker?"
-            return {'status':False,'runningTicker':runningTicker}
+            return {'status':False,'runningTicker':runningTicker,'runningTickerID':None}
 
     else:
         runningTicker['message']="Are you sure, You want to create ticker?"
-        return {'status':False,'runningTicker':runningTicker}
+        return {'status':False,'runningTicker':runningTicker,'runningTickerID':None}
 
 
 
@@ -203,7 +207,7 @@ def checkPriority(newTickerPriority,wings,floors,rooms,startTime,endTime,timeInt
     #     return runningTicker
 
 def roomConfigurations(ticker_obj):
-    logger.info('Inside roomConfiguration function')
+    logger.info('Room Configs is/are fetched')
     
     # ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
     

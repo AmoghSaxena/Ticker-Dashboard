@@ -558,3 +558,260 @@ KeyError: 'ticker_management.tasks.callscheduledticker'
 [2022-10-04 18:22:26,695: INFO/ForkPoolWorker-3] Inside callticker function
 [2022-10-04 18:22:26,904: INFO/ForkPoolWorker-3] Inside initial_data function
 [2022-10-04 18:22:27,093: WARNING/ForkPoolWorker-3] After initial
+[2022-10-04 19:50:48,992: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[64624d22-0aab-49c8-a5c9-8713a70e494c] received
+[2022-10-04 19:50:49,000: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-04 19:50:49,192: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-04 19:50:49,314: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 12:58:59,699: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-06 12:58:59,700: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-06 12:58:59,700: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-06 12:58:59,701: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-06 12:59:00,206: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-10-06 12:59:00,214: INFO/MainProcess] mingle: searching for neighbors
+[2022-10-06 12:59:01,235: INFO/MainProcess] mingle: all alone
+[2022-10-06 12:59:01,262: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-10-06 13:00:34,731: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[48c635b5-3a58-466e-98d4-f97865478fac] received
+[2022-10-06 13:00:34,734: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 13:00:34,755: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 13:00:34,974: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 13:00:35,119: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 13:03:54,310: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[496cf25d-d6a5-4a8f-a8b3-c951de4842d3] received
+[2022-10-06 13:03:54,313: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 13:03:54,322: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 13:03:54,584: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 13:03:54,728: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 13:10:18,070: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[eb91ad37-8e4f-4f99-b401-e92324c6f13c] received
+[2022-10-06 13:10:18,073: WARNING/ForkPoolWorker-3] 306
+[2022-10-06 13:10:18,083: INFO/ForkPoolWorker-3] Inside abortTicker function
+[2022-10-06 13:10:18,207: INFO/ForkPoolWorker-3] Successfully aborted ticker when priority calls
+[2022-10-06 13:10:18,214: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 13:10:18,404: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 13:10:19,105: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 13:22:53,873: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[f3c95bcc-2ca8-46c4-a083-6c01e2053825] received
+[2022-10-06 13:22:53,876: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 13:22:53,886: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 13:22:54,105: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 13:22:54,228: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 15:03:45,332: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[f5ecdeac-285f-489b-9ca5-52aac1cc7f13] received
+[2022-10-06 15:03:45,334: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 15:03:45,342: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 15:03:45,632: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 15:03:45,844: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 15:04:06,813: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[ce6f1aa4-6cce-4247-8b6b-049da8a6b710] received
+[2022-10-06 15:04:06,816: WARNING/ForkPoolWorker-3] 309
+[2022-10-06 15:04:06,825: INFO/ForkPoolWorker-3] Inside abortTicker function
+[2022-10-06 15:04:06,894: INFO/ForkPoolWorker-3] Successfully aborted ticker when priority calls
+[2022-10-06 15:04:06,900: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 15:04:07,230: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 15:04:07,386: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 15:06:28,864: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[56669450-b189-4b8e-b5d1-927698a16261] received
+[2022-10-06 15:06:28,867: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 15:06:28,877: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 15:06:29,088: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 15:06:29,211: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 15:22:29,428: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[61b25f7b-bfb1-4277-9d60-5cb5555c949d] received
+[2022-10-06 15:22:29,431: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 15:22:29,439: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 15:22:29,658: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 15:22:29,792: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 15:22:52,770: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[0cef4848-0007-4f22-b88a-f4b58da89181] received
+[2022-10-06 15:22:52,772: WARNING/ForkPoolWorker-3] 312
+[2022-10-06 15:22:52,783: INFO/ForkPoolWorker-3] Inside abortTicker function
+[2022-10-06 15:22:52,986: INFO/ForkPoolWorker-3] Successfully aborted ticker when priority calls
+[2022-10-06 15:22:52,993: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 15:22:53,222: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 15:22:53,556: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 15:37:09,835: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[80cae098-dc25-4164-8d39-020f691b7788] received
+[2022-10-06 15:37:09,838: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 15:37:09,846: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 15:37:10,168: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 15:37:10,301: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 15:37:49,342: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[d0d3f760-7def-442e-84e3-aabab84806d9] received
+[2022-10-06 15:37:49,344: WARNING/ForkPoolWorker-3] 314
+[2022-10-06 15:37:49,354: INFO/ForkPoolWorker-3] Inside abortTicker function
+[2022-10-06 15:37:49,519: INFO/ForkPoolWorker-3] Successfully aborted ticker when priority calls
+[2022-10-06 15:37:49,524: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 15:37:49,731: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 15:37:49,854: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 16:46:44,765: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[35917f19-84a2-445b-ab9c-c29df656dba6] received
+[2022-10-06 16:46:44,768: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 16:46:44,777: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 16:46:45,102: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 16:46:45,481: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 16:49:05,468: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[0a361080-f912-4aa7-b31a-f4ad5265a2e3] received
+[2022-10-06 16:49:05,471: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 16:49:05,480: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 16:49:05,798: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 16:49:06,334: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 16:54:51,358: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-06 16:54:51,359: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-06 16:54:51,359: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-06 16:54:51,359: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-06 16:54:51,807: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-10-06 16:54:51,813: INFO/MainProcess] mingle: searching for neighbors
+[2022-10-06 16:54:52,833: INFO/MainProcess] mingle: all alone
+[2022-10-06 16:54:52,861: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-10-06 17:08:28,849: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[35c7e400-6036-40d6-8495-1aa73346fd91] received
+[2022-10-06 17:08:28,851: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 17:08:28,863: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 17:08:29,087: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 17:08:29,187: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 17:43:41,639: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[40a7115d-8280-4a84-addc-2bde35157d68] received
+[2022-10-06 17:43:41,641: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 17:43:41,650: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 17:43:41,842: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 17:43:42,154: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 17:44:26,208: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[fd9804c1-3d75-4160-8bdb-aa40aca8c25f] received
+[2022-10-06 17:44:26,211: WARNING/ForkPoolWorker-3] 320
+[2022-10-06 17:44:26,224: INFO/ForkPoolWorker-3] Inside abortTicker function
+[2022-10-06 17:44:26,297: INFO/ForkPoolWorker-3] Successfully aborted ticker when priority calls
+[2022-10-06 17:44:26,307: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 17:44:26,531: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 17:44:26,698: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:01:00,175: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[4dd7b539-294e-4dfe-a967-cefb56e0725a] received
+[2022-10-06 19:01:00,178: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 19:01:00,187: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 19:01:00,443: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 19:01:00,576: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:08:08,308: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[622d1db1-765a-43e3-937d-4a59d626bf30] received
+[2022-10-06 19:08:08,310: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 19:08:08,318: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 19:08:08,526: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 19:08:08,659: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:09:07,715: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[52062db7-7217-493b-b8f5-458c9d56edb6] received
+[2022-10-06 19:09:07,718: WARNING/ForkPoolWorker-3] 324
+[2022-10-06 19:09:07,732: INFO/ForkPoolWorker-3] Inside abortTicker function
+[2022-10-06 19:09:07,794: INFO/ForkPoolWorker-3] Successfully aborted ticker when priority calls
+[2022-10-06 19:09:07,811: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 19:09:08,039: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 19:09:09,829: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:14:55,083: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[93b84955-8ef4-4684-85a1-d18f9be7c551] received
+[2022-10-06 19:14:55,085: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 19:14:55,093: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 19:14:55,304: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 19:14:55,471: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:15:31,411: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[7c59f560-c828-4406-a9fb-f983831ca3c6] received
+[2022-10-06 19:15:31,413: WARNING/ForkPoolWorker-3] 326
+[2022-10-06 19:15:31,422: INFO/ForkPoolWorker-3] Inside abortTicker function
+[2022-10-06 19:15:31,502: INFO/ForkPoolWorker-3] Successfully aborted ticker when priority calls
+[2022-10-06 19:15:31,507: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 19:15:31,725: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 19:15:31,848: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:16:11,546: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[8b313f6c-448e-48ac-9216-3d6326d9803a] received
+[2022-10-06 19:16:11,548: WARNING/ForkPoolWorker-3] 327
+[2022-10-06 19:16:11,559: INFO/ForkPoolWorker-3] Inside abortTicker function
+[2022-10-06 19:16:11,635: INFO/ForkPoolWorker-3] Successfully aborted ticker when priority calls
+[2022-10-06 19:16:11,642: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 19:16:11,991: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 19:16:12,114: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:19:07,856: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[f4435a81-b8d9-46a7-aaed-aa9ae2cd191b] received
+[2022-10-06 19:19:07,859: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 19:19:07,866: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 19:19:08,080: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 19:19:08,202: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:20:02,357: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[7a66ade1-5650-4ef2-8146-ac18250d29bd] received
+[2022-10-06 19:20:02,359: WARNING/ForkPoolWorker-3] 329
+[2022-10-06 19:20:02,370: INFO/ForkPoolWorker-3] Inside abortTicker function
+[2022-10-06 19:20:02,415: INFO/ForkPoolWorker-3] Successfully aborted ticker when priority calls
+[2022-10-06 19:20:02,422: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 19:20:03,505: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 19:20:03,628: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:28:22,234: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[956eb97c-6a38-4f27-85cb-0c9c9e3a00e5] received
+[2022-10-06 19:28:22,236: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 19:28:22,244: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 19:28:22,536: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 19:28:22,748: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:30:29,960: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[1679e140-f701-42f6-8693-629cbe205336] received
+[2022-10-06 19:30:29,963: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 19:30:29,971: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 19:30:30,207: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 19:30:30,363: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:33:44,746: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[784752f3-7ebf-44d7-831d-4189dc351162] received
+[2022-10-06 19:33:44,748: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 19:33:44,756: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 19:33:44,975: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 19:33:45,109: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:34:50,042: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[07502fff-1d27-446f-bf55-2c4746b586b5] received
+[2022-10-06 19:34:50,044: WARNING/ForkPoolWorker-3] 333
+[2022-10-06 19:34:50,054: INFO/ForkPoolWorker-3] Inside abortTicker function
+[2022-10-06 19:34:50,122: INFO/ForkPoolWorker-3] Successfully aborted ticker when priority calls
+[2022-10-06 19:34:50,128: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 19:34:50,345: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 19:34:51,724: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:39:28,435: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[62617b59-d9c3-47a4-97d8-a9c82ea485e4] received
+[2022-10-06 19:39:28,437: WARNING/ForkPoolWorker-3] -1
+[2022-10-06 19:39:28,446: INFO/ForkPoolWorker-3] Inside callticker function
+[2022-10-06 19:39:28,659: INFO/ForkPoolWorker-3] Inside initial_data function
+[2022-10-06 19:39:28,804: WARNING/ForkPoolWorker-3] After initial
+[2022-10-06 19:48:31,093: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-06 19:48:31,094: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-06 19:48:31,094: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-06 19:48:31,095: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-06 19:48:31,550: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-10-06 19:48:31,558: INFO/MainProcess] mingle: searching for neighbors

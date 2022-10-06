@@ -7150,3 +7150,11 @@ Traceback (most recent call last):
   File "/home/guest/Desktop/venv/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 django.db.utils.OperationalError: (1045, "Access denied for user 'Ticker'@'localhost' (using password: YES)")
+[2022-10-06 12:58:43,801: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-10-06 16:50:53,603: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-10-06 16:54:39,164: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-10-06 16:54:44,371: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-10-06 17:57:37,453: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-10-06 19:43:30,976: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-10-06 19:46:50,462: INFO/MainProcess] DatabaseScheduler: Schedule changed.
+[2022-10-06 19:46:55,700: INFO/MainProcess] DatabaseScheduler: Schedule changed.

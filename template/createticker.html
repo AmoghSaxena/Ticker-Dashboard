@@ -20,6 +20,8 @@
 
                             {% csrf_token %}
 
+                            <input type="hidden" id="runningTickerID" name="runningTickerID" value=-1>
+
                             <div class="d-lg-block d-md-block d-sm-block d-none" style="text-align:center;margin-top:40px;">
                                 <span class="step"><i class="fa-solid fa-plus fs-3 m-2 text-white"></i></i><strong class="text-color">Create</strong></span>
                                 {% comment %} <span class="step"><i class="fa-solid fa-tv fs-3 m-2 text-white"></i><strong class="text-color">Preview</strong></span> {% endcomment %}
@@ -481,31 +483,6 @@
                                 </div>
                             </div>
                             
-                                    
-                            {% comment %} <div class="tab m-3">
-                                <div class="col-lg-8 mx-auto">
-                                    <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
-                                        <video autoplay loop muted>
-                                            <source src="/static/RCB.mp4" type="video/mp4">
-                                            <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
-                                        </video>
-                                        <div class="setting-one">
-                                            <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#ffffff" class="text-dark p-2 font-weight-bold;" style="font-size: 15px;">
-                                                Royal Challengers Bangalore (RCB) has always been one of the most popular franchises since the inception of the Indian Premier League (IPL) in the year 2008. Some of the greatest players like Rahul Dravid, Jacques Kallis, Anil Kumble, Muttiah Muralitharan, Chris Gayle, and AB de Villiers have all been part of this team in the past. Their star player and former captain, Virat Kohli, is the only cricketer to represent a single franchise since the first season, which is RCB.
-                                            </marquee>
-                                        </div>
-                                        <div class="setting-two">
-                                        </div>
-                                        <div class="setting-three">
-                                            <img class="img-responsive m-1" width="60" src="/static/image/rcb-logo.png" alt="Logo" scale="0" style="background-color:#0000FF;">
-                                        </div>
-                                    </div>
-                                    <center>
-                                        <div class="border border-dark border-5" style="width: 80px;"></div>
-                                        <div class="border border-dark border-5" style="width: 300px;"></div>
-                                    </center>
-                                </div>
-                            </div> {% endcomment %}
                 
                             <div class="tab m-3">
                                 <div class="m-1" id="">
@@ -616,14 +593,12 @@
                                 </div>
                             </div>
                             
-                            <!-- <div class="tab">
-                            </div> -->
 
                             <div style="overflow:auto;" class="m-3">
                                 <div style="float:right;">
                                     <button class="btn btn-outline-success my-4 m-2" type="button" id="prevBtn" onclick="nextPrev(-1);">Previous</button>
                                     <button class="btn btn-outline-success my-4 m-2" type="button" id="nextBtn" onclick="nextPrev(1);">Next</button>
-                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="SubForm" onclick="return validateScheduleForm();" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Scheduling</button>
+                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="SubForm" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Scheduling</button>
                                 </div>
                             </div>
 
