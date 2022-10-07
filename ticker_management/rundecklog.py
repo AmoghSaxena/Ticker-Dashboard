@@ -10,7 +10,7 @@ import logging
 logger=logging.getLogger('dashboardLogs')
 
 def initial_data(ticker_obj,basicTickerInfo):
-    logger.info('Inside initial_data function')
+    logger.info('Creating rundeck data in DB')
     try:
         rundeckid=ticker_obj.get()['rundeckid']
         
@@ -31,11 +31,6 @@ def initial_data(ticker_obj,basicTickerInfo):
             RundeckLog_obj.successfull_nodes=successfulNodes
             RundeckLog_obj.failed_nodes=failedNodes
             RundeckLog_obj.save()
-            # if status == 'succeeded' or status == 'aborted' or status == 'failed':
-            #     errorLog = requests.get(f"https://{basicTickerInfo['FQDN']}/r/api/{basicTickerInfo['Rundeck_Api_Version']}/execution/{basicTickerInfo['rundeckid']}/output/", headers={"X-Rundeck-Auth-Token": basicTickerInfo['Rundeck_Token'], "Content-Type":"application/json", "Accept": "application/json"})
-            #     errorLogOutput = errorLog.json()
-            #     errorLog = errorLogOutput['entries'][-1]['log']
-            #     return errorLog
         else:
             logger.error('Response status code is not 200')
     except Exception as e:
@@ -71,19 +66,13 @@ def rundeck_update(rundeckid):
                 rundeckLog.update(execution=status,successfull_nodes=successfulNodes,failed_nodes=failedNodes,tickerStatus='succeeded')
             else:
                 rundeckLog.update(execution=status,successfull_nodes=successfulNodes,failed_nodes=failedNodes)
-
-            # if status == 'succeeded' or status == 'aborted' or status == 'failed':
-            #     errorLog = requests.get(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/execution/{rundeckid}/output/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"})
-            #     errorLogOutput = errorLog.json()
-            #     errorLog = errorLogOutput['entries'][-1]['log']
-            #     return errorLog
         else:
             logger.error('Response status code is not 200')
     except Exception as e:
         logger.error(e)
 
 def abortTicker(ticker_obj):
-    logger.info('Inside abortTicker function')
+    logger.info('Aborting ticker from UI')
     try:
         setupData=SetUp.objects.filter(id=1).values()
         FQDN=setupData.get()['FQDN']
@@ -130,7 +119,6 @@ def abortTicker(ticker_obj):
         logger.error(e)
 
 def killTicker(ticker_obj):
-    logger.info('Inside abortTicker function')
     try:
         setupData=SetUp.objects.filter(id=1).values()
         FQDN=setupData.get()['FQDN']
@@ -162,7 +150,7 @@ def killTicker(ticker_obj):
 
 
             requests.post(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/job/{Rundeck_Stop_Job}/run/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"}, json={ "argString": f"-whichnode \"{nodes}\""})
-
+            logger.info('Kill Ticker from UI')
         else:
             logger.error('Response status code is not 200')
 
@@ -170,7 +158,6 @@ def killTicker(ticker_obj):
         logger.error(e)
 
 def killTickerForPriority(ticker_obj,nodes):
-    logger.info('Inside abortTicker function')
     try:
         setupData=SetUp.objects.filter(id=1).values()
         FQDN=setupData.get()['FQDN']
@@ -192,21 +179,18 @@ def killTickerForPriority(ticker_obj,nodes):
             RundeckLog_obj.update(execution=status,tickerStatus='aborted',successfull_nodes=successfulNodes,failed_nodes=failedNodes)
 
             requests.post(f"https://{FQDN}/r/api/{Rundeck_Api_Version}/job/{Rundeck_Stop_Job}/run/", headers={"X-Rundeck-Auth-Token": Rundeck_Token, "Content-Type":"application/json", "Accept": "application/json"}, json={ "argString": f"-whichnode \"{nodes}\""})
-
         else:
             logger.error('Response status code is not 200')
 
     except Exception as e:
         logger.error(e)
 
-
-
 def abortForPriority(id,nodes):
     try:
         ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
         
         if ticker_obj.get()['rundeckid']!=None:
-            Thread(target=killTickerForPriority,args=(ticker_obj,nodes)).start()
+            killTickerForPriority(ticker_obj,nodes)
             rundeckLogData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
             rundeckLog=sorted(rundeckLogData,key=lambda item: item['rundeck_id'],reverse=True)
         

@@ -16,6 +16,8 @@ urlpatterns = [
     path('detail/<str:id>', views.detail, name = 'detail'),
     path('accounts/changepassword/', views.changePassword, name = 'changepassword'),
     path('abort/<str:id>', views.abort, name = 'abort'),
+
+    ####  Logs ####
     path('system/info/logs/', views.systemLog, name = 'systemLog'),
     path('system/celery/beat/logs/', views.celeryBeatLog, name = 'celeryBeatLog'),
     path('system/celery/worker/logs/', views.celeryWorkerLog, name = 'celeryWorkerLog'),

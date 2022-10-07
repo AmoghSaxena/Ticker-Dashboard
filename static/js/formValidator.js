@@ -178,6 +178,26 @@ function nextPrev(n) {
     showTab(currentTab);
 }
 
+function CheckDimension() {
+    var fileUpload = document.getElementById("staticTickerLogo");
+    var reader = new FileReader();
+    reader.readAsDataURL(fileUpload.files[0]);
+    reader.onload = function (e) 
+    {
+        var image = new Image();
+        image.src = e.target.result;
+        image.onload = function () 
+        {
+            var height = this.height;
+            var width = this.width;
+            if (height==width){
+                    return true;
+            }
+            else{return false;}
+        };
+    }     
+}
+
 function validateForm()
 {
     var select = document.getElementById("tickerSelecter");
@@ -319,17 +339,15 @@ function validateForm()
                             }
                             else
                             {
-                                let imageTag=document.getElementById("staticTickerLogo");
-                                alert(document.getElementById("staticTickerLogo").clientWidth);
-                                if (imageTag.clientWidth!=imageTag.clientHeight)
-                                {
-                                    alert("Please select square image.");
-                                    return false;
-                                }
-                                else
+                                if (CheckDimension())
                                 {
                                     document.getElementById("staticTickerMessageLabel").hidden = true;
                                     return true;
+                                }
+                                else
+                                {
+                                    alert("Please select square image for center.");
+                                    return false;
                                 }
                             }
                         }
@@ -370,12 +388,6 @@ function validateForm()
                         document.getElementById("dynamicTickerVideoLabel").hidden = true;
                         return true;
                     }
-
-                    // {% comment %} alert("1");
-                    // if ((dynamicEnable == true)  && (document.getElementById("dynamicTickerVideo").value == undefined))
-                    // {return false;}
-                    // else
-                    // {return true;} {% endcomment %}
                 }
             }
         }

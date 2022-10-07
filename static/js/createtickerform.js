@@ -381,7 +381,7 @@ function Filevalidation(id)
     
     if (fi.files.length > 0)
     {
-        for (const i = 0; i <= fi.files.length - 1; i++)
+        for (let i = 0; i <= fi.files.length - 1; i++)
         { 
             const fSize = fi.files.item(i).size;
             const file = Math.round((fSize / 1024));

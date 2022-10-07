@@ -56,7 +56,7 @@ def schedule_tasks(basicTickerInfo,ticker_obj,runningTickerID):
             minute = int(start_dateobj.strftime("%M"))
 
             schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute)
-            task=PeriodicTask.objects.create(one_off=1,crontab=schedule,task='ticker_management.tasks.callscheduledticker',name='SchedulingTicker '+str(ticker_id),args=json.dumps((basicTickerInfo,ticker_id)))
+            task=PeriodicTask.objects.create(one_off=1,crontab=schedule,task='ticker_management.tasks.callscheduledticker',name='SchedulingTicker '+str(ticker_id),args=json.dumps((basicTickerInfo,ticker_id,runningTickerID)))
 
             return {"message":"Success"}
         else:

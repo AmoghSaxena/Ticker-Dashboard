@@ -37,7 +37,7 @@ def strToList(listConfig,stringConfig):
 
 def getTickerId(tickerDetailsDB,ip):
     
-    tree = ET.parse(f"{str(BASE_DIR)}/static/resources/resource.xml")
+    tree = ET.parse(f"{BASE_DIR}/static/resources/resource.xml")
     root = tree.getroot()
 
     key_name=str()
@@ -68,7 +68,7 @@ def commonRooms(runningTickerRoomList,newTickerRoomList):
 
 def findRoomNumber(wings,floors,rooms):
     idList = list()
-    filePath=f"{str(BASE_DIR)}/static/resources/"
+    filePath=f"{BASE_DIR}/static/resources/"
 
     file=open(filePath+"resource.json")
 
@@ -138,30 +138,28 @@ def checkPriority(newTickerPriority,wings,floors,rooms,startTime,endTime,timeInt
         priority=['Low','Medium','High','Emergency']
 
         for ticker in ticker_list:
-            if ticker['ticker_priority']!='Emergency':
-                if ticker['rooms']=='All':
-                    runningTicker['runningTickerObj']=ticker
-                    break
-                else:
-                    rooms_str=ticker['rooms'].strip('[]')
-                    rooms=list()
-                    strToList(rooms,rooms_str)
-
-                    if commonRooms(roomList['rooms'],rooms):
-                        runningTicker['runningTicker']=ticker
-                        break
-            else:
-                runningTicker['runningTicker']=ticker
+            if ticker['rooms']=='All':
+                runningTicker['runningTickerObj']=ticker
                 break
+            else:
+                rooms_str=ticker['rooms'].strip('[]')
+                rooms=list()
+                strToList(rooms,rooms_str)
+
+                if commonRooms(roomList['rooms'],rooms):
+                    runningTicker['runningTicker']=ticker
+                    break
         
         if len(runningTicker)>0:
             a=priority.index(runningTicker['runningTicker']['ticker_priority'])
             b=priority.index(newTickerPriority)
 
             if b>a:
-                runningTicker['message']="New ticker has higher priority than running ticker.\nDO YOU REALLY WANT TO OVERRIDE?"
+                runningTicker['message']="New ticker has higher priority than running ticker.DO YOU REALLY WANT TO OVERRIDE?"
+            elif b==a:
+                runningTicker['message']="New ticker has same priority as running ticker.DO YOU REALLY WANT TO OVERRIDE?"
             else:
-                runningTicker['message']="New ticker has lower priority than running ticker.\nDO YOU REALLY WANT TO OVERRIDE?"
+                runningTicker['message']="New ticker has lower priority than running ticker.DO YOU REALLY WANT TO OVERRIDE?"
             return {'status':True,'runningTicker':runningTicker,'runningTickerID':runningTicker['runningTicker']['ticker_id']}
         else:
             runningTicker['message']="Are you sure, You want to create ticker?"
@@ -207,10 +205,7 @@ def checkPriority(newTickerPriority,wings,floors,rooms,startTime,endTime,timeInt
     #     return runningTicker
 
 def roomConfigurations(ticker_obj):
-    logger.info('Room Configs is/are fetched')
-    
-    # ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
-    
+    logger.info('Room configurations are fetched')
     wings_str=ticker_obj.get()['wings'].strip('[]')
     floors_str=ticker_obj.get()['floors'].strip('[]')
     rooms_str=ticker_obj.get()['rooms'].strip('[]')

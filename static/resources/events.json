@@ -1,100 +1,166 @@
 {
    "events": [
       {
-         "groupId": 306,
-         "title": "RND TESTING",
-         "start": "2022-10-06T13:03:53",
-         "end": "2022-10-06T13:10:18"
-      },
-      {
-         "groupId": 307,
-         "title": "RND TESTING",
-         "start": "2022-10-06T13:10:17",
-         "end": "2022-10-06T13:11:37"
-      },
-      {
-         "groupId": 308,
-         "title": "RND TESTING",
-         "start": "2022-10-06T13:22:53",
-         "end": "2022-10-06T13:27:42"
-      },
-      {
-         "groupId": 309,
-         "title": "RND TESTING",
-         "start": "2022-10-06T15:03:44",
-         "end": "2022-10-06T15:04:06"
-      },
-      {
-         "groupId": 310,
-         "title": "RND TESTING",
-         "start": "2022-10-06T15:04:06",
-         "end": "2022-10-06T15:04:29"
-      },
-      {
-         "groupId": 311,
-         "title": "RND TESTING",
-         "start": "2022-10-06T15:06:28",
-         "end": "2022-10-06T15:08:25"
-      },
-      {
-         "groupId": 312,
-         "title": "RND TESTING",
-         "start": "2022-10-06T15:22:29",
-         "end": "2022-10-06T15:22:52"
-      },
-      {
-         "groupId": 313,
-         "title": "RND TESTING",
-         "start": "2022-10-06T15:22:52",
-         "end": "2022-10-06T15:24:04"
-      },
-      {
-         "groupId": 314,
-         "title": "RND TESTING",
-         "start": "2022-10-06T15:37:09",
-         "end": "2022-10-06T15:37:49"
-      },
-      {
-         "groupId": 315,
-         "title": "RND TESTING",
-         "start": "2022-10-06T15:37:48",
-         "end": "2022-10-06T15:39:45"
-      },
-      {
-         "groupId": 316,
-         "title": "TESTING",
-         "start": "2022-10-06T16:46:44",
-         "end": "2022-10-06T16:47:44"
-      },
-      {
-         "groupId": 317,
+         "groupId": 323,
          "title": "a",
-         "start": "2022-10-06T16:49:04",
-         "end": "2022-10-06T16:50:04"
+         "start": "2022-10-06T19:00:59",
+         "end": "2022-10-06T19:01:12"
       },
       {
-         "groupId": 318,
-         "title": "ded",
-         "start": "2022-10-06T16:51:00",
-         "end": "2022-10-06T16:51:00"
+         "groupId": 324,
+         "title": "GOAL SET",
+         "start": "2022-10-06T19:08:07",
+         "end": "2022-10-06T19:09:07"
       },
       {
-         "groupId": 319,
+         "groupId": 325,
+         "title": "GOAL SET 1",
+         "start": "2022-10-06T19:09:07",
+         "end": "2022-10-06T19:09:24"
+      },
+      {
+         "groupId": 326,
          "title": "RND TESTING",
-         "start": "2022-10-06T17:08:28",
-         "end": "2022-10-06T17:13:28"
+         "start": "2022-10-06T19:14:54",
+         "end": "2022-10-06T19:15:31"
       },
       {
-         "groupId": 320,
-         "title": "MY TESTING",
-         "start": "2022-10-06T17:43:41",
-         "end": "2022-10-06T17:44:26"
+         "groupId": 327,
+         "title": "RND TESTING",
+         "start": "2022-10-06T19:15:30",
+         "end": "2022-10-06T19:16:11"
       },
       {
-         "groupId": 321,
-         "title": "MY TESTING",
-         "start": "2022-10-06T17:44:25",
-         "end": "2022-10-06T17:45:25"
+         "groupId": 328,
+         "title": "RND TESTING",
+         "start": "2022-10-06T19:16:11",
+         "end": "2022-10-06T19:16:47"
+      },
+      {
+         "groupId": 329,
+         "title": "RND TESTING",
+         "start": "2022-10-06T19:19:07",
+         "end": "2022-10-06T19:20:02"
+      },
+      {
+         "groupId": 330,
+         "title": "RND TESTING",
+         "start": "2022-10-06T19:20:01",
+         "end": "2022-10-06T19:25:01"
+      },
+      {
+         "groupId": 331,
+         "title": "Bhaago",
+         "start": "2022-10-06T19:28:21",
+         "end": "2022-10-06T19:29:32"
+      },
+      {
+         "groupId": 332,
+         "title": "A",
+         "start": "2022-10-06T19:30:29",
+         "end": "2022-10-06T19:31:29"
+      },
+      {
+         "groupId": 333,
+         "title": "AA",
+         "start": "2022-10-06T19:33:44",
+         "end": "2022-10-06T19:34:50"
+      },
+      {
+         "groupId": 334,
+         "title": "AAA",
+         "start": "2022-10-06T19:34:49",
+         "end": "2022-10-06T19:36:49"
+      },
+      {
+         "groupId": 335,
+         "title": "sdfds",
+         "start": "2022-10-06T19:39:28",
+         "end": "2022-10-06T19:40:05"
+      },
+      {
+         "groupId": 337,
+         "title": "ded",
+         "start": "2022-10-06T19:47:00",
+         "end": "2022-10-06T19:47:00"
+      },
+      {
+         "groupId": 338,
+         "title": "TUNE CHANGE MAMA",
+         "start": "2022-10-07T10:43:25",
+         "end": "2022-10-07T10:44:25"
+      },
+      {
+         "groupId": 343,
+         "title": "RND TESTING",
+         "start": "2022-10-07T11:15:00",
+         "end": "2022-10-07T11:15:00"
+      },
+      {
+         "groupId": 344,
+         "title": "GOAL SET",
+         "start": "2022-10-07T11:19:23",
+         "end": "2022-10-07T11:22:00"
+      },
+      {
+         "groupId": 345,
+         "title": "I AM UNSTOPPABLE",
+         "start": "2022-10-07T11:22:00",
+         "end": "2022-10-07T11:22:00"
+      },
+      {
+         "groupId": 346,
+         "title": "GENERAL EVACUTION",
+         "start": "2022-10-07T12:20:56",
+         "end": "2022-10-07T12:27:45"
+      },
+      {
+         "groupId": 347,
+         "title": "Stay in the ROOM",
+         "start": "2022-10-07T12:27:45",
+         "end": "2022-10-07T12:30:16"
+      },
+      {
+         "groupId": 348,
+         "title": "Bhaago",
+         "start": "2022-10-07T12:30:16",
+         "end": "2022-10-07T12:31:03"
+      },
+      {
+         "groupId": 349,
+         "title": "GENERAL EVACUTION",
+         "start": "2022-10-07T12:40:03",
+         "end": "2022-10-07T12:41:57"
+      },
+      {
+         "groupId": 350,
+         "title": "Stay in the ROOM",
+         "start": "2022-10-07T12:40:55",
+         "end": "2022-10-07T12:41:48"
+      },
+      {
+         "groupId": 351,
+         "title": "T",
+         "start": "2022-10-07T12:48:54",
+         "end": "2023-01-05T12:48:54"
+      },
+      {
+         "groupId": 352,
+         "title": "NORMAL TICKER",
+         "start": "2022-10-07T12:49:05",
+         "end": "2022-10-07T12:51:27"
+      },
+      {
+         "groupId": 353,
+         "title": "NORMAL TICKER",
+         "start": "2022-10-07T12:50:44",
+         "end": "2022-10-07T12:51:14"
+      },
+      {
+         "groupId": 354,
+         "title": "MEDIA TICKER",
+         "start": "2022-10-07T13:01:39",
+         "end": "2022-10-07T13:10:26"
       }
    ]
 }

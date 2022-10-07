@@ -815,3 +815,95 @@ KeyError: 'ticker_management.tasks.callscheduledticker'
 
 [2022-10-06 19:48:31,550: INFO/MainProcess] Connected to redis://localhost:6379//
 [2022-10-06 19:48:31,558: INFO/MainProcess] mingle: searching for neighbors
+[2022-10-07 10:58:54,791: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-07 10:58:54,792: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-07 10:58:54,792: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-07 10:58:54,793: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-07 10:58:55,234: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-10-07 10:58:55,243: INFO/MainProcess] mingle: searching for neighbors
+[2022-10-07 10:58:56,263: INFO/MainProcess] mingle: all alone
+[2022-10-07 10:58:56,287: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-10-07 11:00:00,007: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[403ea63f-72f2-4ca3-8160-75337eae11b9] received
+[2022-10-07 11:00:00,010: WARNING/ForkPoolWorker-3] -1
+[2022-10-07 11:00:00,028: INFO/ForkPoolWorker-3] Ticker id not found
+[2022-10-07 11:18:36,515: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-07 11:18:36,516: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-07 11:18:36,516: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-07 11:18:36,517: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-07 11:18:36,984: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-10-07 11:18:36,993: INFO/MainProcess] mingle: searching for neighbors
+[2022-10-07 11:18:38,015: INFO/MainProcess] mingle: all alone
+[2022-10-07 11:18:38,042: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-10-07 11:19:23,909: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[568d96e8-e43e-4c23-b5e2-a3e633ca0b1b] received
+[2022-10-07 11:19:24,154: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-07 11:22:00,077: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[e4966a34-3c43-4753-a285-f1df709844a1] received
+[2022-10-07 11:22:00,148: INFO/ForkPoolWorker-3] Successfully aborted ticker when priority calls
+[2022-10-07 11:22:00,348: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-07 11:55:00,004: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[27cc6a4b-188f-43e0-b689-363e254c4206] received
+[2022-10-07 11:55:00,010: ERROR/ForkPoolWorker-3] Ticker id not found
+[2022-10-07 12:20:57,223: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[f530f5b0-e838-4684-ac1c-cbc2470741dd] received
+[2022-10-07 12:20:57,446: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-07 12:27:45,642: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[d391946c-b674-4e00-93f1-7337e5e85b1e] received
+[2022-10-07 12:27:45,852: INFO/ForkPoolWorker-3] Successfully aborted ticker when priority calls
+[2022-10-07 12:27:46,030: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-07 12:30:16,845: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[90a20530-1153-403a-aba6-12e94afc2c69] received
+[2022-10-07 12:30:16,910: INFO/ForkPoolWorker-3] Successfully aborted ticker when priority calls
+[2022-10-07 12:30:17,089: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-07 12:40:04,375: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[03a6426c-c4bc-46e7-9439-5cf4b5bb1b16] received
+[2022-10-07 12:40:04,608: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-07 12:40:56,156: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[6d31941e-27cb-4aab-b2c6-55df65113c09] received
+[2022-10-07 12:40:56,354: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-07 12:48:55,085: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[52329462-fcb3-479e-a058-1b61685ce961] received
+[2022-10-07 12:48:55,427: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-07 12:49:05,322: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[de225dbc-bdfb-4800-aa6c-43f96fc7e7b7] received
+[2022-10-07 12:49:05,542: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-07 12:50:45,162: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[6e284265-83c9-450b-9bc3-67a3d1f5368e] received
+[2022-10-07 12:50:45,444: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-07 13:01:40,429: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[ac6d3aa7-aa64-4f3a-ab8c-80ba6604e0f6] received
+[2022-10-07 13:01:40,649: INFO/ForkPoolWorker-3] Creating rundeck data in DB

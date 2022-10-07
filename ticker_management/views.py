@@ -100,7 +100,7 @@ def createTicker(request):
     try:
         syncDVSData()
     except Exception as err:
-        logger.error('Error: '+str(err))
+        logger.error(f'Error: {err}')
         return render(request,'acknowledgement.html',{"message":f'SetUp not set : {err}'})
     
     data = {
@@ -306,7 +306,7 @@ def abort(request,id):
     try:
         ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
         if ticker_obj.get()['rundeckid']!=None:
-            Thread(target=killTicker,args=(ticker_obj,)).start()
+            killTicker(ticker_obj)
             rundeckLogData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
             rundeckLog=sorted(rundeckLogData,key=lambda item: item['rundeck_id'],reverse=True)
         
@@ -510,37 +510,6 @@ def changePassword(request):
     except Exception as err:
         return render(request,'acknowledgement.html',{"message":err})
 
-# def avDataFilter():
-#     try:
-#         file=open(f'{str(BASE_DIR)}/static/resources/resourceAV.json')
-#         file=json.load(file)
-
-#         data=set()
-
-#         for item in file['data']:
-#             data.add(item['key_id'])
-
-#         data=list(data)
-
-#         file=open(f'{str(BASE_DIR)}/static/resources/resource.json')
-#         file=json.load(file)
-
-#         count=0
-
-#         for item in file['data']:
-#             if item['id'] not in data:
-#                 count+=1
-#                 file['data'].remove(item)
-
-#         filteredData=json.dumps(file,indent=3)
-
-#         logger.info(str(count)+" AV data filtered")
-
-#         with open(f'{str(BASE_DIR)}/static/resources/resource.json','w') as file:
-#             file.write(filteredData)
-#     except Exception as err:
-#         logger.error(err)
-
 def dataFilter(filePath):
     avFile=json.load(open(filePath+'resourceAV.json'))
     resourceXml=XMLReader.parse(filePath+'resource.xml').getroot()
@@ -629,30 +598,6 @@ def syncDVSData():
         Thread(target=dataFilter,args=(filePath,)).start()
     except:
         raise
-
-# def filterData():
-#     DVSDATA = dict()
-#     roomTypeData = set()
-#     wingData = set()
-#     floorData = set()
-#     keyData = set()
-#     xmlDocument = XMLReader.parse(f"{BASE_DIR}/static/resources/resource.xml").getroot()
-#     for item in xmlDocument.findall('node'):
-#         if item.get('room_type') != None:
-#             roomTypeData.add(item.get('room_type'))
-#         if item.get('floor') != None:
-#             floorData.add(item.get('floor'))
-#         if item.get('key_no') != None:
-#             keyData.add(item.get('key_no'))
-    
-#     jsonDocument = json.load(open(f"{BASE_DIR}/static/resources/resource.json"))
-#     for item in jsonDocument:
-#         wingData.add(item.get('wing_name'))
-#     DVSDATA["roomType"]=sorted(roomTypeData)
-#     DVSDATA["wing"] = sorted(wingData)
-#     DVSDATA["floor"] = sorted(floorData)
-#     DVSDATA["key"] = sorted(keyData)
-#     return DVSDATA
 
 @api_view(['GET', 'POST', 'DELETE'])
 def taskPost(request,id="0"):
@@ -1597,8 +1542,6 @@ def systemLog(request):
         return render(request,'acknowledgement.html', {"message":err})
 #### Dashboard Sys Log Section End ####
 
-
-
 #### Dashboard Celery Beat Log Section Start ####
 @login_required(login_url='/ticker/accounts/login/')
 def celeryBeatLog(request):
@@ -1621,8 +1564,6 @@ def celeryBeatLog(request):
         logger.error(err)
         return render(request,'acknowledgement.html', {"message":err})
 #### Dashboard Celery Beat Log Section End ####
-
-
 
 #### Dashboard Celery Worker Log Section Start ####
 @login_required(login_url='/ticker/accounts/login/')

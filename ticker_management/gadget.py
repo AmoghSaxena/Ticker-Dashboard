@@ -416,13 +416,13 @@ def dataSetter(request):
     try:
         data_saver(request,tickertype,CONFIG_DATA,tickerTitle,tickerPriority)
     except Exception as err:
-        logger.error("Exception while insertion: "+str(err))
+        logger.error(f"Exception while insertion: {err}")
         return {"message":"Something went wrong while saving ticker details"}
 
     try:
         ticker_obj=TickerDetails.objects.filter(ticker_title=tickerTitle,ticker_priority=tickerPriority,ticker_type=tickertype,ticker_json=CONFIG_DATA,created_on__gte=str(datetime.now()-timedelta(minutes=1))).values()
     except Exception as err:
-        logger.error("Exception when fetching for update: "+str(err))
+        logger.error(f"Exception when fetching for update: {err}")
         ticker_obj=None
     
     if ticker_obj!=None:
@@ -432,7 +432,7 @@ def dataSetter(request):
             data=roomConfigurations(ticker_obj)
             ticker_obj.update(wings=data['wings'],floors=data['floors'],rooms=data['rooms'],ticker_json=CONFIG_DATA)
         except Exception  as err:
-            logger.error('Unable to update: '+str(err))
+            logger.error(f'Unable to update: {err}')
             return {"message":"Something went wrong while update"}
                 
         return schedulingticker(request,ticker_id_for_schedule,int(request.POST.get('runningTickerID')))
