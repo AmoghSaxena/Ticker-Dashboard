@@ -907,3 +907,9 @@ KeyError: 'ticker_management.tasks.callscheduledticker'
 [2022-10-07 12:50:45,444: INFO/ForkPoolWorker-3] Creating rundeck data in DB
 [2022-10-07 13:01:40,429: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[ac6d3aa7-aa64-4f3a-ab8c-80ba6604e0f6] received
 [2022-10-07 13:01:40,649: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-07 17:48:10,053: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[5b89ee10-a7e8-437b-86dc-893779493754] received
+[2022-10-07 17:48:10,484: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-07 17:50:11,395: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[111e2b7a-01a0-4938-9596-c6c13286d73e] received
+[2022-10-07 17:50:11,821: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-07 17:52:04,445: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[b3916a0c-1c71-4638-a2ce-204d59e778df] received
+[2022-10-07 17:52:04,678: INFO/ForkPoolWorker-3] Creating rundeck data in DB
