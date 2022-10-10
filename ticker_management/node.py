@@ -170,40 +170,6 @@ def checkPriority(newTickerPriority,wings,floors,rooms,startTime,endTime,timeInt
         return {'status':False,'runningTicker':runningTicker,'runningTickerID':None}
 
 
-
-    # wings=request.POST.getlist('wingSelection')
-    # floors=request.POST.getlist('floorSelection')
-    # rooms=request.POST.getlist('roomSelection')
-
-    # roomList=findRoomNumber(wings,floors,rooms)
-
-    # priority=['Low','Medium','High','Emergency']
-
-    # runningTicker=dict()
-
-    # for ticker in tickerDetailsDB:
-    #     if ticker['ticker_priority']!='Emergency':
-    #         if ticker['rooms']=='All':
-    #             runningTicker['runningTickerObj']=ticker
-    #             break
-    #         else:
-    #             rooms_str=ticker['rooms'].strip('[]')
-    #             rooms=list()
-    #             strToList(rooms,rooms_str)
-
-    #             if commonRooms(roomList['rooms'],rooms):
-    #                 runningTicker['runningTicker']=ticker
-    #                 break
-    # if len(runningTicker)>0:
-    #     a=priority.index(runningTicker['runningTicker']['ticker_priority'])
-    #     b=priority.index(newTickerPriority)
-
-    #     if b>a:
-    #         runningTicker['message']="New ticker has higher priority than running ticker.\nDO YOU REALLY WANT TO OVERRIDE?"
-    #     else:
-    #         runningTicker['message']="New ticker has lower priority than running ticker.\nDO YOU REALLY WANT TO OVERRIDE?"
-    #     return runningTicker
-
 def roomConfigurations(ticker_obj):
     logger.info('Room configurations are fetched')
     wings_str=ticker_obj.get()['wings'].strip('[]')

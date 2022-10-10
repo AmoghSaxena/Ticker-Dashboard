@@ -565,7 +565,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4 mb-3" id="">
+                                            <div class="col-md-4 mb-3" id="endDateSection">
                                                 <strong class="text-color">End Date | Time</strong>
                                                 <div class="form-group form-floating">
                                                     <input type="datetime-local" class="form-control" id="endDate" name="endDate" placeholder="Enter Date">
@@ -612,7 +612,7 @@
                                         </div>
                                         <div class="modal-body" id="notification"></div>
                                         <div class="modal-footer">
-                                        <button type="button" class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">No</button>
+                                        <a href="{% url 'createticker'%}" class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">No</a>
                                         <button type="button" class="btn btn-danger" onclick="submitCreateTickerForm()">Yes</button>
                                         </div>
                                     </div>

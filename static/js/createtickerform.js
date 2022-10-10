@@ -240,13 +240,13 @@ function foenabler(id)
     if (b.checked)
     {
       document.getElementById("recurring").checked = false;
-      document.getElementById("endDate").hidden = true;
+      document.getElementById("endDateSection").hidden = true;
       document.getElementById("frequency").hidden = true;
       document.getElementById("days").hidden = true;
     }
     else
     {
-      document.getElementById("endDate").hidden = false;
+      document.getElementById("endDateSection").hidden = false;
       document.getElementById("frequency").hidden = false;
       document.getElementById("days").hidden = false;
     }
@@ -258,13 +258,13 @@ function foenabler(id)
     if (b.checked)
     {
       document.getElementById("onetime").checked = false;
-      document.getElementById("endDate").hidden = false;
+      document.getElementById("endDateSection").hidden = false;
       document.getElementById("frequency").hidden = false;
       document.getElementById("days").hidden = false;
     }
     else
     {
-      document.getElementById("endDate").hidden = true;
+      document.getElementById("endDateSection").hidden = true;
       document.getElementById("frequency").hidden = true;
       document.getElementById("days").hidden = true;
     }
@@ -282,7 +282,7 @@ function foLoader()
   document.getElementById("dynamic").hidden = true;
   document.getElementById("emergency").hidden = true;
   document.getElementById("custom").hidden = true;
-  document.getElementById("endDate").hidden = true;
+  document.getElementById("endDateSection").hidden = true;
   document.getElementById("frequency").hidden = true;
   document.getElementById("days").hidden = true;
   document.getElementById("primaryLogo").hidden = true;
@@ -308,7 +308,7 @@ function foLoader()
   document.getElementById("startDate").value = startDateAndTime.toISOString().slice(0,16);
   
   var endDateAndTime = new Date();
-  endDateAndTime.setMinutes((endDateAndTime.getMinutes()+1) - endDateAndTime.getTimezoneOffset());
+  endDateAndTime.setMinutes((endDateAndTime.getMinutes()+5) - endDateAndTime.getTimezoneOffset());
   document.getElementById("endDate").value = endDateAndTime.toISOString().slice(0,16);
 
   getdata();
