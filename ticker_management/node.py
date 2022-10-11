@@ -151,6 +151,11 @@ def checkPriority(newTickerPriority,wings,floors,rooms,startTime,endTime,timeInt
                     break
         
         if len(runningTicker)>0:
+
+            if(runningTicker['runningTicker']['ticker_priority']=='Emergency'):
+                runningTicker['message']="BHAI EMERGENCY HU BY ROHIT/SHUBHAM"
+                return {'status':False,'runningTicker':runningTicker,'runningTickerID':None}
+
             a=priority.index(runningTicker['runningTicker']['ticker_priority'])
             b=priority.index(newTickerPriority)
 

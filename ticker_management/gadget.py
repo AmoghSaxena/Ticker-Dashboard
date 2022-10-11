@@ -112,9 +112,6 @@ def FileUploader(request,ticker_db_data):
         
         if not request.POST.get('emergencySelecter') =='Custom':
             ticker_json['emergency_ticker_style']='static'
-
-    else:
-        logger.info('No Image for upload')
     
     ticker_json['ticker_id'] = ticker_id
     

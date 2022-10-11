@@ -612,8 +612,9 @@
                                         </div>
                                         <div class="modal-body" id="notification"></div>
                                         <div class="modal-footer">
-                                        <a href="{% url 'createticker'%}" class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">No</a>
-                                        <button type="button" class="btn btn-danger" onclick="submitCreateTickerForm()">Yes</button>
+                                        <a id="notificationNO" href="{% url 'createticker'%}" class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">No</a>
+                                        <a id="notificationOK" href="{% url 'createticker'%}" class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">OK</a>
+                                        <button id="notificationPopUp" type="button" class="btn btn-danger" onclick="submitCreateTickerForm()">Yes</button>
                                         </div>
                                     </div>
                                 </div>

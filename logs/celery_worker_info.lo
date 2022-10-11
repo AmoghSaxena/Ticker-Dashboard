@@ -1,0 +1,37 @@
+[2022-10-11 17:46:28,783: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-11 17:46:28,784: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-11 17:46:28,784: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-11 17:46:28,784: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-11 17:46:29,138: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-10-11 17:46:29,145: INFO/MainProcess] mingle: searching for neighbors
+[2022-10-11 17:46:30,155: INFO/MainProcess] mingle: all alone
+[2022-10-11 17:46:30,202: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-10-11 17:46:30,321: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[5ab17d81-ce3d-47f8-9be8-94b750e3902b] received
+[2022-10-11 17:46:30,324: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[79575357-837c-436f-a396-57c393aafc89] received
+[2022-10-11 17:46:30,337: ERROR/ForkPoolWorker-2] Ticker id not found
+[2022-10-11 17:46:30,337: ERROR/ForkPoolWorker-3] Ticker id not found
+[2022-10-11 17:47:11,918: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[15f68dac-bcb3-4ac1-89b0-ab42e649262b] received
+[2022-10-11 17:47:12,129: INFO/ForkPoolWorker-3] Creating rundeck data in DB

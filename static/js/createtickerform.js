@@ -291,6 +291,7 @@ function foLoader()
   document.getElementById("positionNotCenter").hidden = false;
   document.getElementById("StaticScrolling").hidden = true;
   document.getElementById("positionNotCenter").hidden = true;
+  document.getElementById("notificationOK").hidden = true;
 
   document.getElementById("scrollingTickerTitleLabel").hidden = true;
   document.getElementById("primaryTickerMessageLabel").hidden = true;

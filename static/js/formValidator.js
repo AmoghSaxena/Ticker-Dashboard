@@ -122,7 +122,20 @@ function notification() {
                 {
                     document.getElementById("runningTickerID").value=res.data.runningTickerID;
                 }
-                document.getElementById('notification').innerHTML = res.data.message
+                if(res.data.message.includes("EMERGENCY HU BY ROHIT/SHUBHAM"))
+                {
+                    document.getElementById("notificationPopUp").hidden = true;
+                    document.getElementById('notification').innerHTML = "IT's an emergency in one or many rooms which are specified.\nPlease close it manually.";
+                    document.getElementById("notificationOK").hidden = false;
+                    document.getElementById("notificationNO").hidden = true;
+                }
+                else
+                {
+                    document.getElementById("notificationPopUp").hidden = false;
+                    document.getElementById("notificationOK").hidden = true;
+                    document.getElementById("notificationNO").hidden = false;
+                    document.getElementById('notification').innerHTML = res.data.message
+                }
             })
       .catch(error => console.log('error', error));
 
