@@ -35,3 +35,7 @@
 [2022-10-11 17:46:30,337: ERROR/ForkPoolWorker-3] Ticker id not found
 [2022-10-11 17:47:11,918: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[15f68dac-bcb3-4ac1-89b0-ab42e649262b] received
 [2022-10-11 17:47:12,129: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-11 18:09:39,213: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[f0943b43-3056-4806-b23f-a7d5769468d9] received
+[2022-10-11 18:09:39,419: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-11 18:11:49,773: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[c7a9cac1-6fb6-41ec-87e1-523328b0a43b] received
+[2022-10-11 18:11:49,989: INFO/ForkPoolWorker-3] Creating rundeck data in DB

@@ -835,6 +835,8 @@ def rebootStatus(request):
                                                 except:
                                                     auth="YWRtaW46YWRtaW4xMjM0"
                                                 
+                                                ticker_obj=TickerDetails.objects.filter(ticker_id=int(data['ticker_id'])).values()
+                                                
                                                 setup=SetUp.objects.filter(id=1).values()
 
                                                 FQDN=setup.get()['FQDN']
@@ -851,6 +853,7 @@ def rebootStatus(request):
                                                     'Rundeck_Api_Version':Rundeck_Api_Version,
                                                     'Ticker_FQDN':Ticker_FQDN,
                                                     'Rundeck_Start_Job':Rundeck_Start_Job
+                                                    'time_interval':int((datetime.now()-ticker_obj['ticker_start_time']).total_seconds())
                                                 }
                                                 
                                                 json_data = {
