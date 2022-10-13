@@ -958,3 +958,338 @@ KeyError: 'ticker_management.tasks.callscheduledticker'
 [2022-10-10 11:25:45,010: INFO/ForkPoolWorker-3] Creating rundeck data in DB
 [2022-10-10 11:35:34,180: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[adc1caf2-f9e0-42d4-b000-6a8208514fe1] received
 [2022-10-10 11:35:34,487: INFO/ForkPoolWorker-3] Creating rundeck data in DB
+[2022-10-12 19:25:02,776: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-12 19:25:02,777: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-12 19:25:02,777: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-12 19:25:02,777: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-12 19:25:02,989: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-10-12 19:25:02,992: INFO/MainProcess] mingle: searching for neighbors
+[2022-10-12 19:25:04,004: INFO/MainProcess] mingle: all alone
+[2022-10-12 19:25:04,024: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-10-12 19:25:04,160: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[9e4d8f55-a5ff-4c80-8cd4-6242ef7423c1] received
+[2022-10-12 19:25:04,178: ERROR/ForkPoolWorker-4] Ticker id not found
+[2022-10-12 19:25:35,598: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[93ed661a-157c-4c3a-95e0-53c64d2ac0d7] received
+[2022-10-12 19:25:35,807: INFO/ForkPoolWorker-4] Creating rundeck data in DB
+[2022-10-12 19:28:13,443: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[5046ee66-f130-419f-b537-f67293f971ea] received
+[2022-10-12 19:28:13,640: INFO/ForkPoolWorker-4] Creating rundeck data in DB
+[2022-10-12 19:29:44,208: INFO/MainProcess] Task ticker_management.tasks.callscheduledticker[da1d7adf-4b2f-4b95-a2cf-e6ea410ec015] received
+[2022-10-12 19:29:44,415: INFO/ForkPoolWorker-4] Creating rundeck data in DB
+[2022-10-13 12:33:38,817: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:33:38,818: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:33:38,818: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:33:38,818: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:33:39,324: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-10-13 12:33:39,331: INFO/MainProcess] mingle: searching for neighbors
+[2022-10-13 12:33:40,356: INFO/MainProcess] mingle: all alone
+[2022-10-13 12:33:40,380: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-10-13 12:34:27,362: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:34:27,363: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:34:27,363: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:34:27,364: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:34:27,859: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-10-13 12:34:27,867: INFO/MainProcess] mingle: searching for neighbors
+[2022-10-13 12:34:28,893: INFO/MainProcess] mingle: all alone
+[2022-10-13 12:34:28,918: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-10-13 12:36:00,083: ERROR/MainProcess] Received unregistered task of type 'ticker_management.maintainLogs.filereader'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[[], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (77b)
+
+Thw full contents of the message headers:
+{'lang': 'py', 'task': 'ticker_management.maintainLogs.filereader', 'id': '800166f9-a236-46db-8982-71a8e8890d0a', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [None, None], 'root_id': '800166f9-a236-46db-8982-71a8e8890d0a', 'parent_id': None, 'argsrepr': '()', 'kwargsrepr': '{}', 'origin': 'gen46457@rextermac', 'ignore_result': False}
+
+The delivery info for this task is:
+{'exchange': '', 'routing_key': 'celery'}
+Traceback (most recent call last):
+  File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 591, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'ticker_management.maintainLogs.filereader'
+[2022-10-13 12:36:28,116: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:36:28,116: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:36:28,117: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:36:28,117: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:36:28,585: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-10-13 12:36:28,594: INFO/MainProcess] mingle: searching for neighbors
+[2022-10-13 12:36:29,611: INFO/MainProcess] mingle: all alone
+[2022-10-13 12:36:29,633: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-10-13 12:38:00,077: ERROR/MainProcess] Received unregistered task of type 'ticker_management.maintainLogs.filereader'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[[], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (77b)
+
+Thw full contents of the message headers:
+{'lang': 'py', 'task': 'ticker_management.maintainLogs.filereader', 'id': 'c2e1a412-9f85-4c4d-985d-99753e4b0349', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [None, None], 'root_id': 'c2e1a412-9f85-4c4d-985d-99753e4b0349', 'parent_id': None, 'argsrepr': '()', 'kwargsrepr': '{}', 'origin': 'gen47506@rextermac', 'ignore_result': False}
+
+The delivery info for this task is:
+{'exchange': '', 'routing_key': 'celery'}
+Traceback (most recent call last):
+  File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 591, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'ticker_management.maintainLogs.filereader'
+[2022-10-13 12:41:14,702: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:41:14,703: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:41:14,703: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:41:14,704: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:41:15,162: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-10-13 12:41:15,168: INFO/MainProcess] mingle: searching for neighbors
+[2022-10-13 12:41:16,186: INFO/MainProcess] mingle: all alone
+[2022-10-13 12:41:16,213: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-10-13 12:42:00,079: ERROR/MainProcess] Received unregistered task of type 'ticker_management.maintainLogs.filereader'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[[], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (77b)
+
+Thw full contents of the message headers:
+{'lang': 'py', 'task': 'ticker_management.maintainLogs.filereader', 'id': '27d1ad1d-b64e-4d18-b813-c03fe201de81', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [None, None], 'root_id': '27d1ad1d-b64e-4d18-b813-c03fe201de81', 'parent_id': None, 'argsrepr': '()', 'kwargsrepr': '{}', 'origin': 'gen48877@rextermac', 'ignore_result': False}
+
+The delivery info for this task is:
+{'exchange': '', 'routing_key': 'celery'}
+Traceback (most recent call last):
+  File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 591, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'ticker_management.maintainLogs.filereader'
+[2022-10-13 12:43:05,987: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:43:05,988: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:43:05,988: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:43:05,988: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:43:06,433: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-10-13 12:43:06,441: INFO/MainProcess] mingle: searching for neighbors
+[2022-10-13 12:43:07,466: INFO/MainProcess] mingle: all alone
+[2022-10-13 12:43:07,491: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-10-13 12:44:00,076: ERROR/MainProcess] Received unregistered task of type 'ticker_management.maintainLogs.filereader'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[[], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (77b)
+
+Thw full contents of the message headers:
+{'lang': 'py', 'task': 'ticker_management.maintainLogs.filereader', 'id': '2477d7b3-197f-44bd-83e3-70e4796123a5', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [None, None], 'root_id': '2477d7b3-197f-44bd-83e3-70e4796123a5', 'parent_id': None, 'argsrepr': '()', 'kwargsrepr': '{}', 'origin': 'gen49182@rextermac', 'ignore_result': False}
+
+The delivery info for this task is:
+{'exchange': '', 'routing_key': 'celery'}
+Traceback (most recent call last):
+  File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 591, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'ticker_management.maintainLogs.filereader'
+[2022-10-13 12:47:46,980: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:47:46,981: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TASK_SERIALIZER' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the task_serializer instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:47:46,981: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_TIMEZONE' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the timezone instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:47:46,982: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2022-10-13 12:47:47,476: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-10-13 12:47:47,484: INFO/MainProcess] mingle: searching for neighbors
+[2022-10-13 12:47:48,510: INFO/MainProcess] mingle: all alone
+[2022-10-13 12:47:48,534: WARNING/MainProcess] /home/guest/Desktop/venv/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-10-13 12:49:00,076: ERROR/MainProcess] Received unregistered task of type 'ticker_management.maintainLogs.filereader'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[[], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (77b)
+
+Thw full contents of the message headers:
+{'lang': 'py', 'task': 'ticker_management.maintainLogs.filereader', 'id': 'ed39fb4b-56f3-4d36-99d8-9b8b9c66a989', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [None, None], 'root_id': 'ed39fb4b-56f3-4d36-99d8-9b8b9c66a989', 'parent_id': None, 'argsrepr': '()', 'kwargsrepr': '{}', 'origin': 'gen49685@rextermac', 'ignore_result': False}
+
+The delivery info for this task is:
+{'exchange': '', 'routing_key': 'celery'}
+Traceback (most recent call last):
+  File "/home/guest/Desktop/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 591, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'ticker_management.maintainLogs.filereader'

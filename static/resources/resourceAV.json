@@ -519,7 +519,7 @@
          "key_number": "701",
          "room_type_id": "1",
          "room_type": "Standard",
-         "tv_profile_id": "3",
+         "tv_profile_id": "10",
          "display_device_id": null,
          "ipad_profile_id": null,
          "dvc_profile_id": null,
@@ -528,7 +528,7 @@
          "created_by": "Digivalet Admin",
          "created_on": "04, Mar 2021, 12:58 PM",
          "modified_by": "Digivalet Admin",
-         "modified_on": "03, Aug 2022, 01:34 PM"
+         "modified_on": "12, Oct 2022, 03:27 PM"
       },
       {
          "id": "84",

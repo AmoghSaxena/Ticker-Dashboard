@@ -351,3 +351,4 @@ ERROR 2022-10-07 11:55:00,010 :  Ticker id not found from function callscheduled
 ERROR 2022-10-07 14:46:26,586 :  Error: SetUp matching query does not exist. from function createTicker in line no. 103 (FILENAME views)
 ERROR 2022-10-11 17:46:30,337 :  Ticker id not found from function callscheduledticker in line no. 24 (FILENAME tasks)
 ERROR 2022-10-11 17:46:30,337 :  Ticker id not found from function callscheduledticker in line no. 24 (FILENAME tasks)
+ERROR 2022-10-12 19:25:04,178 :  Ticker id not found from function callscheduledticker in line no. 24 (FILENAME tasks)

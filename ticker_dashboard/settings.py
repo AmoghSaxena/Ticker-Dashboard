@@ -228,6 +228,9 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
 #127.0.0.1:6379
 
+#### Always on when exception ############
+CELERY_TASK_EAGER_PROPAGATES = True
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

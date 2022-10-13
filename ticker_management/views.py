@@ -852,7 +852,7 @@ def rebootStatus(request):
                                                     'Rundeck_Token':Rundeck_Token,
                                                     'Rundeck_Api_Version':Rundeck_Api_Version,
                                                     'Ticker_FQDN':Ticker_FQDN,
-                                                    'Rundeck_Start_Job':Rundeck_Start_Job
+                                                    'Rundeck_Start_Job':Rundeck_Start_Job,
                                                     'time_interval':int((datetime.now()-ticker_obj['ticker_start_time']).total_seconds())
                                                 }
                                                 
