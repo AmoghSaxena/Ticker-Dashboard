@@ -1,0 +1,39 @@
+Changes between 1.2:
+--------------------------------
+
+Platform support changes:
+ * 1.8.2-beta requires:
+     - Docker 19.x.x or later (Only if Using Dockerized Method)
+     - Python 3.9 or later (Only if Using Standalone Method)
+     - Pip3 20.x or later (Only if Using Standalone Method)
+ * Added Docker-Compose Support to the project
+
+Core:
+ * Shrink Docker Size from 580MB to 140MB
+     - Fixed The flow and using Minimal OS for shrinking the size
+ * Optimized the code redusing the memory usage and threadcounts
+ * Reframed the Docker file to support Docker-Compose
+
+
+Changes for 1.1:
+--------------------------------
+
+APIs:
+ * Added New API/s TV & iPad Status
+     - DVC will now give TV & iPad Status for the ticker.
+
+Database:
+ * Added New Table for DND & Ticker Status as well for future enhancement
+
+
+Changes for 1.0:
+--------------------------------
+
+Platform support changes:
+ * Linux on ARM is now supported
+ * Windows is now supported as well.
+
+Core:
+ * New API Installed:
+     - Fixed The flow of API Manupliation
+ * New Dashboard Added for Ticker

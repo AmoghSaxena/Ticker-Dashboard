@@ -16,30 +16,27 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Ticker&nbsp;Title</th>
-                                <th>Start&nbsp;Date</th>
-                                <th>End&nbsp;Date</th>
-                                <th>T&nbsp;ID</th>
-                                <th>Ticker&nbsp;Type</th>
+                                <th>Ticker&nbspTitle</th>
+                                <th>Start&nbspDate</th>
+                                <th>End&nbspDate</th>
+                                <th>T&nbspID</th>
+                                <th>Ticker&nbspType</th>
                                 <th>Recurring</th>
                                 <th>Priority</th>
-                                <th>Created&nbsp;by</th>
-                                <th>Action&nbsp;&nbsp;&nbsp;</th>
+                                <th>Action&nbsp&nbsp&nbsp</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>#</th>
-                                <th>Ticker&nbsp;Title</th>
-                                <th>Start&nbsp;Date</th>
-                                <th>End&nbsp;Date</th>
-                                <th>T&nbsp;ID</th>
-                                <th>Ticker&nbsp;Type</th>
+                                <th>Ticker&nbspTitle</th>
+                                <th>Start&nbspDate</th>
+                                <th>End&nbspDate</th>
+                                <th>T&nbspID</th>
+                                <th>Ticker&nbspType</th>
                                 <th>Recurring</th>
                                 <th>Priority</th>
-                                <th>Priority</th>
-                                <th>Created&nbsp;by</th>
-                                <th>Action&nbsp;&nbsp;&nbsp;</th>
+                                <th>Action&nbsp&nbsp&nbsp</th>
                             </tr>
                         </tfoot>
 
@@ -54,31 +51,11 @@
                             <td>{{tickerData.ticker_type}}</td>
                             <td>{{tickerData.frequency}}</td>
                             <td>{{tickerData.ticker_priority}}</td>
-                            <td>{{tickerData.created_by}}</td>
                             <td>
                                 <!-- <a class="text-color mx-1" href="#"><i class="fa-solid fa-pen-to-square"></i> Edit</a></br> -->
                                 <a class="text-success mx-1" href={% url 'detail' tickerData.ticker_id %}><i class="fas fa-eye"></i> view</a><br>
-                                {% comment %} <a class="text-danger mx-1" href={% url 'delete' tickerData.ticker_id %}><i class="fas fa-trash"></i> Delete</a><br> {% endcomment %}
-                                <a class="text-danger mx-1" href="#" onclick="deleteTicker({{tickerData.ticker_id}})"><i class="fas fa-trash"></i> Delete</a>
+                                <a class="text-danger mx-1" href={% url 'delete' tickerData.ticker_id %}><i class="fas fa-trash"></i> Delete</a>
                             </td>
-                            
-                            <!-- The Modal -->
-                            <div id="deleteTickerModal{{tickerData.ticker_id}}" class="modal">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title text-color" id="exampleModalLabel">Notification</h5>
-                                        </div>
-                                        <div class="modal-body" id="notification">Are you sure do you want to delete Ticker : {{tickerData.ticker_title}}</div>
-                                        <div class="modal-footer">
-                                        {% comment %} <a href class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">No</a> {% endcomment %}
-                                        <a href="" class="close btn btn-secondary" onclick="">No</a>
-                                        <a href={% url 'delete' tickerData.ticker_id %} class="btn btn-danger" onclick="">Yes</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </tr>
                         {% endfor %}
                         </tbody>
@@ -87,20 +64,4 @@
             </div>
         </div>
     </main>
-
-    
-<script>
-    function deleteTicker(id) {
-
-        var modal = document.getElementById("deleteTickerModal"+id);
-        var span = document.getElementsByClassName("close")[0];
-    
-        modal.style.display = "block";
-        
-        console.log(id)
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-    }    
-</script>
 {% endblock %}

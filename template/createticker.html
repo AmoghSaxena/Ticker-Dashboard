@@ -20,8 +20,6 @@
 
                             {% csrf_token %}
 
-                            <input type="hidden" id="runningTickerID" name="runningTickerID" value=-1>
-
                             <div class="d-lg-block d-md-block d-sm-block d-none" style="text-align:center;margin-top:40px;">
                                 <span class="step"><i class="fa-solid fa-plus fs-3 m-2 text-white"></i></i><strong class="text-color">Create</strong></span>
                                 {% comment %} <span class="step"><i class="fa-solid fa-tv fs-3 m-2 text-white"></i><strong class="text-color">Preview</strong></span> {% endcomment %}
@@ -72,14 +70,14 @@
                                                     <div class="form-check mb-3">
                                                         <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                         <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                        <input name="primaryFontColor" type="color" id="primaryFontColor" value="#54362A">
+                                                        <input name="primaryFontColor" type="color" id="primaryFontColor" value="#F7F9F9">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="form-check mb-3">
                                                         <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                         <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                        <input name="primaryBgColor" type="color" id="primaryBgColor" value="#DAD6BE">
+                                                        <input name="primaryBgColor" type="color" id="primaryBgColor" value="#FF3232">
                                                     </div>
                                                 </div>
                                             </div>
@@ -182,7 +180,7 @@
                                                     <div class="form-check mb-3">
                                                         <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                         <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                        <input name="secondaryFontColor" type="color" id="secondaryFontColor" value="#DAD6BE">
+                                                        <input name="secondaryFontColor" type="color" id="secondaryFontColor" value="#D0D3D4">
                                                     </div>
                                                 </div>
 
@@ -190,7 +188,7 @@
                                                     <div class="form-check form-switch mb-3">
                                                         <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                         <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                        <input name="secondaryBgColor" type="color" id="secondaryBgColor" value="#54362A">
+                                                        <input name="secondaryBgColor" type="color" id="secondaryBgColor" value="#17202A">
                                                     </div>
                                                 </div>
                                             </div>
@@ -238,8 +236,8 @@
                                             <div class="col-md-6">
                                                 <strong class="text-color">Ticker Duration</strong>
                                                 <div class="form-group form-floating">
-                                                    <input type="number" name="scrollingTickerTimeInterval" min="1" value="1"  required class="form-control" id="scrollingTickerTimeInterval" rows="4" placeholder="Enter Time" />
-                                                    <label class="text-muted">Enter Time Minutes</label>
+                                                    <input type="number" name="scrollingTickerTimeInterval" min="1" value="1"  required class="form-control" id="number" rows="4" placeholder="Enter Time" />
+                                                    <label for="number" class="text-muted">Enter Time Minutes</label>
                                                 </div>
                                             </div>
 
@@ -320,7 +318,7 @@
                                                     <div class="form-check mb-3">
                                                         <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                         <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                        <input name="staticFontColor" type="color" value="#54362A">
+                                                        <input name="staticFontColor" type="color" value="#FDFEFE">
                                                     </div>
                                                 </div>
 
@@ -328,7 +326,7 @@
                                                     <div class="form-check mb-3">
                                                         <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                         <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                        <input name="staticBgColor" type="color" value="#DAD6BE">
+                                                        <input name="staticBgColor" type="color" value="#57EAEA">
                                                     </div>
                                                 </div>
                                             </div>
@@ -357,7 +355,7 @@
                                                         <div class="form-check mb-3">
                                                             <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                            <input name="staticScrollingFontColor" type="color" id="staticScrollingFontColor" value="#54362A">
+                                                            <input name="staticScrollingFontColor" type="color" id="staticScrollingFontColor" value="#F7F9F9">
                                                         </div>
                                                     </div>
 
@@ -365,7 +363,7 @@
                                                         <div class="form-check mb-3">
                                                             <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                            <input name="staticScrollingBgColor" type="color" id="staticScrollingBgColor" value="#DAD6BE">
+                                                            <input name="staticScrollingBgColor" type="color" id="staticScrollingBgColor" value="#FF3232">
                                                         </div>
                                                     </div>
 
@@ -429,7 +427,7 @@
                                             <div class="col-md-3">
                                                 <strong class="text-color" for="favcolor">Set border Color</strong><br>
                                                 <label for="favcolor" class="text-muted">Pick border Color</label>
-                                                <input name="dynamicTickerBorderColor" type="color" id="dynamicTickerBorderColor" value="#DAD6BE">
+                                                <input name="dynamicTickerBorderColor" type="color" id="dynamicTickerBorderColor" value="#D0D3D4">
                                             </div>
                                         </div>
                                     </div>
@@ -438,7 +436,7 @@
                                         <div class="col-md-6">
                                             <strong class="text-color">Ticker Duration</strong>
                                             <div class="form-group form-floating">
-                                                <input type="number" name="mediaTickerTimeInterval" min="1" value="1" required class="form-control" id="mediaTickerTimeInterval" placeholder="Enter Time" />
+                                                <input type="number" name="mediaTickerTimeInterval" min="1" value="1" required class="form-control" id="number" placeholder="Enter Time" />
                                                 <label for="number" class="text-muted">Enter Time Minutes</label>
                                             </div>
                                         </div>
@@ -483,6 +481,31 @@
                                 </div>
                             </div>
                             
+                                    
+                            {% comment %} <div class="tab m-3">
+                                <div class="col-lg-8 mx-auto">
+                                    <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
+                                        <video autoplay loop muted>
+                                            <source src="/static/RCB.mp4" type="video/mp4">
+                                            <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
+                                        </video>
+                                        <div class="setting-one">
+                                            <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#ffffff" class="text-dark p-2 font-weight-bold;" style="font-size: 15px;">
+                                                Royal Challengers Bangalore (RCB) has always been one of the most popular franchises since the inception of the Indian Premier League (IPL) in the year 2008. Some of the greatest players like Rahul Dravid, Jacques Kallis, Anil Kumble, Muttiah Muralitharan, Chris Gayle, and AB de Villiers have all been part of this team in the past. Their star player and former captain, Virat Kohli, is the only cricketer to represent a single franchise since the first season, which is RCB.
+                                            </marquee>
+                                        </div>
+                                        <div class="setting-two">
+                                        </div>
+                                        <div class="setting-three">
+                                            <img class="img-responsive m-1" width="60" src="/static/image/rcb-logo.png" alt="Logo" scale="0" style="background-color:#0000FF;">
+                                        </div>
+                                    </div>
+                                    <center>
+                                        <div class="border border-dark border-5" style="width: 80px;"></div>
+                                        <div class="border border-dark border-5" style="width: 300px;"></div>
+                                    </center>
+                                </div>
+                            </div> {% endcomment %}
                 
                             <div class="tab m-3">
                                 <div class="m-1" id="">
@@ -492,6 +515,9 @@
                                                 <strong class="text-color">Room Type</strong>
                                                 <select name="roomTypeSelection" multiple id="roomTypeSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
                                                     <option>All</option>
+                                                    <!-- {% for items in scheduleData.roomType %}
+                                                        <option value="{{items}}">{{items}}</option>
+                                                    {% endfor %} -->
                                                 </select>
                                             </div>
 
@@ -499,6 +525,9 @@
                                                 <strong class="text-color">Wings</strong>
                                                 <select name="wingSelection" multiple id="wingSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
                                                     <option>All</option>
+                                                    <!-- {% for items in scheduleData.wing %}
+                                                        <option>{{items}}</option>
+                                                    {% endfor %} -->
                                                 </select>
                                             </div>
 
@@ -506,6 +535,9 @@
                                                 <strong class="text-color">Floor</strong>
                                                 <select name="floorSelection" multiple id="floorSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
                                                     <option>All</option>
+                                                    <!-- {% for items in scheduleData.floor %}
+                                                        <option>{{items}}</option>
+                                                    {% endfor %} -->
                                                 </select>
                                             </div>
 
@@ -513,6 +545,9 @@
                                                 <strong class="text-color">Key</strong>
                                                 <select name="roomSelection" multiple id="roomSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
                                                     <option>All</option>
+                                                    <!-- {% for items in scheduleData.key %}
+                                                        <option>{{items}}</option>
+                                                    {% endfor %} -->
                                                 </select>
                                             </div>
                                         </div>
@@ -558,17 +593,17 @@
                                         </div>
 
                                         <div class="row" id="dateTimeSection">
-                                            <div class="col-md-4 mb-3" id="">
+                                            <div class="col-md-4 mb-3" id="startDate">
                                                 <strong class="text-color">Start Date | Time</strong>
                                                 <div class="form-group form-floating">
-                                                    <input type="datetime-local" class="form-control" id="startDate" name="startDate" placeholder="Enter Date">
+                                                    <input type="datetime-local" class="form-control"  name="startDate" placeholder="Enter Date">
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4 mb-3" id="endDateSection">
+                                            <div class="col-md-4 mb-3" id=endDate>
                                                 <strong class="text-color">End Date | Time</strong>
                                                 <div class="form-group form-floating">
-                                                    <input type="datetime-local" class="form-control" id="endDate" name="endDate" placeholder="Enter Date">
+                                                    <input type="datetime-local" class="form-control" id="" name="endDate" placeholder="Enter Date">
                                                 </div>
                                             </div>
 
@@ -593,11 +628,13 @@
                                 </div>
                             </div>
                             
+                            <!-- <div class="tab">
+                            </div> -->
 
                             <div style="overflow:auto;" class="m-3">
                                 <div style="float:right;">
-                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="prevBtn" onclick="nextPrev(-1);">Previous</button>
-                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="nextBtn" onclick="nextPrev(1);">Next</button>
+                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="nextBtn" onclick="nextPrev(1);submitForm()">Next</button>
                                     <button class="btn btn-outline-success my-4 m-2" type="button" id="SubForm" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Scheduling</button>
                                 </div>
                             </div>
@@ -610,11 +647,12 @@
                                         <div class="modal-header">
                                         <h5 class="modal-title text-color" id="exampleModalLabel">Notification</h5>
                                         </div>
-                                        <div class="modal-body" id="notification"></div>
+                                        <div class="modal-body">
+                                        Do you want to create ticker ?
+                                        </div>
                                         <div class="modal-footer">
-                                        <a id="notificationNO" href="{% url 'createticker'%}" class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">No</a>
-                                        <a id="notificationOK" href="{% url 'createticker'%}" class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">OK</a>
-                                        <button id="notificationPopUp" type="button" class="btn btn-danger" onclick="submitCreateTickerForm()">Yes</button>
+                                        <button type="button" class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">No</button>
+                                        <button type="button" class="btn btn-danger" onclick="submitCreateTickerForm()">Yes</button>
                                         </div>
                                     </div>
                                 </div>

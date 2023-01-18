@@ -59,7 +59,6 @@ CORS_REPLACE_HTTPS_REFERER = True
 INSTALLED_APPS = [
     'admin_interface',
     'colorfield',
-    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,7 +72,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -144,6 +142,10 @@ except:
             }
         }
     }
+    pass
+
+
+
 
 
 
@@ -228,16 +230,16 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
 #127.0.0.1:6379
 
-#### Always on when exception ############
-CELERY_TASK_EAGER_PROPAGATES = True
 
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-    # 'rest_framework.authentication.SessionAuthentication',
-    'rest_framework.authentication.BasicAuthentication',
-    ]
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#          'rest_framework.authentication.BasicAuthentication',
+#     ],
+#     'DEFAULT_PERMISSION_CLASSES': [
+#          'rest_framework.permissions.IsAuthenticated'
+#         #'knox.auth.TokenAuthentication',
+#     ]
+# }
 
 # DIRECTORY_DIRECTORY = '/home/guest/Desktop/Ticker-Dashboard/media'
 
@@ -252,30 +254,42 @@ LOGGING = {
     'handlers':{
         'infoLogs':{
             'level':'INFO',
-            'class':'logging.FileHandler',
-            'filename':str(BASE_DIR)+'/logs/info.log',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 30,
+            'encoding': 'utf8',
+            'filename':BASE_DIR+'/logs/info.log',
             'formatter':'simple',
         },
         'warningLogs':{
             'level':'WARNING',
             'class':'logging.FileHandler',
-            'filename':str(BASE_DIR)+'/logs/warning.log',
+            'filename':BASE_DIR+'/logs/warning.log',
             'formatter':'simple',
         },
         'errorLogs':{
             'level':'ERROR',
-            'class':'logging.FileHandler',
-            'filename':str(BASE_DIR)+'/logs/error.log',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 30,
+            'encoding': 'utf8',
+            'filename':BASE_DIR+'/logs/error.log',
             'formatter':'simple',
         },
         'criticalLogs':{
             'level':'CRITICAL',
-            'class':'logging.FileHandler',
-            'filename':str(BASE_DIR)+'/logs/critical.log',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 30,
+            'encoding': 'utf8',
+            'filename':BASE_DIR+'/logs/critical.log',
             'formatter':'simple',
         },
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         }
@@ -284,14 +298,7 @@ LOGGING = {
         'simple':{
             'format':'{levelname} {asctime} :  {message} from function {funcName} in line no. {lineno} (FILENAME {module})',
             'style':'{',
-        },
-        "log_colors": {
-            "DEBUG": "blue",
-            "INFO": "white",
-            "WARNING": "yellow",
-            "ERROR": "red",
-            "CRITICAL": "bold_red",
-        },
+        }
     }
 }
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))

@@ -35,7 +35,7 @@ services:
         volumes:
             - ./media:/usr/local/apache2/htdocs
         depends_on:
-            - ticker-db
+            - db
             - dashboard
         networks:
             - tickernetwork

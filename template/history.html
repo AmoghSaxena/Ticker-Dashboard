@@ -16,29 +16,27 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Ticker&nbsp;Title</th>
-                                <th>Start&nbsp;Date</th>
-                                <th>End&nbsp;Date</th>
-                                <th>T&nbsp;ID</th>
-                                <th>Ticker&nbsp;Type</th>
+                                <th>Ticker&nbspTitle</th>
+                                <th>Start&nbspDate</th>
+                                <th>End&nbspDate</th>
+                                <th>T&nbspID</th>
+                                <th>Ticker&nbspType</th>
                                 <th>Recurring</th>
                                 <th>Priority</th>
-                                <th>Created&nbsp;by</th>
-                                <th>Action&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th>Action&nbsp&nbsp&nbsp&nbsp</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>#</th>
-                                <th>Ticker&nbsp;Title</th>
-                                <th>Start&nbsp;Date</th>
-                                <th>End&nbsp;Date</th>
-                                <th>T&nbsp;ID</th>
-                                <th>Ticker&nbsp;Type</th>
+                                <th>Ticker&nbspTitle</th>
+                                <th>Start&nbspDate</th>
+                                <th>End&nbspDate</th>
+                                <th>T&nbspID</th>
+                                <th>Ticker&nbspType</th>
                                 <th>Recurring</th>
                                 <th>Priority</th>
-                                <th>Created&nbsp;by</th>
-                                <th>Action&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th>Action&nbsp&nbsp&nbsp&nbsp</th>
                             </tr>
                         </tfoot>
 
@@ -53,33 +51,72 @@
                             <td>{{tickerData.ticker_type}}</td>
                             <td>{{tickerData.frequency}}</td>
                             <td>{{tickerData.ticker_priority}}</td>
-                            <td>{{tickerData.created_by}}</td>
                             <td>
                                 <!-- <a class="text-color mx-1" href="{% url 'createticker'%}"><i class="fa-solid fa-arrow-rotate-left"></i> Restore</a></br> -->
-                                {% comment %} <a class="text-danger mx-1 deleteTicker" href={% url 'deleteHistory' tickerData.ticker_id %} id="deleteTicker{{forloop.counter}}" ><i class="fas fa-trash"></i> Delete</a> {% endcomment %}
-                                <a class="text-danger mx-1" href="#" onclick="deleteTicker({{tickerData.ticker_id}})"><i class="fas fa-trash"></i> Delete</a>
-                            
+                                <a class="text-danger mx-1 deleteTicker" href="#" id="deleteTicker{{forloop.counter}}" ><i class="fas fa-trash"></i> Delete</a>
                             </td>
-                            
-                            <!-- The Modal -->
-                            <div id="deleteTickerModal{{tickerData.ticker_id}}" class="modal">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title text-danger" id="exampleModalLabel">Delete</h5>
-                                        </div>
-                                        <div class="modal-body" id="notification">Are you sure do you want to delete Ticker : {{tickerData.ticker_title}}</div>
-                                        <div class="modal-footer">
-                                        {% comment %} <a href class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">No</a> {% endcomment %}
-                                        <a href="" class="close btn btn-secondary" onclick="">No</a>
-                                        <a href={% url 'deleteHistory' tickerData.ticker_id %} class="btn btn-danger" onclick="">Yes</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </tr>
+                        <style>
+        
+                            .modal {
+                              display: none; /* Hidden by default */
+                              position: fixed; /* Stay in place */
+                              z-index: 1; /* Sit on top */
+                              padding-top: 100px; /* Location of the box */
+                              overflow: auto; /* Enable scroll if needed */
+                              background-color: rgba(0, 0, 0, 0.712); /* Black w/ opacity */
+                            }
+                            
+                            /* Modal Content */
+                            .modal-content {
+                              position: relative;
+                              margin: auto;
+                              width: 30%;
+                            }
+                       
+                            </style>
+                            
+                            
+                            <!-- Trigger/Open The Modal -->
+                            <!-- <a id="deleteTicker">Open</a> -->
+                            
+                            <div id="deleteTicker{{forloop.counter}}" class="modal">
+                              <div class="modal-content">
+                                <div class="modal-header fw-bold">
+                                    Delete Confirmation
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete? <strong>Ticker</strong>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" id = "closePopup" type="submit">Close</button>
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            
+                            <script>
+                            var delticker = document.getElementsByClassName("deleteTicker")
+                            console.log("del :",delticker)
 
+                            var modal = document.getElementById("deleteTicker{{forloop.counter}}");
+                            var deleteTicker = document.getElementById("deleteTicker");
+                            var closePopup = document.getElementById("closePopup");
+                            
+                            deleteTicker.onclick = function() {
+                              modal.style.display = "block";
+                            }
+                            closePopup.onclick = function() {
+                              modal.style.display = "none";
+                            }
+                            
+                            window.onclick = function(event) {
+                              if (event.target == modal) {
+                                modal.style.display = "none";
+                              }
+                            }
+                            </script>
                         {% endfor %}
                         </tbody>
                     </table>
@@ -88,21 +125,28 @@
         </div>
     </main>
 
-<script>
-    function deleteTicker(id) {
-
-        var modal = document.getElementById("deleteTickerModal"+id);
-        var span = document.getElementsByClassName("close")[0];
-    
-        modal.style.display = "block";
-        
-        console.log(id)
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-    }    
-</script>
 
 
+<a class="text-danger mx-1 deleteTicker" href="#" data-toggle="modal" data-target="#delete"><i class="fas fa-trash"></i> Delete</a>    
+<!-- Modal -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title text-danger" id="exampleModalLabel">Delete Server</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this Controller?
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-secondary" data-dismiss="modal">No</a>
+                <a href="#" class="btn btn-danger">Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

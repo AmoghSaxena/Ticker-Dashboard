@@ -1,7 +1,7 @@
 import json
 from datetime import datetime,timedelta
 from .models import SetUp
-from ticker_management.tasks import callscheduledticker
+from ticker_management.tasks import callticker
 from .models import TickerDetails
 from django_celery_beat.models import PeriodicTask,CrontabSchedule
 from ticker_dashboard.settings import AUTH_TOKEN_API
@@ -32,7 +32,7 @@ def addrecurringtime(start_time,end_time,frequency):
            "days":replacer(day)#"day_of_week":replacer(day_of_week)
            ,"month":replacer(month)}
 
-def schedule_tasks(basicTickerInfo,ticker_obj,runningTickerID):
+def schedule_tasks(basicTickerInfo,ticker_obj):
     try:
         logger.info('Inside schedule_tasks function')
         start_dateobj=datetime.strftime(ticker_obj.get().get('ticker_start_time'), '%Y-%m-%d %H:%M:%S')
@@ -40,6 +40,8 @@ def schedule_tasks(basicTickerInfo,ticker_obj,runningTickerID):
 
         start_dateobj=datetime.strptime(start_dateobj,'%Y-%m-%d %H:%M:%S')
         end_dateobj=datetime.strptime(end_dateobj,'%Y-%m-%d %H:%M:%S')
+
+        print(start_dateobj,end_dateobj)
 
         ticker_id=ticker_obj.get()['ticker_id']
         
@@ -56,7 +58,7 @@ def schedule_tasks(basicTickerInfo,ticker_obj,runningTickerID):
             minute = int(start_dateobj.strftime("%M"))
 
             schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=month,day_of_month=day,hour=hour,minute=minute)
-            task=PeriodicTask.objects.create(one_off=1,crontab=schedule,task='ticker_management.tasks.callscheduledticker',name='SchedulingTicker '+str(ticker_id),args=json.dumps((basicTickerInfo,ticker_id,runningTickerID)))
+            task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callscheduledticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((basicTickerInfo,ticker_id)))
 
             return {"message":"Success"}
         else:
@@ -97,15 +99,16 @@ def schedule_tasks(basicTickerInfo,ticker_obj,runningTickerID):
             print(data,week_number)
 
             schedule,created=CrontabSchedule.objects.get_or_create(month_of_year=data.get('month'),day_of_month=data['days'],hour=data['hours'],minute=data['minutes'],day_of_week=week_number)
-            task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callscheduledticker',name='SchedulingTicker '+str(ticker_id),args=json.dumps((basicTickerInfo,ticker_id,runningTickerID)))
+            print('GOAL')
+            task=PeriodicTask.objects.create(crontab=schedule,task='ticker_management.tasks.callscheduledticker',name='ScheduledTicker '+str(ticker_id),args=json.dumps((basicTickerInfo,ticker_id)))
             return {"message":"Success"}
     except Exception as err:
         logger.error(err)
         return {"message":"Error while periodic schedules: "+str(err)}
 
-def schedulingticker(request,ticker_id,runningTickerID):
+def schedulingticker(request,ticker_id):
     try:
-        logger.info('Scheduling ticker')
+        logger.info('Inside scheduleticker function')
         
         ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
 
@@ -151,9 +154,6 @@ def schedulingticker(request,ticker_id,runningTickerID):
             'argString': f'-whichnode "{configuration}" -FQDN {Ticker_FQDN} -jsonFile {ticker_id} -BasicAuth {auth}',
         }
 
-        if runningTickerID!=-1:
-            basicTickerInfo['nodes']=configuration
-
         basicTickerInfo['json_data']=json_data
 
     except Exception as err:
@@ -164,11 +164,13 @@ def schedulingticker(request,ticker_id,runningTickerID):
 
     if (len(json_data)>0):
         if request.POST.get('tickerSelecter')== 'emergency' or request.POST.get('scheduleEnabler') == 'enabled' or request.POST.get('scrollingTickerPriority')=='Emergency':
-            ticker_id=ticker_obj.get()['ticker_id']
-            callscheduledticker.apply_async(args=[basicTickerInfo,ticker_id,runningTickerID])
+            Thread(target=callticker,args=(basicTickerInfo,ticker_obj)).start()
+        else:
+            data=schedule_tasks(basicTickerInfo,ticker_obj)
+        
+        if data.get('message','0')=='0':
             return {"message":'Success'}
         else:
-            data=schedule_tasks(basicTickerInfo,ticker_obj,runningTickerID)
             return data
     else:
         logger.info("No scheduled processes")

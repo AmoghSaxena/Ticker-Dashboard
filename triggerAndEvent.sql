@@ -11,8 +11,8 @@ DELIMITER ;;
 /*!50003 CREATE*//*!50003 TRIGGER `forSetupNotMoreThan1Value` BEFORE INSERT ON  `Ticker`.`ticker_management_setup`
  FOR EACH ROW BEGIN
  
- IF (SELECT count(*) from `Ticker`.`ticker_management_setup`)>=1 THEN
-	signal sqlstate '45000' set message_text = 'UNABLE TO INSERT, SETUP ONLY TAKE ONE VALUE';
+ IF (SELECT count(*) from `Ticker`.`ticker_management_setup`)<>1 THEN
+	signal sqlstate '45000' set message_text = 'Unable to insert as value already found';
  END IF;
 END */;;
 DELIMITER ;
@@ -38,8 +38,6 @@ BEGIN
 END */;;
 DELIMITER ;
 
-
-SET GLOBAL event_scheduler=ON;
 
 /*!50106 DROP EVENT IF EXISTS `event_ticker_history` */;
 DELIMITER ;;

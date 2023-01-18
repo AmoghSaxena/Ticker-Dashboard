@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-5">
+            <h3 class="mt-4">Create Ticker <i class="fas fa-long-arrow-alt-right"></i> <strong><b>Preview</b></strong> <i class="fas fa-long-arrow-alt-right"></i> Schedule</h3>
+
+
+
+            <!-- <label class="m-1">Enter the Ticker ID</label>
+            <div class="col-md-4">
+                <div class="form-group form-floating">
+                    <input type="number" class="form-control" id="number" placeholder="Ticker ID" />
+                    <label for="number">Ticker ID</label>
+                </div>
+            </div> -->
+
+<!-- 
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group m-3">
+                    <input class="form-control border border-success" type="number" placeholder="Search Ticker ID . . ." aria-label="Search Ticker ID . . ." aria-describedby="btnNavbarSearch" value="{{ticker_id}}"/>
+                    <button class="btn btn-success" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form> -->
+
+            <section>
+                <div class="rt-container">
+                      <div class="col-rt-12">
+                        <div class="m-3 h2">Ticker ID :
+                            <input type="text" value="{{ticker_id}}" />
+                        </div>
+                        <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
+                            <video autoplay loop muted>
+                                <source src="/static/RCB.mp4" type="video/mp4">
+                                <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
+                            </video>
+                            
+                            <div class="video-descriptions">
+                                <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#ffffff" class="text-dark p-2 font-weight-bold;" style="font-size: 20px;">
+                                    Royal Challengers Bangalore (RCB) has always been one of the most popular franchises since the inception of the Indian Premier League (IPL) in the year 2008. Some of the greatest players like Rahul Dravid, Jacques Kallis, Anil Kumble, Muttiah Muralitharan, Chris Gayle, and AB de Villiers have all been part of this team in the past. Their star player and former captain, Virat Kohli, is the only cricketer to represent a single franchise since the first season, which is RCB.
+                                </marquee>
+                                <marquee behavior="scroll" direction="left" scrollamount="15" bgcolor="#0000FF	" class="" style="margin: -8px; font-size: 50px; padding: 30px;">
+                                        <p class="mb-4">            
+                                            Despite having such a star-studded team, the elusive trophy has still eluded RCB. They have managed to reach three finals in 2009, 2011, and 2016 but failed to cross the line on all three occasions. After 15 long seasons in the league, their trophy cabinet remains empty. The Bangalore-based franchise has one of the most loyal and crazy fans in the IPL, as they follow their side passionately in every edition. The well-known slogan of ‘Ee Sala Cup Namde’ means ‘This year the Cup is Ours’ is a yearly reckoning of all the RCB fans, especially the ones who live in the garden city of Bangalore.
+
+                                            The fans’ love and support for the team are visible every season as they hope their side will end the trophy drought soon. The loud chants of ‘RCB RCB RCB’ around the Chinnaswamy Stadium in Bangalore are heard in every single match from these fans. With the 2022 campaign ending in disappointment, the supporters and the RCB team would hope to come back stronger in 2023. Despite being without a trophy, there are some of the mind-boggling and unbelievable records that RCB has created in the tournament’s history. These achievements are astonishing and it looks like it’s never going to be repeated by any player or a team again in the league.
+                                        </p>>
+                                </marquee>
+                            </div>
+
+                            <div class="video-description">
+                                <img class="img-responsive m-1" width="75" height="70" src="/static/image/rcb-logo.png" alt="Logo" scale="0" style="background-color:#0000FF;">
+                            </div>
+
+                            <div class="video-descriptionss p-3">
+                                    <video autoplay loop muted style="width: 200px; height: 200px;">
+                                        <source src="/static/rcb_animation.mp4" type="video/mp4">
+                                        <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
+                                    </video>
+                            </div>
+                        </div>
+                        <center>
+                            <div class="border border-dark border-5" style="width: 80px;"></div>
+                            <div class="border border-dark border-5" style="width: 300px;"></div>
+                        </center>
+            
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            {% comment %} <a href="#" class="btn btn-info">Edit</a>
+                            <a href="#" class="btn btn-danger">Delete</a>
+                            <a href="{% url 'schedule'%}" class="btn btn-success" name="id" value="{{ticker_id}}">Schedule</a> {% endcomment %}
+                            <form method="POST">
+                                {%csrf_token%}
+                                <input type="text" class="d-none" name="ticker_id_field" value="{{ticker_id}}" />
+                                <input type="submit" class="border rounded btn-primary p-3 btn-lg btn-block"/>
+                                <input type="submit" class="border rounded btn-primary p-3 btn-lg btn-block"/>
+                                <input type="submit" class="border rounded btn-primary p-3 btn-lg btn-block" id="submit" value="submit"/>
+                            </form>
+                        </div>
+                    </div>  
+                </div>
+            </section>
+
+            {% comment %} <!-- <div class="m-5" style="">
+                <div class=""></div>
+                <center>
+                <div class="border border-dark border-5 rounded text-white overflow-hidden" style="height: 600px; width: 1000px;; background-color: rgba(0,0,0,255);">
+
+                    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" style="width: 100%; height: 85%;">
+                        <source src="/static/image/3264418921.mp4" type="video/mp4">
+                        <source src="/static/image/3264418921.mp4" type="video/ogg">
+                    </video>
+                    
+                    <video width="400" controls style="width: 100%; height: 55vh;">
+                        <source src="/static/image/Welcome to India.mp4" type="video/mp4">
+                        <source src="/static/image/Welcome to India.mp4" type="video/ogg">
+                    </video>
+                    <div class="overflow-hidden" style="margin-top: 0px;">
+                        <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#FFFFFF" class="text-dark">
+                        IISc is top Indian university in global rankings, overtakes IITs: QS World University Rankings. The report shows that India's presence in the top 500 category is also IIT-driven. Apart from IISc, eight IITs (Delhi, Bombay, Madras, Kanpur, Kharagpur, Roorkee, Guwahati, Indore) are ranked among the top 500 globally.
+                        </marquee>
+                        <marquee behavior="scroll" direction="left" scrollamount="15" bgcolor="#F15412" class="p-2 h2 " style="margin: -5px;">
+                            {{ticker_json.main_ticker_condition}}
+                            Rising 31 places in a year, Indian Institute of Science (IISc) in Bengaluru has emerged as the highest ranked Indian institute in the 2023 edition of the QS World University rankings, pushing IIT-Bombay to the second position, followed by IIT-Delhi.
+                            Apart from IISc at 155, IIT-Bombay (IIT-B) and IIT-Delhi (IIT-D), which have risen five and 11 places to rank 172 and 174 respectively, are the only other Indian institutes in the global league of top 200, in continuation of a trend since 2017. The total number of Indian institutes among the top 1,000 globally has risen to 27 from 22.
+                            Speaking to The Indian Express, QS spokesperson William Barbieri attributed the remarkable rise of IISc, which is one of the eight public Institutes of Eminence (IoE), to improvement across four out of six parameters based on which the rankings are prepared.
+                        </marquee>
+
+                    </div>
+                </div>
+                
+                <div class="border border-dark border-5" style="width: 80px;"></div>
+                <div class="border border-dark border-5" style="width: 300px;"></div>
+                </center>
+
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a href="#" class="btn btn-info">Edit</a>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'schedule'%}" class="btn btn-success">Schedule</a>
+                </div>
+
+            </div>
+
+        </div> --> {% endcomment %}
+    </main>
+
+{% endblock %}
