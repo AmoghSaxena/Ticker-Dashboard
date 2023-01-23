@@ -58,6 +58,23 @@ This is the Ticker/On Screen Promotion Server files which can be hosted as **Sta
 
 ## Changelogs 
 ```
+Changes between 1.4 and 1.5:
+--------------------------------
+
+Core:
+ * Fixed Center Image status
+ * Fixed Multiple Lines issue
+ * Placeholder(watermark) removed for clear view
+ * Stop Ticker and Start Ticker interval change to fix abort issue
+ * Deleting the Running ticker will stop it as well now
+ * Pop-Up message fix which was comming blank previous time.
+ * Changes UI for Create ticker Icon
+ * Modified the Scrolling animation on the page
+ * Fixed bug for select ticker option
+ * Fixed Sidebar Long username overflow issue
+ * Modified UI for some entries - Using CamelCase now
+
+
 Changes between 1.3 and 1.4:
 --------------------------------
 
