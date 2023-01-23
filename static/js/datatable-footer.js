@@ -854,7 +854,7 @@
                 footer: !1,
                 labels: {
                    placeholder: "Search...",
-                   perPage: "{select} entries per page",
+                   perPage: "{select} Entries Per Page",
                    noRows: "No entries found",
                    noResults: "No results match your search query",
                    info: "Showing {start} to {end} of {rows} entries"

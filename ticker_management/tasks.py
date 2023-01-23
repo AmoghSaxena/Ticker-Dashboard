@@ -1,8 +1,9 @@
 from celery import shared_task
-from .models import TickerDetails,SetUp, TickerHistory
+from .models import TickerDetails,TickerHistory
 from datetime import datetime
 import requests
-from ticker_management.rundecklog import initial_data
+from ticker_management.rundecklog import initial_data,abortForPriority
+import time
 
 #Loggers
 import logging
@@ -10,19 +11,24 @@ logger=logging.getLogger('dashboardLogs')
 
 
 @shared_task(bind=True)
-def callscheduledticker(self,basicTickerInfo,ticker_id):
+def callscheduledticker(self,basicTickerInfo,ticker_id,runningTickerID):
+    if runningTickerID!=-1:
+        abortForPriority(runningTickerID,basicTickerInfo['nodes'])
+        time.sleep(5)
+        logger.info("Ticker Aborted")
+
+
     if TickerDetails.objects.filter(ticker_id=ticker_id).exists():
         ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
         callticker(basicTickerInfo,ticker_obj)
     elif TickerHistory.objects.filter(ticker_id=ticker_id).exists():
-        ticker_obj=TickerDetails.objects.filter(ticker_id=ticker_id).values()
+        ticker_obj=TickerHistory.objects.filter(ticker_id=ticker_id).values()
         callticker(basicTickerInfo,ticker_obj)
     else:
-        logger.info('Ticker id not found')
+        logger.error('Ticker id not found')
 
 @shared_task(bind=True)
 def callticker(self,basicTickerInfo,ticker_obj):
-    logger.info('Inside callticker function')
     try:        
         headers = {
             'Accept': 'application/json',
@@ -38,8 +44,8 @@ def callticker(self,basicTickerInfo,ticker_obj):
         deleted=False
         now = datetime.now()
         
-        if (ticker_obj.get()['frequency']=='1'):
-            deleted=True
+        # if (ticker_obj.get()['frequency']=='1'):
+        #     deleted=True
         
         if deleted:
             ticker_obj.update(rundeckid=rundeckid,is_deleted=1,is_active=0,deleted_on=now.strftime("%Y-%m-%d %H:%M:%S")) 
@@ -55,4 +61,3 @@ def callticker(self,basicTickerInfo,ticker_obj):
         logger.error(f"Error while execution of task: {e}")
 
     initial_data(ticker_obj,basicTickerInfo)
-    print('After initial')

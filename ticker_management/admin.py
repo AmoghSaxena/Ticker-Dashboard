@@ -21,3 +21,4 @@ admin.site.register(TickerDetails,TickerDetail)
 admin.site.register(TickerHistory,TickerHistorys)
 admin.site.register(SetUp,SetUps)
 admin.site.register(RundeckLog,RundeckLogs)
+admin.site.site_url = "/ticker"

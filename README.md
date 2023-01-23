@@ -58,11 +58,30 @@ This is the Ticker/On Screen Promotion Server files which can be hosted as **Sta
 
 ## Changelogs 
 ```
-Changes between 1.2:
+Changes between 1.3 and 1.4:
+--------------------------------
+
+Core:
+ * Fixed Celery Worker Crash Issue
+
+
+Changes between 1.2 and 1.3:
+--------------------------------
+
+Core:
+ * Added Closing API Support
+ * Fixed Priority for Multiple Ticker Launch
+
+APIs:
+ * Modified Ticker API for priority
+     - Dashboard will first close Ticker and then launch new Ticker.
+
+
+Changes between 1.1 and 1.2:
 --------------------------------
 
 Platform support changes:
- * 1.8.2-beta requires:
+ * 1.2-beta requires:
      - Docker 19.x.x or later (Only if Using Dockerized Method)
      - Python 3.9 or later (Only if Using Standalone Method)
      - Pip3 20.x or later (Only if Using Standalone Method)

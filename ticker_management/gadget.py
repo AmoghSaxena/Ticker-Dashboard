@@ -108,13 +108,10 @@ def FileUploader(request,ticker_db_data):
         elif request.POST.get('emergencySelecter')=='Active Shooting':
             ticker_json['emergency_ticker_logo_name']="https://i.ibb.co/3rgf3N6/MS-Paint-Microsoft-Paint-Online.png"
         elif request.POST.get('emergencySelecter')=='General Evacuation':
-            ticker_json['emergency_ticker_logo_name']="https://i.ibb.co/f8M3K50/general.png"
+            ticker_json['emergency_ticker_logo_name']="https://i.ibb.co/N1CGkhY/bhagoupload.png"
         
         if not request.POST.get('emergencySelecter') =='Custom':
             ticker_json['emergency_ticker_style']='static'
-
-    else:
-        logger.info('No Image for upload')
     
     ticker_json['ticker_id'] = ticker_id
     
@@ -125,7 +122,7 @@ def hex_to_rgb(value):
     lv = len(value)
     return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
 
-def datagetter(request):
+def dataSetter(request):
 
     CONFIG_DATA={
         "static_ticker_condition":False,
@@ -202,7 +199,7 @@ def datagetter(request):
                 CONFIG_DATA['main_ticker_motion'] = main_ticker_motion
 
             except Exception as primaryscroll:
-                logger.warning('Exception raised during primaryscroll'+primaryscroll)
+                logger.error('Exception raised during primaryscroll'+str(primaryscroll))
         
         optional_ticker_condition= request.POST.get('secondaryScrollingEnable')
 
@@ -240,7 +237,7 @@ def datagetter(request):
                 CONFIG_DATA['optional_ticker_motion'] = optional_ticker_motion       
 
             except Exception as secondaryscroll:
-                logger.warning('Exception raised during secondaryscroll'+secondaryscroll)
+                logger.error('Exception raised during secondaryscroll'+str(secondaryscroll))
         
     elif tickerSelection == 'media':
         
@@ -365,13 +362,17 @@ def datagetter(request):
                                     
 
             except Exception as staticscroll:
-                logger.warning('Exception raised during staticscroll'+staticscroll)
+                logger.error('Exception raised during staticscroll'+str(staticscroll))
         else:
             try:
                 # moving_video= request.POST.get('animation_video')
                 moving_ticker_localtion= request.POST.get('dynamicTickerPosition')
                 moving_ticker_center_size=request.POST.get('dynamicTickerLocation')
                 moving_ticker_color=request.POST.get('dynamicTickerBorderColor')
+
+
+                if moving_ticker_localtion=='top-fix-width' or moving_ticker_localtion=='bottom-fix-width':
+                    moving_ticker_localtion=moving_ticker_localtion.replace('-','_')
 
                 CONFIG_DATA['moving_ticker_color']=hex_to_rgb(moving_ticker_color)
 
@@ -385,7 +386,7 @@ def datagetter(request):
                     CONFIG_DATA['moving_ticker_center_size'] = "full"
 
             except Exception as animationscroll:
-                logger.warning('Exception raised during animationscroll'+animationscroll)
+                logger.error('Exception raised during animationscroll'+str(animationscroll))
         
     elif tickerSelection == 'emergency':
 
@@ -401,7 +402,7 @@ def datagetter(request):
             CONFIG_DATA['emergency_ticker_type']="evacuate"
             
         except Exception as emergencyscroll:
-            logger.warning('Exception raised during emergencyscroll'+emergencyscroll)
+            logger.error('Exception raised during emergencyscroll'+str(emergencyscroll))
 
     else:
         return render(request,'acknowledgement.html',{"message":'No ticker selected'})
@@ -412,13 +413,13 @@ def datagetter(request):
     try:
         data_saver(request,tickertype,CONFIG_DATA,tickerTitle,tickerPriority)
     except Exception as err:
-        logger.error("Exception while insertion: "+str(err))
-        return {"message":"Something went wrong while saving ticker data"}
+        logger.error(f"Exception while insertion: {err}")
+        return {"message":"Something went wrong while saving ticker details"}
 
     try:
         ticker_obj=TickerDetails.objects.filter(ticker_title=tickerTitle,ticker_priority=tickerPriority,ticker_type=tickertype,ticker_json=CONFIG_DATA,created_on__gte=str(datetime.now()-timedelta(minutes=1))).values()
     except Exception as err:
-        logger.error("Exception when fetching for update: "+str(err))
+        logger.error(f"Exception when fetching for update: {err}")
         ticker_obj=None
     
     if ticker_obj!=None:
@@ -428,10 +429,10 @@ def datagetter(request):
             data=roomConfigurations(ticker_obj)
             ticker_obj.update(wings=data['wings'],floors=data['floors'],rooms=data['rooms'],ticker_json=CONFIG_DATA)
         except Exception  as err:
-            logger.error('Unable to update: '+str(err))
+            logger.error(f'Unable to update: {err}')
             return {"message":"Something went wrong while update"}
-        
-        return schedulingticker(request,ticker_id_for_schedule)
+                
+        return schedulingticker(request,ticker_id_for_schedule,int(request.POST.get('runningTickerID')))
     else:
         return {"message":"None object found"}
 

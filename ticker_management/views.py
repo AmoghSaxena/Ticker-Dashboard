@@ -7,7 +7,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth import login as user_login
 from django.contrib import messages
-from ticker_management.gadget import datagetter
+from ticker_management.gadget import dataSetter
 from datetime import date,datetime,timedelta
 from ticker_management.models import TickerDetails,TickerHistory,SetUp,RundeckLog
 from ticker_management.node import checkPriority
@@ -15,7 +15,7 @@ from .forms import LoginForm, ChangePassword
 from django.http import QueryDict
 from .serializers import TaskSerializer, TaskSerializerConfig
 from ticker_management.node import getTickerId,removeDuplicate
-from ticker_management.tasks import callticker
+from ticker_management.tasks import callscheduledticker
 from threading import Thread
 from ticker_management.gadget import dateformatter
 #### Error Code ####
@@ -81,7 +81,7 @@ def index(request):
                                                 | Q(ticker_end_time__range=(start_time,end_time))
                                                 )
 
-        ticker_count={
+        ticker_details={
             'active':len(active_ticker_length),
             'history':len(history_ticker_length),
             'total':(len(history_ticker_length)+len(active_ticker_length)),
@@ -90,7 +90,7 @@ def index(request):
             'history_ticker_data':history_ticker,
             'user':request.user.username
         }
-        return render(request, 'index.html',ticker_count)
+        return render(request, 'index.html',ticker_details)
     except Exception as err:
         logger.error(err)
         return render(request,'acknowledgement.html',{"message":err})
@@ -100,8 +100,8 @@ def createTicker(request):
     try:
         syncDVSData()
     except Exception as err:
-        logger.error('Error: '+str(err))
-        return render(request,'acknowledgement.html',{"message":'SetUp not set : '+err})
+        logger.error(f'Error: {err}')
+        return render(request,'acknowledgement.html',{"message":f'SetUp not set : {err}'})
     
     data = {
             'pos_box':[
@@ -114,6 +114,7 @@ def createTicker(request):
                 'bottom-right',
                 'bottom-left'
                 ],
+                
             'font_style':[
                 "English",
                 "Hindi",
@@ -127,14 +128,14 @@ def createTicker(request):
                 ],
 
             'font_size':[
-                'small',
+                'large',
                 'normal',
-                'large'
+                'small'
                 ],
 
             'position':[
-                'up',
-                'down'
+                'down',
+                'up'
                 ],
 
             'logo_position':[
@@ -143,21 +144,21 @@ def createTicker(request):
                 ],
 
             'speed':[
-                'very-slow',
-                'slow',
                 'normal',
-                'fast'
+                'fast',
+                'slow',
+                'very-slow'
                 ],
             
             'motion':[
-                'left-right',
-                'right-left'
+                'right-left',
+                'left-right'
                 ],
 
             'location':[
-                'small',
+                'large',
                 'normal',
-                'large'
+                'small'
                 ],
                 
             'emergency_ticker_list':[
@@ -207,43 +208,11 @@ def createTicker(request):
         }
     
     if request.method == 'POST':
-        print('GOAL')
-            # Thread(target=datagetter,args=(request,)).start()
-
-        # tickerSelection=request.POST.get('tickerSelecter')
-
-        # if tickerSelection == 'scrolling':
-        #     newTickerPriority=request.POST.get('scrollingTickerPriority')
-        # elif tickerSelection == 'media':
-        #     newTickerPriority=request.POST.get('mediaTickerPriority')
-        # elif tickerSelection == 'emergency':
-        #     newTickerPriority="Emergency"
-
-        # tickerDetailsDB = TickerDetails.objects.all().filter(ticker_start_time__lte=datetime.now(),ticker_end_time__gt=datetime.now()).values()
-
-        # if len(tickerDetailsDB)>0:
-        #     pass
-
-        if False:
-            pass
-        #     priorityData=checkPriority(request,newTickerPriority,tickerDetailsDB)
-
-        #     print(priorityData)
-
-        #     if priorityData!=None:
-        #         return render(request,'alert.html',{'data':priorityData}) 
-        #     else:
-        #         dataget=datagetter(request)
-        #         if dataget['message']=='Success':
-        #             return redirect(index)
-        #         else:
-        #             return render(request,'acknowledgement.html',dataget)
+        dataget=dataSetter(request)
+        if dataget['message']=='Success':
+            return redirect(index)
         else:
-            dataget=datagetter(request)
-            if dataget['message']=='Success':
-                return redirect(index)
-            else:
-                return render(request,'acknowledgement.html',dataget)
+            return render(request,'acknowledgement.html',dataget)
     else:
         try:
             return render(request, 'createticker.html', data)
@@ -335,22 +304,13 @@ def detail(request, id):
 @login_required(login_url='/ticker/accounts/login/')
 def abort(request,id):
     try:
-        # ticker_id=id.split("&")[0]
-        # rundeck_id=id.split("&")[1]
         ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
-        # logObject = list()
         if ticker_obj.get()['rundeckid']!=None:
-            # logObject.append(killTicker(ticker_obj))
-            Thread(target=killTicker,args=(ticker_obj,)).start()
+            killTicker(ticker_obj)
             rundeckLogData=RundeckLog.objects.all().filter(ticker_id=int(id)).values()
             rundeckLog=sorted(rundeckLogData,key=lambda item: item['rundeck_id'],reverse=True)
-        # else:
-        #     rundeckLog=list()
-        #     dictwithoutrundeckid={'rundeck_id': "None", 'ticker_id': ticker_obj.get()['ticker_id'], 'ticker_title': ticker_obj.get()['ticker_title'], 'execution': "pending", "tickerStatus": "pending", 'successfull_nodes':
-        #      "None", 'failed_nodes': 'None', 'tv_status': 'None', 'iPad_status': 'None'}
-        #     rundeckLog.append(dictwithoutrundeckid)
         
-        TickerDetails.objects.filter(ticker_id=int(id),frequency='1').values().update(ticker_end_time=datetime.now())
+        TickerDetails.objects.filter(ticker_id=int(id),frequency='1').values().update(ticker_end_time=datetime.now(),is_active=0,is_deleted=1)
 
         return render(request, 'tickerdetail.html' ,{'rundeckLog':rundeckLog})#, 'logObject':logObject})
     except Exception as err:
@@ -473,6 +433,15 @@ def isRestore(request):
 def isDelete(request, id):
     try:
         tickerDataDelete = TickerDetails.objects.filter(ticker_id=id)
+
+        status=RundeckLog.objects.get(ticker_id=int(id)).tickerStatus
+        print("status : ", status)
+
+        if status == "running" :
+            ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
+            if ticker_obj.get()['rundeckid']!=None:
+                killTicker(ticker_obj)
+
         ticker_json=json.loads(tickerDataDelete.values().get().get('ticker_json'))
         if ticker_json.get('main_ticker_condition','not found')==True and ticker_json.get('main_ticker_logo','not found')==True:
             image_name=ticker_json.get('main_ticker_logo_name')
@@ -482,21 +451,9 @@ def isDelete(request, id):
             image_name=ticker_json.get('moving_ticker_logo_name')
         elif  ticker_json.get('emergency_ticker_condition','not found')==True:
             image_name=ticker_json.get('emergency_ticker_logo_name')
-    except TickerDetails.DoesNotExist  as e:
-        try:
-            tickerDataDelete = TickerHistory.objects.filter(ticker_id=id)
-            ticker_json=json.loads(tickerDataDelete.values().get().get('ticker_json'))
-            if ticker_json.get('main_ticker_condition','not found')==True and ticker_json.get('main_ticker_logo','not found')==True:
-                image_name=ticker_json.get('main_ticker_logo_name')
-            elif ticker_json.get('static_ticker_condition','not found')==True and ticker_json.get('static_ticker_logo','not found')==True:
-                image_name=ticker_json.get('static_ticker_logo_name')
-            elif ticker_json.get('moving_ticker_condition','not found')==True:
-                image_name=ticker_json.get('moving_ticker_logo_name')
-            elif  ticker_json.get('emergency_ticker_condition','not found')==True:
-                image_name=ticker_json.get('emergency_ticker_logo_name')
-        except TickerHistory.DoesNotExist  as e:
-            logger.error(f'ID {id} not found')
-            return render(request,'acknowledgement.html',{"message":'Specificied ID not found'})
+    except Exception  as e:
+        logger.error(f'ID {id} not found')
+        return render(request,'acknowledgement.html',{"message":'Specificied ID not found'})
             # messages.info(request, 'Specificied ID not found')
             # return redirect(active)
     try:
@@ -509,8 +466,39 @@ def isDelete(request, id):
     except Exception as err:
         logger.error(f'Unable to delete {id} ID')
         return render(request,'acknowledgement.html',{"message":'Unable to delete specificied ID'})
-        # messages.info(request, 'Unable to delete specificied ID')
-        # return redirect(active)
+       
+@login_required(login_url='/ticker/accounts/login/')
+def isDeleteHistory(request, id):
+    try:
+        tickerDataDelete = TickerHistory.objects.filter(ticker_id=id)
+
+        # ticker_obj=TickerDetails.objects.filter(ticker_id=int(id)).values()
+        # if ticker_obj.get()['rundeckid']!=None:
+        #     killTicker(ticker_obj)
+        ticker_json=json.loads(tickerDataDelete.values().get().get('ticker_json'))
+        if ticker_json.get('main_ticker_condition','not found')==True and ticker_json.get('main_ticker_logo','not found')==True:
+            image_name=ticker_json.get('main_ticker_logo_name')
+        elif ticker_json.get('static_ticker_condition','not found')==True and ticker_json.get('static_ticker_logo','not found')==True:
+            image_name=ticker_json.get('static_ticker_logo_name')
+        elif ticker_json.get('moving_ticker_condition','not found')==True:
+            image_name=ticker_json.get('moving_ticker_logo_name')
+        elif  ticker_json.get('emergency_ticker_condition','not found')==True:
+            image_name=ticker_json.get('emergency_ticker_logo_name')
+    except TickerHistory.DoesNotExist  as e:
+        logger.error(f'ID {id} not found')
+        return render(request,'acknowledgement.html',{"message":'Specificied ID not found'})
+
+    try:
+        os.remove(FileSystemStorage().base_location+str('/')+image_name.split('/')[-1])
+    except Exception as err:
+        logger.info(f'No image found for {id} ticker id')
+    
+    try:
+        tickerDataDelete.delete()
+        return redirect(history)
+    except Exception as err:
+        logger.error(f'Unable to delete {id} ID. ERROR: '+str(err))
+        return render(request,'acknowledgement.html',{"message":'Unable to delete specificied ID'})
 
 @login_required(login_url='/ticker/accounts/login/')
 def changePassword(request):
@@ -534,37 +522,6 @@ def changePassword(request):
         return render(request, 'changepassword.html', {'form': form, 'msg': msg})
     except Exception as err:
         return render(request,'acknowledgement.html',{"message":err})
-
-# def avDataFilter():
-#     try:
-#         file=open(f'{str(BASE_DIR)}/static/resources/resourceAV.json')
-#         file=json.load(file)
-
-#         data=set()
-
-#         for item in file['data']:
-#             data.add(item['key_id'])
-
-#         data=list(data)
-
-#         file=open(f'{str(BASE_DIR)}/static/resources/resource.json')
-#         file=json.load(file)
-
-#         count=0
-
-#         for item in file['data']:
-#             if item['id'] not in data:
-#                 count+=1
-#                 file['data'].remove(item)
-
-#         filteredData=json.dumps(file,indent=3)
-
-#         logger.info(str(count)+" AV data filtered")
-
-#         with open(f'{str(BASE_DIR)}/static/resources/resource.json','w') as file:
-#             file.write(filteredData)
-#     except Exception as err:
-#         logger.error(err)
 
 def dataFilter(filePath):
     avFile=json.load(open(filePath+'resourceAV.json'))
@@ -655,30 +612,6 @@ def syncDVSData():
     except:
         raise
 
-# def filterData():
-#     DVSDATA = dict()
-#     roomTypeData = set()
-#     wingData = set()
-#     floorData = set()
-#     keyData = set()
-#     xmlDocument = XMLReader.parse(f"{BASE_DIR}/static/resources/resource.xml").getroot()
-#     for item in xmlDocument.findall('node'):
-#         if item.get('room_type') != None:
-#             roomTypeData.add(item.get('room_type'))
-#         if item.get('floor') != None:
-#             floorData.add(item.get('floor'))
-#         if item.get('key_no') != None:
-#             keyData.add(item.get('key_no'))
-    
-#     jsonDocument = json.load(open(f"{BASE_DIR}/static/resources/resource.json"))
-#     for item in jsonDocument:
-#         wingData.add(item.get('wing_name'))
-#     DVSDATA["roomType"]=sorted(roomTypeData)
-#     DVSDATA["wing"] = sorted(wingData)
-#     DVSDATA["floor"] = sorted(floorData)
-#     DVSDATA["key"] = sorted(keyData)
-#     return DVSDATA
-
 @api_view(['GET', 'POST', 'DELETE'])
 def taskPost(request,id="0"):
     logger.info('TaskPost Api hitted')
@@ -722,9 +655,7 @@ def configApi(request,pk="0"):
     if request.method == 'GET':
 
         try:
-
             if request.headers.get('tickerToken') == None:
-
                 res['status'] = False
                 res['statusCode'] = tokenPresent.get('statusCode')
                 res['message'] = tokenPresent.get('message')
@@ -747,13 +678,13 @@ def configApi(request,pk="0"):
                             tasks = TickerDetails.objects.filter(ticker_id=q).values_list('ticker_json','ticker_end_time','frequency')
                             ticker_config_file = json.loads(tasks.get()[0])
 
-                            if tasks.get()[2]=='1':
-                                time_interval=tasks.get()[1]-datetime.now()
-                                time_interval=time_interval.total_seconds()
-                                if time_interval>0:
-                                    ticker_config_file['time_interval']=int(time_interval)
-                                else:
-                                    ticker_config_file['time_interval'] =0
+                            # if tasks.get()[2]=='1':
+                            #     time_interval=tasks.get()[1]-datetime.now()
+                            #     time_interval=time_interval.total_seconds()
+                            #     if time_interval>0:
+                            #         ticker_config_file['time_interval']=int(time_interval)
+                            #     else:
+                            #         ticker_config_file['time_interval'] =0
 
                             try:
                                 ticker_config_file['auth_token'] = AUTH_TOKEN_API
@@ -765,18 +696,20 @@ def configApi(request,pk="0"):
 
                             return Response(json.loads(tasks))
 
-                        except TickerDetails.DoesNotExist  as err:
+                        except TickerDetails.DoesNotExist as err:
+
 
                             tasks=TickerHistory.objects.filter(ticker_id=q).values_list('ticker_json','ticker_end_time','frequency')
                             ticker_config_file = json.loads(tasks.get()[0])
 
-                            if tasks.get()[2]=='1':
-                                time_interval=tasks.get()[1]-datetime.now()
-                                time_interval=time_interval.total_seconds()
-                                if time_interval>0:
-                                    ticker_config_file['time_interval']=int(time_interval)
-                                else:
-                                    ticker_config_file['time_interval'] = 0
+                            # if tasks.get()[2]=='1':
+                            #     time_interval=tasks.get()[1]-datetime.now()
+                            #     time_interval=time_interval.total_seconds()
+                            #     print(time_interval)
+                            #     if time_interval>0:
+                            #         ticker_config_file['time_interval']=int(time_interval)
+                            #     else:
+                            #         ticker_config_file['time_interval'] = 0
 
                             try:
                                 ticker_config_file['auth_token'] = AUTH_TOKEN_API
@@ -784,11 +717,11 @@ def configApi(request,pk="0"):
                             except:
                                 ticker_config_file['auth_token'] = "YWRtaW46YWRtaW4xMjM0"
                             
-                            print(tasks['ticker_end_time'],type(tasks['ticker_end_time']))
+                            # print(tasks['ticker_end_time'],type(tasks['ticker_end_time']))
 
                             # ticker_config_file['time_interval']=int()
 
-                            logger.error(err)
+                            logger.info("Fetched from TickerHistory as "+str(err))
 
                             tasks = json.dumps(ticker_config_file,indent=3)
                             return Response(json.loads(tasks))
@@ -915,6 +848,8 @@ def rebootStatus(request):
                                                 except:
                                                     auth="YWRtaW46YWRtaW4xMjM0"
                                                 
+                                                ticker_obj=TickerDetails.objects.filter(ticker_id=int(data['ticker_id'])).values()
+                                                
                                                 setup=SetUp.objects.filter(id=1).values()
 
                                                 FQDN=setup.get()['FQDN']
@@ -930,7 +865,8 @@ def rebootStatus(request):
                                                     'Rundeck_Token':Rundeck_Token,
                                                     'Rundeck_Api_Version':Rundeck_Api_Version,
                                                     'Ticker_FQDN':Ticker_FQDN,
-                                                    'Rundeck_Start_Job':Rundeck_Start_Job
+                                                    'Rundeck_Start_Job':Rundeck_Start_Job,
+                                                    'time_interval':int((datetime.now()-ticker_obj['ticker_start_time']).total_seconds())
                                                 }
                                                 
                                                 json_data = {
@@ -943,7 +879,8 @@ def rebootStatus(request):
 
                                                 ticker_obj=TickerDetails.objects.filter(ticker_id=data['ticker_id']).values()
 
-                                                Thread(target=callticker,args=(basicTickerInfo,ticker_obj)).start()
+                                                ticker_id=ticker_obj.get()['ticker_id']
+                                                callscheduledticker.apply_async(args=[basicTickerInfo,ticker_id,-1])
 
                                                 res['status'] = True
                                                 res['statusCode'] = rebootSuccessStatus.get('statusCode')
@@ -1448,14 +1385,12 @@ def checkPriorityTicker(request):
                     try:
                         if tokenValidation(bodyData['tickerToken']):
 
-                            print(bodyData)
-
                             mainData=checkPriority(bodyData['newTickerPriority'],bodyData['wings'],bodyData['floors'],bodyData['rooms'],bodyData['startTime'],bodyData['endTime'],bodyData['timeInterval'])
 
                             resp['status'] = True
                             resp['statusCode'] = priorityTickerAPISuccess.get('statusCode')
                             resp['message'] = priorityTickerAPISuccess.get('message')
-                            resp['data'] = mainData['runningTicker']['message']
+                            resp['data'] = {"message": mainData['runningTicker']['message'],"runningTickerID": mainData['runningTickerID']}
 
                             logger.info(priorityTickerAPISuccess.get('message'))
                             return Response(resp)
@@ -1520,7 +1455,10 @@ def closeTicker(request):
         try:
             if request.body != b'':
 
-                if request.headers.get('tickerToken') == None:
+
+                bodyData=json.loads(request.body.decode('utf-8'))
+                
+                if bodyData['tickerToken'] == None:
 
                     resp['status'] = False
                     resp['statusCode'] = tokenPresent.get('statusCode')
@@ -1532,11 +1470,7 @@ def closeTicker(request):
 
                 else:
                     try:
-                        if tokenValidation(request.headers.get('tickerToken')):
-
-                            bodyData=json.loads(request.body.decode('utf-8'))
-
-                            print(bodyData)
+                        if tokenValidation(bodyData['tickerToken']):
 
                             #### Write code here ####
                             resp['status'] = True
@@ -1600,11 +1534,72 @@ def closeTicker(request):
         return Response(resp)
 #### REMOVE TICKER SECTION STOP ####
 
-#### DEMO TICKER SECTION START ####
-@api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
-def demoTicker(request):
-    if request.method=='POST':
-        print("shot")
-        return Response({"Hello"})
-    else:
-        return Response(requestInvalid.get('message'))
+
+#### Dashboard Sys Log Section Start ####
+@login_required(login_url='/ticker/accounts/login/')
+def systemLog(request):
+    context = dict()
+
+    try:
+        sysLog = list()
+        with open('logs/info.log') as file:
+            for line in (file.readlines() [-20:]):
+                sysLog.append(line)
+         
+        context['segment'] = 'info'
+        context['sysLog'] = sysLog
+
+        return render(request, 'systemLogs.html', context)
+
+    except Exception as err:
+
+        logger.info(templateError.get('message'))
+        logger.error(err)
+        return render(request,'acknowledgement.html', {"message":err})
+#### Dashboard Sys Log Section End ####
+
+#### Dashboard Celery Beat Log Section Start ####
+@login_required(login_url='/ticker/accounts/login/')
+def celeryBeatLog(request):
+    context = dict()
+
+    try:
+        sysLog = list()
+        with open('logs/celery_beat_info.log') as file:
+            for line in (file.readlines() [-20:]):
+                sysLog.append(line)
+         
+        context['segment'] = 'beat'
+        context['sysLog'] = sysLog
+
+        return render(request, 'systemLogs.html', context)
+
+    except Exception as err:
+
+        logger.info(templateError.get('message'))
+        logger.error(err)
+        return render(request,'acknowledgement.html', {"message":err})
+#### Dashboard Celery Beat Log Section End ####
+
+#### Dashboard Celery Worker Log Section Start ####
+@login_required(login_url='/ticker/accounts/login/')
+def celeryWorkerLog(request):
+    context = dict()
+
+    try:
+        sysLog = list()
+        with open('logs/celery_worker_info.log') as file:
+            for line in (file.readlines() [-40:]):
+                sysLog.append(line)
+        
+        context['segment'] = 'worker'
+        context['sysLog'] = sysLog
+
+        return render(request, 'systemLogs.html', context)
+
+    except Exception  as err:
+
+        logger.info(templateError.get('message'))
+        logger.error(err)
+        return render(request,'acknowledgement.html', {"message":err})
+#### Dashboard Celery Worker Log Section End ####

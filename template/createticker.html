@@ -20,10 +20,12 @@
 
                             {% csrf_token %}
 
+                            <input type="hidden" id="runningTickerID" name="runningTickerID" value=-1>
+
                             <div class="d-lg-block d-md-block d-sm-block d-none" style="text-align:center;margin-top:40px;">
-                                <span class="step"><i class="fa-solid fa-plus fs-3 m-2 text-white"></i></i><strong class="text-color">Create</strong></span>
+                                <span class="step"><strong class="text-white fs-6">Create</strong></span>
                                 {% comment %} <span class="step"><i class="fa-solid fa-tv fs-3 m-2 text-white"></i><strong class="text-color">Preview</strong></span> {% endcomment %}
-                                <span class="step"><i class="fa-solid fa-calendar fs-3 m-2 text-white"></i><strong class="text-color">Schedule</strong></span>
+                                <span class="step"><strong class="text-white fs-6">Schedule</strong></span>
                                 <!-- <span class="step"><i class="fa-solid fa-check-to-slot fs-3 m-2 text-white"></i><strong class="text-color">Success</strong></span> -->
                             </div>
 
@@ -43,25 +45,26 @@
 
                                 <div id="scrolling">
 
-                                        <strong class="text-color">Ticker Title</strong>
-                                        <div class="form-group form-floating">
-                                            <input class="form-control" id="scrollingTickerTitle" placeholder="Enter Ticker Title"  type = "text" name="scrollingTickerTitle" value = "" maxlength = "20" />
-                                            <label for="scrollingTickerTitle" class="text-muted text-color">Enter Ticker Title <small>(20 letters max.)</small></label>
-                                        </div>
-                                        <label class="text-danger" id="scrollingTickerTitleLabel">Please Enter Title</label>
+                                    <strong class="text-color">Ticker Title</strong>
+                                    <div class="form-group">
+                                        <input class="form-control p-3" id="scrollingTickerTitle" placeholder="Enter Ticker Title (20 letters max.)"  type = "text" name="scrollingTickerTitle" value = "" maxlength = "20" />
+                                        <!-- <label for="scrollingTickerTitle" class="text-muted text-color">Enter Ticker Title <small>(20 letters max.)</small></label> -->
+                                    </div>
+                                    <label class="text-danger" id="scrollingTickerTitleLabel">Please Enter Title</label>
 
-                                        <div class="form-check form-switch mb-3 mt-3">
-                                            <input class="form-check-input" name="primaryScrollingTicker" type="checkbox" value="enabled" id="primaryEnable" onclick="foenabler(this.id);">
-                                            <strong class="form-check-label text-color" for="flexCheckDefault">
-                                            Primary Scrolling Ticker
-                                            </strong>
-                                        </div>
+                                    <div class="form-check form-switch mb-3 mt-3">
+                                        <input class="form-check-input" name="primaryScrollingTicker" type="checkbox" value="enabled" id="primaryEnable" onclick="foenabler(this.id);">
+                                        <strong class="form-check-label text-color" for="flexCheckDefault">
+                                        Primary Scrolling Ticker
+                                        </strong>
+                                    </div>
 
                                         <div id="primary">
-                                            <strong class="text-color">Enter Your Primary Ticker Message</strong>
-                                            <div class="form-group form-floating">
-                                                <textarea name="primaryTickerMessage" class="form-control" id="primaryTickerMessage" rows="4" placeholder="Type Message for Static Ticker" value=" "></textarea>
-                                                <label for="primaryTickerMessage" class="text-muted">Type Message for Primary Ticker</label>
+                                            <!-- <strong class="text-color">Enter Your Primary Ticker Message</strong> -->
+                                            <div class="form-group">
+                                                <input class="form-control p-3" id="primaryTickerMessage" placeholder="Type Message for Primary Ticker"  type = "text" name="primaryTickerMessage" value = ""/>
+                                                <!-- <textarea name="primaryTickerMessage" class="form-control" id="primaryTickerMessage" rows="4" placeholder="Type Message for Primary Ticker" value=" "></textarea> -->
+                                                <!-- <label for="primaryTickerMessage" class="text-muted">Type Message for Primary Ticker</label> -->
                                             </div>
                                             <label class="text-danger" id="primaryTickerMessageLabel">Please Enter Message</label>
 
@@ -70,14 +73,14 @@
                                                     <div class="form-check mb-3">
                                                         <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                         <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                        <input name="primaryFontColor" type="color" id="primaryFontColor" value="#F7F9F9">
+                                                        <input name="primaryFontColor" type="color" id="primaryFontColor" value="#54362A">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="form-check mb-3">
                                                         <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                         <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                        <input name="primaryBgColor" type="color" id="primaryBgColor" value="#FF3232">
+                                                        <input name="primaryBgColor" type="color" id="primaryBgColor" value="#DAD6BE">
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,9 +172,10 @@
 
                                         <div id="secondary">
                                             <strong class="text-color">Enter Your Secondary Ticker Message</strong>
-                                            <div class="form-group form-floating">
-                                                <textarea name="secondaryTickerMessage" id="secondaryTickerMessage" class="form-control" rows="4" value=" " placeholder="Type Message for Static Ticker"></textarea>
-                                                <label for="secondaryTickerMessage" class="text-muted">Type Message for Secondary Ticker</label>
+                                            <div class="form-group">
+                                                <input class="form-control p-3" id="secondaryTickerMessage" placeholder="Type Message for Static Ticker"  type = "text" name="secondaryTickerMessage" value = ""/>
+                                                <!-- <textarea name="secondaryTickerMessage" id="secondaryTickerMessage" class="form-control" rows="4" value=" " placeholder="Type Message for Static Ticker"></textarea> -->
+                                                <!-- <label for="secondaryTickerMessage" class="text-muted">Type Message for Secondary Ticker</label> -->
                                             </div>
                                             <label class="text-danger" id="secondaryTickerMessageLabel">Please Enter Message</label>
 
@@ -180,7 +184,7 @@
                                                     <div class="form-check mb-3">
                                                         <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                         <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                        <input name="secondaryFontColor" type="color" id="secondaryFontColor" value="#D0D3D4">
+                                                        <input name="secondaryFontColor" type="color" id="secondaryFontColor" value="#DAD6BE">
                                                     </div>
                                                 </div>
 
@@ -188,7 +192,7 @@
                                                     <div class="form-check form-switch mb-3">
                                                         <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                         <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                        <input name="secondaryBgColor" type="color" id="secondaryBgColor" value="#17202A">
+                                                        <input name="secondaryBgColor" type="color" id="secondaryBgColor" value="#54362A">
                                                     </div>
                                                 </div>
                                             </div>
@@ -235,9 +239,9 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <strong class="text-color">Ticker Duration</strong>
-                                                <div class="form-group form-floating">
-                                                    <input type="number" name="scrollingTickerTimeInterval" min="1" value="1"  required class="form-control" id="number" rows="4" placeholder="Enter Time" />
-                                                    <label for="number" class="text-muted">Enter Time Minutes</label>
+                                                <div class="form-group">
+                                                    <input type="number" name="scrollingTickerTimeInterval" min="1" value="1"  required class="form-control p-3" id="scrollingTickerTimeInterval" placeholder="Enter Time Minutes" />
+                                                    <!-- <label for="number" class="text-muted">Enter Time Minutes</label> -->
                                                 </div>
                                             </div>
 
@@ -254,9 +258,9 @@
                 
                                 <div id="media">
                                     <strong class="text-color">Ticker Title</strong>
-                                    <div class="form-group form-floating">
-                                        <input class="form-control" id="mediaTickerTitle" rows="4" placeholder="Enter Ticker Title"  type = "text" name="mediaTickerTitle" value="" maxlength = "20" />
-                                        <label for="mediaTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label>
+                                    <div class="form-group">
+                                        <input class="form-control p-3" id="mediaTickerTitle" rows="4" placeholder="Enter Ticker Title (20 letters max.)"  type = "text" name="mediaTickerTitle" value="" maxlength = "20" />
+                                        <!-- <label for="mediaTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label> -->
                                     </div>
                                     <label class="text-danger" id="mediaTickerTitleLabel">Please Enter Title</label>
 
@@ -275,6 +279,7 @@
                                                     <input name="staticTickerLogo" type="file" accept=".png" id="staticTickerLogo" class="form-control-file" value="1" onchange=Filevalidation(this.id)>
                                                 </div>
                                                 <label class="text-danger" id="staticTickerLogoLabel">Upload Image Logo</label>
+                                                <label class="text-danger" id="staticTickerLogoAcceptLabel">Only square image acceptable</label>
                                             </div>
 
                                             <div class="col-md-4">
@@ -298,9 +303,9 @@
 
                                         <div id="positionCenter">
                                             <strong class="text-color">Enter Your Static Ticker Message</strong>
-                                            <div class="form-group form-floating">
-                                                <input class="form-control" id="staticTickerMessage" rows="4" placeholder="Type dMessage for Static Ticker (15 letters)"  type = "text" name = "staticTickerMessage" value="" maxlength = "15" />
-                                                <label for="staricTickerMessage" class="text-muted">Type Message for Static Ticker <small>(15 letters max.)</small></label>
+                                            <div class="form-group">
+                                                <input class="form-control p-3" id="staticTickerMessage" placeholder="Type Message for Static Ticker (15 letters max.)"  type = "text" name = "staticTickerMessage" value="" maxlength = "15" />
+                                                <!-- <label for="staricTickerMessage" class="text-muted">Type Message for Static Ticker <small>(15 letters max.)</small></label> -->
                                             </div>
                                             <label class="text-danger" id="staticTickerMessageLabel">Please Enter Message</label>
 
@@ -318,7 +323,7 @@
                                                     <div class="form-check mb-3">
                                                         <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                         <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                        <input name="staticFontColor" type="color" value="#FDFEFE">
+                                                        <input name="staticFontColor" type="color" value="#54362A">
                                                     </div>
                                                 </div>
 
@@ -326,7 +331,7 @@
                                                     <div class="form-check mb-3">
                                                         <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                         <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                        <input name="staticBgColor" type="color" value="#57EAEA">
+                                                        <input name="staticBgColor" type="color" value="#DAD6BE">
                                                     </div>
                                                 </div>
                                             </div>
@@ -344,9 +349,10 @@
 
                                             <div id="StaticScrolling">
                                                 <strong class="text-color">Enter Your Ticker Message</strong>
-                                                <div class="form-group form-floating">
-                                                    <textarea name="staticScrollingTickerMessage" class="form-control" id="staticScrollingTickerMessage" rows="4" placeholder="Type Message for Static Ticker" value=" "></textarea>
-                                                    <label for="staticScrollingTickerMessage" class="text-muted">Type Message for Ticker</label>
+                                                <div class="form-group">
+                                                    <input class="form-control p-3" id="staticScrollingTickerMessage" placeholder="Type Message for Static Ticker"  type = "text" name="staticScrollingTickerMessage" value = ""/>
+                                                    <!-- <textarea name="staticScrollingTickerMessage" class="form-control" id="staticScrollingTickerMessage" rows="4" placeholder="Type Message for Static Ticker" value=" "></textarea> -->
+                                                    <!-- <label for="staticScrollingTickerMessage" class="text-muted">Type Message for Ticker</label> -->
                                                 </div>
                                                 <label class="text-danger" id="staticScrollingTickerMessageLabel">Please Enter Message</label>
 
@@ -355,7 +361,7 @@
                                                         <div class="form-check mb-3">
                                                             <strong class="text-color" for="favcolor">Choose Font Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Font Color</label>
-                                                            <input name="staticScrollingFontColor" type="color" id="staticScrollingFontColor" value="#F7F9F9">
+                                                            <input name="staticScrollingFontColor" type="color" id="staticScrollingFontColor" value="#54362A">
                                                         </div>
                                                     </div>
 
@@ -363,7 +369,7 @@
                                                         <div class="form-check mb-3">
                                                             <strong class="text-color" for="favcolor">Choose Background Color</strong><br>
                                                             <label for="favcolor" class="text-muted">Pick Background Color</label>
-                                                            <input name="staticScrollingBgColor" type="color" id="staticScrollingBgColor" value="#FF3232">
+                                                            <input name="staticScrollingBgColor" type="color" id="staticScrollingBgColor" value="#DAD6BE">
                                                         </div>
                                                     </div>
 
@@ -427,7 +433,7 @@
                                             <div class="col-md-3">
                                                 <strong class="text-color" for="favcolor">Set border Color</strong><br>
                                                 <label for="favcolor" class="text-muted">Pick border Color</label>
-                                                <input name="dynamicTickerBorderColor" type="color" id="dynamicTickerBorderColor" value="#D0D3D4">
+                                                <input name="dynamicTickerBorderColor" type="color" id="dynamicTickerBorderColor" value="#DAD6BE">
                                             </div>
                                         </div>
                                     </div>
@@ -435,9 +441,9 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <strong class="text-color">Ticker Duration</strong>
-                                            <div class="form-group form-floating">
-                                                <input type="number" name="mediaTickerTimeInterval" min="1" value="1" required class="form-control" id="number" placeholder="Enter Time" />
-                                                <label for="number" class="text-muted">Enter Time Minutes</label>
+                                            <div class="form-group">
+                                                <input type="number" name="mediaTickerTimeInterval" min="1" value="1" required class="form-control p-3" id="mediaTickerTimeInterval" placeholder="Enter Time Minutes" />
+                                                <!-- <label for="number" class="text-muted">Enter Time Minutes</label> -->
                                             </div>
                                         </div>
 
@@ -454,9 +460,9 @@
 
                                 <div id="emergency">
                                     <strong class="text-color">Ticker Title</strong>
-                                    <div class="form-group form-floating">
-                                        <input class="form-control" id="emergencyTickerTitle" rows="4" placeholder="Enter Ticker Title"  type = "text" name="emergencyTickerTitle" value = "" maxlength = "20" />
-                                        <label for="emergencyTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label>
+                                    <div class="form-group ">
+                                        <input class="form-control p-3" id="emergencyTickerTitle" placeholder="Enter Ticker Title (20 letters max.)"  type = "text" name="emergencyTickerTitle" value = "" maxlength = "20" />
+                                        <!-- <label for="emergencyTickerTitle" class="text-muted">Enter Ticker Title <small>(20 letters max.)</small></label> -->
                                     </div>
                                     <label class="text-danger" id="emergencyTickerTitleLabel">Please Enter Title</label>
 
@@ -481,31 +487,6 @@
                                 </div>
                             </div>
                             
-                                    
-                            {% comment %} <div class="tab m-3">
-                                <div class="col-lg-8 mx-auto">
-                                    <div class="video-wrapper border border-dark border-5 rounded text-white overflow-hidden bg-dark">
-                                        <video autoplay loop muted>
-                                            <source src="/static/RCB.mp4" type="video/mp4">
-                                            <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video">
-                                        </video>
-                                        <div class="setting-one">
-                                            <marquee behavior="scroll" direction="left" scrollamount="12" bgcolor="#ffffff" class="text-dark p-2 font-weight-bold;" style="font-size: 15px;">
-                                                Royal Challengers Bangalore (RCB) has always been one of the most popular franchises since the inception of the Indian Premier League (IPL) in the year 2008. Some of the greatest players like Rahul Dravid, Jacques Kallis, Anil Kumble, Muttiah Muralitharan, Chris Gayle, and AB de Villiers have all been part of this team in the past. Their star player and former captain, Virat Kohli, is the only cricketer to represent a single franchise since the first season, which is RCB.
-                                            </marquee>
-                                        </div>
-                                        <div class="setting-two">
-                                        </div>
-                                        <div class="setting-three">
-                                            <img class="img-responsive m-1" width="60" src="/static/image/rcb-logo.png" alt="Logo" scale="0" style="background-color:#0000FF;">
-                                        </div>
-                                    </div>
-                                    <center>
-                                        <div class="border border-dark border-5" style="width: 80px;"></div>
-                                        <div class="border border-dark border-5" style="width: 300px;"></div>
-                                    </center>
-                                </div>
-                            </div> {% endcomment %}
                 
                             <div class="tab m-3">
                                 <div class="m-1" id="">
@@ -515,9 +496,6 @@
                                                 <strong class="text-color">Room Type</strong>
                                                 <select name="roomTypeSelection" multiple id="roomTypeSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
                                                     <option>All</option>
-                                                    <!-- {% for items in scheduleData.roomType %}
-                                                        <option value="{{items}}">{{items}}</option>
-                                                    {% endfor %} -->
                                                 </select>
                                             </div>
 
@@ -525,9 +503,6 @@
                                                 <strong class="text-color">Wings</strong>
                                                 <select name="wingSelection" multiple id="wingSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
                                                     <option>All</option>
-                                                    <!-- {% for items in scheduleData.wing %}
-                                                        <option>{{items}}</option>
-                                                    {% endfor %} -->
                                                 </select>
                                             </div>
 
@@ -535,9 +510,6 @@
                                                 <strong class="text-color">Floor</strong>
                                                 <select name="floorSelection" multiple id="floorSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
                                                     <option>All</option>
-                                                    <!-- {% for items in scheduleData.floor %}
-                                                        <option>{{items}}</option>
-                                                    {% endfor %} -->
                                                 </select>
                                             </div>
 
@@ -545,9 +517,6 @@
                                                 <strong class="text-color">Key</strong>
                                                 <select name="roomSelection" multiple id="roomSelection" class="form-select mb-3 mb-md-0" aria-label="Default select example" onchange="filterforkeys(this.id);">
                                                     <option>All</option>
-                                                    <!-- {% for items in scheduleData.key %}
-                                                        <option>{{items}}</option>
-                                                    {% endfor %} -->
                                                 </select>
                                             </div>
                                         </div>
@@ -593,17 +562,17 @@
                                         </div>
 
                                         <div class="row" id="dateTimeSection">
-                                            <div class="col-md-4 mb-3" id="startDate">
+                                            <div class="col-md-4 mb-3" id="">
                                                 <strong class="text-color">Start Date | Time</strong>
                                                 <div class="form-group form-floating">
-                                                    <input type="datetime-local" class="form-control"  name="startDate" placeholder="Enter Date">
+                                                    <input type="datetime-local" class="form-control" id="startDate" name="startDate" placeholder="Enter Date">
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4 mb-3" id=endDate>
+                                            <div class="col-md-4 mb-3" id="endDateSection">
                                                 <strong class="text-color">End Date | Time</strong>
                                                 <div class="form-group form-floating">
-                                                    <input type="datetime-local" class="form-control" id="" name="endDate" placeholder="Enter Date">
+                                                    <input type="datetime-local" class="form-control" id="endDate" name="endDate" placeholder="Enter Date">
                                                 </div>
                                             </div>
 
@@ -628,13 +597,11 @@
                                 </div>
                             </div>
                             
-                            <!-- <div class="tab">
-                            </div> -->
 
                             <div style="overflow:auto;" class="m-3">
                                 <div style="float:right;">
-                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="nextBtn" onclick="nextPrev(1);submitForm()">Next</button>
+                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="prevBtn" onclick="nextPrev(-1);">Previous</button>
+                                    <button class="btn btn-outline-success my-4 m-2" type="button" id="nextBtn" onclick="nextPrev(1);">Next</button>
                                     <button class="btn btn-outline-success my-4 m-2" type="button" id="SubForm" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Scheduling</button>
                                 </div>
                             </div>
@@ -647,12 +614,11 @@
                                         <div class="modal-header">
                                         <h5 class="modal-title text-color" id="exampleModalLabel">Notification</h5>
                                         </div>
-                                        <div class="modal-body">
-                                        Do you want to create ticker ?
-                                        </div>
+                                        <div class="modal-body" id="notification"></div>
                                         <div class="modal-footer">
-                                        <button type="button" class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">No</button>
-                                        <button type="button" class="btn btn-danger" onclick="submitCreateTickerForm()">Yes</button>
+                                        <a id="notificationNO" href="{% url 'createticker'%}" class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">No</a>
+                                        <a id="notificationOK" href="{% url 'createticker'%}" class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">OK</a>
+                                        <button id="notificationPopUp" type="button" class="btn btn-danger" onclick="submitCreateTickerForm()">Yes</button>
                                         </div>
                                     </div>
                                 </div>

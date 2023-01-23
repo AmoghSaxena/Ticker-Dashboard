@@ -1,5 +1,25 @@
 function Filevalidation(id)
 {
+    var option = select.options[select.selectedIndex];;
+    if(option.text == "center"){
+        var fileUpload = document.getElementById("staticTickerLogo");
+        var reader = new FileReader();
+  
+            reader.readAsDataURL(fileUpload.files[0]);
+            reader.onload = function (e) {
+                var image = new Image();
+                image.src = e.target.result;   
+                image.onload = function () {
+                    var height = this.height;
+                    var width = this.width;
+                    if (height != width) {
+                        document.getElementById("staticTickerLogoAcceptLabel").hidden = false;
+                        document.getElementById("staticTickerLogo").value = null;
+                    }
+                };
+            }
+    }
+
     FileTypeChecker(id);
     var fi;
     if (id=="static_image_cond")
